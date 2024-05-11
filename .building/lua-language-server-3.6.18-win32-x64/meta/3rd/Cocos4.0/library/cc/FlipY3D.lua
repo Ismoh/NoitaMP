@@ -13,13 +13,13 @@ cc.FlipY3D=FlipY3D
 ---@param duration float
 ---@return self
 function FlipY3D:create (duration) end
----* 
+---*
 ---@return self
 function FlipY3D:clone () end
----* 
+---*
 ---@param time float
 ---@return self
 function FlipY3D:update (time) end
----* 
+---*
 ---@return self
 function FlipY3D:FlipY3D () end

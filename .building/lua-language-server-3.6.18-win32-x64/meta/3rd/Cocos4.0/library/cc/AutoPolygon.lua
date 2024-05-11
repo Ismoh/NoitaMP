@@ -1,6 +1,6 @@
 ---@meta
 
----@class cc.AutoPolygon 
+---@class cc.AutoPolygon
 local AutoPolygon={ }
 cc.AutoPolygon=AutoPolygon
 

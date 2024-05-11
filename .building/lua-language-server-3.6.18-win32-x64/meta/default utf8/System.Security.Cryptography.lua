@@ -153,7 +153,7 @@ function CS.System.Security.Cryptography.AsymmetricSignatureFormatter.SetKey(key
 ---@source mscorlib.dll
 CS.System.Security.Cryptography.CipherMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.CipherMode
 function CS.System.Security.Cryptography.CipherMode:__CastFrom(value) end
@@ -329,7 +329,7 @@ CS.System.Security.Cryptography.CryptographicUnexpectedOperationException = {}
 ---@source mscorlib.dll
 CS.System.Security.Cryptography.CryptoStreamMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.CryptoStreamMode
 function CS.System.Security.Cryptography.CryptoStreamMode:__CastFrom(value) end
@@ -412,7 +412,7 @@ CS.System.Security.Cryptography.CspParameters = {}
 ---@source mscorlib.dll
 CS.System.Security.Cryptography.CspProviderFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.CspProviderFlags
 function CS.System.Security.Cryptography.CspProviderFlags:__CastFrom(value) end
@@ -751,7 +751,7 @@ function CS.System.Security.Cryptography.FromBase64Transform.TransformFinalBlock
 ---@source mscorlib.dll
 CS.System.Security.Cryptography.FromBase64TransformMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.FromBase64TransformMode
 function CS.System.Security.Cryptography.FromBase64TransformMode:__CastFrom(value) end
@@ -935,7 +935,7 @@ CS.System.Security.Cryptography.HMACSHA1 = {}
 ---@source mscorlib.dll
 CS.System.Security.Cryptography.KeyNumber = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.KeyNumber
 function CS.System.Security.Cryptography.KeyNumber:__CastFrom(value) end
@@ -1071,7 +1071,7 @@ function CS.System.Security.Cryptography.MD5CryptoServiceProvider.Initialize() e
 ---@source mscorlib.dll
 CS.System.Security.Cryptography.PaddingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.PaddingMode
 function CS.System.Security.Cryptography.PaddingMode:__CastFrom(value) end
@@ -1630,7 +1630,7 @@ function CS.System.Security.Cryptography.RSAEncryptionPadding.ToString() end
 ---@source mscorlib.dll
 CS.System.Security.Cryptography.RSAEncryptionPaddingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.RSAEncryptionPaddingMode
 function CS.System.Security.Cryptography.RSAEncryptionPaddingMode:__CastFrom(value) end
@@ -1829,7 +1829,7 @@ function CS.System.Security.Cryptography.RSASignaturePadding.ToString() end
 ---@source mscorlib.dll
 CS.System.Security.Cryptography.RSASignaturePaddingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.RSASignaturePaddingMode
 function CS.System.Security.Cryptography.RSASignaturePaddingMode:__CastFrom(value) end
@@ -2364,7 +2364,7 @@ function CS.System.Security.Cryptography.CngAlgorithmGroup.ToString() end
 ---@source System.Core.dll
 CS.System.Security.Cryptography.CngExportPolicies = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.CngExportPolicies
 function CS.System.Security.Cryptography.CngExportPolicies:__CastFrom(value) end
@@ -2588,7 +2588,7 @@ function CS.System.Security.Cryptography.CngKeyBlobFormat.ToString() end
 ---@source System.Core.dll
 CS.System.Security.Cryptography.CngKeyCreationOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.CngKeyCreationOptions
 function CS.System.Security.Cryptography.CngKeyCreationOptions:__CastFrom(value) end
@@ -2603,7 +2603,7 @@ function CS.System.Security.Cryptography.CngKeyCreationOptions:__CastFrom(value)
 ---@source System.Core.dll
 CS.System.Security.Cryptography.CngKeyHandleOpenOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.CngKeyHandleOpenOptions
 function CS.System.Security.Cryptography.CngKeyHandleOpenOptions:__CastFrom(value) end
@@ -2622,7 +2622,7 @@ function CS.System.Security.Cryptography.CngKeyHandleOpenOptions:__CastFrom(valu
 ---@source System.Core.dll
 CS.System.Security.Cryptography.CngKeyOpenOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.CngKeyOpenOptions
 function CS.System.Security.Cryptography.CngKeyOpenOptions:__CastFrom(value) end
@@ -2643,7 +2643,7 @@ function CS.System.Security.Cryptography.CngKeyOpenOptions:__CastFrom(value) end
 ---@source System.Core.dll
 CS.System.Security.Cryptography.CngKeyUsages = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.CngKeyUsages
 function CS.System.Security.Cryptography.CngKeyUsages:__CastFrom(value) end
@@ -2705,7 +2705,7 @@ CS.System.Security.Cryptography.CngPropertyCollection = {}
 ---@source System.Core.dll
 CS.System.Security.Cryptography.CngPropertyOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.CngPropertyOptions
 function CS.System.Security.Cryptography.CngPropertyOptions:__CastFrom(value) end
@@ -2834,7 +2834,7 @@ CS.System.Security.Cryptography.CngUIPolicy = {}
 ---@source System.Core.dll
 CS.System.Security.Cryptography.CngUIProtectionLevels = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.CngUIProtectionLevels
 function CS.System.Security.Cryptography.CngUIProtectionLevels:__CastFrom(value) end
@@ -2890,7 +2890,7 @@ function CS.System.Security.Cryptography.DSACng.VerifySignature(rgbHash, rgbSign
 ---@source System.Core.dll
 CS.System.Security.Cryptography.ECCurveType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.ECCurve.ECCurveType
 function CS.System.Security.Cryptography.ECCurveType:__CastFrom(value) end
@@ -3169,7 +3169,7 @@ function CS.System.Security.Cryptography.ECDiffieHellmanCngPublicKey.ToXmlString
 ---@source System.Core.dll
 CS.System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction
 function CS.System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction:__CastFrom(value) end
@@ -3394,7 +3394,7 @@ function CS.System.Security.Cryptography.ECDsaCng.VerifyHash(hash, signature) en
 ---@source System.Core.dll
 CS.System.Security.Cryptography.ECKeyXmlFormat = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.ECKeyXmlFormat
 function CS.System.Security.Cryptography.ECKeyXmlFormat:__CastFrom(value) end
@@ -3690,7 +3690,7 @@ function CS.System.Security.Cryptography.SHA512Cng.Initialize() end
 ---@source System.Core.dll
 CS.System.Security.Cryptography.SignatureVerificationResult = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.SignatureVerificationResult
 function CS.System.Security.Cryptography.SignatureVerificationResult:__CastFrom(value) end
@@ -3850,7 +3850,7 @@ function CS.System.Security.Cryptography.AsnEncodedDataEnumerator.Reset() end
 ---@source System.dll
 CS.System.Security.Cryptography.OidGroup = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.OidGroup
 function CS.System.Security.Cryptography.OidGroup:__CastFrom(value) end

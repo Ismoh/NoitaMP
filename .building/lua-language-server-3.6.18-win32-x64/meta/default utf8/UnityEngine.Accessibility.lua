@@ -15,7 +15,7 @@ CS.UnityEngine.Accessibility.VisionUtility = {}
 --Params: palette - An array of colors to populate with a palette.
 --        minimumLuminance - Minimum allowable perceived luminance from 0 to 1. A value of 0.2 or greater is recommended for dark backgrounds.
 --        maximumLuminance - Maximum allowable perceived luminance from 0 to 1. A value of 0.8 or less is recommended for light backgrounds.
---        
+--
 --```
 --
 ---@source UnityEngine.AccessibilityModule.dll

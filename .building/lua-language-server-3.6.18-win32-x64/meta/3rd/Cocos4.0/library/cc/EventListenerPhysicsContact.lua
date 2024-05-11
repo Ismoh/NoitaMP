@@ -7,7 +7,7 @@ cc.EventListenerPhysicsContact=EventListenerPhysicsContact
 
 
 
----*  Create the listener. 
+---*  Create the listener.
 ---@return self
 function EventListenerPhysicsContact:create () end
 ---*  Clone an object from this listener.

@@ -11,7 +11,7 @@ cc.TransitionSplitCols=TransitionSplitCols
 ---* return The action that will be performed.
 ---@return cc.ActionInterval
 function TransitionSplitCols:action () end
----* 
+---*
 ---@param action cc.ActionInterval
 ---@return cc.ActionInterval
 function TransitionSplitCols:easeActionWithAction (action) end
@@ -23,12 +23,12 @@ function TransitionSplitCols:easeActionWithAction (action) end
 ---@param scene cc.Scene
 ---@return self
 function TransitionSplitCols:create (t,scene) end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param transform mat4_table
 ---@param flags unsigned_int
 ---@return self
 function TransitionSplitCols:draw (renderer,transform,flags) end
----* 
+---*
 ---@return self
 function TransitionSplitCols:TransitionSplitCols () end

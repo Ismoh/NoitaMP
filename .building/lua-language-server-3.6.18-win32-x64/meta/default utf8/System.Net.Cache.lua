@@ -17,7 +17,7 @@
 ---@source System.dll
 CS.System.Net.Cache.HttpCacheAgeControl = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Cache.HttpCacheAgeControl
 function CS.System.Net.Cache.HttpCacheAgeControl:__CastFrom(value) end
@@ -46,7 +46,7 @@ function CS.System.Net.Cache.HttpCacheAgeControl:__CastFrom(value) end
 ---@source System.dll
 CS.System.Net.Cache.HttpRequestCacheLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Cache.HttpRequestCacheLevel
 function CS.System.Net.Cache.HttpRequestCacheLevel:__CastFrom(value) end
@@ -91,7 +91,7 @@ function CS.System.Net.Cache.HttpRequestCachePolicy.ToString() end
 ---@source System.dll
 CS.System.Net.Cache.RequestCacheLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Cache.RequestCacheLevel
 function CS.System.Net.Cache.RequestCacheLevel:__CastFrom(value) end

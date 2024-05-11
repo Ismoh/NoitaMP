@@ -15,7 +15,7 @@ CS.UnityEngine.Experimental.Video.VideoClipPlayable = {}
 --Params: graph - The PlayableGraph object that will own the VideoClipPlayable.
 --        looping - Indicates if VideoClip loops when it reaches the end.
 --        clip - VideoClip used to produce textures in the PlayableGraph.
---        
+--
 --```
 --
 ---@source UnityEngine.VideoModule.dll
@@ -98,7 +98,7 @@ CS.UnityEngine.Experimental.Video.VideoPlayerExtensions = {}
 --```plaintext
 --Params: vp - The "this" pointer for the extension method.
 --        trackIndex - The audio track index for which the sample provider is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.VideoModule.dll

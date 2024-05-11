@@ -22,11 +22,11 @@ function Physics3DHingeConstraint:getFrameOffsetA () end
 ---* get rigid body B's frame offset
 ---@return mat4_table
 function Physics3DHingeConstraint:getFrameOffsetB () end
----*  set max motor impulse 
+---*  set max motor impulse
 ---@param maxMotorImpulse float
 ---@return self
 function Physics3DHingeConstraint:setMaxMotorImpulse (maxMotorImpulse) end
----*  enable angular motor 
+---*  enable angular motor
 ---@param enableMotor boolean
 ---@param targetVelocity float
 ---@param maxMotorImpulse float
@@ -48,7 +48,7 @@ function Physics3DHingeConstraint:setUseFrameOffset (frameOffsetOnOff) end
 ---* get enable angular motor
 ---@return boolean
 function Physics3DHingeConstraint:getEnableAngularMotor () end
----* 
+---*
 ---@param enableMotor boolean
 ---@return self
 function Physics3DHingeConstraint:enableMotor (enableMotor) end
@@ -67,7 +67,7 @@ function Physics3DHingeConstraint:getUseFrameOffset () end
 ---@param angularOnly boolean
 ---@return self
 function Physics3DHingeConstraint:setAngularOnly (angularOnly) end
----*  set limit 
+---*  set limit
 ---@param low float
 ---@param high float
 ---@param _softness float
@@ -82,7 +82,7 @@ function Physics3DHingeConstraint:getAngularOnly () end
 ---@param axisInA vec3_table
 ---@return self
 function Physics3DHingeConstraint:setAxis (axisInA) end
----* get A's frame 
+---* get A's frame
 ---@return mat4_table
 function Physics3DHingeConstraint:getAFrame () end
 ---@overload fun(cc.Physics3DRigidBody:cc.Physics3DRigidBody,cc.Physics3DRigidBody1:vec3_table,vec3_table:vec3_table,vec3_table3:boolean):self
@@ -98,6 +98,6 @@ function Physics3DHingeConstraint:getAFrame () end
 ---@param useReferenceFrameA boolean
 ---@return self
 function Physics3DHingeConstraint:create (rbA,rbB,pivotInA,pivotInB,axisInA,axisInB,useReferenceFrameA) end
----* 
+---*
 ---@return self
 function Physics3DHingeConstraint:Physics3DHingeConstraint () end

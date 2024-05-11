@@ -26,9 +26,9 @@ function CameraBackgroundDepthBrush:getBrushType () end
 ---@param camera cc.Camera
 ---@return self
 function CameraBackgroundDepthBrush:drawBackground (camera) end
----* 
+---*
 ---@return boolean
 function CameraBackgroundDepthBrush:init () end
----* 
+---*
 ---@return self
 function CameraBackgroundDepthBrush:CameraBackgroundDepthBrush () end

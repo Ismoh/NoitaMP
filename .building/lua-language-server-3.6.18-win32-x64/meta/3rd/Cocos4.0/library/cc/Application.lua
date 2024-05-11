@@ -1,6 +1,6 @@
 ---@meta
 
----@class cc.Application 
+---@class cc.Application
 local Application={ }
 cc.Application=Application
 

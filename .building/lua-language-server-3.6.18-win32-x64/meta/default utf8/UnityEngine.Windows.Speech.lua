@@ -56,7 +56,7 @@ function CS.UnityEngine.Windows.Speech.PhraseRecognitionSystem:remove_OnStatusCh
 --
 --```plaintext
 --Params: errorCode - Error code for the error that occurred.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -85,7 +85,7 @@ function CS.UnityEngine.Windows.Speech.ErrorDelegate.EndInvoke(result) end
 --
 --```plaintext
 --Params: status - The new status of the phrase recognition system.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -156,7 +156,7 @@ function CS.UnityEngine.Windows.Speech.PhraseRecognizer.Dispose() end
 --
 --```plaintext
 --Params: args - Information about a phrase recognized event.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -267,7 +267,7 @@ function CS.UnityEngine.Windows.Speech.DictationRecognizer.Dispose() end
 --
 --```plaintext
 --Params: text - The text that the recognizer believes may have been recognized.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -297,7 +297,7 @@ function CS.UnityEngine.Windows.Speech.DictationHypothesisDelegate.EndInvoke(res
 --```plaintext
 --Params: text - The recognized text.
 --        confidence - The confidence level at which the text was recognized.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -328,7 +328,7 @@ function CS.UnityEngine.Windows.Speech.DictationResultDelegate.EndInvoke(result)
 --
 --```plaintext
 --Params: cause - The cause of dictation session completion.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -358,7 +358,7 @@ function CS.UnityEngine.Windows.Speech.DictationCompletedDelegate.EndInvoke(resu
 --```plaintext
 --Params: error - The error mesage.
 --        hresult - HRESULT code that corresponds to the error.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -412,7 +412,7 @@ function CS.UnityEngine.Windows.Speech.DictationErrorHandler.EndInvoke(result) e
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Windows.Speech.ConfidenceLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Windows.Speech.ConfidenceLevel
 function CS.UnityEngine.Windows.Speech.ConfidenceLevel:__CastFrom(value) end
@@ -441,7 +441,7 @@ function CS.UnityEngine.Windows.Speech.ConfidenceLevel:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Windows.Speech.SpeechSystemStatus = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Windows.Speech.SpeechSystemStatus
 function CS.UnityEngine.Windows.Speech.SpeechSystemStatus:__CastFrom(value) end
@@ -499,7 +499,7 @@ function CS.UnityEngine.Windows.Speech.SpeechSystemStatus:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Windows.Speech.SpeechError = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Windows.Speech.SpeechError
 function CS.UnityEngine.Windows.Speech.SpeechError:__CastFrom(value) end
@@ -528,7 +528,7 @@ function CS.UnityEngine.Windows.Speech.SpeechError:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Windows.Speech.DictationTopicConstraint = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Windows.Speech.DictationTopicConstraint
 function CS.UnityEngine.Windows.Speech.DictationTopicConstraint:__CastFrom(value) end
@@ -579,7 +579,7 @@ function CS.UnityEngine.Windows.Speech.DictationTopicConstraint:__CastFrom(value
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Windows.Speech.DictationCompletionCause = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Windows.Speech.DictationCompletionCause
 function CS.UnityEngine.Windows.Speech.DictationCompletionCause:__CastFrom(value) end

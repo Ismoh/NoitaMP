@@ -35,7 +35,7 @@
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngineInternal.GITextureType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngineInternal.GITextureType
 function CS.UnityEngineInternal.GITextureType:__CastFrom(value) end
@@ -84,7 +84,7 @@ function CS.UnityEngineInternal.GIDebugVisualisation:CycleSkipInstances(skip) en
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngineInternal.MemorylessMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngineInternal.MemorylessMode
 function CS.UnityEngineInternal.MemorylessMode:__CastFrom(value) end
@@ -136,7 +136,7 @@ function CS.UnityEngineInternal.APIUpdaterRuntimeServices:AddComponent(go, sourc
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngineInternal.TypeInferenceRules = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngineInternal.TypeInferenceRules
 function CS.UnityEngineInternal.TypeInferenceRules:__CastFrom(value) end

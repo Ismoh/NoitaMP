@@ -16,9 +16,9 @@ function FiniteTimeAction:setDuration (duration) end
 ---* return The duration in seconds of the action.
 ---@return float
 function FiniteTimeAction:getDuration () end
----* 
+---*
 ---@return self
 function FiniteTimeAction:clone () end
----* 
+---*
 ---@return self
 function FiniteTimeAction:reverse () end

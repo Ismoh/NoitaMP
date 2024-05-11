@@ -7,25 +7,25 @@ cc.Image=Image
 
 
 
----* 
+---*
 ---@return boolean
 function Image:hasPremultipliedAlpha () end
----* 
+---*
 ---@return self
 function Image:reversePremultipliedAlpha () end
----* 
+---*
 ---@return boolean
 function Image:isCompressed () end
----* 
+---*
 ---@return boolean
 function Image:hasAlpha () end
----* 
+---*
 ---@return int
 function Image:getPixelFormat () end
----* 
+---*
 ---@return int
 function Image:getHeight () end
----* 
+---*
 ---@return self
 function Image:premultiplyAlpha () end
 ---* brief Load the image from the specified path.<br>
@@ -34,19 +34,19 @@ function Image:premultiplyAlpha () end
 ---@param path string
 ---@return boolean
 function Image:initWithImageFile (path) end
----* 
+---*
 ---@return int
 function Image:getWidth () end
----* 
+---*
 ---@return int
 function Image:getBitPerPixel () end
----* 
+---*
 ---@return int
 function Image:getFileType () end
----* 
+---*
 ---@return string
 function Image:getFilePath () end
----* 
+---*
 ---@return int
 function Image:getNumberOfMipmaps () end
 ---* brief    Save Image data to the specified file, with specified format.<br>

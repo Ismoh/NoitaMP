@@ -652,7 +652,7 @@ function CS.System.Data.OleDb.OleDbInfoMessageEventHandler.EndInvoke(result) end
 ---@source System.Data.dll
 CS.System.Data.OleDb.OleDbLiteral = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.OleDb.OleDbLiteral
 function CS.System.Data.OleDb.OleDbLiteral:__CastFrom(value) end
@@ -1150,7 +1150,7 @@ function CS.System.Data.OleDb.OleDbTransaction.Rollback() end
 ---@source System.Data.dll
 CS.System.Data.OleDb.OleDbType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.OleDb.OleDbType
 function CS.System.Data.OleDb.OleDbType:__CastFrom(value) end

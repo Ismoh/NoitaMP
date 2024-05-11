@@ -7,7 +7,7 @@ cc.TMXTilesetInfo=TMXTilesetInfo
 
 
 
----* 
+---*
 ---@param gid unsigned_int
 ---@return rect_table
 function TMXTilesetInfo:getRectForGID (gid) end

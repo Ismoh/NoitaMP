@@ -1,8 +1,8 @@
 <Entity tags="hittable,teleportable_NOT,prop,prop_physics,mortal">
-    <PhysicsBody2Component 
+    <PhysicsBody2Component
       allow_sleep="1"
       angular_damping="0.5"
-      linear_damping="0.1" 
+      linear_damping="0.1"
       kill_entity_after_initialized="0"
       manual_init="1"
       init_offset_y="0"

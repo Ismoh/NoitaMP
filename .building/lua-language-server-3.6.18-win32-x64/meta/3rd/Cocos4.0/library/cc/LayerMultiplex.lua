@@ -29,10 +29,10 @@ function LayerMultiplex:addLayer (layer) end
 ---@param cleanup boolean
 ---@return self
 function LayerMultiplex:switchTo (n,cleanup) end
----* 
+---*
 ---@return boolean
 function LayerMultiplex:init () end
----* 
+---*
 ---@return string
 function LayerMultiplex:getDescription () end
 ---* js ctor

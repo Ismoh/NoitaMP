@@ -77,7 +77,7 @@ function Text:setString (text) end
 ---* Return the outline effect size value.
 ---@return int
 function Text:getOutlineSize () end
----* 
+---*
 ---@param textContent string
 ---@param fontName string
 ---@param fontSize float
@@ -184,19 +184,19 @@ function Text:setTextHorizontalAlignment (alignment) end
 ---@param fontSize float
 ---@return self
 function Text:create (textContent,fontName,fontSize) end
----* 
+---*
 ---@return cc.Ref
 function Text:createInstance () end
----* 
+---*
 ---@return cc.Node
 function Text:getVirtualRenderer () end
----* 
+---*
 ---@return boolean
 function Text:init () end
 ---* Returns the "class name" of widget.
 ---@return string
 function Text:getDescription () end
----* 
+---*
 ---@return size_table
 function Text:getVirtualRendererSize () end
 ---* Default constructor.<br>

@@ -33,7 +33,7 @@ CS.UnityEngine.Tilemaps.ITilemap = {}
 --
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -46,7 +46,7 @@ function CS.UnityEngine.Tilemaps.ITilemap.GetSprite(position) end
 --
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -59,7 +59,7 @@ function CS.UnityEngine.Tilemaps.ITilemap.GetColor(position) end
 --
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -72,7 +72,7 @@ function CS.UnityEngine.Tilemaps.ITilemap.GetTransformMatrix(position) end
 --
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -85,7 +85,7 @@ function CS.UnityEngine.Tilemaps.ITilemap.GetTileFlags(position) end
 --
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -103,7 +103,7 @@ function CS.UnityEngine.Tilemaps.ITilemap.GetTile(position) end
 --
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -171,7 +171,7 @@ CS.UnityEngine.Tilemaps.TileBase = {}
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
 --        tilemap - The Tilemap the tile is present on.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -199,7 +199,7 @@ function CS.UnityEngine.Tilemaps.TileBase.GetTileAnimationData(position, tilemap
 --Params: position - Position of the Tile on the Tilemap.
 --        tilemap - The Tilemap the tile is present on.
 --        go - The GameObject instantiated for the Tile.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -233,7 +233,7 @@ function CS.UnityEngine.Tilemaps.TileBase.StartUp(position, tilemap, go) end
 ---@source UnityEngine.TilemapModule.dll
 CS.UnityEngine.Tilemaps.ColliderType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Tilemaps.Tile.ColliderType
 function CS.UnityEngine.Tilemaps.ColliderType:__CastFrom(value) end
@@ -322,7 +322,7 @@ function CS.UnityEngine.Tilemaps.Tilemap:remove_tilemapTileChanged(value) end
 --
 --```plaintext
 --Params: position - Grid cell position.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -335,7 +335,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.GetCellCenterLocal(position) end
 --
 --```plaintext
 --Params: position - Grid cell position.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -348,7 +348,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.GetCellCenterWorld(position) end
 --
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -366,7 +366,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.GetTile(position) end
 --
 --```plaintext
 --Params: bounds - Bounds to retrieve from.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -379,7 +379,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.GetTilesBlock(bounds) end
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
 --        tile - to be placed the cell.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -393,7 +393,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.SetTile(position, tile) end
 --```plaintext
 --Params: positionArray - An array of positions of Tiles on the Tilemap.
 --        tileArray - An array of to be placed.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -407,7 +407,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.SetTiles(positionArray, tileArray) end
 --```plaintext
 --Params: position - Bounds to be filled.
 --        tileArray - An array of to be placed.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -420,7 +420,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.SetTilesBlock(position, tileArray) end
 --
 --```plaintext
 --Params: position - Position to check.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -433,7 +433,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.HasTile(position) end
 --
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -452,7 +452,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.RefreshAllTiles() end
 --```plaintext
 --Params: changeTile - Tile to swap.
 --        newTile - Tile to swap to.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -465,7 +465,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.SwapTile(changeTile, newTile) end
 --
 --```plaintext
 --Params: tileAsset - Tile to check.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -485,7 +485,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.GetUsedTilesCount() end
 --
 --```plaintext
 --Params: usedTiles - The array to be filled.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -498,7 +498,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.GetUsedTilesNonAlloc(usedTiles) end
 --
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -511,7 +511,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.GetSprite(position) end
 --
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -525,7 +525,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.GetTransformMatrix(position) end
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
 --        transform - The transform matrix.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -538,7 +538,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.SetTransformMatrix(position, transform)
 --
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -552,7 +552,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.GetColor(position) end
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
 --        color - Color to set the to at the XY coordinate.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -565,7 +565,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.SetColor(position, color) end
 --
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -579,7 +579,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.GetTileFlags(position) end
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
 --        flags - TileFlags to add onto the Tile.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -593,7 +593,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.SetTileFlags(position, flags) end
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
 --        flags - TileFlags to add (with bitwise or) onto the flags provided by Tile.TileBase.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -607,7 +607,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.AddTileFlags(position, flags) end
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
 --        flags - TileFlags to remove from the Tile.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -620,7 +620,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.RemoveTileFlags(position, flags) end
 --
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -633,7 +633,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.GetInstantiatedObject(position) end
 --
 --```plaintext
 --Params: position - The position of the Tile on the Tilemap.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -651,7 +651,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.SetColliderType(position, colliderType)
 --
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -665,7 +665,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.GetColliderType(position) end
 --```plaintext
 --Params: position - Start position of the flood fill on the Tilemap.
 --        tile - to place.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -683,7 +683,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.FloodFill(position, tile) end
 --        startY - The minimum Y coordinate limit to fill to.
 --        endX - The maximum X coordinate limit to fill to.
 --        endY - The maximum Y coordinate limit to fill to.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -701,7 +701,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.BoxFill(position, tile, startX, startY,
 --```plaintext
 --Params: position - The target position to insert at.
 --        insertCells - The number of columns, rows or layers of cells to insert.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -717,7 +717,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.InsertCells(position, insertCells) end
 --        numColumns - The number of columns to insert.
 --        numRows - The number of rows to insert.
 --        numLayers - The number of layers of cells to insert.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -733,7 +733,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.InsertCells(position, numColumns, numRo
 --```plaintext
 --Params: position - The target position to remove from.
 --        deleteCells - The number of columns, rows and layers of cells to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -749,7 +749,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.DeleteCells(position, deleteCells) end
 --        numColumns - The number of columns to remove.
 --        numRows - The number of rows to remove.
 --        numLayers - The number of layers of cells to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -782,7 +782,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.CompressBounds() end
 --
 --```plaintext
 --Params: position - Position of the editor preview Tile on the Tilemap.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -801,7 +801,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.GetEditorPreviewTile(position) end
 --```plaintext
 --Params: position - Position of the editor preview Tile on the Tilemap.
 --        tile - The editor preview to be placed the cell.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -814,7 +814,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.SetEditorPreviewTile(position, tile) en
 --
 --```plaintext
 --Params: position - Position to check.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -827,7 +827,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.HasEditorPreviewTile(position) end
 --
 --```plaintext
 --Params: position - Position of the editor preview Tile on the Tilemap.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -840,7 +840,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.GetEditorPreviewSprite(position) end
 --
 --```plaintext
 --Params: position - Position of the editor preview Tile on the Tilemap.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -854,7 +854,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.GetEditorPreviewTransformMatrix(positio
 --```plaintext
 --Params: position - Position of the editor preview Tile on the Tilemap.
 --        transform - The transform matrix.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -867,7 +867,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.SetEditorPreviewTransformMatrix(positio
 --
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -881,7 +881,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.GetEditorPreviewColor(position) end
 --```plaintext
 --Params: position - Position of the editor preview Tile on the Tilemap.
 --        color - Color to set the editor preview to at the XY coordinate.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -894,7 +894,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.SetEditorPreviewColor(position, color) 
 --
 --```plaintext
 --Params: position - Position of the Tile on the Tilemap.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -908,7 +908,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.GetEditorPreviewTileFlags(position) end
 --```plaintext
 --Params: position - Start position of the flood fill on the Tilemap.
 --        tile - TileBase to place.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -926,7 +926,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.EditorPreviewFloodFill(position, tile) 
 --        startY - The start Y coordinate limit to fill to.
 --        endX - The ending X coordinate limit to fill to.
 --        endY - The ending Y coordinate limit to fill to.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -978,7 +978,7 @@ function CS.UnityEngine.Tilemaps.Tilemap.ClearAllEditorPreviewTiles() end
 ---@source UnityEngine.TilemapModule.dll
 CS.UnityEngine.Tilemaps.TileFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Tilemaps.TileFlags
 function CS.UnityEngine.Tilemaps.TileFlags:__CastFrom(value) end
@@ -1076,7 +1076,7 @@ CS.UnityEngine.Tilemaps.TilemapRenderer = {}
 ---@source UnityEngine.TilemapModule.dll
 CS.UnityEngine.Tilemaps.Orientation = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Tilemaps.Tilemap.Orientation
 function CS.UnityEngine.Tilemaps.Orientation:__CastFrom(value) end
@@ -1170,7 +1170,7 @@ CS.UnityEngine.Tilemaps.TileData = {}
 ---@source UnityEngine.TilemapModule.dll
 CS.UnityEngine.Tilemaps.SortOrder = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Tilemaps.TilemapRenderer.SortOrder
 function CS.UnityEngine.Tilemaps.SortOrder:__CastFrom(value) end
@@ -1194,7 +1194,7 @@ function CS.UnityEngine.Tilemaps.SortOrder:__CastFrom(value) end
 ---@source UnityEngine.TilemapModule.dll
 CS.UnityEngine.Tilemaps.Mode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Tilemaps.TilemapRenderer.Mode
 function CS.UnityEngine.Tilemaps.Mode:__CastFrom(value) end
@@ -1218,7 +1218,7 @@ function CS.UnityEngine.Tilemaps.Mode:__CastFrom(value) end
 ---@source UnityEngine.TilemapModule.dll
 CS.UnityEngine.Tilemaps.DetectChunkCullingBounds = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Tilemaps.TilemapRenderer.DetectChunkCullingBounds
 function CS.UnityEngine.Tilemaps.DetectChunkCullingBounds:__CastFrom(value) end

@@ -19,7 +19,7 @@
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Apple.FrameCaptureDestination = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Apple.FrameCaptureDestination
 function CS.UnityEngine.Apple.FrameCaptureDestination:__CastFrom(value) end

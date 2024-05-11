@@ -25,7 +25,7 @@ function LoadingBar:loadTexture (texture,texType) end
 ---@param direction int
 ---@return self
 function LoadingBar:setDirection (direction) end
----* 
+---*
 ---@return cc.ResourceData
 function LoadingBar:getRenderFile () end
 ---* Enable scale9 renderer.<br>
@@ -64,19 +64,19 @@ function LoadingBar:getPercent () end
 ---@param percentage float
 ---@return self
 function LoadingBar:create (textureName,texType,percentage) end
----* 
+---*
 ---@return cc.Ref
 function LoadingBar:createInstance () end
----* 
+---*
 ---@return cc.Node
 function LoadingBar:getVirtualRenderer () end
----* 
+---*
 ---@return string
 function LoadingBar:getDescription () end
----* 
+---*
 ---@return size_table
 function LoadingBar:getVirtualRendererSize () end
----* 
+---*
 ---@param ignore boolean
 ---@return self
 function LoadingBar:ignoreContentAdaptWithSize (ignore) end

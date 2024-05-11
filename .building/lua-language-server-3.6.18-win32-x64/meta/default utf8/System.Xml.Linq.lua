@@ -148,7 +148,7 @@ function CS.System.Xml.Linq.Extensions.Remove() end
 ---@source System.Xml.Linq.dll
 CS.System.Xml.Linq.LoadOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.Linq.LoadOptions
 function CS.System.Xml.Linq.LoadOptions:__CastFrom(value) end
@@ -163,7 +163,7 @@ function CS.System.Xml.Linq.LoadOptions:__CastFrom(value) end
 ---@source System.Xml.Linq.dll
 CS.System.Xml.Linq.ReaderOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.Linq.ReaderOptions
 function CS.System.Xml.Linq.ReaderOptions:__CastFrom(value) end
@@ -180,7 +180,7 @@ function CS.System.Xml.Linq.ReaderOptions:__CastFrom(value) end
 ---@source System.Xml.Linq.dll
 CS.System.Xml.Linq.SaveOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.Linq.SaveOptions
 function CS.System.Xml.Linq.SaveOptions:__CastFrom(value) end
@@ -1195,7 +1195,7 @@ function CS.System.Xml.Linq.XObject.RemoveAnnotations() end
 ---@source System.Xml.Linq.dll
 CS.System.Xml.Linq.XObjectChange = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.Linq.XObjectChange
 function CS.System.Xml.Linq.XObjectChange:__CastFrom(value) end

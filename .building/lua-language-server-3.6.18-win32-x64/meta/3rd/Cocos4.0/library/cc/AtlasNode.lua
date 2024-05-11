@@ -25,11 +25,11 @@ function AtlasNode:initWithTileFile (tile,tileWidth,tileHeight,itemsToRender) en
 ---@param blendFunc cc.BlendFunc
 ---@return self
 function AtlasNode:setBlendFunc (blendFunc) end
----*  Set an buffer manager of the texture vertex. 
+---*  Set an buffer manager of the texture vertex.
 ---@param textureAtlas cc.TextureAtlas
 ---@return self
 function AtlasNode:setTextureAtlas (textureAtlas) end
----* 
+---*
 ---@return cc.Texture2D
 function AtlasNode:getTexture () end
 ---*  Return the buffer manager of the texture vertex. <br>
@@ -40,7 +40,7 @@ function AtlasNode:getTextureAtlas () end
 ---* Shall be overridden in subclasses.
 ---@return self
 function AtlasNode:updateAtlasValues () end
----* 
+---*
 ---@param texture cc.Texture2D
 ---@return self
 function AtlasNode:setTexture (texture) end
@@ -51,10 +51,10 @@ function AtlasNode:setTexture (texture) end
 ---@param itemsToRender int
 ---@return boolean
 function AtlasNode:initWithTexture (texture,tileWidth,tileHeight,itemsToRender) end
----* 
+---*
 ---@return unsigned_int
 function AtlasNode:getQuadsToDraw () end
----* 
+---*
 ---@param quadsToDraw int
 ---@return self
 function AtlasNode:setQuadsToDraw (quadsToDraw) end
@@ -69,30 +69,30 @@ function AtlasNode:setQuadsToDraw (quadsToDraw) end
 ---@param itemsToRender int
 ---@return self
 function AtlasNode:create (filename,tileWidth,tileHeight,itemsToRender) end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param transform mat4_table
 ---@param flags unsigned_int
 ---@return self
 function AtlasNode:draw (renderer,transform,flags) end
----* 
+---*
 ---@return boolean
 function AtlasNode:isOpacityModifyRGB () end
----* 
+---*
 ---@param color color3b_table
 ---@return self
 function AtlasNode:setColor (color) end
----* 
+---*
 ---@return color3b_table
 function AtlasNode:getColor () end
----* 
+---*
 ---@param isOpacityModifyRGB boolean
 ---@return self
 function AtlasNode:setOpacityModifyRGB (isOpacityModifyRGB) end
----* 
+---*
 ---@param opacity unsigned_char
 ---@return self
 function AtlasNode:setOpacity (opacity) end
----* 
+---*
 ---@return self
 function AtlasNode:AtlasNode () end

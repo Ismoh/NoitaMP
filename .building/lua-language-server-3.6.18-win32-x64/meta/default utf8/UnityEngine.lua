@@ -50,7 +50,7 @@ CS.UnityEngine.AndroidJavaProxy = {}
 --Params: methodName - Name of the invoked java method.
 --        args - Arguments passed from the java vm - converted into AndroidJavaObject, AndroidJavaClass or a primitive.
 --        javaArgs - Arguments passed from the java vm - all objects are represented by AndroidJavaObject, int for instance is represented by a java.lang.Integer object.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -66,7 +66,7 @@ function CS.UnityEngine.AndroidJavaProxy.Invoke(methodName, args) end
 --Params: methodName - Name of the invoked java method.
 --        args - Arguments passed from the java vm - converted into AndroidJavaObject, AndroidJavaClass or a primitive.
 --        javaArgs - Arguments passed from the java vm - all objects are represented by AndroidJavaObject, int for instance is represented by a java.lang.Integer object.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -123,7 +123,7 @@ function CS.UnityEngine.AndroidJavaObject.Call(methodName, args) end
 --```plaintext
 --Params: methodName - Specifies which method to call.
 --        args - An array of parameters passed to the method.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -142,7 +142,7 @@ function CS.UnityEngine.AndroidJavaObject.CallStatic(methodName, args) end
 --```plaintext
 --Params: methodName - Specifies which method to call.
 --        args - An array of parameters passed to the method.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -267,7 +267,7 @@ CS.UnityEngine.AndroidJNIHelper = {}
 --```plaintext
 --Params: javaClass - Raw JNI Java class object (obtained by calling AndroidJNI.FindClass).
 --        signature - Constructor method signature (e.g. obtained by calling AndroidJNIHelper.GetSignature).
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -281,7 +281,7 @@ function CS.UnityEngine.AndroidJNIHelper:GetConstructorID(javaClass) end
 --```plaintext
 --Params: javaClass - Raw JNI Java class object (obtained by calling AndroidJNI.FindClass).
 --        signature - Constructor method signature (e.g. obtained by calling AndroidJNIHelper.GetSignature).
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -298,7 +298,7 @@ function CS.UnityEngine.AndroidJNIHelper:GetConstructorID(javaClass, signature) 
 --        methodName - Name of the method as declared in Java.
 --        signature - Method signature (e.g. obtained by calling AndroidJNIHelper.GetSignature).
 --        isStatic - Set to <tt>true<tt> for static methods; <tt>false<tt> for instance (nonstatic) methods.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -315,7 +315,7 @@ function CS.UnityEngine.AndroidJNIHelper:GetMethodID(javaClass, methodName) end
 --        methodName - Name of the method as declared in Java.
 --        signature - Method signature (e.g. obtained by calling AndroidJNIHelper.GetSignature).
 --        isStatic - Set to <tt>true<tt> for static methods; <tt>false<tt> for instance (nonstatic) methods.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -333,7 +333,7 @@ function CS.UnityEngine.AndroidJNIHelper:GetMethodID(javaClass, methodName, sign
 --        methodName - Name of the method as declared in Java.
 --        signature - Method signature (e.g. obtained by calling AndroidJNIHelper.GetSignature).
 --        isStatic - Set to <tt>true<tt> for static methods; <tt>false<tt> for instance (nonstatic) methods.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -352,7 +352,7 @@ function CS.UnityEngine.AndroidJNIHelper:GetMethodID(javaClass, methodName, sign
 --        fieldName - Name of the field as declared in Java.
 --        signature - Field signature (e.g. obtained by calling AndroidJNIHelper.GetSignature).
 --        isStatic - Set to <tt>true<tt> for static fields; <tt>false<tt> for instance (nonstatic) fields.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -369,7 +369,7 @@ function CS.UnityEngine.AndroidJNIHelper:GetFieldID(javaClass, fieldName) end
 --        fieldName - Name of the field as declared in Java.
 --        signature - Field signature (e.g. obtained by calling AndroidJNIHelper.GetSignature).
 --        isStatic - Set to <tt>true<tt> for static fields; <tt>false<tt> for instance (nonstatic) fields.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -387,7 +387,7 @@ function CS.UnityEngine.AndroidJNIHelper:GetFieldID(javaClass, fieldName, signat
 --        fieldName - Name of the field as declared in Java.
 --        signature - Field signature (e.g. obtained by calling AndroidJNIHelper.GetSignature).
 --        isStatic - Set to <tt>true<tt> for static fields; <tt>false<tt> for instance (nonstatic) fields.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -403,7 +403,7 @@ function CS.UnityEngine.AndroidJNIHelper:GetFieldID(javaClass, fieldName, signat
 --
 --```plaintext
 --Params: runnable - A delegate representing the java.lang.Runnable.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -416,7 +416,7 @@ function CS.UnityEngine.AndroidJNIHelper:CreateJavaRunnable(jrunnable) end
 --
 --```plaintext
 --Params: proxy - An implementatinon of a java interface in c#.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -429,7 +429,7 @@ function CS.UnityEngine.AndroidJNIHelper:CreateJavaProxy(proxy) end
 --
 --```plaintext
 --Params: array - Managed array to be converted into a Java array object.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -442,7 +442,7 @@ function CS.UnityEngine.AndroidJNIHelper:ConvertToJNIArray(array) end
 --
 --```plaintext
 --Params: args - An array of objects that should be converted to Call parameters.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -455,7 +455,7 @@ function CS.UnityEngine.AndroidJNIHelper:CreateJNIArgArray(args) end
 --```plaintext
 --Params: args - The array of arguments used as a parameter to CreateJNIArgArray().
 --        jniArgs - The array returned by CreateJNIArgArray().
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -469,7 +469,7 @@ function CS.UnityEngine.AndroidJNIHelper:DeleteJNIArgArray(args, jniArgs) end
 --```plaintext
 --Params: javaClass - Raw JNI Java class object (obtained by calling AndroidJNI.FindClass).
 --        args - Array with parameters to be passed to the constructor when invoked.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -486,7 +486,7 @@ function CS.UnityEngine.AndroidJNIHelper:GetConstructorID(jclass, args) end
 --        methodName - Name of the method as declared in Java.
 --        args - Array with parameters to be passed to the method when invoked.
 --        isStatic - Set to <tt>true<tt> for static methods; <tt>false<tt> for instance (nonstatic) methods.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -502,7 +502,7 @@ function CS.UnityEngine.AndroidJNIHelper:GetMethodID(jclass, methodName, args, i
 --
 --```plaintext
 --Params: obj - Object for which a signature is to be produced.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -515,7 +515,7 @@ function CS.UnityEngine.AndroidJNIHelper:GetSignature(obj) end
 --
 --```plaintext
 --Params: args - Array of object for which a signature is to be produced.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -1870,7 +1870,7 @@ function CS.UnityEngine.AndroidJNI:GetObjectArrayElement(array, index) end
 --Params: array - The array of native booleans.
 --        index - Index of the array element to set.
 --        val - The value to set - for 'true' use 1, for 'false' use 0.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -1886,7 +1886,7 @@ function CS.UnityEngine.AndroidJNI:SetBooleanArrayElement(array, index, val) end
 --Params: array - The array of native booleans.
 --        index - Index of the array element to set.
 --        val - The value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -2040,7 +2040,7 @@ function CS.UnityEngine.StateMachineBehaviour.OnStateIK(animator, stateInfo, lay
 --```plaintext
 --Params: animator - The Animator playing this state machine.
 --        stateMachinePathHash - The full path hash for this state machine.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2054,7 +2054,7 @@ function CS.UnityEngine.StateMachineBehaviour.OnStateMachineEnter(animator, stat
 --```plaintext
 --Params: animator - The Animator playing this state machine.
 --        stateMachinePathHash - The full path hash for this state machine.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2128,7 +2128,7 @@ function CS.UnityEngine.StateMachineBehaviour.OnStateMachineExit(animator, state
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.PlayMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.PlayMode
 function CS.UnityEngine.PlayMode:__CastFrom(value) end
@@ -2152,7 +2152,7 @@ function CS.UnityEngine.PlayMode:__CastFrom(value) end
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.QueueMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.QueueMode
 function CS.UnityEngine.QueueMode:__CastFrom(value) end
@@ -2176,7 +2176,7 @@ function CS.UnityEngine.QueueMode:__CastFrom(value) end
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.AnimationBlendMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AnimationBlendMode
 function CS.UnityEngine.AnimationBlendMode:__CastFrom(value) end
@@ -2193,7 +2193,7 @@ function CS.UnityEngine.AnimationBlendMode:__CastFrom(value) end
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.AnimationPlayMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AnimationPlayMode
 function CS.UnityEngine.AnimationPlayMode:__CastFrom(value) end
@@ -2221,7 +2221,7 @@ function CS.UnityEngine.AnimationPlayMode:__CastFrom(value) end
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.AnimationCullingType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AnimationCullingType
 function CS.UnityEngine.AnimationCullingType:__CastFrom(value) end
@@ -2472,7 +2472,7 @@ function CS.UnityEngine.Animation.AddClip(clip, newName) end
 --
 --```plaintext
 --Params: addLoopFrame - Should an extra frame be inserted at the end that matches the first frame? Turn this on if you are making a looping animation.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2487,7 +2487,7 @@ function CS.UnityEngine.Animation.AddClip(clip, newName, firstFrame, lastFrame) 
 --
 --```plaintext
 --Params: addLoopFrame - Should an extra frame be inserted at the end that matches the first frame? Turn this on if you are making a looping animation.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2615,7 +2615,7 @@ CS.UnityEngine.AnimationState = {}
 --```plaintext
 --Params: mix - The transform to animate.
 --        recursive - Whether to also animate all children of the specified transform.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2628,7 +2628,7 @@ function CS.UnityEngine.AnimationState.AddMixingTransform(mix) end
 --```plaintext
 --Params: mix - The transform to animate.
 --        recursive - Whether to also animate all children of the specified transform.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2789,7 +2789,7 @@ CS.UnityEngine.AnimationClip = {}
 --```plaintext
 --Params: go - The animated game object.
 --        time - The time to sample an animation.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2807,7 +2807,7 @@ function CS.UnityEngine.AnimationClip.SampleAnimation(go, time) end
 --        type - The class type of the component that is animated.
 --        propertyName - The name or path to the property being animated.
 --        curve - The animation curve.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2834,7 +2834,7 @@ function CS.UnityEngine.AnimationClip.ClearCurves() end
 --
 --```plaintext
 --Params: evt - AnimationEvent to add.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2880,7 +2880,7 @@ function CS.UnityEngine.AnimationClip.AddEvent(evt) end
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.AvatarTarget = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AvatarTarget
 function CS.UnityEngine.AvatarTarget:__CastFrom(value) end
@@ -3140,7 +3140,7 @@ CS.UnityEngine.Animator = {}
 --
 --```plaintext
 --Params: layerIndex - The layer's index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3152,7 +3152,7 @@ function CS.UnityEngine.Animator.GetCurrentAnimationClipState(layerIndex) end
 --
 --```plaintext
 --Params: layerIndex - The layer's index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3168,7 +3168,7 @@ function CS.UnityEngine.Animator.Stop() end
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3182,7 +3182,7 @@ function CS.UnityEngine.Animator.GetFloat(name) end
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3199,7 +3199,7 @@ function CS.UnityEngine.Animator.GetFloat(id) end
 --        value - The new parameter value.
 --        dampTime - The damper total time.
 --        deltaTime - The delta time to give to the damper.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3216,7 +3216,7 @@ function CS.UnityEngine.Animator.SetFloat(name, value) end
 --        value - The new parameter value.
 --        dampTime - The damper total time.
 --        deltaTime - The delta time to give to the damper.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3235,7 +3235,7 @@ function CS.UnityEngine.Animator.SetFloat(name, value, dampTime, deltaTime) end
 --        value - The new parameter value.
 --        dampTime - The damper total time.
 --        deltaTime - The delta time to give to the damper.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3252,7 +3252,7 @@ function CS.UnityEngine.Animator.SetFloat(id, value) end
 --        value - The new parameter value.
 --        dampTime - The damper total time.
 --        deltaTime - The delta time to give to the damper.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3268,7 +3268,7 @@ function CS.UnityEngine.Animator.SetFloat(id, value, dampTime, deltaTime) end
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3282,7 +3282,7 @@ function CS.UnityEngine.Animator.GetBool(name) end
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3297,7 +3297,7 @@ function CS.UnityEngine.Animator.GetBool(id) end
 --Params: name - The parameter name.
 --        id - The parameter ID.
 --        value - The new parameter value.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3312,7 +3312,7 @@ function CS.UnityEngine.Animator.SetBool(name, value) end
 --Params: name - The parameter name.
 --        id - The parameter ID.
 --        value - The new parameter value.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3326,7 +3326,7 @@ function CS.UnityEngine.Animator.SetBool(id, value) end
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3340,7 +3340,7 @@ function CS.UnityEngine.Animator.GetInteger(name) end
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3355,7 +3355,7 @@ function CS.UnityEngine.Animator.GetInteger(id) end
 --Params: name - The parameter name.
 --        id - The parameter ID.
 --        value - The new parameter value.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3370,7 +3370,7 @@ function CS.UnityEngine.Animator.SetInteger(name, value) end
 --Params: name - The parameter name.
 --        id - The parameter ID.
 --        value - The new parameter value.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3384,7 +3384,7 @@ function CS.UnityEngine.Animator.SetInteger(id, value) end
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3397,7 +3397,7 @@ function CS.UnityEngine.Animator.SetTrigger(name) end
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3410,7 +3410,7 @@ function CS.UnityEngine.Animator.SetTrigger(id) end
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3423,7 +3423,7 @@ function CS.UnityEngine.Animator.ResetTrigger(name) end
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3436,7 +3436,7 @@ function CS.UnityEngine.Animator.ResetTrigger(id) end
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3450,7 +3450,7 @@ function CS.UnityEngine.Animator.IsParameterControlledByCurve(name) end
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3463,7 +3463,7 @@ function CS.UnityEngine.Animator.IsParameterControlledByCurve(id) end
 --
 --```plaintext
 --Params: goal - The AvatarIKGoal that is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3477,7 +3477,7 @@ function CS.UnityEngine.Animator.GetIKPosition(goal) end
 --```plaintext
 --Params: goal - The AvatarIKGoal that is set.
 --        goalPosition - The position in world space.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3490,7 +3490,7 @@ function CS.UnityEngine.Animator.SetIKPosition(goal, goalPosition) end
 --
 --```plaintext
 --Params: goal - The AvatarIKGoal that is is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3504,7 +3504,7 @@ function CS.UnityEngine.Animator.GetIKRotation(goal) end
 --```plaintext
 --Params: goal - The AvatarIKGoal that is set.
 --        goalRotation - The rotation in world space.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3517,7 +3517,7 @@ function CS.UnityEngine.Animator.SetIKRotation(goal, goalRotation) end
 --
 --```plaintext
 --Params: goal - The AvatarIKGoal that is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3531,7 +3531,7 @@ function CS.UnityEngine.Animator.GetIKPositionWeight(goal) end
 --```plaintext
 --Params: goal - The AvatarIKGoal that is set.
 --        value - The translative weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3544,7 +3544,7 @@ function CS.UnityEngine.Animator.SetIKPositionWeight(goal, value) end
 --
 --```plaintext
 --Params: goal - The AvatarIKGoal that is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3558,7 +3558,7 @@ function CS.UnityEngine.Animator.GetIKRotationWeight(goal) end
 --```plaintext
 --Params: goal - The AvatarIKGoal that is set.
 --        value - The rotational weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3571,7 +3571,7 @@ function CS.UnityEngine.Animator.SetIKRotationWeight(goal, value) end
 --
 --```plaintext
 --Params: hint - The AvatarIKHint that is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3585,7 +3585,7 @@ function CS.UnityEngine.Animator.GetIKHintPosition(hint) end
 --```plaintext
 --Params: hint - The AvatarIKHint that is set.
 --        hintPosition - The position in world space.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3598,7 +3598,7 @@ function CS.UnityEngine.Animator.SetIKHintPosition(hint, hintPosition) end
 --
 --```plaintext
 --Params: hint - The AvatarIKHint that is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3612,7 +3612,7 @@ function CS.UnityEngine.Animator.GetIKHintPositionWeight(hint) end
 --```plaintext
 --Params: hint - The AvatarIKHint that is set.
 --        value - The translative weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3625,7 +3625,7 @@ function CS.UnityEngine.Animator.SetIKHintPositionWeight(hint, value) end
 --
 --```plaintext
 --Params: lookAtPosition - The position to lookAt.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3641,7 +3641,7 @@ function CS.UnityEngine.Animator.SetLookAtPosition(lookAtPosition) end
 --        headWeight - (0-1) determines how much the head is involved in the LookAt.
 --        eyesWeight - (0-1) determines how much the eyes are involved in the LookAt.
 --        clampWeight - (0-1) 0.0 means the character is completely unrestrained in motion, 1.0 means he's completely clamped (look at becomes impossible), and 0.5 means he'll be able to move on half of the possible range (180 degrees).
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3657,7 +3657,7 @@ function CS.UnityEngine.Animator.SetLookAtWeight(weight) end
 --        headWeight - (0-1) determines how much the head is involved in the LookAt.
 --        eyesWeight - (0-1) determines how much the eyes are involved in the LookAt.
 --        clampWeight - (0-1) 0.0 means the character is completely unrestrained in motion, 1.0 means he's completely clamped (look at becomes impossible), and 0.5 means he'll be able to move on half of the possible range (180 degrees).
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3674,7 +3674,7 @@ function CS.UnityEngine.Animator.SetLookAtWeight(weight, bodyWeight) end
 --        headWeight - (0-1) determines how much the head is involved in the LookAt.
 --        eyesWeight - (0-1) determines how much the eyes are involved in the LookAt.
 --        clampWeight - (0-1) 0.0 means the character is completely unrestrained in motion, 1.0 means he's completely clamped (look at becomes impossible), and 0.5 means he'll be able to move on half of the possible range (180 degrees).
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3692,7 +3692,7 @@ function CS.UnityEngine.Animator.SetLookAtWeight(weight, bodyWeight, headWeight)
 --        headWeight - (0-1) determines how much the head is involved in the LookAt.
 --        eyesWeight - (0-1) determines how much the eyes are involved in the LookAt.
 --        clampWeight - (0-1) 0.0 means the character is completely unrestrained in motion, 1.0 means he's completely clamped (look at becomes impossible), and 0.5 means he'll be able to move on half of the possible range (180 degrees).
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3711,7 +3711,7 @@ function CS.UnityEngine.Animator.SetLookAtWeight(weight, bodyWeight, headWeight,
 --        headWeight - (0-1) determines how much the head is involved in the LookAt.
 --        eyesWeight - (0-1) determines how much the eyes are involved in the LookAt.
 --        clampWeight - (0-1) 0.0 means the character is completely unrestrained in motion, 1.0 means he's completely clamped (look at becomes impossible), and 0.5 means he'll be able to move on half of the possible range (180 degrees).
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3728,7 +3728,7 @@ function CS.UnityEngine.Animator.SetLookAtWeight(weight, bodyWeight, headWeight,
 --```plaintext
 --Params: humanBoneId - The human bone Id.
 --        rotation - The local rotation.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3753,7 +3753,7 @@ function CS.UnityEngine.Animator.GetBehaviours(fullPathHash, layerIndex) end
 --
 --```plaintext
 --Params: layerIndex - The layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3766,7 +3766,7 @@ function CS.UnityEngine.Animator.GetLayerName(layerIndex) end
 --
 --```plaintext
 --Params: layerName - The layer name.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3779,7 +3779,7 @@ function CS.UnityEngine.Animator.GetLayerIndex(layerName) end
 --
 --```plaintext
 --Params: layerIndex - The layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3793,7 +3793,7 @@ function CS.UnityEngine.Animator.GetLayerWeight(layerIndex) end
 --```plaintext
 --Params: layerIndex - The layer index.
 --        weight - The new layer weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3806,7 +3806,7 @@ function CS.UnityEngine.Animator.SetLayerWeight(layerIndex, weight) end
 --
 --```plaintext
 --Params: layerIndex - The layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3819,7 +3819,7 @@ function CS.UnityEngine.Animator.GetCurrentAnimatorStateInfo(layerIndex) end
 --
 --```plaintext
 --Params: layerIndex - The layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3832,7 +3832,7 @@ function CS.UnityEngine.Animator.GetNextAnimatorStateInfo(layerIndex) end
 --
 --```plaintext
 --Params: layerIndex - The layer's index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3845,7 +3845,7 @@ function CS.UnityEngine.Animator.GetAnimatorTransitionInfo(layerIndex) end
 --
 --```plaintext
 --Params: layerIndex - The layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3858,7 +3858,7 @@ function CS.UnityEngine.Animator.GetCurrentAnimatorClipInfoCount(layerIndex) end
 --
 --```plaintext
 --Params: layerIndex - The layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3871,7 +3871,7 @@ function CS.UnityEngine.Animator.GetNextAnimatorClipInfoCount(layerIndex) end
 --
 --```plaintext
 --Params: layerIndex - The layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3883,7 +3883,7 @@ function CS.UnityEngine.Animator.GetCurrentAnimatorClipInfo(layerIndex) end
 --
 --```plaintext
 --Params: layerIndex - The layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3905,7 +3905,7 @@ function CS.UnityEngine.Animator.GetNextAnimatorClipInfo(layerIndex, clips) end
 --
 --```plaintext
 --Params: layerIndex - The layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3940,7 +3940,7 @@ function CS.UnityEngine.Animator.MatchTarget(matchPosition, matchRotation, targe
 --        startNormalizedTime - Start time within the animation clip (0 - beginning of clip, 1 - end of clip).
 --        targetNormalizedTime - End time within the animation clip (0 - beginning of clip, 1 - end of clip), values greater than 1 can be set to trigger a match after a certain number of loops. Ex: 2.3 means at 30% of 2nd loop.
 --        completeMatch - Allows you to specify what should happen if the MatchTarget function is interrupted. A value of true causes the GameObject to immediately move to the matchPosition if interrupted. A value of false causes the GameObject to stay at its current position if interrupted.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4007,7 +4007,7 @@ function CS.UnityEngine.Animator.CrossFadeInFixedTime(stateName, fixedTransition
 --        layer - The layer where the crossfade occurs.
 --        fixedTimeOffset - The time of the state (in seconds).
 --        normalizedTransitionTime - The time of the transition (normalized).
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4046,7 +4046,7 @@ function CS.UnityEngine.Animator.CrossFadeInFixedTime(stateHashName, fixedTransi
 --        layer - The layer where the crossfade occurs.
 --        fixedTimeOffset - The time of the state (in seconds).
 --        normalizedTransitionTime - The time of the transition (normalized).
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4091,7 +4091,7 @@ function CS.UnityEngine.Animator.CrossFade(stateName, normalizedTransitionDurati
 --        layer - The layer where the crossfade occurs.
 --        normalizedTimeOffset - The time of the state (normalized).
 --        normalizedTransitionTime - The time of the transition (normalized).
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4112,7 +4112,7 @@ function CS.UnityEngine.Animator.CrossFade(stateName, normalizedTransitionDurati
 --        layer - The layer where the crossfade occurs.
 --        normalizedTimeOffset - The time of the state (normalized).
 --        normalizedTransitionTime - The time of the transition (normalized).
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4158,7 +4158,7 @@ function CS.UnityEngine.Animator.PlayInFixedTime(stateName) end
 --        stateNameHash - The state hash name. If stateNameHash is 0, it changes the current state time.
 --        layer - The layer index. If layer is -1, it plays the first state with the given state name or hash.
 --        fixedTime - The time offset (in seconds).
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4175,7 +4175,7 @@ function CS.UnityEngine.Animator.PlayInFixedTime(stateName, layer, fixedTime) en
 --        stateNameHash - The state hash name. If stateNameHash is 0, it changes the current state time.
 --        layer - The layer index. If layer is -1, it plays the first state with the given state name or hash.
 --        fixedTime - The time offset (in seconds).
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4210,7 +4210,7 @@ function CS.UnityEngine.Animator.Play(stateName) end
 --        stateNameHash - The state hash name. If stateNameHash is 0, it changes the current state time.
 --        layer - The layer index. If layer is -1, it plays the first state with the given state name or hash.
 --        normalizedTime - The time offset between zero and one.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4227,7 +4227,7 @@ function CS.UnityEngine.Animator.Play(stateName, layer, normalizedTime) end
 --        stateNameHash - The state hash name. If stateNameHash is 0, it changes the current state time.
 --        layer - The layer index. If layer is -1, it plays the first state with the given state name or hash.
 --        normalizedTime - The time offset between zero and one.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4251,7 +4251,7 @@ function CS.UnityEngine.Animator.Play(stateNameHash) end
 --```plaintext
 --Params: targetIndex - The avatar body part that is queried.
 --        targetNormalizedTime - The current state Time that is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4264,7 +4264,7 @@ function CS.UnityEngine.Animator.SetTarget(targetIndex, targetNormalizedTime) en
 --
 --```plaintext
 --Params: transform - The transform that is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4277,7 +4277,7 @@ function CS.UnityEngine.Animator.IsControlled(transform) end
 --
 --```plaintext
 --Params: humanBoneId - The human bone that is queried, see enum HumanBodyBones for a list of possible values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4302,7 +4302,7 @@ function CS.UnityEngine.Animator.StopPlayback() end
 --
 --```plaintext
 --Params: frameCount - The number of frames (updates) that will be recorded. If frameCount is 0, the recording will continue until the user calls StopRecording. The maximum value for frameCount is 10000.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4321,7 +4321,7 @@ function CS.UnityEngine.Animator.StopRecording() end
 --```plaintext
 --Params: layerIndex - The layer index.
 --        stateID - The state ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4335,7 +4335,7 @@ function CS.UnityEngine.Animator.HasState(layerIndex, stateID) end
 --
 --```plaintext
 --Params: name - The string to convert to Id.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4348,7 +4348,7 @@ function CS.UnityEngine.Animator:StringToHash(name) end
 --
 --```plaintext
 --Params: deltaTime - The time delta.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4372,7 +4372,7 @@ function CS.UnityEngine.Animator.ApplyBuiltinRootMotion() end
 --
 --```plaintext
 --Params: name - The name of the parameter.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4385,7 +4385,7 @@ function CS.UnityEngine.Animator.GetVector(name) end
 --
 --```plaintext
 --Params: id - The id of the parameter. The id is generated using Animator::StringToHash.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4399,7 +4399,7 @@ function CS.UnityEngine.Animator.GetVector(id) end
 --```plaintext
 --Params: name - The name of the parameter.
 --        value - The new value for the parameter.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4413,7 +4413,7 @@ function CS.UnityEngine.Animator.SetVector(name, value) end
 --```plaintext
 --Params: id - The id of the parameter. The id is generated using Animator::StringToHash.
 --        value - The new value for the parameter.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4426,7 +4426,7 @@ function CS.UnityEngine.Animator.SetVector(id, value) end
 --
 --```plaintext
 --Params: name - The name of the parameter.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4439,7 +4439,7 @@ function CS.UnityEngine.Animator.GetQuaternion(name) end
 --
 --```plaintext
 --Params: id - The id of the parameter. The id is generated using Animator::StringToHash.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4453,7 +4453,7 @@ function CS.UnityEngine.Animator.GetQuaternion(id) end
 --```plaintext
 --Params: name - The name of the parameter.
 --        value - The new value for the parameter.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4467,7 +4467,7 @@ function CS.UnityEngine.Animator.SetQuaternion(name, value) end
 --```plaintext
 --Params: id - Of the parameter. The id is generated using Animator::StringToHash.
 --        value - The new value for the parameter.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4504,7 +4504,7 @@ function CS.UnityEngine.Animator.SetQuaternion(id, value) end
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.AvatarIKGoal = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AvatarIKGoal
 function CS.UnityEngine.AvatarIKGoal:__CastFrom(value) end
@@ -4538,7 +4538,7 @@ function CS.UnityEngine.AvatarIKGoal:__CastFrom(value) end
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.AvatarIKHint = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AvatarIKHint
 function CS.UnityEngine.AvatarIKHint:__CastFrom(value) end
@@ -4572,7 +4572,7 @@ function CS.UnityEngine.AvatarIKHint:__CastFrom(value) end
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.AnimatorControllerParameterType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AnimatorControllerParameterType
 function CS.UnityEngine.AnimatorControllerParameterType:__CastFrom(value) end
@@ -4601,7 +4601,7 @@ function CS.UnityEngine.AnimatorControllerParameterType:__CastFrom(value) end
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.AnimatorRecorderMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AnimatorRecorderMode
 function CS.UnityEngine.AnimatorRecorderMode:__CastFrom(value) end
@@ -4625,7 +4625,7 @@ function CS.UnityEngine.AnimatorRecorderMode:__CastFrom(value) end
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.DurationUnit = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.DurationUnit
 function CS.UnityEngine.DurationUnit:__CastFrom(value) end
@@ -4656,7 +4656,7 @@ function CS.UnityEngine.DurationUnit:__CastFrom(value) end
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.AnimatorCullingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AnimatorCullingMode
 function CS.UnityEngine.AnimatorCullingMode:__CastFrom(value) end
@@ -4685,7 +4685,7 @@ function CS.UnityEngine.AnimatorCullingMode:__CastFrom(value) end
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.AnimatorUpdateMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AnimatorUpdateMode
 function CS.UnityEngine.AnimatorUpdateMode:__CastFrom(value) end
@@ -4976,7 +4976,7 @@ CS.UnityEngine.AnimatorUtility = {}
 --```plaintext
 --Params: go - GameObject to Optimize.
 --        exposedTransforms - List of transform name to expose.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -4989,7 +4989,7 @@ function CS.UnityEngine.AnimatorUtility:OptimizeTransformHierarchy(go, exposedTr
 --
 --```plaintext
 --Params: go - GameObject to Deoptimize.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -5055,7 +5055,7 @@ function CS.UnityEngine.AnimatorUtility:DeoptimizeTransformHierarchy(go) end
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.BodyDof = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.BodyDof
 function CS.UnityEngine.BodyDof:__CastFrom(value) end
@@ -5134,7 +5134,7 @@ function CS.UnityEngine.BodyDof:__CastFrom(value) end
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.HeadDof = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.HeadDof
 function CS.UnityEngine.HeadDof:__CastFrom(value) end
@@ -5193,7 +5193,7 @@ function CS.UnityEngine.HeadDof:__CastFrom(value) end
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.LegDof = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LegDof
 function CS.UnityEngine.LegDof:__CastFrom(value) end
@@ -5257,7 +5257,7 @@ function CS.UnityEngine.LegDof:__CastFrom(value) end
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.ArmDof = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ArmDof
 function CS.UnityEngine.ArmDof:__CastFrom(value) end
@@ -5296,7 +5296,7 @@ function CS.UnityEngine.ArmDof:__CastFrom(value) end
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.FingerDof = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.FingerDof
 function CS.UnityEngine.FingerDof:__CastFrom(value) end
@@ -5392,7 +5392,7 @@ function CS.UnityEngine.FingerDof:__CastFrom(value) end
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.HumanPartDof = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.HumanPartDof
 function CS.UnityEngine.HumanPartDof:__CastFrom(value) end
@@ -5686,7 +5686,7 @@ function CS.UnityEngine.HumanPartDof:__CastFrom(value) end
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.HumanBodyBones = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.HumanBodyBones
 function CS.UnityEngine.HumanBodyBones:__CastFrom(value) end
@@ -5878,7 +5878,7 @@ CS.UnityEngine.AvatarBuilder = {}
 --```plaintext
 --Params: go - Root object of your transform hierachy. It must be the top most gameobject when you create the avatar.
 --        humanDescription - Humanoid description of the avatar.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -5893,7 +5893,7 @@ function CS.UnityEngine.AvatarBuilder:BuildHumanAvatar(go, humanDescription) end
 --```plaintext
 --Params: go - Root object of your transform hierarchy.
 --        rootMotionTransformName - Transform name of the root motion transform. If empty no root motion is defined and you must take care of avatar movement yourself.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -5981,7 +5981,7 @@ function CS.UnityEngine.AvatarBuilder:BuildGenericAvatar(go, rootMotionTransform
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.AvatarMaskBodyPart = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AvatarMaskBodyPart
 function CS.UnityEngine.AvatarMaskBodyPart:__CastFrom(value) end
@@ -6010,7 +6010,7 @@ CS.UnityEngine.AvatarMask = {}
 --
 --```plaintext
 --Params: index - The index of the humanoid body part.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -6024,7 +6024,7 @@ function CS.UnityEngine.AvatarMask.GetHumanoidBodyPartActive(index) end
 --```plaintext
 --Params: index - The index of the humanoid body part.
 --        value - Active or not.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -6042,7 +6042,7 @@ function CS.UnityEngine.AvatarMask.AddTransformPath(transform) end
 --```plaintext
 --Params: transform - The transform to add into the AvatarMask.
 --        recursive - Whether to also add all children of the specified transform.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -6060,7 +6060,7 @@ function CS.UnityEngine.AvatarMask.RemoveTransformPath(transform) end
 --```plaintext
 --Params: transform - The Transform that should be removed from the AvatarMask.
 --        recursive - Whether to also remove all children of the specified transform.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -6073,7 +6073,7 @@ function CS.UnityEngine.AvatarMask.RemoveTransformPath(transform, recursive) end
 --
 --```plaintext
 --Params: index - The index of the transform.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -6087,7 +6087,7 @@ function CS.UnityEngine.AvatarMask.GetTransformPath(index) end
 --```plaintext
 --Params: index - The index of the transform.
 --        path - The path of the transform.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -6100,7 +6100,7 @@ function CS.UnityEngine.AvatarMask.SetTransformPath(index, path) end
 --
 --```plaintext
 --Params: index - The index of the transform.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -6114,7 +6114,7 @@ function CS.UnityEngine.AvatarMask.GetTransformActive(index) end
 --```plaintext
 --Params: index - The index of the transform.
 --        value - Active or not.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -6222,7 +6222,7 @@ CS.UnityEngine.HumanTrait = {}
 --```plaintext
 --Params: i - Bone index.
 --        dofIndex - Number representing a "degree of freedom": 0 for X-Axis, 1 for Y-Axis, 2 for Z-Axis.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -6236,7 +6236,7 @@ function CS.UnityEngine.HumanTrait:MuscleFromBone(i, dofIndex) end
 --
 --```plaintext
 --Params: i - Muscle index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -6249,7 +6249,7 @@ function CS.UnityEngine.HumanTrait:BoneFromMuscle(i) end
 --
 --```plaintext
 --Params: i - Index of the bone to test.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -6262,7 +6262,7 @@ function CS.UnityEngine.HumanTrait:RequiredBone(i) end
 --
 --```plaintext
 --Params: i - Muscle index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -6275,7 +6275,7 @@ function CS.UnityEngine.HumanTrait:GetMuscleDefaultMin(i) end
 --
 --```plaintext
 --Params: i - Muscle index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -6288,7 +6288,7 @@ function CS.UnityEngine.HumanTrait:GetMuscleDefaultMax(i) end
 --
 --```plaintext
 --Params: i - The humanoid bone index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -6301,7 +6301,7 @@ function CS.UnityEngine.HumanTrait:GetBoneDefaultHierarchyMass(i) end
 --
 --```plaintext
 --Params: i - Humanoid bone index to get parent from.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -6393,7 +6393,7 @@ function CS.UnityEngine.AssetBundleManifest.GetAllAssetBundlesWithVariant() end
 --
 --```plaintext
 --Params: assetBundleName - Name of the asset bundle.
---        
+--
 --```
 --
 ---@source UnityEngine.AssetBundleModule.dll
@@ -6406,7 +6406,7 @@ function CS.UnityEngine.AssetBundleManifest.GetAssetBundleHash(assetBundleName) 
 --
 --```plaintext
 --Params: assetBundleName - Name of the asset bundle.
---        
+--
 --```
 --
 ---@source UnityEngine.AssetBundleModule.dll
@@ -6418,7 +6418,7 @@ function CS.UnityEngine.AssetBundleManifest.GetDirectDependencies(assetBundleNam
 --
 --```plaintext
 --Params: assetBundleName - Name of the asset bundle.
---        
+--
 --```
 --
 ---@source UnityEngine.AssetBundleModule.dll
@@ -6507,7 +6507,7 @@ CS.UnityEngine.AssetBundleRequest = {}
 ---@source UnityEngine.AssetBundleModule.dll
 CS.UnityEngine.CompressionType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.CompressionType
 function CS.UnityEngine.CompressionType:__CastFrom(value) end
@@ -6536,7 +6536,7 @@ function CS.UnityEngine.CompressionType:__CastFrom(value) end
 ---@source UnityEngine.AssetBundleModule.dll
 CS.UnityEngine.CompressionLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.CompressionLevel
 function CS.UnityEngine.CompressionLevel:__CastFrom(value) end
@@ -6642,7 +6642,7 @@ function CS.UnityEngine.AudioSettings:GetSpatializerPluginName() end
 --
 --```plaintext
 --Params: pluginName - The spatializer plugin name.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -6661,7 +6661,7 @@ function CS.UnityEngine.AudioSettings:GetConfiguration() end
 --
 --```plaintext
 --Params: config - The new configuration to be used.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -6683,7 +6683,7 @@ function CS.UnityEngine.AudioSettings:remove_OnAudioConfigurationChanged(value) 
 --
 --```plaintext
 --Params: deviceWasChanged - True if the change was caused by an device change.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -6927,7 +6927,7 @@ CS.UnityEngine.AudioSource = {}
 --
 --```plaintext
 --Params: slot - Slot number of the gamepad (0-3).
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -6964,7 +6964,7 @@ function CS.UnityEngine.AudioSource.SetGamepadSpeakerRestrictedAudio(slot, restr
 --
 --```plaintext
 --Params: outputType - The desired output type.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -6980,7 +6980,7 @@ function CS.UnityEngine.AudioSource.Play() end
 --
 --```plaintext
 --Params: delay - Deprecated. Delay in number of samples, assuming a 44100Hz sample rate (meaning that Play(44100) will delay the playing by exactly 1 sec).
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -6992,7 +6992,7 @@ function CS.UnityEngine.AudioSource.Play(delay) end
 --
 --```plaintext
 --Params: delay - Delay time specified in seconds.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -7004,7 +7004,7 @@ function CS.UnityEngine.AudioSource.PlayDelayed(delay) end
 --
 --```plaintext
 --Params: time - Time in seconds on the absolute time-line that AudioSettings.dspTime refers to for when the sound should start playing.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -7017,7 +7017,7 @@ function CS.UnityEngine.AudioSource.PlayScheduled(time) end
 --```plaintext
 --Params: clip - The clip being played.
 --        volumeScale - The scale of the volume (0-1).
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -7030,7 +7030,7 @@ function CS.UnityEngine.AudioSource.PlayOneShot(clip) end
 --```plaintext
 --Params: clip - The clip being played.
 --        volumeScale - The scale of the volume (0-1).
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -7043,7 +7043,7 @@ function CS.UnityEngine.AudioSource.PlayOneShot(clip, volumeScale) end
 --
 --```plaintext
 --Params: time - Time in seconds.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -7055,7 +7055,7 @@ function CS.UnityEngine.AudioSource.SetScheduledStartTime(time) end
 --
 --```plaintext
 --Params: time - Time in seconds.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -7087,7 +7087,7 @@ function CS.UnityEngine.AudioSource.UnPause() end
 --Params: clip - Audio data to play.
 --        position - Position in world space from which sound originates.
 --        volume - Playback volume.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -7102,7 +7102,7 @@ function CS.UnityEngine.AudioSource:PlayClipAtPoint(clip, position) end
 --Params: clip - Audio data to play.
 --        position - Position in world space from which sound originates.
 --        volume - Playback volume.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -7117,7 +7117,7 @@ function CS.UnityEngine.AudioSource:PlayClipAtPoint(clip, position, volume) end
 --```plaintext
 --Params: type - The curve type that should be set.
 --        curve - The curve that should be applied to the given curve type.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -7130,7 +7130,7 @@ function CS.UnityEngine.AudioSource.SetCustomCurve(type, curve) end
 --
 --```plaintext
 --Params: type - The curve type to get.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -7152,7 +7152,7 @@ function CS.UnityEngine.AudioSource.GetOutputData(numSamples, channel) end
 --```plaintext
 --Params: samples - The array to populate with audio samples. Its length must be a power of 2.
 --        channel - The channel to sample from.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -7167,7 +7167,7 @@ function CS.UnityEngine.AudioSource.GetOutputData(samples, channel) end
 --Params: numSamples - The number of samples to retrieve. Must be a power of 2.
 --        channel - The channel to sample from.
 --        window - The FFTWindow type to use when sampling.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -7183,7 +7183,7 @@ function CS.UnityEngine.AudioSource.GetSpectrumData(numSamples, channel, window)
 --Params: samples - The array to populate with audio samples. Its length must be a power of 2.
 --        channel - The channel to sample from.
 --        window - The FFTWindow type to use when sampling.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -7198,7 +7198,7 @@ function CS.UnityEngine.AudioSource.GetSpectrumData(samples, channel, window) en
 --```plaintext
 --Params: index - Zero-based index of user-defined parameter to be set.
 --        value - New value of the user-defined parameter.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -7225,7 +7225,7 @@ function CS.UnityEngine.AudioSource.GetAmbisonicDecoderFloat(index, value) end
 --```plaintext
 --Params: index - Zero-based index of user-defined parameter to be set.
 --        value - New value of the user-defined parameter.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -7418,7 +7418,7 @@ CS.UnityEngine.AudioReverbFilter = {}
 ---@source UnityEngine.AudioModule.dll
 CS.UnityEngine.AudioSpeakerMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AudioSpeakerMode
 function CS.UnityEngine.AudioSpeakerMode:__CastFrom(value) end
@@ -7452,7 +7452,7 @@ function CS.UnityEngine.AudioSpeakerMode:__CastFrom(value) end
 ---@source UnityEngine.AudioModule.dll
 CS.UnityEngine.AudioDataLoadState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AudioDataLoadState
 function CS.UnityEngine.AudioDataLoadState:__CastFrom(value) end
@@ -7550,7 +7550,7 @@ CS.UnityEngine.AudioConfiguration = {}
 ---@source UnityEngine.AudioModule.dll
 CS.UnityEngine.AudioCompressionFormat = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AudioCompressionFormat
 function CS.UnityEngine.AudioCompressionFormat:__CastFrom(value) end
@@ -7579,7 +7579,7 @@ function CS.UnityEngine.AudioCompressionFormat:__CastFrom(value) end
 ---@source UnityEngine.AudioModule.dll
 CS.UnityEngine.AudioClipLoadType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AudioClipLoadType
 function CS.UnityEngine.AudioClipLoadType:__CastFrom(value) end
@@ -7608,7 +7608,7 @@ function CS.UnityEngine.AudioClipLoadType:__CastFrom(value) end
 ---@source UnityEngine.AudioModule.dll
 CS.UnityEngine.AudioVelocityUpdateMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AudioVelocityUpdateMode
 function CS.UnityEngine.AudioVelocityUpdateMode:__CastFrom(value) end
@@ -7652,7 +7652,7 @@ function CS.UnityEngine.AudioVelocityUpdateMode:__CastFrom(value) end
 ---@source UnityEngine.AudioModule.dll
 CS.UnityEngine.FFTWindow = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.FFTWindow
 function CS.UnityEngine.FFTWindow:__CastFrom(value) end
@@ -7681,7 +7681,7 @@ function CS.UnityEngine.FFTWindow:__CastFrom(value) end
 ---@source UnityEngine.AudioModule.dll
 CS.UnityEngine.AudioRolloffMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AudioRolloffMode
 function CS.UnityEngine.AudioRolloffMode:__CastFrom(value) end
@@ -7715,7 +7715,7 @@ function CS.UnityEngine.AudioRolloffMode:__CastFrom(value) end
 ---@source UnityEngine.AudioModule.dll
 CS.UnityEngine.AudioSourceCurveType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AudioSourceCurveType
 function CS.UnityEngine.AudioSourceCurveType:__CastFrom(value) end
@@ -7739,7 +7739,7 @@ function CS.UnityEngine.AudioSourceCurveType:__CastFrom(value) end
 ---@source UnityEngine.AudioModule.dll
 CS.UnityEngine.GamepadSpeakerOutputType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.GamepadSpeakerOutputType
 function CS.UnityEngine.GamepadSpeakerOutputType:__CastFrom(value) end
@@ -7893,7 +7893,7 @@ function CS.UnityEngine.GamepadSpeakerOutputType:__CastFrom(value) end
 ---@source UnityEngine.AudioModule.dll
 CS.UnityEngine.AudioReverbPreset = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AudioReverbPreset
 function CS.UnityEngine.AudioReverbPreset:__CastFrom(value) end
@@ -8001,7 +8001,7 @@ function CS.UnityEngine.AudioClip.SetData(data, offsetSamples) end
 --        stream - True if clip is streamed, that is if the pcmreadercallback generates data on the fly.
 --        pcmreadercallback - This callback is invoked to generate a block of sample data. Non-streamed clips call this only once at creation time while streamed clips call this continuously.
 --        pcmsetpositioncallback - This callback is invoked whenever the clip loops or changes playback position.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -8049,7 +8049,7 @@ function CS.UnityEngine.AudioClip:Create(name, lengthSamples, channels, frequenc
 --        stream - True if clip is streamed, that is if the pcmreadercallback generates data on the fly.
 --        pcmreadercallback - This callback is invoked to generate a block of sample data. Non-streamed clips call this only once at creation time while streamed clips call this continuously.
 --        pcmsetpositioncallback - This callback is invoked whenever the clip loops or changes playback position.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -8182,7 +8182,7 @@ CS.UnityEngine.Microphone = {}
 --        loop - Indicates whether the recording should continue recording if lengthSec is reached, and wrap around and record from the beginning of the AudioClip.
 --        lengthSec - Is the length of the AudioClip produced by the recording.
 --        frequency - The sample rate of the AudioClip produced by the recording.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -8198,7 +8198,7 @@ function CS.UnityEngine.Microphone:Start(deviceName, loop, lengthSec, frequency)
 --
 --```plaintext
 --Params: deviceName - The name of the device.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -8210,7 +8210,7 @@ function CS.UnityEngine.Microphone:End(deviceName) end
 --
 --```plaintext
 --Params: deviceName - The name of the device.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -8223,7 +8223,7 @@ function CS.UnityEngine.Microphone:IsRecording(deviceName) end
 --
 --```plaintext
 --Params: deviceName - The name of the device.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -8243,7 +8243,7 @@ function CS.UnityEngine.Microphone:GetDeviceCaps(deviceName, minFreq, maxFreq) e
 --
 --```plaintext
 --Params: data - Array of floats containing data read from the clip.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -8272,7 +8272,7 @@ function CS.UnityEngine.PCMReaderCallback.EndInvoke(result) end
 --
 --```plaintext
 --Params: position - New position in the audio clip.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -8339,7 +8339,7 @@ function CS.UnityEngine.AudioListener:GetOutputData(numSamples, channel) end
 --```plaintext
 --Params: samples - The array to populate with audio samples. Its length must be a power of 2.
 --        channel - The channel to sample from.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -8354,7 +8354,7 @@ function CS.UnityEngine.AudioListener:GetOutputData(samples, channel) end
 --Params: numSamples - Number of values (the length of the samples array). Must be a power of 2. Min = 64. Max = 8192.
 --        channel - The channel to sample from.
 --        window - The FFTWindow type to use when sampling.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -8370,7 +8370,7 @@ function CS.UnityEngine.AudioListener:GetSpectrumData(numSamples, channel, windo
 --Params: samples - The array to populate with audio samples. Its length must be a power of 2.
 --        channel - The channel to sample from.
 --        window - The FFTWindow type to use when sampling.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -8584,7 +8584,7 @@ CS.UnityEngine.AudioDistortionFilter = {}
 ---@source UnityEngine.AudioModule.dll
 CS.UnityEngine.WebCamFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.WebCamFlags
 function CS.UnityEngine.WebCamFlags:__CastFrom(value) end
@@ -8618,7 +8618,7 @@ function CS.UnityEngine.WebCamFlags:__CastFrom(value) end
 ---@source UnityEngine.AudioModule.dll
 CS.UnityEngine.WebCamKind = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.WebCamKind
 function CS.UnityEngine.WebCamKind:__CastFrom(value) end
@@ -8777,7 +8777,7 @@ function CS.UnityEngine.WebCamTexture.GetPixels32() end
 --
 --```plaintext
 --Params: colors - Optional array to receive pixel data.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -8798,7 +8798,7 @@ CS.UnityEngine.ClusterInput = {}
 --
 --```plaintext
 --Params: name - Name of input to poll.c.
---        
+--
 --```
 --
 ---@source UnityEngine.ClusterInputModule.dll
@@ -8811,7 +8811,7 @@ function CS.UnityEngine.ClusterInput:GetAxis(name) end
 --
 --```plaintext
 --Params: name - Name of input to poll.
---        
+--
 --```
 --
 ---@source UnityEngine.ClusterInputModule.dll
@@ -8824,7 +8824,7 @@ function CS.UnityEngine.ClusterInput:GetButton(name) end
 --
 --```plaintext
 --Params: name - Name of input to poll.
---        
+--
 --```
 --
 ---@source UnityEngine.ClusterInputModule.dll
@@ -8837,7 +8837,7 @@ function CS.UnityEngine.ClusterInput:GetTrackerPosition(name) end
 --
 --```plaintext
 --Params: name - Name of input to poll.
---        
+--
 --```
 --
 ---@source UnityEngine.ClusterInputModule.dll
@@ -8851,7 +8851,7 @@ function CS.UnityEngine.ClusterInput:GetTrackerRotation(name) end
 --```plaintext
 --Params: name - Name of input to modify.
 --        value - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.ClusterInputModule.dll
@@ -8865,7 +8865,7 @@ function CS.UnityEngine.ClusterInput:SetAxis(name, value) end
 --```plaintext
 --Params: name - Name of input to modify.
 --        value - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.ClusterInputModule.dll
@@ -8879,7 +8879,7 @@ function CS.UnityEngine.ClusterInput:SetButton(name, value) end
 --```plaintext
 --Params: name - Name of input to modify.
 --        value - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.ClusterInputModule.dll
@@ -8893,7 +8893,7 @@ function CS.UnityEngine.ClusterInput:SetTrackerPosition(name, value) end
 --```plaintext
 --Params: name - Name of input to modify.
 --        value - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.ClusterInputModule.dll
@@ -8910,7 +8910,7 @@ function CS.UnityEngine.ClusterInput:SetTrackerRotation(name, value) end
 --        serverUrl - URL to the vrpn server.
 --        index - Index of the Input entry, refer to vrpn.cfg if unsure.
 --        type - Type of the input.
---        
+--
 --```
 --
 ---@source UnityEngine.ClusterInputModule.dll
@@ -8931,7 +8931,7 @@ function CS.UnityEngine.ClusterInput:AddInput(name, deviceName, serverUrl, index
 --        serverUrl - URL to the vrpn server.
 --        index - Index of the Input entry, refer to vrpn.cfg if unsure.
 --        type - Type of the ClusterInputType as follow.
---        
+--
 --```
 --
 ---@source UnityEngine.ClusterInputModule.dll
@@ -8948,7 +8948,7 @@ function CS.UnityEngine.ClusterInput:EditInput(name, deviceName, serverUrl, inde
 --
 --```plaintext
 --Params: name - Name of the input entry.
---        
+--
 --```
 --
 ---@source UnityEngine.ClusterInputModule.dll
@@ -9035,7 +9035,7 @@ function CS.UnityEngine.ClusterSerialization:RestoreClusterInputState(buffer) en
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.SendMessageOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.SendMessageOptions
 function CS.UnityEngine.SendMessageOptions:__CastFrom(value) end
@@ -9079,7 +9079,7 @@ function CS.UnityEngine.SendMessageOptions:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.PrimitiveType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.PrimitiveType
 function CS.UnityEngine.PrimitiveType:__CastFrom(value) end
@@ -9103,7 +9103,7 @@ function CS.UnityEngine.PrimitiveType:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Space = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Space
 function CS.UnityEngine.Space:__CastFrom(value) end
@@ -9265,7 +9265,7 @@ function CS.UnityEngine.Space:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.RuntimePlatform = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.RuntimePlatform
 function CS.UnityEngine.RuntimePlatform:__CastFrom(value) end
@@ -9496,7 +9496,7 @@ function CS.UnityEngine.RuntimePlatform:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.SystemLanguage = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.SystemLanguage
 function CS.UnityEngine.SystemLanguage:__CastFrom(value) end
@@ -9535,7 +9535,7 @@ function CS.UnityEngine.SystemLanguage:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.LogType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LogType
 function CS.UnityEngine.LogType:__CastFrom(value) end
@@ -9559,7 +9559,7 @@ function CS.UnityEngine.LogType:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.LogOption = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LogOption
 function CS.UnityEngine.LogOption:__CastFrom(value) end
@@ -9593,7 +9593,7 @@ function CS.UnityEngine.LogOption:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.ThreadPriority = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ThreadPriority
 function CS.UnityEngine.ThreadPriority:__CastFrom(value) end
@@ -9632,7 +9632,7 @@ CS.UnityEngine.SortingLayer = {}
 --
 --```plaintext
 --Params: id - The unique value of the sorting layer as returned by any renderer's sortingLayerID property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -9645,7 +9645,7 @@ function CS.UnityEngine.SortingLayer:GetLayerValueFromID(id) end
 --
 --```plaintext
 --Params: name - The unique value of the sorting layer as returned by any renderer's sortingLayerID property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -9658,7 +9658,7 @@ function CS.UnityEngine.SortingLayer:GetLayerValueFromName(name) end
 --
 --```plaintext
 --Params: name - The name of the layer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -9671,7 +9671,7 @@ function CS.UnityEngine.SortingLayer:NameToID(name) end
 --
 --```plaintext
 --Params: id - The unique id of the layer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -9684,7 +9684,7 @@ function CS.UnityEngine.SortingLayer:IDToName(id) end
 --
 --```plaintext
 --Params: id - The unique id of a layer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -9721,7 +9721,7 @@ function CS.UnityEngine.SortingLayer:IsValid(id) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.WeightedMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.WeightedMode
 function CS.UnityEngine.WeightedMode:__CastFrom(value) end
@@ -9811,7 +9811,7 @@ CS.UnityEngine.Keyframe = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.WrapMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.WrapMode
 function CS.UnityEngine.WrapMode:__CastFrom(value) end
@@ -9852,7 +9852,7 @@ CS.UnityEngine.AnimationCurve = {}
 --
 --```plaintext
 --Params: time - The time within the curve you want to evaluate (the horizontal axis in the curve graph).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -9866,7 +9866,7 @@ function CS.UnityEngine.AnimationCurve.Evaluate(time) end
 --```plaintext
 --Params: time - The time at which to add the key (horizontal axis in the curve graph).
 --        value - The value for the key (vertical axis in the curve graph).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -9880,7 +9880,7 @@ function CS.UnityEngine.AnimationCurve.AddKey(time, value) end
 --
 --```plaintext
 --Params: key - The key to add to the curve.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -9894,7 +9894,7 @@ function CS.UnityEngine.AnimationCurve.AddKey(key) end
 --```plaintext
 --Params: index - The index of the key to move.
 --        key - The key (with its new time) to insert.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -9908,7 +9908,7 @@ function CS.UnityEngine.AnimationCurve.MoveKey(index, key) end
 --
 --```plaintext
 --Params: index - The index of the key to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -9921,7 +9921,7 @@ function CS.UnityEngine.AnimationCurve.RemoveKey(index) end
 --```plaintext
 --Params: index - The index of the keyframe to be smoothed.
 --        weight - The smoothing weight to apply to the keyframe's tangents.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -9936,7 +9936,7 @@ function CS.UnityEngine.AnimationCurve.SmoothTangents(index, weight) end
 --Params: timeStart - The start time for the constant curve.
 --        timeEnd - The start time for the constant curve.
 --        value - The value for the constant curve.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -9954,7 +9954,7 @@ function CS.UnityEngine.AnimationCurve:Constant(timeStart, timeEnd, value) end
 --        valueStart - The start value for the linear curve.
 --        timeEnd - The end time for the linear curve.
 --        valueEnd - The end value for the linear curve.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -9973,7 +9973,7 @@ function CS.UnityEngine.AnimationCurve:Linear(timeStart, valueStart, timeEnd, va
 --        valueStart - The start value for the ease curve.
 --        timeEnd - The end time for the ease curve.
 --        valueEnd - The end value for the ease curve.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10226,7 +10226,7 @@ function CS.UnityEngine.Application:Quit(exitCode) end
 --
 --```plaintext
 --Params: exitCode - An optional exit code to return when the player application terminates on Windows, Mac and Linux. Defaults to 0.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10281,7 +10281,7 @@ function CS.UnityEngine.Application:CanStreamedLevelBeLoaded(levelName) end
 --
 --```plaintext
 --Params: obj - The object to test.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10314,7 +10314,7 @@ function CS.UnityEngine.Application:HasProLicense() end
 --
 --```plaintext
 --Params: script - The Javascript function to call.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10331,7 +10331,7 @@ function CS.UnityEngine.Application:RequestAdvertisingIdentifierAsync(delegateMe
 --
 --```plaintext
 --Params: url - The URL to open.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10404,7 +10404,7 @@ function CS.UnityEngine.Application:remove_logMessageReceivedThreaded(value) end
 --```plaintext
 --Params: functionName - Name of the function to call.
 --        args - Array of arguments passed in the call.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10422,7 +10422,7 @@ function CS.UnityEngine.Application:DontDestroyOnLoad(o) end
 --```plaintext
 --Params: filename - Pathname to save the screenshot file to.
 --        superSize - Factor by which to increase resolution.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10436,7 +10436,7 @@ function CS.UnityEngine.Application:CaptureScreenshot(filename, superSize) end
 --```plaintext
 --Params: filename - Pathname to save the screenshot file to.
 --        superSize - Factor by which to increase resolution.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10505,7 +10505,7 @@ function CS.UnityEngine.Application:RegisterLogCallbackThreaded(handler) end
 --```plaintext
 --Params: index - The level to load.
 --        name - The name of the level to load.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10518,7 +10518,7 @@ function CS.UnityEngine.Application:LoadLevel(index) end
 --```plaintext
 --Params: index - The level to load.
 --        name - The name of the level to load.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10577,7 +10577,7 @@ function CS.UnityEngine.Application:LoadLevelAdditiveAsync(levelName) end
 --```plaintext
 --Params: index - Index of the Scene in the PlayerSettings to unload.
 --        scenePath - Name of the Scene to Unload.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10591,7 +10591,7 @@ function CS.UnityEngine.Application:UnloadLevel(index) end
 --```plaintext
 --Params: index - Index of the Scene in the PlayerSettings to unload.
 --        scenePath - Name of the Scene to Unload.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10607,7 +10607,7 @@ function CS.UnityEngine.Application:UnloadLevel(scenePath) end
 --Params: advertisingId - Advertising ID.
 --        trackingEnabled - Indicates whether user has chosen to limit ad tracking.
 --        errorMsg - Error message.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10708,7 +10708,7 @@ function CS.UnityEngine.LogCallback.EndInvoke(result) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.StackTraceLogType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.StackTraceLogType
 function CS.UnityEngine.StackTraceLogType:__CastFrom(value) end
@@ -10737,7 +10737,7 @@ function CS.UnityEngine.StackTraceLogType:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.NetworkReachability = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.NetworkReachability
 function CS.UnityEngine.NetworkReachability:__CastFrom(value) end
@@ -10761,7 +10761,7 @@ function CS.UnityEngine.NetworkReachability:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.UserAuthorization = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UserAuthorization
 function CS.UnityEngine.UserAuthorization:__CastFrom(value) end
@@ -10805,7 +10805,7 @@ function CS.UnityEngine.UserAuthorization:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.ApplicationInstallMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ApplicationInstallMode
 function CS.UnityEngine.ApplicationInstallMode:__CastFrom(value) end
@@ -10839,7 +10839,7 @@ function CS.UnityEngine.ApplicationInstallMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.ApplicationSandboxType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ApplicationSandboxType
 function CS.UnityEngine.ApplicationSandboxType:__CastFrom(value) end
@@ -10918,7 +10918,7 @@ function CS.UnityEngine.ApplicationSandboxType:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.AudioType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AudioType
 function CS.UnityEngine.AudioType:__CastFrom(value) end
@@ -11027,7 +11027,7 @@ function CS.UnityEngine.Cache.Equals(other) end
 --
 --```plaintext
 --Params: expiration - The number of seconds that AssetBundles may remain unused in the cache.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11039,7 +11039,7 @@ function CS.UnityEngine.Cache.ClearCache() end
 --
 --```plaintext
 --Params: expiration - The number of seconds that AssetBundles may remain unused in the cache.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11110,7 +11110,7 @@ CS.UnityEngine.Caching = {}
 --
 --```plaintext
 --Params: expiration - The number of seconds that AssetBundles may remain unused in the cache.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11122,7 +11122,7 @@ function CS.UnityEngine.Caching:ClearCache() end
 --
 --```plaintext
 --Params: expiration - The number of seconds that AssetBundles may remain unused in the cache.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11136,7 +11136,7 @@ function CS.UnityEngine.Caching:ClearCache(expiration) end
 --```plaintext
 --Params: assetBundleName - The AssetBundle name.
 --        hash - Version needs to be cleaned.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11151,7 +11151,7 @@ function CS.UnityEngine.Caching:ClearCachedVersion(assetBundleName, hash) end
 --```plaintext
 --Params: assetBundleName - The AssetBundle name.
 --        hash - Version needs to be kept.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11165,7 +11165,7 @@ function CS.UnityEngine.Caching:ClearOtherCachedVersions(assetBundleName, hash) 
 --
 --```plaintext
 --Params: assetBundleName - The AssetBundle name.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11184,7 +11184,7 @@ function CS.UnityEngine.Caching:GetCachedVersions(assetBundleName, outCachedVers
 --```plaintext
 --Params: string - Url The filename of the AssetBundle. Domain and path information are stripped from this string automatically.
 --        int - Version The version number of the AssetBundle to check for. Negative values are not allowed.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11262,7 +11262,7 @@ function CS.UnityEngine.Caching:GetVersionFromCache(url) end
 --
 --```plaintext
 --Params: cachePath - Path to the cache folder.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11275,7 +11275,7 @@ function CS.UnityEngine.Caching:AddCache(cachePath) end
 --
 --```plaintext
 --Params: cacheIndex - Index of the cache to get.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11288,7 +11288,7 @@ function CS.UnityEngine.Caching:GetCacheAt(cacheIndex) end
 --
 --```plaintext
 --Params: cachePath - The cache path.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11305,7 +11305,7 @@ function CS.UnityEngine.Caching:GetAllCachePaths(cachePaths) end
 --
 --```plaintext
 --Params: cache - The Cache to be removed.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11319,7 +11319,7 @@ function CS.UnityEngine.Caching:RemoveCache(cache) end
 --```plaintext
 --Params: src - The Cache to move.
 --        dst - The Cache which should come after the source Cache in the cache list.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11333,7 +11333,7 @@ function CS.UnityEngine.Caching:MoveCacheBefore(src, dst) end
 --```plaintext
 --Params: src - The Cache to move.
 --        dst - The Cache which should come before the source Cache in the cache list.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11758,7 +11758,7 @@ function CS.UnityEngine.Camera.GetGateFittedLensShift() end
 --```plaintext
 --Params: colorBuffer - The RenderBuffer(s) to which color information will be rendered.
 --        depthBuffer - The RenderBuffer to which depth information will be rendered.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11772,7 +11772,7 @@ function CS.UnityEngine.Camera.SetTargetBuffers(colorBuffer, depthBuffer) end
 --```plaintext
 --Params: colorBuffer - The RenderBuffer(s) to which color information will be rendered.
 --        depthBuffer - The RenderBuffer to which depth information will be rendered.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11797,7 +11797,7 @@ function CS.UnityEngine.Camera.ResetProjectionMatrix() end
 --
 --```plaintext
 --Params: clipPlane - Vector4 that describes a clip plane.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11834,7 +11834,7 @@ function CS.UnityEngine.Camera.ScreenToWorldPoint(position, eye) end
 --
 --```plaintext
 --Params: eye - Optional argument that can be used to specify which eye transform to use. Default is Mono.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11847,7 +11847,7 @@ function CS.UnityEngine.Camera.WorldToScreenPoint(position) end
 --
 --```plaintext
 --Params: eye - Optional argument that can be used to specify which eye transform to use. Default is Mono.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11860,7 +11860,7 @@ function CS.UnityEngine.Camera.WorldToViewportPoint(position) end
 --
 --```plaintext
 --Params: position - The 3d vector in Viewport space.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11874,7 +11874,7 @@ function CS.UnityEngine.Camera.ViewportToWorldPoint(position) end
 --```plaintext
 --Params: position - A screen space position (often mouse x, y), plus a z position for depth (for example, a camera clipping plane).
 --        eye - By default, Camera.MonoOrStereoscopicEye.Mono. Can be set to Camera.MonoOrStereoscopicEye.Left or Camera.MonoOrStereoscopicEye.Right for use in stereoscopic rendering (e.g., for VR).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11909,7 +11909,7 @@ function CS.UnityEngine.Camera.ViewportPointToRay(pos, eye) end
 --
 --```plaintext
 --Params: eye - Optional argument that can be used to specify which eye transform to use. Default is Mono.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11928,7 +11928,7 @@ function CS.UnityEngine.Camera.ScreenPointToRay(pos, eye) end
 --
 --```plaintext
 --Params: eye - Optional argument that can be used to specify which eye transform to use. Default is Mono.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11959,7 +11959,7 @@ function CS.UnityEngine.Camera:CalculateProjectionMatrixFromPhysicalProperties(o
 --```plaintext
 --Params: focalLength - Focal length in millimeters.
 --        sensorSize - Sensor size in millimeters. Use the sensor height to get the vertical field of view. Use the sensor width to get the horizontal field of view.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11974,7 +11974,7 @@ function CS.UnityEngine.Camera:FocalLengthToFieldOfView(focalLength, sensorSize)
 --```plaintext
 --Params: fieldOfView - field of view in degrees.
 --        sensorSize - Sensor size in millimeters.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11989,7 +11989,7 @@ function CS.UnityEngine.Camera:FieldOfViewToFocalLength(fieldOfView, sensorSize)
 --```plaintext
 --Params: horizontalFOV - The horizontal FOV value in degrees.
 --        aspectRatio - The aspect ratio value used for the conversion
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12004,7 +12004,7 @@ function CS.UnityEngine.Camera:HorizontalToVerticalFieldOfView(horizontalFieldOf
 --```plaintext
 --Params: verticalFieldOfView - The vertical FOV value in degrees.
 --        aspectRatio - The aspect ratio value used for the conversion
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12059,7 +12059,7 @@ function CS.UnityEngine.Camera.ResetStereoViewMatrices() end
 --
 --```plaintext
 --Params: cameras - An array to be filled up with cameras currently in the Scene.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12073,7 +12073,7 @@ function CS.UnityEngine.Camera:GetAllCameras(cameras) end
 --```plaintext
 --Params: cubemap - The cube map to render to.
 --        faceMask - A bitmask which determines which of the six faces are rendered to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12093,7 +12093,7 @@ function CS.UnityEngine.Camera.RenderToCubemap(cubemap) end
 --```plaintext
 --Params: faceMask - A bitfield indicating which cubemap faces should be rendered into.
 --        cubemap - The texture to render to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12144,7 +12144,7 @@ function CS.UnityEngine.Camera:SetupCurrent(cur) end
 --
 --```plaintext
 --Params: other - Copy camera settings to the other camera.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12156,7 +12156,7 @@ function CS.UnityEngine.Camera.CopyFrom(other) end
 --
 --```plaintext
 --Params: evt - When to execute the command buffer during rendering.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12175,7 +12175,7 @@ function CS.UnityEngine.Camera.RemoveAllCommandBuffers() end
 --```plaintext
 --Params: evt - When to execute the command buffer during rendering.
 --        buffer - The buffer to execute.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12190,7 +12190,7 @@ function CS.UnityEngine.Camera.AddCommandBuffer(evt, buffer) end
 --Params: evt - The point during the graphics processing at which this command buffer should commence on the GPU.
 --        buffer - The buffer to execute.
 --        queueType - The desired async compute queue type to execute the buffer on.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12205,7 +12205,7 @@ function CS.UnityEngine.Camera.AddCommandBufferAsync(evt, buffer, queueType) end
 --```plaintext
 --Params: evt - When to execute the command buffer during rendering.
 --        buffer - The buffer to execute.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12218,7 +12218,7 @@ function CS.UnityEngine.Camera.RemoveCommandBuffer(evt, buffer) end
 --
 --```plaintext
 --Params: evt - When to execute the command buffer during rendering.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12259,7 +12259,7 @@ function CS.UnityEngine.Camera.ResetFieldOfView() end
 --```plaintext
 --Params: leftMatrix - View matrix for the stereo left eye.
 --        rightMatrix - View matrix for the stereo right eye.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12273,7 +12273,7 @@ function CS.UnityEngine.Camera.SetStereoViewMatrices(leftMatrix, rightMatrix) en
 --```plaintext
 --Params: leftMatrix - Projection matrix for the stereoscopic left eye.
 --        rightMatrix - Projection matrix for the stereoscopic right eye.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12495,7 +12495,7 @@ function CS.UnityEngine.Cloth.SetVirtualParticleWeights(weights) end
 --
 --```plaintext
 --Params: enabled - Fading enabled or not.
---        
+--
 --```
 --
 ---@source UnityEngine.ClothModule.dll
@@ -12536,7 +12536,7 @@ function CS.UnityEngine.Cloth.SetEnabledFading(enabled) end
 ---@source UnityEngine.ClusterInputModule.dll
 CS.UnityEngine.ClusterInputType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ClusterInputType
 function CS.UnityEngine.ClusterInputType:__CastFrom(value) end
@@ -12717,7 +12717,7 @@ function CS.UnityEngine.Bounds.IntersectRay(ray, distance) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12730,7 +12730,7 @@ function CS.UnityEngine.Bounds.ToString() end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12744,7 +12744,7 @@ function CS.UnityEngine.Bounds.ToString(format) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12774,7 +12774,7 @@ function CS.UnityEngine.Bounds.SqrDistance(point) end
 --
 --```plaintext
 --Params: point - Arbitrary point.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12879,7 +12879,7 @@ function CS.UnityEngine.BoundsInt.SetMinMax(minPosition, maxPosition) end
 --
 --```plaintext
 --Params: bounds - Bounds to clamp to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12892,7 +12892,7 @@ function CS.UnityEngine.BoundsInt.ClampToBounds(bounds) end
 --```plaintext
 --Params: position - Point to check.
 --        inclusive - Whether the max limits are included in the check.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12906,7 +12906,7 @@ function CS.UnityEngine.BoundsInt.Contains(position) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12919,7 +12919,7 @@ function CS.UnityEngine.BoundsInt.ToString() end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -12933,7 +12933,7 @@ function CS.UnityEngine.BoundsInt.ToString(format) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13016,7 +13016,7 @@ CS.UnityEngine.GeometryUtility = {}
 --
 --```plaintext
 --Params: camera - The camera with the view frustum that you want to calculate planes from.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13028,7 +13028,7 @@ function CS.UnityEngine.GeometryUtility:CalculateFrustumPlanes(camera) end
 --
 --```plaintext
 --Params: worldToProjectionMatrix - A matrix that transforms from world space to projection space, from which the planes will be calculated.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13041,7 +13041,7 @@ function CS.UnityEngine.GeometryUtility:CalculateFrustumPlanes(worldToProjection
 --```plaintext
 --Params: camera - The camera with the view frustum that you want to calculate planes from.
 --        planes - An array of 6 Planes that will be overwritten with the calculated plane values.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13055,7 +13055,7 @@ function CS.UnityEngine.GeometryUtility:CalculateFrustumPlanes(camera, planes) e
 --```plaintext
 --Params: worldToProjectionMatrix - A matrix that transforms from world space to projection space, from which the planes will be calculated.
 --        planes - An array of 6 Planes that will be overwritten with the calculated plane values.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13069,7 +13069,7 @@ function CS.UnityEngine.GeometryUtility:CalculateFrustumPlanes(worldToProjection
 --```plaintext
 --Params: positions - An array that stores the location of 3d positions.
 --        transform - A matrix that changes the position, rotation and size of the bounds calculation.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13123,7 +13123,7 @@ CS.UnityEngine.Plane = {}
 --```plaintext
 --Params: inNormal - The plane's normal vector.
 --        inPoint - A point that lies on the plane.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13138,7 +13138,7 @@ function CS.UnityEngine.Plane.SetNormalAndPosition(inNormal, inPoint) end
 --Params: a - First point in clockwise order.
 --        b - Second point in clockwise order.
 --        c - Third point in clockwise order.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13158,7 +13158,7 @@ function CS.UnityEngine.Plane.Flip() end
 --
 --```plaintext
 --Params: translation - The offset in space to move the plane with.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13171,7 +13171,7 @@ function CS.UnityEngine.Plane.Translate(translation) end
 --```plaintext
 --Params: plane - The plane to move in space.
 --        translation - The offset in space to move the plane with.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13185,7 +13185,7 @@ function CS.UnityEngine.Plane:Translate(plane, translation) end
 --
 --```plaintext
 --Params: point - The point to project onto the plane.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13272,7 +13272,7 @@ function CS.UnityEngine.Ray.GetPoint(distance) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13285,7 +13285,7 @@ function CS.UnityEngine.Ray.ToString() end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13299,7 +13299,7 @@ function CS.UnityEngine.Ray.ToString(format) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13332,7 +13332,7 @@ CS.UnityEngine.Ray2D = {}
 --
 --```plaintext
 --Params: distance - Distance of the desired point along the path of the ray.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13346,7 +13346,7 @@ function CS.UnityEngine.Ray2D.GetPoint(distance) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13359,7 +13359,7 @@ function CS.UnityEngine.Ray2D.ToString() end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13373,7 +13373,7 @@ function CS.UnityEngine.Ray2D.ToString(format) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13477,7 +13477,7 @@ CS.UnityEngine.Rect = {}
 --        ymin - The minimum Y coordinate.
 --        xmax - The maximum X coordinate.
 --        ymax - The maximum Y coordinate.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13504,7 +13504,7 @@ function CS.UnityEngine.Rect.Set(x, y, width, height) end
 --```plaintext
 --Params: point - Point to test.
 --        allowInverse - Does the test allow the Rect's width and height to be negative?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13518,7 +13518,7 @@ function CS.UnityEngine.Rect.Contains(point) end
 --```plaintext
 --Params: point - Point to test.
 --        allowInverse - Does the test allow the Rect's width and height to be negative?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13532,7 +13532,7 @@ function CS.UnityEngine.Rect.Contains(point) end
 --```plaintext
 --Params: point - Point to test.
 --        allowInverse - Does the test allow the Rect's width and height to be negative?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13547,7 +13547,7 @@ function CS.UnityEngine.Rect.Contains(point, allowInverse) end
 --```plaintext
 --Params: other - Other rectangle to test overlapping with.
 --        allowInverse - Does the test allow the widths and heights of the Rects to be negative?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13561,7 +13561,7 @@ function CS.UnityEngine.Rect.Overlaps(other) end
 --```plaintext
 --Params: other - Other rectangle to test overlapping with.
 --        allowInverse - Does the test allow the widths and heights of the Rects to be negative?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13576,7 +13576,7 @@ function CS.UnityEngine.Rect.Overlaps(other, allowInverse) end
 --```plaintext
 --Params: rectangle - Rectangle to get a point inside.
 --        normalizedRectCoordinates - Normalized coordinates to get a point for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13591,7 +13591,7 @@ function CS.UnityEngine.Rect:NormalizedToPoint(rectangle, normalizedRectCoordina
 --```plaintext
 --Params: rectangle - Rectangle to get normalized coordinates inside.
 --        point - A point inside the rectangle to get normalized coordinates for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13632,7 +13632,7 @@ function CS.UnityEngine.Rect.Equals(other) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13645,7 +13645,7 @@ function CS.UnityEngine.Rect.ToString() end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13659,7 +13659,7 @@ function CS.UnityEngine.Rect.ToString(format) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13760,7 +13760,7 @@ function CS.UnityEngine.RectInt.SetMinMax(minPosition, maxPosition) end
 --
 --```plaintext
 --Params: bounds - Bounds to clamp the RectInt.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13772,7 +13772,7 @@ function CS.UnityEngine.RectInt.ClampToBounds(bounds) end
 --
 --```plaintext
 --Params: position - Position to check.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13785,7 +13785,7 @@ function CS.UnityEngine.RectInt.Contains(position) end
 --
 --```plaintext
 --Params: other - Other rectangle to test overlapping with.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13799,7 +13799,7 @@ function CS.UnityEngine.RectInt.Overlaps(other) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13812,7 +13812,7 @@ function CS.UnityEngine.RectInt.ToString() end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13826,7 +13826,7 @@ function CS.UnityEngine.RectInt.ToString(format) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13922,7 +13922,7 @@ CS.UnityEngine.RectOffset = {}
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13935,7 +13935,7 @@ function CS.UnityEngine.RectOffset.ToString() end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -13949,7 +13949,7 @@ function CS.UnityEngine.RectOffset.ToString(format) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -14016,7 +14016,7 @@ CS.UnityEngine.DynamicGI = {}
 --```plaintext
 --Params: renderer - The Renderer that should get a new color.
 --        color - The emissive Color.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -14029,7 +14029,7 @@ function CS.UnityEngine.DynamicGI:SetEmissive(renderer, color) end
 --
 --```plaintext
 --Params: input - Array of float values to be used for Realtime GI environment lighting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -14048,7 +14048,7 @@ function CS.UnityEngine.DynamicGI:UpdateEnvironment() end
 --```plaintext
 --Params: renderer - The Renderer to use when searching for a system to update.
 --        terrain - The Terrain to use when searching for systems to update.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -14332,7 +14332,7 @@ CS.UnityEngine.LightingSettings = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Lightmapper = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LightingSettings.Lightmapper
 function CS.UnityEngine.Lightmapper:__CastFrom(value) end
@@ -14371,7 +14371,7 @@ function CS.UnityEngine.Lightmapper:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.GateFitMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Camera.GateFitMode
 function CS.UnityEngine.GateFitMode:__CastFrom(value) end
@@ -14386,7 +14386,7 @@ function CS.UnityEngine.GateFitMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Sampling = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LightingSettings.Sampling
 function CS.UnityEngine.Sampling:__CastFrom(value) end
@@ -14415,7 +14415,7 @@ function CS.UnityEngine.Sampling:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.FilterMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LightingSettings.FilterMode
 function CS.UnityEngine.FilterMode:__CastFrom(value) end
@@ -14440,7 +14440,7 @@ function CS.UnityEngine.FilterMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.FieldOfViewAxis = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Camera.FieldOfViewAxis
 function CS.UnityEngine.FieldOfViewAxis:__CastFrom(value) end
@@ -14474,7 +14474,7 @@ function CS.UnityEngine.FieldOfViewAxis:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.DenoiserType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LightingSettings.DenoiserType
 function CS.UnityEngine.DenoiserType:__CastFrom(value) end
@@ -14522,7 +14522,7 @@ CS.UnityEngine.GateFitParameters = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.FilterType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LightingSettings.FilterType
 function CS.UnityEngine.FilterType:__CastFrom(value) end
@@ -14546,7 +14546,7 @@ function CS.UnityEngine.FilterType:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.StereoscopicEye = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Camera.StereoscopicEye
 function CS.UnityEngine.StereoscopicEye:__CastFrom(value) end
@@ -14629,7 +14629,7 @@ function CS.UnityEngine.Gizmos:DrawCube(center, size) end
 --        rotation - Rotation (default is no rotation).
 --        scale - Scale (default is no scale).
 --        submeshIndex - Submesh to draw (default is -1, which draws whole mesh).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -14649,7 +14649,7 @@ function CS.UnityEngine.Gizmos:DrawMesh(mesh, submeshIndex, position, rotation, 
 --        rotation - Rotation (default is no rotation).
 --        scale - Scale (default is no scale).
 --        submeshIndex - Submesh to draw (default is -1, which draws whole mesh).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -14687,7 +14687,7 @@ function CS.UnityEngine.Gizmos:DrawIcon(center, name, allowScaling, tint) end
 --        rightBorder - Inset from the rectangle's right edge.
 --        topBorder - Inset from the rectangle's top edge.
 --        bottomBorder - Inset from the rectangle's bottom edge.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -14709,7 +14709,7 @@ function CS.UnityEngine.Gizmos:DrawGUITexture(screenRect, texture, leftBorder, r
 --        maxRange - Distance of the frustum's far plane.
 --        minRange - Distance of the frustum's near plane.
 --        aspect - Width/height ratio.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -14759,7 +14759,7 @@ function CS.UnityEngine.Gizmos:DrawMesh(mesh) end
 --        rotation - Rotation (default is no rotation).
 --        scale - Scale (default is no scale).
 --        submeshIndex - Submesh to draw (default is -1, which draws whole mesh).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -14811,7 +14811,7 @@ function CS.UnityEngine.Gizmos:DrawWireMesh(mesh) end
 --        rotation - Rotation (default is no rotation).
 --        scale - Scale (default is no scale).
 --        submeshIndex - Submesh to draw (default is -1, which draws whole mesh).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -14858,7 +14858,7 @@ function CS.UnityEngine.Gizmos:DrawIcon(center, name) end
 --        rightBorder - Inset from the rectangle's right edge.
 --        topBorder - Inset from the rectangle's top edge.
 --        bottomBorder - Inset from the rectangle's bottom edge.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -14877,7 +14877,7 @@ function CS.UnityEngine.Gizmos:DrawGUITexture(screenRect, texture) end
 --        rightBorder - Inset from the rectangle's right edge.
 --        topBorder - Inset from the rectangle's top edge.
 --        bottomBorder - Inset from the rectangle's bottom edge.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -14897,7 +14897,7 @@ function CS.UnityEngine.Gizmos:DrawGUITexture(screenRect, texture, mat) end
 --        rightBorder - Inset from the rectangle's right edge.
 --        topBorder - Inset from the rectangle's top edge.
 --        bottomBorder - Inset from the rectangle's bottom edge.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -14937,7 +14937,7 @@ function CS.UnityEngine.Gizmos:DrawGUITexture(screenRect, texture, leftBorder, r
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.MonoOrStereoscopicEye = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Camera.MonoOrStereoscopicEye
 function CS.UnityEngine.MonoOrStereoscopicEye:__CastFrom(value) end
@@ -15021,7 +15021,7 @@ function CS.UnityEngine.MonoOrStereoscopicEye:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.RenderRequestMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Camera.RenderRequestMode
 function CS.UnityEngine.RenderRequestMode:__CastFrom(value) end
@@ -15085,7 +15085,7 @@ function CS.UnityEngine.RenderRequestMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.RenderRequestOutputSpace = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Camera.RenderRequestOutputSpace
 function CS.UnityEngine.RenderRequestOutputSpace:__CastFrom(value) end
@@ -15186,7 +15186,7 @@ function CS.UnityEngine.BillboardAsset.GetImageTexCoords(imageTexCoords) end
 --
 --```plaintext
 --Params: imageTexCoords - The list that receives the array.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15201,7 +15201,7 @@ function CS.UnityEngine.BillboardAsset.SetImageTexCoords(imageTexCoords) end
 --
 --```plaintext
 --Params: imageTexCoords - The array of data to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15217,7 +15217,7 @@ function CS.UnityEngine.BillboardAsset.GetVertices(vertices) end
 --
 --```plaintext
 --Params: vertices - The list that receives the array.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15232,7 +15232,7 @@ function CS.UnityEngine.BillboardAsset.SetVertices(vertices) end
 --
 --```plaintext
 --Params: vertices - The array of data to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15248,7 +15248,7 @@ function CS.UnityEngine.BillboardAsset.GetIndices(indices) end
 --
 --```plaintext
 --Params: indices - The list that receives the array.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15263,7 +15263,7 @@ function CS.UnityEngine.BillboardAsset.SetIndices(indices) end
 --
 --```plaintext
 --Params: indices - The array of data to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15435,7 +15435,7 @@ function CS.UnityEngine.CullingGroup.Dispose() end
 --
 --```plaintext
 --Params: array - The BoundingSpheres to cull.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15447,7 +15447,7 @@ function CS.UnityEngine.CullingGroup.SetBoundingSpheres(array) end
 --
 --```plaintext
 --Params: count - The number of bounding spheres being used.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15459,7 +15459,7 @@ function CS.UnityEngine.CullingGroup.SetBoundingSphereCount(count) end
 --
 --```plaintext
 --Params: index - The index of the entry to erase.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15480,7 +15480,7 @@ function CS.UnityEngine.CullingGroup:EraseSwapBack(index, myArray, size) end
 --        distanceIndex - The distance band that retrieved spheres must be in.
 --        result - An array that will be filled with the retrieved sphere indices.
 --        firstIndex - The index of the sphere to begin searching at.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15498,7 +15498,7 @@ function CS.UnityEngine.CullingGroup.QueryIndices(visible, result, firstIndex) e
 --        distanceIndex - The distance band that retrieved spheres must be in.
 --        result - An array that will be filled with the retrieved sphere indices.
 --        firstIndex - The index of the sphere to begin searching at.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15516,7 +15516,7 @@ function CS.UnityEngine.CullingGroup.QueryIndices(distanceIndex, result, firstIn
 --        distanceIndex - The distance band that retrieved spheres must be in.
 --        result - An array that will be filled with the retrieved sphere indices.
 --        firstIndex - The index of the sphere to begin searching at.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15532,7 +15532,7 @@ function CS.UnityEngine.CullingGroup.QueryIndices(visible, distanceIndex, result
 --
 --```plaintext
 --Params: index - The index of the bounding sphere.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15545,7 +15545,7 @@ function CS.UnityEngine.CullingGroup.IsVisible(index) end
 --
 --```plaintext
 --Params: index - The index of the sphere.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15558,7 +15558,7 @@ function CS.UnityEngine.CullingGroup.GetDistance(index) end
 --
 --```plaintext
 --Params: distances - An array of bounding distances. The distances should be sorted in increasing order.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15571,7 +15571,7 @@ function CS.UnityEngine.CullingGroup.SetBoundingDistances(distances) end
 --```plaintext
 --Params: point - A fixed point to measure the distance from.
 --        transform - A transform to measure the distance from. The transform's position will be automatically tracked.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15584,7 +15584,7 @@ function CS.UnityEngine.CullingGroup.SetDistanceReferencePoint(point) end
 --```plaintext
 --Params: point - A fixed point to measure the distance from.
 --        transform - A transform to measure the distance from. The transform's position will be automatically tracked.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15675,7 +15675,7 @@ function CS.UnityEngine.Display.Activate() end
 --Params: width - Desired Width of the Window (for Windows only. On Linux and Mac uses Screen Width).
 --        height - Desired Height of the Window (for Windows only. On Linux and Mac uses Screen Height).
 --        refreshRate - Desired Refresh Rate.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15692,7 +15692,7 @@ function CS.UnityEngine.Display.Activate(width, height, refreshRate) end
 --        height - Change Window Height (Windows Only).
 --        x - Change Window Position X (Windows Only).
 --        y - Change Window Position Y (Windows Only).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15708,7 +15708,7 @@ function CS.UnityEngine.Display.SetParams(width, height, x, y) end
 --```plaintext
 --Params: w - Rendering width in pixels.
 --        h - Rendering height in pixels.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15725,7 +15725,7 @@ function CS.UnityEngine.Display:MultiDisplayLicense() end
 --
 --```plaintext
 --Params: inputMouseCoordinates - Mouse Input Position as Coordinates.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15798,7 +15798,7 @@ CS.UnityEngine.FlareLayer = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.FullScreenMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.FullScreenMode
 function CS.UnityEngine.FullScreenMode:__CastFrom(value) end
@@ -15974,7 +15974,7 @@ function CS.UnityEngine.ReflectionProbe.RenderProbe() end
 --
 --```plaintext
 --Params: targetTexture - Target RendeTexture in which rendering should be done. Specifying null will update the probe's default texture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -15989,7 +15989,7 @@ function CS.UnityEngine.ReflectionProbe.RenderProbe(targetTexture) end
 --
 --```plaintext
 --Params: renderId - An integer representing the RenderID as returned by the RenderProbe method.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16005,7 +16005,7 @@ function CS.UnityEngine.ReflectionProbe.IsFinishedRendering(renderId) end
 --        dst - Cubemap to blend to.
 --        blend - Blend weight.
 --        target - RenderTexture which will hold the result of the blend.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16070,7 +16070,7 @@ CS.UnityEngine.SleepTimeout = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.ReflectionProbeEvent = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ReflectionProbe.ReflectionProbeEvent
 function CS.UnityEngine.ReflectionProbeEvent:__CastFrom(value) end
@@ -16264,7 +16264,7 @@ function CS.UnityEngine.RenderBuffer.GetNativeRenderBufferPtr() end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.ComputeBufferMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ComputeBufferMode
 function CS.UnityEngine.ComputeBufferMode:__CastFrom(value) end
@@ -16325,7 +16325,7 @@ function CS.UnityEngine.Graphics:ClearRandomWriteTargets() end
 --
 --```plaintext
 --Params: buffer - The buffer to execute.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16338,7 +16338,7 @@ function CS.UnityEngine.Graphics:ExecuteCommandBuffer(buffer) end
 --```plaintext
 --Params: buffer - The CommandBuffer to be executed.
 --        queueType - Describes the desired async compute queue the supplied CommandBuffer should be executed on.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16358,7 +16358,7 @@ function CS.UnityEngine.Graphics:ExecuteCommandBufferAsync(buffer, queueType) en
 --        depthBuffer - Depth buffer to render into.
 --        colorBuffers - Color buffers to render into (for multiple render target effects).
 --        setup - Full render target setup information.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16380,7 +16380,7 @@ function CS.UnityEngine.Graphics:SetRenderTarget(rt, mipLevel, face, depthSlice)
 --        depthBuffer - Depth buffer to render into.
 --        colorBuffers - Color buffers to render into (for multiple render target effects).
 --        setup - Full render target setup information.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16403,7 +16403,7 @@ function CS.UnityEngine.Graphics:SetRenderTarget(colorBuffer, depthBuffer, mipLe
 --        depthBuffer - Depth buffer to render into.
 --        colorBuffers - Color buffers to render into (for multiple render target effects).
 --        setup - Full render target setup information.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16423,7 +16423,7 @@ function CS.UnityEngine.Graphics:SetRenderTarget(colorBuffers, depthBuffer) end
 --        depthBuffer - Depth buffer to render into.
 --        colorBuffers - Color buffers to render into (for multiple render target effects).
 --        setup - Full render target setup information.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16437,7 +16437,7 @@ function CS.UnityEngine.Graphics:SetRenderTarget(setup) end
 --Params: index - Index of the random write target in the shader.
 --        uav - Buffer or texture to set as the write target.
 --        preserveCounterValue - Whether to leave the append/consume counter value unchanged.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16452,7 +16452,7 @@ function CS.UnityEngine.Graphics:SetRandomWriteTarget(index, uav) end
 --Params: index - Index of the random write target in the shader.
 --        uav - Buffer or texture to set as the write target.
 --        preserveCounterValue - Whether to leave the append/consume counter value unchanged.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16468,7 +16468,7 @@ function CS.UnityEngine.Graphics:SetRandomWriteTarget(index, uav, preserveCounte
 --Params: index - Index of the random write target in the shader.
 --        uav - Buffer or texture to set as the write target.
 --        preserveCounterValue - Whether to leave the append/consume counter value unchanged.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16493,7 +16493,7 @@ function CS.UnityEngine.Graphics:SetRandomWriteTarget(index, uav, preserveCounte
 --        srcHeight - Height of source texture region to copy.
 --        dstX - X coordinate of where to copy region in destination texture (left side is zero).
 --        dstY - Y coordinate of where to copy region in destination texture (bottom is zero).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16524,7 +16524,7 @@ function CS.UnityEngine.Graphics:CopyTexture(src, srcElement, dst, dstElement) e
 --        srcHeight - Height of source texture region to copy.
 --        dstX - X coordinate of where to copy region in destination texture (left side is zero).
 --        dstY - Y coordinate of where to copy region in destination texture (bottom is zero).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16552,7 +16552,7 @@ function CS.UnityEngine.Graphics:CopyTexture(src, srcElement, srcMip, dst, dstEl
 --        srcHeight - Height of source texture region to copy.
 --        dstX - X coordinate of where to copy region in destination texture (left side is zero).
 --        dstY - Y coordinate of where to copy region in destination texture (bottom is zero).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16578,7 +16578,7 @@ function CS.UnityEngine.Graphics:CopyTexture(src, srcElement, srcMip, srcX, srcY
 --        dst - Destination texture.
 --        srcElement - Source element (e.g. cubemap face).  Set this to 0 for 2D source textures.
 --        dstElement - Destination element (e.g. cubemap face or texture array element).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16595,7 +16595,7 @@ function CS.UnityEngine.Graphics:ConvertTexture(src, dst) end
 --        dst - Destination texture.
 --        srcElement - Source element (e.g. cubemap face).  Set this to 0 for 2D source textures.
 --        dstElement - Destination element (e.g. cubemap face or texture array element).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16611,7 +16611,7 @@ function CS.UnityEngine.Graphics:ConvertTexture(src, srcElement, dst, dstElement
 --
 --```plaintext
 --Params: stage - The synchronization stage. See Graphics.CreateGraphicsFence.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16624,7 +16624,7 @@ function CS.UnityEngine.Graphics:CreateAsyncGraphicsFence(stage) end
 --
 --```plaintext
 --Params: stage - The synchronization stage. See Graphics.CreateGraphicsFence.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16643,7 +16643,7 @@ function CS.UnityEngine.Graphics:CreateGraphicsFence(fenceType, stage) end
 --```plaintext
 --Params: fence - The GraphicsFence that the GPU will be instructed to wait upon before proceeding with its processing of the graphics queue.
 --        stage - On some platforms there is a significant gap between the vertex processing completing and the pixel processing begining for a given draw call. This parameter allows for requested wait to be before the next items vertex or pixel processing begins. If a compute shader dispatch is the next item to be submitted then this parameter is ignored.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16656,7 +16656,7 @@ function CS.UnityEngine.Graphics:WaitOnAsyncGraphicsFence(fence) end
 --```plaintext
 --Params: fence - The GraphicsFence that the GPU will be instructed to wait upon before proceeding with its processing of the graphics queue.
 --        stage - On some platforms there is a significant gap between the vertex processing completing and the pixel processing begining for a given draw call. This parameter allows for requested wait to be before the next items vertex or pixel processing begins. If a compute shader dispatch is the next item to be submitted then this parameter is ignored.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16678,7 +16678,7 @@ function CS.UnityEngine.Graphics:WaitOnAsyncGraphicsFence(fence, stage) end
 --        color - Color that modulates the output. The neutral value is (0.5, 0.5, 0.5, 0.5). Set as vertex color for the shader.
 --        mat - Custom Material that can be used to draw the texture. If null is passed, a default material with the Internal-GUITexture.shader is used.
 --        pass - If -1 (default), draws all passes in the material. Otherwise, draws given pass only.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16708,7 +16708,7 @@ function CS.UnityEngine.Graphics:DrawTexture(screenRect, texture, sourceRect, le
 --        color - Color that modulates the output. The neutral value is (0.5, 0.5, 0.5, 0.5). Set as vertex color for the shader.
 --        mat - Custom Material that can be used to draw the texture. If null is passed, a default material with the Internal-GUITexture.shader is used.
 --        pass - If -1 (default), draws all passes in the material. Otherwise, draws given pass only.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16737,7 +16737,7 @@ function CS.UnityEngine.Graphics:DrawTexture(screenRect, texture, sourceRect, le
 --        color - Color that modulates the output. The neutral value is (0.5, 0.5, 0.5, 0.5). Set as vertex color for the shader.
 --        mat - Custom Material that can be used to draw the texture. If null is passed, a default material with the Internal-GUITexture.shader is used.
 --        pass - If -1 (default), draws all passes in the material. Otherwise, draws given pass only.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16765,7 +16765,7 @@ function CS.UnityEngine.Graphics:DrawTexture(screenRect, texture, leftBorder, ri
 --        color - Color that modulates the output. The neutral value is (0.5, 0.5, 0.5, 0.5). Set as vertex color for the shader.
 --        mat - Custom Material that can be used to draw the texture. If null is passed, a default material with the Internal-GUITexture.shader is used.
 --        pass - If -1 (default), draws all passes in the material. Otherwise, draws given pass only.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16784,7 +16784,7 @@ function CS.UnityEngine.Graphics:DrawTexture(screenRect, texture, mat, pass) end
 --        rotation - Rotation of the mesh.
 --        matrix - The transformation matrix of the mesh (combines position, rotation and other transformations).
 --        materialIndex - Subset of the mesh to draw.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16803,7 +16803,7 @@ function CS.UnityEngine.Graphics:DrawMeshNow(mesh, position, rotation, materialI
 --        rotation - Rotation of the mesh.
 --        matrix - The transformation matrix of the mesh (combines position, rotation and other transformations).
 --        materialIndex - Subset of the mesh to draw.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16821,7 +16821,7 @@ function CS.UnityEngine.Graphics:DrawMeshNow(mesh, matrix, materialIndex) end
 --        rotation - Rotation of the mesh.
 --        matrix - The transformation matrix of the mesh (combines position, rotation and other transformations).
 --        materialIndex - Subset of the mesh to draw.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16839,7 +16839,7 @@ function CS.UnityEngine.Graphics:DrawMeshNow(mesh, position, rotation) end
 --        rotation - Rotation of the mesh.
 --        matrix - The transformation matrix of the mesh (combines position, rotation and other transformations).
 --        materialIndex - Subset of the mesh to draw.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16865,7 +16865,7 @@ function CS.UnityEngine.Graphics:DrawMeshNow(mesh, matrix) end
 --        useLightProbes - Should the mesh use light probes?
 --        probeAnchor - If used, the mesh will use this Transform's position to sample light probes and find the matching reflection probe.
 --        lightProbeUsage - LightProbeUsage for the mesh.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16900,7 +16900,7 @@ function CS.UnityEngine.Graphics:DrawMesh(mesh, position, rotation, material, la
 --        useLightProbes - Should the mesh use light probes?
 --        probeAnchor - If used, the mesh will use this Transform's position to sample light probes and find the matching reflection probe.
 --        lightProbeUsage - LightProbeUsage for the mesh.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16936,7 +16936,7 @@ function CS.UnityEngine.Graphics:DrawMesh(mesh, position, rotation, material, la
 --        useLightProbes - Should the mesh use light probes?
 --        probeAnchor - If used, the mesh will use this Transform's position to sample light probes and find the matching reflection probe.
 --        lightProbeUsage - LightProbeUsage for the mesh.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -16970,7 +16970,7 @@ function CS.UnityEngine.Graphics:DrawMesh(mesh, matrix, material, layer, camera,
 --        useLightProbes - Should the mesh use light probes?
 --        probeAnchor - If used, the mesh will use this Transform's position to sample light probes and find the matching reflection probe.
 --        lightProbeUsage - LightProbeUsage for the mesh.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17003,7 +17003,7 @@ function CS.UnityEngine.Graphics:DrawMesh(mesh, matrix, material, layer, camera,
 --        layer - to use.
 --        camera - If null (default), the mesh will be drawn in all cameras. Otherwise it will be drawn in the given Camera only.
 --        lightProbeUsage - LightProbeUsage for the instances.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17051,7 +17051,7 @@ function CS.UnityEngine.Graphics:DrawMeshInstanced(mesh, submeshIndex, material,
 --        layer - to use.
 --        camera - If null (default), the mesh will be drawn in all cameras. Otherwise it will be drawn in the given Camera only.
 --        lightProbeUsage - LightProbeUsage for the instances.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17085,7 +17085,7 @@ function CS.UnityEngine.Graphics:DrawMeshInstancedProcedural(mesh, submeshIndex,
 --        layer - to use.
 --        camera - If null (default), the mesh will be drawn in all cameras. Otherwise it will be drawn in the given Camera only.
 --        lightProbeUsage - LightProbeUsage for the instances.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17120,7 +17120,7 @@ function CS.UnityEngine.Graphics:DrawMeshInstancedIndirect(mesh, submeshIndex, m
 --        layer - to use.
 --        camera - If null (default), the mesh will be drawn in all cameras. Otherwise it will be drawn in the given Camera only.
 --        lightProbeUsage - LightProbeUsage for the instances.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17146,7 +17146,7 @@ function CS.UnityEngine.Graphics:DrawMeshInstancedIndirect(mesh, submeshIndex, m
 --Params: topology - Topology of the procedural geometry.
 --        vertexCount - Vertex count to render.
 --        instanceCount - Instance count to render.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17163,7 +17163,7 @@ function CS.UnityEngine.Graphics:DrawProceduralNow(topology, vertexCount, instan
 --        indexCount - Index count to render.
 --        instanceCount - Instance count to render.
 --        indexBuffer - Index buffer used to submit vertices to the GPU.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17180,7 +17180,7 @@ function CS.UnityEngine.Graphics:DrawProceduralNow(topology, indexBuffer, indexC
 --Params: topology - Topology of the procedural geometry.
 --        bufferWithArgs - Buffer with draw arguments.
 --        argsOffset - Byte offset where in the buffer the draw arguments are.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17197,7 +17197,7 @@ function CS.UnityEngine.Graphics:DrawProceduralIndirectNow(topology, bufferWithA
 --        indexBuffer - Index buffer used to submit vertices to the GPU.
 --        bufferWithArgs - Buffer with draw arguments.
 --        argsOffset - Byte offset where in the buffer the draw arguments are.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17214,7 +17214,7 @@ function CS.UnityEngine.Graphics:DrawProceduralIndirectNow(topology, indexBuffer
 --Params: topology - Topology of the procedural geometry.
 --        bufferWithArgs - Buffer with draw arguments.
 --        argsOffset - Byte offset where in the buffer the draw arguments are.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17231,7 +17231,7 @@ function CS.UnityEngine.Graphics:DrawProceduralIndirectNow(topology, bufferWithA
 --        indexBuffer - Index buffer used to submit vertices to the GPU.
 --        bufferWithArgs - Buffer with draw arguments.
 --        argsOffset - Byte offset where in the buffer the draw arguments are.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17255,7 +17255,7 @@ function CS.UnityEngine.Graphics:DrawProceduralIndirectNow(topology, indexBuffer
 --        castShadows - Determines whether the mesh can cast shadows.
 --        receiveShadows - Determines whether the mesh can receive shadows.
 --        layer - to use.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17286,7 +17286,7 @@ function CS.UnityEngine.Graphics:DrawProcedural(material, bounds, topology, vert
 --        castShadows - Determines whether the mesh can cast shadows.
 --        receiveShadows - Determines whether the mesh can receive shadows.
 --        layer - to use.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17317,7 +17317,7 @@ function CS.UnityEngine.Graphics:DrawProcedural(material, bounds, topology, inde
 --        castShadows - Determines whether the mesh can cast shadows.
 --        receiveShadows - Determines whether the mesh can receive shadows.
 --        layer - to use.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17348,7 +17348,7 @@ function CS.UnityEngine.Graphics:DrawProceduralIndirect(material, bounds, topolo
 --        castShadows - Determines whether the mesh can cast shadows.
 --        receiveShadows - Determines whether the mesh can receive shadows.
 --        layer - to use.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17377,7 +17377,7 @@ function CS.UnityEngine.Graphics:DrawProceduralIndirect(material, bounds, topolo
 --        scale - Scale applied to the source texture coordinate.
 --        sourceDepthSlice - The texture array source slice to perform the blit from.
 --        destDepthSlice - The texture array destination slice to perform the blit to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17397,7 +17397,7 @@ function CS.UnityEngine.Graphics:Blit(source, dest) end
 --        scale - Scale applied to the source texture coordinate.
 --        sourceDepthSlice - The texture array source slice to perform the blit from.
 --        destDepthSlice - The texture array destination slice to perform the blit to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17419,7 +17419,7 @@ function CS.UnityEngine.Graphics:Blit(source, dest, sourceDepthSlice, destDepthS
 --        scale - Scale applied to the source texture coordinate.
 --        sourceDepthSlice - The texture array source slice to perform the blit from.
 --        destDepthSlice - The texture array destination slice to perform the blit to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17441,7 +17441,7 @@ function CS.UnityEngine.Graphics:Blit(source, dest, scale, offset) end
 --        scale - Scale applied to the source texture coordinate.
 --        sourceDepthSlice - The texture array source slice to perform the blit from.
 --        destDepthSlice - The texture array destination slice to perform the blit to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17465,7 +17465,7 @@ function CS.UnityEngine.Graphics:Blit(source, dest, scale, offset, sourceDepthSl
 --        scale - Scale applied to the source texture coordinate.
 --        sourceDepthSlice - The texture array source slice to perform the blit from.
 --        destDepthSlice - The texture array destination slice to perform the blit to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17501,7 +17501,7 @@ function CS.UnityEngine.Graphics:Blit(source, dest, mat) end
 --        scale - Scale applied to the source texture coordinate.
 --        sourceDepthSlice - The texture array source slice to perform the blit from.
 --        destDepthSlice - The texture array destination slice to perform the blit to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17522,7 +17522,7 @@ function CS.UnityEngine.Graphics:Blit(source, mat, pass) end
 --        scale - Scale applied to the source texture coordinate.
 --        sourceDepthSlice - The texture array source slice to perform the blit from.
 --        destDepthSlice - The texture array destination slice to perform the blit to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17546,7 +17546,7 @@ function CS.UnityEngine.Graphics:Blit(source, mat) end
 --        mat - Material to use for copying. Material's shader should do some post-processing effect.
 --        offsets - Variable number of filtering offsets. Offsets are given in pixels.
 --        destDepthSlice - The texture array destination slice to blit to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17565,7 +17565,7 @@ function CS.UnityEngine.Graphics:BlitMultiTap(source, dest, mat, offsets) end
 --        mat - Material to use for copying. Material's shader should do some post-processing effect.
 --        offsets - Variable number of filtering offsets. Offsets are given in pixels.
 --        destDepthSlice - The texture array destination slice to blit to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17849,7 +17849,7 @@ function CS.UnityEngine.Graphics:DrawMesh(mesh, matrix, material, layer, camera,
 --        useLightProbes - Should the mesh use light probes?
 --        probeAnchor - If used, the mesh will use this Transform's position to sample light probes and find the matching reflection probe.
 --        lightProbeUsage - LightProbeUsage for the mesh.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -17884,7 +17884,7 @@ function CS.UnityEngine.Graphics:DrawMesh(mesh, matrix, material, layer, camera,
 --        useLightProbes - Should the mesh use light probes?
 --        probeAnchor - If used, the mesh will use this Transform's position to sample light probes and find the matching reflection probe.
 --        lightProbeUsage - LightProbeUsage for the mesh.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -18099,7 +18099,7 @@ function CS.UnityEngine.Graphics:DrawMeshInstancedIndirect(mesh, submeshIndex, m
 --        color - Color that modulates the output. The neutral value is (0.5, 0.5, 0.5, 0.5). Set as vertex color for the shader.
 --        mat - Custom Material that can be used to draw the texture. If null is passed, a default material with the Internal-GUITexture.shader is used.
 --        pass - If -1 (default), draws all passes in the material. Otherwise, draws given pass only.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -18139,7 +18139,7 @@ function CS.UnityEngine.Graphics:DrawTexture(screenRect, texture, sourceRect, le
 --        color - Color that modulates the output. The neutral value is (0.5, 0.5, 0.5, 0.5). Set as vertex color for the shader.
 --        mat - Custom Material that can be used to draw the texture. If null is passed, a default material with the Internal-GUITexture.shader is used.
 --        pass - If -1 (default), draws all passes in the material. Otherwise, draws given pass only.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -18177,7 +18177,7 @@ function CS.UnityEngine.Graphics:DrawTexture(screenRect, texture, sourceRect, le
 --        color - Color that modulates the output. The neutral value is (0.5, 0.5, 0.5, 0.5). Set as vertex color for the shader.
 --        mat - Custom Material that can be used to draw the texture. If null is passed, a default material with the Internal-GUITexture.shader is used.
 --        pass - If -1 (default), draws all passes in the material. Otherwise, draws given pass only.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -18213,7 +18213,7 @@ function CS.UnityEngine.Graphics:DrawTexture(screenRect, texture, leftBorder, ri
 --        color - Color that modulates the output. The neutral value is (0.5, 0.5, 0.5, 0.5). Set as vertex color for the shader.
 --        mat - Custom Material that can be used to draw the texture. If null is passed, a default material with the Internal-GUITexture.shader is used.
 --        pass - If -1 (default), draws all passes in the material. Otherwise, draws given pass only.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -18423,7 +18423,7 @@ function CS.UnityEngine.GL:MultMatrix(m) end
 --```plaintext
 --Params: eventID - User defined id to send to the callback.
 --        callback - Native code callback to queue for Unity's renderer to invoke.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -18483,7 +18483,7 @@ function CS.UnityEngine.GL:InvalidateState() end
 --```plaintext
 --Params: proj - Source projection matrix.
 --        renderIntoTexture - Will this projection be used for rendering into a RenderTexture?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -18508,7 +18508,7 @@ function CS.UnityEngine.GL:LoadPixelMatrix(left, right, bottom, top) end
 --```plaintext
 --Params: eventID - User defined id to send to the callback.
 --        callback - Native code callback to queue for Unity's renderer to invoke.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -18521,7 +18521,7 @@ function CS.UnityEngine.GL:IssuePluginEvent(callback, eventID) end
 --
 --```plaintext
 --Params: mode - Primitives to draw: can be TRIANGLES, TRIANGLE_STRIP, QUADS or LINES.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -18544,7 +18544,7 @@ function CS.UnityEngine.GL:End() end
 --        depth - The depth to clear the z-buffer with, used only if clearDepth is true. The valid
 --range is from 0 (near plane) to 1 (far plane). The value is graphics API agnostic: the abstraction layer will convert
 --the value to match the convention of the current graphics API.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -18573,7 +18573,7 @@ function CS.UnityEngine.GL:Viewport(pixelRect) end
 --```plaintext
 --Params: clearDepth - Should the depth buffer be cleared?
 --        camera - Camera to get projection parameters and skybox from.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -18606,7 +18606,7 @@ CS.UnityEngine.ScalableBufferManager = {}
 --```plaintext
 --Params: widthScale - New scale factor for the width the ScalableBufferManager will use to resize all render textures the user marked as DynamicallyScalable, has to be some value greater than 0.0 and less than or equal to 1.0.
 --        heightScale - New scale factor for the height the ScalableBufferManager will use to resize all render textures the user marked as DynamicallyScalable, has to be some value greater than 0.0 and less than or equal to 1.0.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -18679,7 +18679,7 @@ function CS.UnityEngine.FrameTimingManager:CaptureFrameTimings() end
 --```plaintext
 --Params: numFrames - User supplies a desired number of frames they would like FrameTimings for. This should be equal to or less than the maximum FrameTimings the platform can capture.
 --        timings - An array of FrameTiming structs that is passed in by the user and will be filled with data as requested. It is the users job to make sure the array that is passed is large enough to hold the requested number of FrameTimings.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -18899,7 +18899,7 @@ function CS.UnityEngine.LightProbes:GetInterpolatedProbe(position, renderer, pro
 --Params: positions - The array of world space positions used to evaluate the probes.
 --        lightProbes - The array where the resulting light probes are written to.
 --        occlusionProbes - The array where the resulting occlusion probes are written to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19131,7 +19131,7 @@ CS.UnityEngine.QualitySettings = {}
 --
 --```plaintext
 --Params: applyExpensiveChanges - Should expensive changes be applied (Anti-aliasing etc).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19143,7 +19143,7 @@ function CS.UnityEngine.QualitySettings:IncreaseLevel(applyExpensiveChanges) end
 --
 --```plaintext
 --Params: applyExpensiveChanges - Should expensive changes be applied (Anti-aliasing etc).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19165,7 +19165,7 @@ function CS.UnityEngine.QualitySettings:DecreaseLevel() end
 --
 --```plaintext
 --Params: index - Index of the quality level.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19186,7 +19186,7 @@ function CS.UnityEngine.QualitySettings:GetQualityLevel() end
 --```plaintext
 --Params: index - Quality index to set.
 --        applyExpensiveChanges - Should expensive changes be applied (Anti-aliasing etc).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19213,7 +19213,7 @@ function CS.UnityEngine.QualitySettings:SetQualityLevel(index, applyExpensiveCha
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.D3DHDRDisplayBitDepth = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.D3DHDRDisplayBitDepth
 function CS.UnityEngine.D3DHDRDisplayBitDepth:__CastFrom(value) end
@@ -19312,7 +19312,7 @@ CS.UnityEngine.HDROutputSettings = {}
 --
 --```plaintext
 --Params: enabled - Indicates whether HDR should be enabled.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19324,7 +19324,7 @@ function CS.UnityEngine.HDROutputSettings.RequestHDRModeChange(enabled) end
 --
 --```plaintext
 --Params: paperWhite - The brightness of paper white in nits.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19544,7 +19544,7 @@ CS.UnityEngine.Mesh = {}
 --```plaintext
 --Params: indexCount - Size of index buffer.
 --        format - Format of the indices.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19557,7 +19557,7 @@ function CS.UnityEngine.Mesh.SetIndexBufferParams(indexCount, format) end
 --
 --```plaintext
 --Params: index - The vertex attribute index (0 to vertexAttributeCount-1).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19570,7 +19570,7 @@ function CS.UnityEngine.Mesh.GetVertexAttribute(index) end
 --
 --```plaintext
 --Params: attr - Vertex data attribute to check for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19583,7 +19583,7 @@ function CS.UnityEngine.Mesh.HasVertexAttribute(attr) end
 --
 --```plaintext
 --Params: attr - Vertex data attribute to check for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19596,7 +19596,7 @@ function CS.UnityEngine.Mesh.GetVertexAttributeDimension(attr) end
 --
 --```plaintext
 --Params: attr - Vertex data attribute to check for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19609,7 +19609,7 @@ function CS.UnityEngine.Mesh.GetVertexAttributeFormat(attr) end
 --
 --```plaintext
 --Params: bufferIndex - Which vertex buffer to get (some Meshes might have more than one). See vertexBufferCount.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19651,7 +19651,7 @@ function CS.UnityEngine.Mesh.GetBlendShapeIndex(blendShapeName) end
 --
 --```plaintext
 --Params: shapeIndex - The shape index to get frame count from.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19665,7 +19665,7 @@ function CS.UnityEngine.Mesh.GetBlendShapeFrameCount(shapeIndex) end
 --```plaintext
 --Params: shapeIndex - The shape index of the frame.
 --        frameIndex - The frame index to get the weight from.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19683,7 +19683,7 @@ function CS.UnityEngine.Mesh.GetBlendShapeFrameWeight(shapeIndex, frameIndex) en
 --        deltaVertices - Delta vertices output array for the frame being retreived.
 --        deltaNormals - Delta normals output array for the frame being retreived.
 --        deltaTangents - Delta tangents output array for the frame being retreived.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19703,7 +19703,7 @@ function CS.UnityEngine.Mesh.GetBlendShapeFrameVertices(shapeIndex, frameIndex, 
 --        deltaVertices - Delta vertices for the frame being added.
 --        deltaNormals - Delta normals for the frame being added.
 --        deltaTangents - Delta tangents for the frame being added.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19740,7 +19740,7 @@ function CS.UnityEngine.Mesh.GetBonesPerVertex() end
 --Params: index - Sub-mesh index. See subMeshCount. Out of range indices throw an exception.
 --        desc - Sub-mesh data.
 --        flags - Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19754,7 +19754,7 @@ function CS.UnityEngine.Mesh.SetSubMesh(index, desc, flags) end
 --
 --```plaintext
 --Params: index - Sub-mesh index. See subMeshCount. Out of range indices throw an exception.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19773,7 +19773,7 @@ function CS.UnityEngine.Mesh.MarkModified() end
 --
 --```plaintext
 --Params: uvSetIndex - UV set index to return the UV distibution metric for. 0 for first.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19807,7 +19807,7 @@ function CS.UnityEngine.Mesh.SetVertices(inVertices, start, length, flags) end
 --
 --```plaintext
 --Params: inVertices - Per-vertex positions.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19822,7 +19822,7 @@ function CS.UnityEngine.Mesh.SetVertices(inVertices) end
 --        start - Index of the first element to take from the input array.
 --        length - Number of elements to take from the input array.
 --        flags - Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19839,7 +19839,7 @@ function CS.UnityEngine.Mesh.SetVertices(inVertices, start, length) end
 --        start - Index of the first element to take from the input array.
 --        length - Number of elements to take from the input array.
 --        flags - Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19892,7 +19892,7 @@ function CS.UnityEngine.Mesh.SetNormals(inNormals, start, length, flags) end
 --
 --```plaintext
 --Params: inNormals - Per-vertex normals.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19907,7 +19907,7 @@ function CS.UnityEngine.Mesh.SetNormals(inNormals) end
 --        start - Index of the first element to take from the input array.
 --        length - Number of elements to take from the input array.
 --        flags - Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19924,7 +19924,7 @@ function CS.UnityEngine.Mesh.SetNormals(inNormals, start, length) end
 --        start - Index of the first element to take from the input array.
 --        length - Number of elements to take from the input array.
 --        flags - Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19977,7 +19977,7 @@ function CS.UnityEngine.Mesh.SetTangents(inTangents, start, length, flags) end
 --
 --```plaintext
 --Params: inTangents - Per-vertex tangents.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -19992,7 +19992,7 @@ function CS.UnityEngine.Mesh.SetTangents(inTangents) end
 --        start - Index of the first element to take from the input array.
 --        length - Number of elements to take from the input array.
 --        flags - Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20009,7 +20009,7 @@ function CS.UnityEngine.Mesh.SetTangents(inTangents, start, length) end
 --        start - Index of the first element to take from the input array.
 --        length - Number of elements to take from the input array.
 --        flags - Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20062,7 +20062,7 @@ function CS.UnityEngine.Mesh.SetColors(inColors, start, length, flags) end
 --
 --```plaintext
 --Params: inColors - Per-vertex colors.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20077,7 +20077,7 @@ function CS.UnityEngine.Mesh.SetColors(inColors) end
 --        start - Index of the first element to take from the input array.
 --        length - Number of elements to take from the input array.
 --        flags - Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20094,7 +20094,7 @@ function CS.UnityEngine.Mesh.SetColors(inColors, start, length) end
 --        start - Index of the first element to take from the input array.
 --        length - Number of elements to take from the input array.
 --        flags - Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20130,7 +20130,7 @@ function CS.UnityEngine.Mesh.SetColors(inColors, start, length, flags) end
 --
 --```plaintext
 --Params: inColors - Per-vertex colors.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20145,7 +20145,7 @@ function CS.UnityEngine.Mesh.SetColors(inColors) end
 --        start - Index of the first element to take from the input array.
 --        length - Number of elements to take from the input array.
 --        flags - Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20162,7 +20162,7 @@ function CS.UnityEngine.Mesh.SetColors(inColors, start, length) end
 --        start - Index of the first element to take from the input array.
 --        length - Number of elements to take from the input array.
 --        flags - Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20255,7 +20255,7 @@ function CS.UnityEngine.Mesh.SetUVs(channel, uvs, start, length, flags) end
 --```plaintext
 --Params: channel - The channel, in [0..7] range.
 --        uvs - The UV data to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20269,7 +20269,7 @@ function CS.UnityEngine.Mesh.SetUVs(channel, uvs) end
 --```plaintext
 --Params: channel - The channel, in [0..7] range.
 --        uvs - The UV data to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20283,7 +20283,7 @@ function CS.UnityEngine.Mesh.SetUVs(channel, uvs) end
 --```plaintext
 --Params: channel - The channel, in [0..7] range.
 --        uvs - The UV data to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20300,7 +20300,7 @@ function CS.UnityEngine.Mesh.SetUVs(channel, uvs) end
 --        start - Index of the first element to take from the input array.
 --        length - Number of elements to take from the input array.
 --        flags - Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20319,7 +20319,7 @@ function CS.UnityEngine.Mesh.SetUVs(channel, uvs, start, length) end
 --        start - Index of the first element to take from the input array.
 --        length - Number of elements to take from the input array.
 --        flags - Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20339,7 +20339,7 @@ function CS.UnityEngine.Mesh.SetUVs(channel, uvs, start, length, flags) end
 --        start - Index of the first element to take from the input array.
 --        length - Number of elements to take from the input array.
 --        flags - Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20358,7 +20358,7 @@ function CS.UnityEngine.Mesh.SetUVs(channel, uvs, start, length) end
 --        start - Index of the first element to take from the input array.
 --        length - Number of elements to take from the input array.
 --        flags - Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20378,7 +20378,7 @@ function CS.UnityEngine.Mesh.SetUVs(channel, uvs, start, length, flags) end
 --        start - Index of the first element to take from the input array.
 --        length - Number of elements to take from the input array.
 --        flags - Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20397,7 +20397,7 @@ function CS.UnityEngine.Mesh.SetUVs(channel, uvs, start, length) end
 --        start - Index of the first element to take from the input array.
 --        length - Number of elements to take from the input array.
 --        flags - Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20454,7 +20454,7 @@ function CS.UnityEngine.Mesh.GetVertexAttributes() end
 --
 --```plaintext
 --Params: attributes - Collection of vertex attributes to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20473,7 +20473,7 @@ function CS.UnityEngine.Mesh.GetVertexAttributes(attributes) end
 --```plaintext
 --Params: vertexCount - The number of vertices in the Mesh.
 --        attributes - Layout of the vertex data -- which attributes are present, their data types and so on.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20519,7 +20519,7 @@ function CS.UnityEngine.Mesh.SetVertexBufferData(data, dataStart, meshBufferStar
 --```plaintext
 --Params: mesh - The input mesh.
 --        meshes - The input meshes.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20533,7 +20533,7 @@ function CS.UnityEngine.Mesh:AcquireReadOnlyMeshData(mesh) end
 --```plaintext
 --Params: mesh - The input mesh.
 --        meshes - The input meshes.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20551,7 +20551,7 @@ function CS.UnityEngine.Mesh:AcquireReadOnlyMeshData(meshes) end
 --
 --```plaintext
 --Params: meshCount - The amount of meshes that will be created.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20584,7 +20584,7 @@ function CS.UnityEngine.Mesh:ApplyAndDisposeWritableMeshData(data, meshes, flags
 --Params: triangles - A list of vertex indices to populate.
 --        submesh - The sub-mesh index. See subMeshCount.
 --        applyBaseVertex - True (default value) will apply base vertex offset to returned indices.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20598,7 +20598,7 @@ function CS.UnityEngine.Mesh.GetTriangles(submesh) end
 --Params: triangles - A list of vertex indices to populate.
 --        submesh - The sub-mesh index. See subMeshCount.
 --        applyBaseVertex - True (default value) will apply base vertex offset to returned indices.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20629,7 +20629,7 @@ function CS.UnityEngine.Mesh.GetTriangles(triangles, submesh, applyBaseVertex) e
 --```plaintext
 --Params: submesh - The sub-mesh index. See subMeshCount.
 --        applyBaseVertex - True (default value) will apply base vertex offset to returned indices.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20642,7 +20642,7 @@ function CS.UnityEngine.Mesh.GetIndices(submesh) end
 --```plaintext
 --Params: submesh - The sub-mesh index. See subMeshCount.
 --        applyBaseVertex - True (default value) will apply base vertex offset to returned indices.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20712,7 +20712,7 @@ function CS.UnityEngine.Mesh.GetIndexCount(submesh) end
 --
 --```plaintext
 --Params: submesh - The sub-mesh index. See subMeshCount.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20729,7 +20729,7 @@ function CS.UnityEngine.Mesh.GetBaseVertex(submesh) end
 --        calculateBounds - Calculate the bounding box of the Mesh after setting the triangles. This is done by default.
 --Use false when you want to use the existing bounding box and reduce the CPU cost of setting the triangles.
 --        baseVertex - Optional vertex offset that is added to all triangle vertex indices.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20746,7 +20746,7 @@ function CS.UnityEngine.Mesh.SetTriangles(triangles, submesh) end
 --        calculateBounds - Calculate the bounding box of the Mesh after setting the triangles. This is done by default.
 --Use false when you want to use the existing bounding box and reduce the CPU cost of setting the triangles.
 --        baseVertex - Optional vertex offset that is added to all triangle vertex indices.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20764,7 +20764,7 @@ function CS.UnityEngine.Mesh.SetTriangles(triangles, submesh, calculateBounds) e
 --        calculateBounds - Calculate the bounding box of the Mesh after setting the triangles. This is done by default.
 --Use false when you want to use the existing bounding box and reduce the CPU cost of setting the triangles.
 --        baseVertex - Optional vertex offset that is added to all triangle vertex indices.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20785,7 +20785,7 @@ function CS.UnityEngine.Mesh.SetTriangles(triangles, submesh, calculateBounds, b
 --        calculateBounds - Calculate the bounding box of the Mesh after setting the triangles. This is done by default.
 --Use false when you want to use the existing bounding box and reduce the CPU cost of setting the triangles.
 --        baseVertex - Optional vertex offset that is added to all triangle vertex indices.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20806,7 +20806,7 @@ function CS.UnityEngine.Mesh.SetTriangles(triangles, trianglesStart, trianglesLe
 --        calculateBounds - Calculate the bounding box of the Mesh after setting the triangles. This is done by default.
 --Use false when you want to use the existing bounding box and reduce the CPU cost of setting the triangles.
 --        baseVertex - Optional vertex offset that is added to all triangle vertex indices.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20827,7 +20827,7 @@ function CS.UnityEngine.Mesh.SetTriangles(triangles, submesh, calculateBounds, b
 --        calculateBounds - Calculate the bounding box of the Mesh after setting the triangles. This is done by default.
 --Use false when you want to use the existing bounding box and reduce the CPU cost of setting the triangles.
 --        baseVertex - Optional vertex offset that is added to all triangle vertex indices.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20892,7 +20892,7 @@ function CS.UnityEngine.Mesh.SetTriangles(triangles, trianglesStart, trianglesLe
 --        calculateBounds - Calculate the bounding box of the Mesh after setting the indices. This is done by default.
 --Use false when you want to use the existing bounding box and reduce the CPU cost of setting the indices.
 --        baseVertex - Optional vertex offset that is added to all vertex indices.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20911,7 +20911,7 @@ function CS.UnityEngine.Mesh.SetIndices(indices, topology, submesh) end
 --        calculateBounds - Calculate the bounding box of the Mesh after setting the indices. This is done by default.
 --Use false when you want to use the existing bounding box and reduce the CPU cost of setting the indices.
 --        baseVertex - Optional vertex offset that is added to all vertex indices.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20931,7 +20931,7 @@ function CS.UnityEngine.Mesh.SetIndices(indices, topology, submesh, calculateBou
 --        calculateBounds - Calculate the bounding box of the Mesh after setting the indices. This is done by default.
 --Use false when you want to use the existing bounding box and reduce the CPU cost of setting the indices.
 --        baseVertex - Optional vertex offset that is added to all vertex indices.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20954,7 +20954,7 @@ function CS.UnityEngine.Mesh.SetIndices(indices, topology, submesh, calculateBou
 --        calculateBounds - Calculate the bounding box of the Mesh after setting the indices. This is done by default.
 --Use false when you want to use the existing bounding box and reduce the CPU cost of setting the indices.
 --        baseVertex - Optional vertex offset that is added to all vertex indices.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -20977,7 +20977,7 @@ function CS.UnityEngine.Mesh.SetIndices(indices, indicesStart, indicesLength, to
 --        calculateBounds - Calculate the bounding box of the Mesh after setting the indices. This is done by default.
 --Use false when you want to use the existing bounding box and reduce the CPU cost of setting the indices.
 --        baseVertex - Optional vertex offset that is added to all vertex indices.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21000,7 +21000,7 @@ function CS.UnityEngine.Mesh.SetIndices(indices, topology, submesh, calculateBou
 --        calculateBounds - Calculate the bounding box of the Mesh after setting the indices. This is done by default.
 --Use false when you want to use the existing bounding box and reduce the CPU cost of setting the indices.
 --        baseVertex - Optional vertex offset that is added to all vertex indices.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21075,7 +21075,7 @@ function CS.UnityEngine.Mesh.SetIndices(indices, indicesStart, indicesLength, to
 --        start - Index of the first element to take from the array or list in desc.
 --        count - Number of elements to take from the array or list in desc.
 --        flags - (Optional) Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21093,7 +21093,7 @@ function CS.UnityEngine.Mesh.SetSubMeshes(desc, start, count, flags) end
 --        start - Index of the first element to take from the array or list in desc.
 --        count - Number of elements to take from the array or list in desc.
 --        flags - (Optional) Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21138,7 +21138,7 @@ function CS.UnityEngine.Mesh.GetBoneWeights(boneWeights) end
 --
 --```plaintext
 --Params: keepVertexLayout - True if the existing Mesh data layout should be preserved.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21162,7 +21162,7 @@ function CS.UnityEngine.Mesh.RecalculateTangents() end
 --
 --```plaintext
 --Params: flags - Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21174,7 +21174,7 @@ function CS.UnityEngine.Mesh.RecalculateBounds(flags) end
 --
 --```plaintext
 --Params: flags - Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21186,7 +21186,7 @@ function CS.UnityEngine.Mesh.RecalculateNormals(flags) end
 --
 --```plaintext
 --Params: flags - Flags controlling the function behavior, see MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21199,7 +21199,7 @@ function CS.UnityEngine.Mesh.RecalculateTangents(flags) end
 --```plaintext
 --Params: uvSetIndex - The UV set index to set the UV distibution metric for. Use 0 for first index.
 --        uvAreaThreshold - The minimum UV area to consider. The default value is 1e-9f.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21212,7 +21212,7 @@ function CS.UnityEngine.Mesh.RecalculateUVDistributionMetric(uvSetIndex, uvAreaT
 --
 --```plaintext
 --Params: uvAreaThreshold - The minimum UV area to consider. The default value is 1e-9f.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21230,7 +21230,7 @@ function CS.UnityEngine.Mesh.MarkDynamic() end
 --
 --```plaintext
 --Params: markNoLongerReadable - Frees up system memory copy of mesh data when set to true.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21270,7 +21270,7 @@ function CS.UnityEngine.Mesh.GetTopology(submesh) end
 --Params: combine - Descriptions of the Meshes to combine.
 --        mergeSubMeshes - Defines whether Meshes should be combined into a single sub-mesh.
 --        useMatrices - Defines whether the transforms supplied in the CombineInstance array should be used or ignored.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21287,7 +21287,7 @@ function CS.UnityEngine.Mesh.CombineMeshes(combine, mergeSubMeshes, useMatrices,
 --Params: combine - Descriptions of the Meshes to combine.
 --        mergeSubMeshes - Defines whether Meshes should be combined into a single sub-mesh.
 --        useMatrices - Defines whether the transforms supplied in the CombineInstance array should be used or ignored.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21303,7 +21303,7 @@ function CS.UnityEngine.Mesh.CombineMeshes(combine, mergeSubMeshes, useMatrices)
 --Params: combine - Descriptions of the Meshes to combine.
 --        mergeSubMeshes - Defines whether Meshes should be combined into a single sub-mesh.
 --        useMatrices - Defines whether the transforms supplied in the CombineInstance array should be used or ignored.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21318,7 +21318,7 @@ function CS.UnityEngine.Mesh.CombineMeshes(combine, mergeSubMeshes) end
 --Params: combine - Descriptions of the Meshes to combine.
 --        mergeSubMeshes - Defines whether Meshes should be combined into a single sub-mesh.
 --        useMatrices - Defines whether the transforms supplied in the CombineInstance array should be used or ignored.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21383,7 +21383,7 @@ CS.UnityEngine.LightBakingOutput = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.LightShadowCasterMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LightShadowCasterMode
 function CS.UnityEngine.LightShadowCasterMode:__CastFrom(value) end
@@ -21622,7 +21622,7 @@ function CS.UnityEngine.Light.SetLightDirty() end
 --Params: evt - When to execute the command buffer during rendering.
 --        buffer - The buffer to execute.
 --        shadowPassMask - A mask specifying which shadow passes to execute the buffer for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21637,7 +21637,7 @@ function CS.UnityEngine.Light.AddCommandBuffer(evt, buffer) end
 --Params: evt - When to execute the command buffer during rendering.
 --        buffer - The buffer to execute.
 --        shadowPassMask - A mask specifying which shadow passes to execute the buffer for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21654,7 +21654,7 @@ function CS.UnityEngine.Light.AddCommandBuffer(evt, buffer, shadowPassMask) end
 --        buffer - The buffer to execute.
 --        queueType - The desired async compute queue type to execute the buffer on.
 --        shadowPassMask - A mask specifying which shadow passes to execute the buffer for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21671,7 +21671,7 @@ function CS.UnityEngine.Light.AddCommandBufferAsync(evt, buffer, queueType) end
 --        buffer - The buffer to execute.
 --        queueType - The desired async compute queue type to execute the buffer on.
 --        shadowPassMask - A mask specifying which shadow passes to execute the buffer for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21687,7 +21687,7 @@ function CS.UnityEngine.Light.AddCommandBufferAsync(evt, buffer, shadowPassMask,
 --```plaintext
 --Params: evt - When to execute the command buffer during rendering.
 --        buffer - The buffer to execute.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21700,7 +21700,7 @@ function CS.UnityEngine.Light.RemoveCommandBuffer(evt, buffer) end
 --
 --```plaintext
 --Params: evt - When to execute the command buffer during rendering.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21718,7 +21718,7 @@ function CS.UnityEngine.Light.RemoveAllCommandBuffers() end
 --
 --```plaintext
 --Params: evt - When to execute the command buffer during rendering.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21797,7 +21797,7 @@ CS.UnityEngine.MeshFilter = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.RenderingPath = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.RenderingPath
 function CS.UnityEngine.RenderingPath:__CastFrom(value) end
@@ -21831,7 +21831,7 @@ function CS.UnityEngine.RenderingPath:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.TransparencySortMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.TransparencySortMode
 function CS.UnityEngine.TransparencySortMode:__CastFrom(value) end
@@ -21870,7 +21870,7 @@ CS.UnityEngine.MeshData = {}
 --
 --```plaintext
 --Params: attr - The vertex attribute to check for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21883,7 +21883,7 @@ function CS.UnityEngine.MeshData.HasVertexAttribute(attr) end
 --
 --```plaintext
 --Params: attr - The vertex attribute to get the dimension of.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21896,7 +21896,7 @@ function CS.UnityEngine.MeshData.GetVertexAttributeDimension(attr) end
 --
 --```plaintext
 --Params: attr - The vertex attribute to check the format of.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21950,7 +21950,7 @@ function CS.UnityEngine.MeshData.GetVertexData(stream) end
 --```plaintext
 --Params: vertexCount - The number of vertices in the Mesh.
 --        attributes - Layout of the vertex data: which attributes are present, their data types and so on.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21969,7 +21969,7 @@ function CS.UnityEngine.MeshData.SetVertexBufferParams(vertexCount, attributes) 
 --```plaintext
 --Params: indexCount - The size of the index buffer.
 --        format - The format of the indices.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -21998,7 +21998,7 @@ function CS.UnityEngine.MeshData.GetIndexData() end
 --
 --```plaintext
 --Params: index - The index of the sub-mesh. See Mesh.MeshData.subMeshCount|subMeshCount. If you specify an out of range index, Unity throws an exception.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22013,7 +22013,7 @@ function CS.UnityEngine.MeshData.GetSubMesh(index) end
 --Params: index - The index of the sub-mesh to set data for. See Mesh.MeshData.subMeshCount|subMeshCount. If you specify an out of range index, Unity throws an exception.
 --        desc - Sub-mesh data.
 --        flags - Flags controlling the function behavior. See MeshUpdateFlags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22227,7 +22227,7 @@ function CS.UnityEngine.Renderer.HasPropertyBlock() end
 --```plaintext
 --Params: properties - Property block with values you want to override.
 --        materialIndex - The index of the Material you want to override the parameters of. The index ranges from 0 to Renderer.sharedMaterial.Length-1.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22240,7 +22240,7 @@ function CS.UnityEngine.Renderer.SetPropertyBlock(properties) end
 --```plaintext
 --Params: properties - Property block with values you want to override.
 --        materialIndex - The index of the Material you want to override the parameters of. The index ranges from 0 to Renderer.sharedMaterial.Length-1.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22254,7 +22254,7 @@ function CS.UnityEngine.Renderer.SetPropertyBlock(properties, materialIndex) end
 --```plaintext
 --Params: properties - Material parameters to retrieve.
 --        materialIndex - The index of the Material you want to get overridden parameters from. The index ranges from 0 to Renderer.sharedMaterials.Length-1.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22267,7 +22267,7 @@ function CS.UnityEngine.Renderer.GetPropertyBlock(properties) end
 --```plaintext
 --Params: properties - Material parameters to retrieve.
 --        materialIndex - The index of the Material you want to get overridden parameters from. The index ranges from 0 to Renderer.sharedMaterials.Length-1.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22407,7 +22407,7 @@ function CS.UnityEngine.Shader:Find(name) end
 --
 --```plaintext
 --Params: keyword - The name of the local shader keyword to enable.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22419,7 +22419,7 @@ function CS.UnityEngine.Shader:EnableKeyword(keyword) end
 --
 --```plaintext
 --Params: keyword - The name of the local shader keyword to disable.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22431,7 +22431,7 @@ function CS.UnityEngine.Shader:DisableKeyword(keyword) end
 --
 --```plaintext
 --Params: keyword - The name of the global shader keyword to check.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22450,7 +22450,7 @@ function CS.UnityEngine.Shader:WarmupAllShaders() end
 --
 --```plaintext
 --Params: name - Shader property name.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22463,7 +22463,7 @@ function CS.UnityEngine.Shader:PropertyToID(name) end
 --
 --```plaintext
 --Params: name - The name of the dependency to query.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22477,7 +22477,7 @@ function CS.UnityEngine.Shader.GetDependency(name) end
 --```plaintext
 --Params: passIndex - The index of the pass.
 --        tagName - The name of the pass tag.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22492,7 +22492,7 @@ function CS.UnityEngine.Shader.FindPassTagValue(passIndex, tagName) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22506,7 +22506,7 @@ function CS.UnityEngine.Shader:SetGlobalFloat(name, value) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22520,7 +22520,7 @@ function CS.UnityEngine.Shader:SetGlobalFloat(nameID, value) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22534,7 +22534,7 @@ function CS.UnityEngine.Shader:SetGlobalInt(name, value) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22548,7 +22548,7 @@ function CS.UnityEngine.Shader:SetGlobalInt(nameID, value) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22562,7 +22562,7 @@ function CS.UnityEngine.Shader:SetGlobalVector(name, value) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22576,7 +22576,7 @@ function CS.UnityEngine.Shader:SetGlobalVector(nameID, value) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22590,7 +22590,7 @@ function CS.UnityEngine.Shader:SetGlobalColor(name, value) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22604,7 +22604,7 @@ function CS.UnityEngine.Shader:SetGlobalColor(nameID, value) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22618,7 +22618,7 @@ function CS.UnityEngine.Shader:SetGlobalMatrix(name, value) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22634,7 +22634,7 @@ function CS.UnityEngine.Shader:SetGlobalMatrix(nameID, value) end
 --        name - The name of the property.
 --        value - The texture to set.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22650,7 +22650,7 @@ function CS.UnityEngine.Shader:SetGlobalTexture(name, value) end
 --        name - The name of the property.
 --        value - The texture to set.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22666,7 +22666,7 @@ function CS.UnityEngine.Shader:SetGlobalTexture(nameID, value) end
 --        name - The name of the property.
 --        value - The texture to set.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22683,7 +22683,7 @@ function CS.UnityEngine.Shader:SetGlobalTexture(name, value, element) end
 --        name - The name of the property.
 --        value - The texture to set.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22699,7 +22699,7 @@ function CS.UnityEngine.Shader:SetGlobalTexture(nameID, value, element) end
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
 --        value - The buffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22714,7 +22714,7 @@ function CS.UnityEngine.Shader:SetGlobalBuffer(name, value) end
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
 --        value - The buffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22729,7 +22729,7 @@ function CS.UnityEngine.Shader:SetGlobalBuffer(nameID, value) end
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
 --        value - The buffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22744,7 +22744,7 @@ function CS.UnityEngine.Shader:SetGlobalBuffer(name, value) end
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
 --        value - The buffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22761,7 +22761,7 @@ function CS.UnityEngine.Shader:SetGlobalBuffer(nameID, value) end
 --        value - The buffer to override the constant buffer values with, or null to remove binding.
 --        offset - Offset in bytes from the beginning of the buffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22780,7 +22780,7 @@ function CS.UnityEngine.Shader:SetGlobalConstantBuffer(name, value, offset, size
 --        value - The buffer to override the constant buffer values with, or null to remove binding.
 --        offset - Offset in bytes from the beginning of the buffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22799,7 +22799,7 @@ function CS.UnityEngine.Shader:SetGlobalConstantBuffer(nameID, value, offset, si
 --        value - The buffer to override the constant buffer values with, or null to remove binding.
 --        offset - Offset in bytes from the beginning of the buffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22818,7 +22818,7 @@ function CS.UnityEngine.Shader:SetGlobalConstantBuffer(name, value, offset, size
 --        value - The buffer to override the constant buffer values with, or null to remove binding.
 --        offset - Offset in bytes from the beginning of the buffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22844,7 +22844,7 @@ function CS.UnityEngine.Shader:SetGlobalFloatArray(nameID, values) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22858,7 +22858,7 @@ function CS.UnityEngine.Shader:SetGlobalFloatArray(name, values) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22882,7 +22882,7 @@ function CS.UnityEngine.Shader:SetGlobalVectorArray(nameID, values) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22896,7 +22896,7 @@ function CS.UnityEngine.Shader:SetGlobalVectorArray(name, values) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22920,7 +22920,7 @@ function CS.UnityEngine.Shader:SetGlobalMatrixArray(nameID, values) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22934,7 +22934,7 @@ function CS.UnityEngine.Shader:SetGlobalMatrixArray(name, values) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22948,7 +22948,7 @@ function CS.UnityEngine.Shader:SetGlobalMatrixArray(nameID, values) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22962,7 +22962,7 @@ function CS.UnityEngine.Shader:GetGlobalFloat(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22976,7 +22976,7 @@ function CS.UnityEngine.Shader:GetGlobalFloat(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -22990,7 +22990,7 @@ function CS.UnityEngine.Shader:GetGlobalInt(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23004,7 +23004,7 @@ function CS.UnityEngine.Shader:GetGlobalInt(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23018,7 +23018,7 @@ function CS.UnityEngine.Shader:GetGlobalVector(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23032,7 +23032,7 @@ function CS.UnityEngine.Shader:GetGlobalVector(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23046,7 +23046,7 @@ function CS.UnityEngine.Shader:GetGlobalColor(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23060,7 +23060,7 @@ function CS.UnityEngine.Shader:GetGlobalColor(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23074,7 +23074,7 @@ function CS.UnityEngine.Shader:GetGlobalMatrix(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23088,7 +23088,7 @@ function CS.UnityEngine.Shader:GetGlobalMatrix(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23102,7 +23102,7 @@ function CS.UnityEngine.Shader:GetGlobalTexture(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23116,7 +23116,7 @@ function CS.UnityEngine.Shader:GetGlobalTexture(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23129,7 +23129,7 @@ function CS.UnityEngine.Shader:GetGlobalFloatArray(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23142,7 +23142,7 @@ function CS.UnityEngine.Shader:GetGlobalFloatArray(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23155,7 +23155,7 @@ function CS.UnityEngine.Shader:GetGlobalVectorArray(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23168,7 +23168,7 @@ function CS.UnityEngine.Shader:GetGlobalVectorArray(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23181,7 +23181,7 @@ function CS.UnityEngine.Shader:GetGlobalMatrixArray(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23230,7 +23230,7 @@ function CS.UnityEngine.Shader.GetPropertyCount() end
 --
 --```plaintext
 --Params: propertyName - The name of the shader property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23243,7 +23243,7 @@ function CS.UnityEngine.Shader.FindPropertyIndex(propertyName) end
 --
 --```plaintext
 --Params: propertyIndex - The index of the shader property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23256,7 +23256,7 @@ function CS.UnityEngine.Shader.GetPropertyName(propertyIndex) end
 --
 --```plaintext
 --Params: propertyIndex - The index of the shader property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23269,7 +23269,7 @@ function CS.UnityEngine.Shader.GetPropertyNameId(propertyIndex) end
 --
 --```plaintext
 --Params: propertyIndex - The index of the shader property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23282,7 +23282,7 @@ function CS.UnityEngine.Shader.GetPropertyType(propertyIndex) end
 --
 --```plaintext
 --Params: propertyIndex - The index of the shader property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23295,7 +23295,7 @@ function CS.UnityEngine.Shader.GetPropertyDescription(propertyIndex) end
 --
 --```plaintext
 --Params: propertyIndex - The index of the shader property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23308,7 +23308,7 @@ function CS.UnityEngine.Shader.GetPropertyFlags(propertyIndex) end
 --
 --```plaintext
 --Params: propertyIndex - The index of the shader property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23320,7 +23320,7 @@ function CS.UnityEngine.Shader.GetPropertyAttributes(propertyIndex) end
 --
 --```plaintext
 --Params: propertyIndex - The index of the shader property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23333,7 +23333,7 @@ function CS.UnityEngine.Shader.GetPropertyDefaultFloatValue(propertyIndex) end
 --
 --```plaintext
 --Params: propertyIndex - The index of the shader property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23346,7 +23346,7 @@ function CS.UnityEngine.Shader.GetPropertyDefaultVectorValue(propertyIndex) end
 --
 --```plaintext
 --Params: propertyIndex - The index of the shader property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23359,7 +23359,7 @@ function CS.UnityEngine.Shader.GetPropertyRangeLimits(propertyIndex) end
 --
 --```plaintext
 --Params: propertyIndex - The index of the shader property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23372,7 +23372,7 @@ function CS.UnityEngine.Shader.GetPropertyTextureDimension(propertyIndex) end
 --
 --```plaintext
 --Params: propertyIndex - The index of the shader property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23411,7 +23411,7 @@ function CS.UnityEngine.Shader.FindTextureStack(propertyIndex, stackName, layerI
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.LightmapsModeLegacy = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LightmapsModeLegacy
 function CS.UnityEngine.LightmapsModeLegacy:__CastFrom(value) end
@@ -23526,7 +23526,7 @@ CS.UnityEngine.TrailRenderer = {}
 --```plaintext
 --Params: index - Which position to set.
 --        position - The new position.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23539,7 +23539,7 @@ function CS.UnityEngine.TrailRenderer.SetPosition(index, position) end
 --
 --```plaintext
 --Params: index - The index of the position to retrieve.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23561,7 +23561,7 @@ function CS.UnityEngine.TrailRenderer.Clear() end
 --Params: mesh - A static mesh that will receive the snapshot of the trail.
 --        camera - The camera used for determining which way camera-space trails will face.
 --        useTransform - Include the rotation and scale of the Transform in the baked mesh.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23576,7 +23576,7 @@ function CS.UnityEngine.TrailRenderer.BakeMesh(mesh, useTransform) end
 --Params: mesh - A static mesh that will receive the snapshot of the trail.
 --        camera - The camera used for determining which way camera-space trails will face.
 --        useTransform - Include the rotation and scale of the Transform in the baked mesh.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23590,7 +23590,7 @@ function CS.UnityEngine.TrailRenderer.BakeMesh(mesh, camera, useTransform) end
 --
 --```plaintext
 --Params: positions - The array of positions to retrieve.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23603,7 +23603,7 @@ function CS.UnityEngine.TrailRenderer.GetPositions(positions) end
 --
 --```plaintext
 --Params: positions - The array of positions to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23615,7 +23615,7 @@ function CS.UnityEngine.TrailRenderer.SetPositions(positions) end
 --
 --```plaintext
 --Params: position - The position to add to the trail.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23627,7 +23627,7 @@ function CS.UnityEngine.TrailRenderer.AddPosition(position) end
 --
 --```plaintext
 --Params: positions - The positions to add to the trail.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23694,7 +23694,7 @@ function CS.UnityEngine.TrailRenderer.AddPositions(positions) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.CameraType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.CameraType
 function CS.UnityEngine.CameraType:__CastFrom(value) end
@@ -23822,7 +23822,7 @@ function CS.UnityEngine.LineRenderer.SetVertexCount(count) end
 --```plaintext
 --Params: index - Which position to set.
 --        position - The new position.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23835,7 +23835,7 @@ function CS.UnityEngine.LineRenderer.SetPosition(index, position) end
 --
 --```plaintext
 --Params: index - The index of the position to retrieve.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23848,7 +23848,7 @@ function CS.UnityEngine.LineRenderer.GetPosition(index) end
 --
 --```plaintext
 --Params: tolerance - This value is used to evaluate which points should be removed from the line. A higher value results in a simpler line (less points). A positive value close to zero results in a line with little to no reduction. A value of zero or less has no effect.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23862,7 +23862,7 @@ function CS.UnityEngine.LineRenderer.Simplify(tolerance) end
 --Params: mesh - A static mesh that will receive the snapshot of the line.
 --        camera - The camera used for determining which way camera-space lines will face.
 --        useTransform - Include the rotation and scale of the Transform in the baked mesh.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23877,7 +23877,7 @@ function CS.UnityEngine.LineRenderer.BakeMesh(mesh, useTransform) end
 --Params: mesh - A static mesh that will receive the snapshot of the line.
 --        camera - The camera used for determining which way camera-space lines will face.
 --        useTransform - Include the rotation and scale of the Transform in the baked mesh.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23891,7 +23891,7 @@ function CS.UnityEngine.LineRenderer.BakeMesh(mesh, camera, useTransform) end
 --
 --```plaintext
 --Params: positions - The array of positions to retrieve. The array passed should be of at least positionCount in size.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23904,7 +23904,7 @@ function CS.UnityEngine.LineRenderer.GetPositions(positions) end
 --
 --```plaintext
 --Params: positions - The array of positions to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -23977,7 +23977,7 @@ function CS.UnityEngine.LineRenderer.GetPositions(positions) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.ComputeBufferType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ComputeBufferType
 function CS.UnityEngine.ComputeBufferType:__CastFrom(value) end
@@ -24059,7 +24059,7 @@ function CS.UnityEngine.MaterialPropertyBlock.Clear() end
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        value - The float value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24074,7 +24074,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetFloat(name, value) end
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        value - The float value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24089,7 +24089,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetFloat(nameID, value) end
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        value - The int value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24104,7 +24104,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetInt(name, value) end
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        value - The int value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24119,7 +24119,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetInt(nameID, value) end
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        value - The Vector4 value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24134,7 +24134,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetVector(name, value) end
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        value - The Vector4 value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24149,7 +24149,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetVector(nameID, value) end
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        value - The Color value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24164,7 +24164,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetColor(name, value) end
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        value - The Color value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24179,7 +24179,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetColor(nameID, value) end
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        value - The matrix value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24194,7 +24194,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetMatrix(name, value) end
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        value - The matrix value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24209,7 +24209,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetMatrix(nameID, value) end
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        value - The ComputeBuffer or GraphicsBuffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24224,7 +24224,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetBuffer(name, value) end
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        value - The ComputeBuffer or GraphicsBuffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24239,7 +24239,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetBuffer(nameID, value) end
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        value - The ComputeBuffer or GraphicsBuffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24254,7 +24254,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetBuffer(name, value) end
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        value - The ComputeBuffer or GraphicsBuffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24270,7 +24270,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetBuffer(nameID, value) end
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        value - The Texture to set.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24286,7 +24286,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetTexture(name, value) end
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        value - The Texture to set.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24302,7 +24302,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetTexture(nameID, value) end
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        value - The Texture to set.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24319,7 +24319,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetTexture(name, value, element) e
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        value - The Texture to set.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24337,7 +24337,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetTexture(nameID, value, element)
 --        offset - Offset in bytes from the beginning of the buffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
 --        nameID - The shader property ID of the constant buffer to override.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24356,7 +24356,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetConstantBuffer(name, value, off
 --        offset - Offset in bytes from the beginning of the buffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
 --        nameID - The shader property ID of the constant buffer to override.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24375,7 +24375,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetConstantBuffer(nameID, value, o
 --        offset - Offset in bytes from the beginning of the buffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
 --        nameID - The shader property ID of the constant buffer to override.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24394,7 +24394,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetConstantBuffer(name, value, off
 --        offset - Offset in bytes from the beginning of the buffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
 --        nameID - The shader property ID of the constant buffer to override.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24421,7 +24421,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetFloatArray(nameID, values) end
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        values - The array to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24436,7 +24436,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetFloatArray(name, values) end
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        values - The array to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24461,7 +24461,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetVectorArray(nameID, values) end
 --Params: nameID - The name of the property.
 --        values - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The array to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24476,7 +24476,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetVectorArray(name, values) end
 --Params: nameID - The name of the property.
 --        values - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The array to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24501,7 +24501,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetMatrixArray(nameID, values) end
 --Params: name - The name of the property.
 --        values - The name ID of the property retrieved by Shader.PropertyToID.
 --        nameID - The array to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24516,7 +24516,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetMatrixArray(name, values) end
 --Params: name - The name of the property.
 --        values - The name ID of the property retrieved by Shader.PropertyToID.
 --        nameID - The array to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24530,7 +24530,7 @@ function CS.UnityEngine.MaterialPropertyBlock.SetMatrixArray(nameID, values) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24544,7 +24544,7 @@ function CS.UnityEngine.MaterialPropertyBlock.GetFloat(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24558,7 +24558,7 @@ function CS.UnityEngine.MaterialPropertyBlock.GetFloat(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24572,7 +24572,7 @@ function CS.UnityEngine.MaterialPropertyBlock.GetInt(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24586,7 +24586,7 @@ function CS.UnityEngine.MaterialPropertyBlock.GetInt(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24600,7 +24600,7 @@ function CS.UnityEngine.MaterialPropertyBlock.GetVector(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24614,7 +24614,7 @@ function CS.UnityEngine.MaterialPropertyBlock.GetVector(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24628,7 +24628,7 @@ function CS.UnityEngine.MaterialPropertyBlock.GetColor(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24642,7 +24642,7 @@ function CS.UnityEngine.MaterialPropertyBlock.GetColor(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24656,7 +24656,7 @@ function CS.UnityEngine.MaterialPropertyBlock.GetMatrix(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24670,7 +24670,7 @@ function CS.UnityEngine.MaterialPropertyBlock.GetMatrix(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24684,7 +24684,7 @@ function CS.UnityEngine.MaterialPropertyBlock.GetTexture(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24698,7 +24698,7 @@ function CS.UnityEngine.MaterialPropertyBlock.GetTexture(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24711,7 +24711,7 @@ function CS.UnityEngine.MaterialPropertyBlock.GetFloatArray(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24724,7 +24724,7 @@ function CS.UnityEngine.MaterialPropertyBlock.GetFloatArray(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24737,7 +24737,7 @@ function CS.UnityEngine.MaterialPropertyBlock.GetVectorArray(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24750,7 +24750,7 @@ function CS.UnityEngine.MaterialPropertyBlock.GetVectorArray(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24763,7 +24763,7 @@ function CS.UnityEngine.MaterialPropertyBlock.GetMatrixArray(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24809,7 +24809,7 @@ function CS.UnityEngine.MaterialPropertyBlock.CopySHCoefficientArraysFrom(lightP
 --
 --```plaintext
 --Params: lightProbes - The array of SH values to copy from.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24831,7 +24831,7 @@ function CS.UnityEngine.MaterialPropertyBlock.CopySHCoefficientArraysFrom(lightP
 --        sourceStart - The index of the first element in the source array to copy from.
 --        destStart - The index of the first element in the destination MaterialPropertyBlock array to copy to.
 --        count - The number of elements to copy.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24850,7 +24850,7 @@ function CS.UnityEngine.MaterialPropertyBlock.CopyProbeOcclusionArrayFrom(occlus
 --
 --```plaintext
 --Params: occlusionProbes - The array of probe occlusion values to copy from.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24872,7 +24872,7 @@ function CS.UnityEngine.MaterialPropertyBlock.CopyProbeOcclusionArrayFrom(occlus
 --        sourceStart - The index of the first element in the source array to copy from.
 --        destStart - The index of the first element in the destination MaterialPropertyBlock array to copy to.
 --        count - The number of elements to copy.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -24918,7 +24918,7 @@ function CS.UnityEngine.MaterialPropertyBlock.CopyProbeOcclusionArrayFrom(occlus
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.LightType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LightType
 function CS.UnityEngine.LightType:__CastFrom(value) end
@@ -25078,7 +25078,7 @@ CS.UnityEngine.RenderSettings = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.LightShape = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LightShape
 function CS.UnityEngine.LightShape:__CastFrom(value) end
@@ -25158,7 +25158,7 @@ function CS.UnityEngine.Material:Create(scriptContents) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25172,7 +25172,7 @@ function CS.UnityEngine.Material.HasProperty(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25185,7 +25185,7 @@ function CS.UnityEngine.Material.HasProperty(name) end
 --
 --```plaintext
 --Params: keyword - The name of the local shader keyword to enable.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25197,7 +25197,7 @@ function CS.UnityEngine.Material.EnableKeyword(keyword) end
 --
 --```plaintext
 --Params: keyword - The name of the local shader keyword to disable.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25209,7 +25209,7 @@ function CS.UnityEngine.Material.DisableKeyword(keyword) end
 --
 --```plaintext
 --Params: keyword - The name of the local shader keyword to check.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25223,7 +25223,7 @@ function CS.UnityEngine.Material.IsKeywordEnabled(keyword) end
 --```plaintext
 --Params: passName - Shader pass name (case insensitive).
 --        enabled - Flag indicating whether this Shader pass should be enabled.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25236,7 +25236,7 @@ function CS.UnityEngine.Material.SetShaderPassEnabled(passName, enabled) end
 --
 --```plaintext
 --Params: passName - Shader pass name (case insensitive).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25266,7 +25266,7 @@ function CS.UnityEngine.Material.FindPass(passName) end
 --```plaintext
 --Params: tag - Name of the tag to set.
 --        val - Name of the value to set. Empty string to clear the override flag.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25307,7 +25307,7 @@ function CS.UnityEngine.Material.Lerp(start, end, t) end
 --
 --```plaintext
 --Params: pass - Shader pass number to setup.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25334,7 +25334,7 @@ function CS.UnityEngine.Material.ComputeCRC() end
 --
 --```plaintext
 --Params: outNames - Names of all texture properties exposed on this material.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25345,7 +25345,7 @@ function CS.UnityEngine.Material.GetTexturePropertyNames() end
 --
 --```plaintext
 --Params: outNames - IDs of all texture properties exposed on this material.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25366,7 +25366,7 @@ function CS.UnityEngine.Material.GetTexturePropertyNameIDs(outNames) end
 --Params: nameID - Property name ID, use Shader.PropertyToID to get it.
 --        value - Float value to set.
 --        name - Property name, e.g. "_Glossiness".
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25381,7 +25381,7 @@ function CS.UnityEngine.Material.SetFloat(name, value) end
 --Params: nameID - Property name ID, use Shader.PropertyToID to get it.
 --        value - Float value to set.
 --        name - Property name, e.g. "_Glossiness".
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25396,7 +25396,7 @@ function CS.UnityEngine.Material.SetFloat(nameID, value) end
 --Params: nameID - Property name ID, use Shader.PropertyToID to get it.
 --        value - Integer value to set.
 --        name - Property name, e.g. "_SrcBlend".
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25411,7 +25411,7 @@ function CS.UnityEngine.Material.SetInt(name, value) end
 --Params: nameID - Property name ID, use Shader.PropertyToID to get it.
 --        value - Integer value to set.
 --        name - Property name, e.g. "_SrcBlend".
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25426,7 +25426,7 @@ function CS.UnityEngine.Material.SetInt(nameID, value) end
 --Params: nameID - Property name ID, use Shader.PropertyToID to get it.
 --        name - Property name, e.g. "_Color".
 --        value - Color value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25441,7 +25441,7 @@ function CS.UnityEngine.Material.SetColor(name, value) end
 --Params: nameID - Property name ID, use Shader.PropertyToID to get it.
 --        name - Property name, e.g. "_Color".
 --        value - Color value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25456,7 +25456,7 @@ function CS.UnityEngine.Material.SetColor(nameID, value) end
 --Params: nameID - Property name ID, use Shader.PropertyToID to get it.
 --        name - Property name, e.g. "_WaveAndDistance".
 --        value - Vector value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25471,7 +25471,7 @@ function CS.UnityEngine.Material.SetVector(name, value) end
 --Params: nameID - Property name ID, use Shader.PropertyToID to get it.
 --        name - Property name, e.g. "_WaveAndDistance".
 --        value - Vector value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25486,7 +25486,7 @@ function CS.UnityEngine.Material.SetVector(nameID, value) end
 --Params: nameID - Property name ID, use Shader.PropertyToID to get it.
 --        name - Property name, e.g. "_CubemapRotation".
 --        value - Matrix value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25501,7 +25501,7 @@ function CS.UnityEngine.Material.SetMatrix(name, value) end
 --Params: nameID - Property name ID, use Shader.PropertyToID to get it.
 --        name - Property name, e.g. "_CubemapRotation".
 --        value - Matrix value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25517,7 +25517,7 @@ function CS.UnityEngine.Material.SetMatrix(nameID, value) end
 --        name - Property name, e.g. "_MainTex".
 --        value - Texture to set.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25533,7 +25533,7 @@ function CS.UnityEngine.Material.SetTexture(name, value) end
 --        name - Property name, e.g. "_MainTex".
 --        value - Texture to set.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25549,7 +25549,7 @@ function CS.UnityEngine.Material.SetTexture(nameID, value) end
 --        name - Property name, e.g. "_MainTex".
 --        value - Texture to set.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25566,7 +25566,7 @@ function CS.UnityEngine.Material.SetTexture(name, value, element) end
 --        name - Property name, e.g. "_MainTex".
 --        value - Texture to set.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25582,7 +25582,7 @@ function CS.UnityEngine.Material.SetTexture(nameID, value, element) end
 --Params: nameID - Property name ID, use Shader.PropertyToID to get it.
 --        name - Property name.
 --        value - The ComputeBuffer or GraphicsBuffer value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25597,7 +25597,7 @@ function CS.UnityEngine.Material.SetBuffer(name, value) end
 --Params: nameID - Property name ID, use Shader.PropertyToID to get it.
 --        name - Property name.
 --        value - The ComputeBuffer or GraphicsBuffer value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25612,7 +25612,7 @@ function CS.UnityEngine.Material.SetBuffer(nameID, value) end
 --Params: nameID - Property name ID, use Shader.PropertyToID to get it.
 --        name - Property name.
 --        value - The ComputeBuffer or GraphicsBuffer value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25627,7 +25627,7 @@ function CS.UnityEngine.Material.SetBuffer(name, value) end
 --Params: nameID - Property name ID, use Shader.PropertyToID to get it.
 --        name - Property name.
 --        value - The ComputeBuffer or GraphicsBuffer value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25644,7 +25644,7 @@ function CS.UnityEngine.Material.SetBuffer(nameID, value) end
 --        offset - Offset in bytes from the beginning of the buffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
 --        nameID - The shader property ID of the constant buffer to override.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25663,7 +25663,7 @@ function CS.UnityEngine.Material.SetConstantBuffer(name, value, offset, size) en
 --        offset - Offset in bytes from the beginning of the buffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
 --        nameID - The shader property ID of the constant buffer to override.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25682,7 +25682,7 @@ function CS.UnityEngine.Material.SetConstantBuffer(nameID, value, offset, size) 
 --        offset - Offset in bytes from the beginning of the buffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
 --        nameID - The shader property ID of the constant buffer to override.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25701,7 +25701,7 @@ function CS.UnityEngine.Material.SetConstantBuffer(name, value, offset, size) en
 --        offset - Offset in bytes from the beginning of the buffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
 --        nameID - The shader property ID of the constant buffer to override.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25728,7 +25728,7 @@ function CS.UnityEngine.Material.SetFloatArray(nameID, values) end
 --Params: name - Property name.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        values - Array of values to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25743,7 +25743,7 @@ function CS.UnityEngine.Material.SetFloatArray(name, values) end
 --Params: name - Property name.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        values - Array of values to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25768,7 +25768,7 @@ function CS.UnityEngine.Material.SetColorArray(nameID, values) end
 --Params: name - Property name.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        values - Array of values to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25783,7 +25783,7 @@ function CS.UnityEngine.Material.SetColorArray(name, values) end
 --Params: name - Property name.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        values - Array of values to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25808,7 +25808,7 @@ function CS.UnityEngine.Material.SetVectorArray(nameID, values) end
 --Params: name - Property name.
 --        values - Array of values to set.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25823,7 +25823,7 @@ function CS.UnityEngine.Material.SetVectorArray(name, values) end
 --Params: name - Property name.
 --        values - Array of values to set.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25848,7 +25848,7 @@ function CS.UnityEngine.Material.SetMatrixArray(nameID, values) end
 --Params: name - Property name.
 --        values - Array of values to set.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25863,7 +25863,7 @@ function CS.UnityEngine.Material.SetMatrixArray(name, values) end
 --Params: name - Property name.
 --        values - Array of values to set.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25877,7 +25877,7 @@ function CS.UnityEngine.Material.SetMatrixArray(nameID, values) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25891,7 +25891,7 @@ function CS.UnityEngine.Material.GetFloat(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25905,7 +25905,7 @@ function CS.UnityEngine.Material.GetFloat(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25919,7 +25919,7 @@ function CS.UnityEngine.Material.GetInt(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25933,7 +25933,7 @@ function CS.UnityEngine.Material.GetInt(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25947,7 +25947,7 @@ function CS.UnityEngine.Material.GetColor(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25961,7 +25961,7 @@ function CS.UnityEngine.Material.GetColor(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25975,7 +25975,7 @@ function CS.UnityEngine.Material.GetVector(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -25989,7 +25989,7 @@ function CS.UnityEngine.Material.GetVector(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26003,7 +26003,7 @@ function CS.UnityEngine.Material.GetMatrix(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26017,7 +26017,7 @@ function CS.UnityEngine.Material.GetMatrix(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26031,7 +26031,7 @@ function CS.UnityEngine.Material.GetTexture(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26045,7 +26045,7 @@ function CS.UnityEngine.Material.GetTexture(nameID) end
 --```plaintext
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26058,7 +26058,7 @@ function CS.UnityEngine.Material.GetFloatArray(name) end
 --```plaintext
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26071,7 +26071,7 @@ function CS.UnityEngine.Material.GetFloatArray(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26084,7 +26084,7 @@ function CS.UnityEngine.Material.GetColorArray(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26097,7 +26097,7 @@ function CS.UnityEngine.Material.GetColorArray(nameID) end
 --```plaintext
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26110,7 +26110,7 @@ function CS.UnityEngine.Material.GetVectorArray(name) end
 --```plaintext
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26123,7 +26123,7 @@ function CS.UnityEngine.Material.GetVectorArray(nameID) end
 --```plaintext
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26136,7 +26136,7 @@ function CS.UnityEngine.Material.GetMatrixArray(name) end
 --```plaintext
 --Params: name - The name of the property.
 --        nameID - The name ID of the property retrieved by Shader.PropertyToID.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26190,7 +26190,7 @@ function CS.UnityEngine.Material.GetMatrixArray(nameID, values) end
 --Params: nameID - Property name ID, use Shader.PropertyToID to get it.
 --        name - Property name, for example: "_MainTex".
 --        value - Texture placement offset.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26205,7 +26205,7 @@ function CS.UnityEngine.Material.SetTextureOffset(name, value) end
 --Params: nameID - Property name ID, use Shader.PropertyToID to get it.
 --        name - Property name, for example: "_MainTex".
 --        value - Texture placement offset.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26220,7 +26220,7 @@ function CS.UnityEngine.Material.SetTextureOffset(nameID, value) end
 --Params: nameID - Property name ID, use Shader.PropertyToID to get it.
 --        name - Property name, e.g. "_MainTex".
 --        value - Texture placement scale.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26235,7 +26235,7 @@ function CS.UnityEngine.Material.SetTextureScale(name, value) end
 --Params: nameID - Property name ID, use Shader.PropertyToID to get it.
 --        name - Property name, e.g. "_MainTex".
 --        value - Texture placement scale.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26249,7 +26249,7 @@ function CS.UnityEngine.Material.SetTextureScale(nameID, value) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26263,7 +26263,7 @@ function CS.UnityEngine.Material.GetTextureOffset(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26277,7 +26277,7 @@ function CS.UnityEngine.Material.GetTextureOffset(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26291,7 +26291,7 @@ function CS.UnityEngine.Material.GetTextureScale(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26323,7 +26323,7 @@ function CS.UnityEngine.Material.GetTextureScale(nameID) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.LightRenderMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LightRenderMode
 function CS.UnityEngine.LightRenderMode:__CastFrom(value) end
@@ -26368,7 +26368,7 @@ function CS.UnityEngine.GraphicsBuffer.IsValid() end
 --
 --```plaintext
 --Params: data - Array of values to fill the buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26391,7 +26391,7 @@ function CS.UnityEngine.GraphicsBuffer.SetData(data) end
 --        managedBufferStartIndex - The first element index in data to copy to the graphics buffer.
 --        count - The number of elements to copy.
 --        graphicsBufferStartIndex - The first element index in the graphics buffer to receive the data.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26423,7 +26423,7 @@ function CS.UnityEngine.GraphicsBuffer.SetData(data, nativeBufferStartIndex, gra
 --        managedBufferStartIndex - The first element index in data where retrieved elements are copied.
 --        computeBufferStartIndex - The first element index of the buffer from which elements are read.
 --        count - The number of elements to retrieve.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26438,7 +26438,7 @@ function CS.UnityEngine.GraphicsBuffer.GetData(data) end
 --        managedBufferStartIndex - The first element index in data where retrieved elements are copied.
 --        computeBufferStartIndex - The first element index of the buffer from which elements are read.
 --        count - The number of elements to retrieve.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26460,7 +26460,7 @@ function CS.UnityEngine.GraphicsBuffer.GetNativeBufferPtr() end
 --
 --```plaintext
 --Params: counterValue - Value of the append/consume counter.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26527,7 +26527,7 @@ function CS.UnityEngine.GraphicsBuffer:CopyCount(src, dst, dstOffsetBytes) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.LightShadows = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LightShadows
 function CS.UnityEngine.LightShadows:__CastFrom(value) end
@@ -26556,7 +26556,7 @@ function CS.UnityEngine.LightShadows:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.FogMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.FogMode
 function CS.UnityEngine.FogMode:__CastFrom(value) end
@@ -26585,7 +26585,7 @@ function CS.UnityEngine.FogMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.LightmapBakeType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LightmapBakeType
 function CS.UnityEngine.LightmapBakeType:__CastFrom(value) end
@@ -26614,7 +26614,7 @@ function CS.UnityEngine.LightmapBakeType:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.MixedLightingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.MixedLightingMode
 function CS.UnityEngine.MixedLightingMode:__CastFrom(value) end
@@ -26638,7 +26638,7 @@ function CS.UnityEngine.MixedLightingMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.ReceiveGI = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ReceiveGI
 function CS.UnityEngine.ReceiveGI:__CastFrom(value) end
@@ -26692,7 +26692,7 @@ function CS.UnityEngine.ReceiveGI:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Target = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.GraphicsBuffer.Target
 function CS.UnityEngine.Target:__CastFrom(value) end
@@ -26715,7 +26715,7 @@ function CS.UnityEngine.Target:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.QualityLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.QualityLevel
 function CS.UnityEngine.QualityLevel:__CastFrom(value) end
@@ -26753,7 +26753,7 @@ CS.UnityEngine.OcclusionPortal = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.ShadowProjection = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ShadowProjection
 function CS.UnityEngine.ShadowProjection:__CastFrom(value) end
@@ -26801,7 +26801,7 @@ CS.UnityEngine.OcclusionArea = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.ShadowQuality = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ShadowQuality
 function CS.UnityEngine.ShadowQuality:__CastFrom(value) end
@@ -26844,7 +26844,7 @@ CS.UnityEngine.Flare = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.ShadowResolution = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ShadowResolution
 function CS.UnityEngine.ShadowResolution:__CastFrom(value) end
@@ -26897,7 +26897,7 @@ CS.UnityEngine.LensFlare = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.ShadowmaskMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ShadowmaskMode
 function CS.UnityEngine.ShadowmaskMode:__CastFrom(value) end
@@ -26937,7 +26937,7 @@ CS.UnityEngine.Debug = {}
 --        color - Color of the line.
 --        duration - How long the line should be visible for.
 --        depthTest - Should the line be obscured by objects closer to the camera?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26956,7 +26956,7 @@ function CS.UnityEngine.Debug:DrawLine(start, end, color, duration) end
 --        color - Color of the line.
 --        duration - How long the line should be visible for.
 --        depthTest - Should the line be obscured by objects closer to the camera?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26974,7 +26974,7 @@ function CS.UnityEngine.Debug:DrawLine(start, end, color) end
 --        color - Color of the line.
 --        duration - How long the line should be visible for.
 --        depthTest - Should the line be obscured by objects closer to the camera?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -26991,7 +26991,7 @@ function CS.UnityEngine.Debug:DrawLine(start, end) end
 --        color - Color of the line.
 --        duration - How long the line should be visible for.
 --        depthTest - Should the line be obscured by objects closer to the camera?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27011,7 +27011,7 @@ function CS.UnityEngine.Debug:DrawLine(start, end, color, duration, depthTest) e
 --        color - Color of the drawn line.
 --        duration - How long the line will be visible for (in seconds).
 --        depthTest - Should the line be obscured by other objects closer to the camera?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27030,7 +27030,7 @@ function CS.UnityEngine.Debug:DrawRay(start, dir, color, duration) end
 --        color - Color of the drawn line.
 --        duration - How long the line will be visible for (in seconds).
 --        depthTest - Should the line be obscured by other objects closer to the camera?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27048,7 +27048,7 @@ function CS.UnityEngine.Debug:DrawRay(start, dir, color) end
 --        color - Color of the drawn line.
 --        duration - How long the line will be visible for (in seconds).
 --        depthTest - Should the line be obscured by other objects closer to the camera?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27065,7 +27065,7 @@ function CS.UnityEngine.Debug:DrawRay(start, dir) end
 --        color - Color of the drawn line.
 --        duration - How long the line will be visible for (in seconds).
 --        depthTest - Should the line be obscured by other objects closer to the camera?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27092,7 +27092,7 @@ function CS.UnityEngine.Debug:DebugBreak() end
 --Params: buffer - Target buffer to receive the callstack text
 --        bufferMax - Max number of bytes to write
 --        projectFolder - Project folder path, to clean up path names
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27108,7 +27108,7 @@ function CS.UnityEngine.Debug:ExtractStackTraceNoAlloc(buffer, bufferMax, projec
 --```plaintext
 --Params: message - String or object to be converted to string representation for display.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27121,7 +27121,7 @@ function CS.UnityEngine.Debug:Log(message) end
 --```plaintext
 --Params: message - String or object to be converted to string representation for display.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27138,7 +27138,7 @@ function CS.UnityEngine.Debug:Log(message, context) end
 --        context - Object to which the message applies.
 --        logType - Type of message e.g. warn or error etc.
 --        logOptions - Option flags to treat the log message special.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27155,7 +27155,7 @@ function CS.UnityEngine.Debug:LogFormat(format, args) end
 --        context - Object to which the message applies.
 --        logType - Type of message e.g. warn or error etc.
 --        logOptions - Option flags to treat the log message special.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27173,7 +27173,7 @@ function CS.UnityEngine.Debug:LogFormat(context, format, args) end
 --        context - Object to which the message applies.
 --        logType - Type of message e.g. warn or error etc.
 --        logOptions - Option flags to treat the log message special.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27190,7 +27190,7 @@ function CS.UnityEngine.Debug:LogFormat(logType, logOptions, context, format, ar
 --```plaintext
 --Params: message - String or object to be converted to string representation for display.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27203,7 +27203,7 @@ function CS.UnityEngine.Debug:LogError(message) end
 --```plaintext
 --Params: message - String or object to be converted to string representation for display.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27218,7 +27218,7 @@ function CS.UnityEngine.Debug:LogError(message, context) end
 --Params: format - A composite format string.
 --        args - Format arguments.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27233,7 +27233,7 @@ function CS.UnityEngine.Debug:LogErrorFormat(format, args) end
 --Params: format - A composite format string.
 --        args - Format arguments.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27254,7 +27254,7 @@ function CS.UnityEngine.Debug:ClearDeveloperConsole() end
 --```plaintext
 --Params: context - Object to which the message applies.
 --        exception - Runtime Exception.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27267,7 +27267,7 @@ function CS.UnityEngine.Debug:LogException(exception) end
 --```plaintext
 --Params: context - Object to which the message applies.
 --        exception - Runtime Exception.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27281,7 +27281,7 @@ function CS.UnityEngine.Debug:LogException(exception, context) end
 --```plaintext
 --Params: message - String or object to be converted to string representation for display.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27294,7 +27294,7 @@ function CS.UnityEngine.Debug:LogWarning(message) end
 --```plaintext
 --Params: message - String or object to be converted to string representation for display.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27309,7 +27309,7 @@ function CS.UnityEngine.Debug:LogWarning(message, context) end
 --Params: format - A composite format string.
 --        args - Format arguments.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27324,7 +27324,7 @@ function CS.UnityEngine.Debug:LogWarningFormat(format, args) end
 --Params: format - A composite format string.
 --        args - Format arguments.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27340,7 +27340,7 @@ function CS.UnityEngine.Debug:LogWarningFormat(context, format, args) end
 --Params: condition - Condition you expect to be true.
 --        context - Object to which the message applies.
 --        message - String or object to be converted to string representation for display.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27354,7 +27354,7 @@ function CS.UnityEngine.Debug:Assert(condition) end
 --Params: condition - Condition you expect to be true.
 --        context - Object to which the message applies.
 --        message - String or object to be converted to string representation for display.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27369,7 +27369,7 @@ function CS.UnityEngine.Debug:Assert(condition, context) end
 --Params: condition - Condition you expect to be true.
 --        context - Object to which the message applies.
 --        message - String or object to be converted to string representation for display.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27389,7 +27389,7 @@ function CS.UnityEngine.Debug:Assert(condition, message) end
 --Params: condition - Condition you expect to be true.
 --        context - Object to which the message applies.
 --        message - String or object to be converted to string representation for display.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27412,7 +27412,7 @@ function CS.UnityEngine.Debug:Assert(condition, message, context) end
 --        format - A composite format string.
 --        args - Format arguments.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27429,7 +27429,7 @@ function CS.UnityEngine.Debug:AssertFormat(condition, format, args) end
 --        format - A composite format string.
 --        args - Format arguments.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27445,7 +27445,7 @@ function CS.UnityEngine.Debug:AssertFormat(condition, context, format, args) end
 --```plaintext
 --Params: message - String or object to be converted to string representation for display.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27458,7 +27458,7 @@ function CS.UnityEngine.Debug:LogAssertion(message) end
 --```plaintext
 --Params: message - String or object to be converted to string representation for display.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27473,7 +27473,7 @@ function CS.UnityEngine.Debug:LogAssertion(message, context) end
 --Params: format - A composite format string.
 --        args - Format arguments.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27488,7 +27488,7 @@ function CS.UnityEngine.Debug:LogAssertionFormat(format, args) end
 --Params: format - A composite format string.
 --        args - Format arguments.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27542,7 +27542,7 @@ CS.UnityEngine.IExposedPropertyTable = {}
 --```plaintext
 --Params: id - Identifier of the ExposedReference.
 --        value - The value to assigned to the ExposedReference.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27561,7 +27561,7 @@ function CS.UnityEngine.IExposedPropertyTable.GetReferenceValue(id, idValid) end
 --
 --```plaintext
 --Params: id - Identifier of the ExposedReference.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -27599,7 +27599,7 @@ function CS.UnityEngine.IExposedPropertyTable.ClearReferenceValue(id) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.CameraClearFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.CameraClearFlags
 function CS.UnityEngine.CameraClearFlags:__CastFrom(value) end
@@ -27633,7 +27633,7 @@ function CS.UnityEngine.CameraClearFlags:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.DepthTextureMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.DepthTextureMode
 function CS.UnityEngine.DepthTextureMode:__CastFrom(value) end
@@ -27656,7 +27656,7 @@ function CS.UnityEngine.DepthTextureMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.TexGenMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.TexGenMode
 function CS.UnityEngine.TexGenMode:__CastFrom(value) end
@@ -27685,7 +27685,7 @@ function CS.UnityEngine.TexGenMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.AnisotropicFiltering = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AnisotropicFiltering
 function CS.UnityEngine.AnisotropicFiltering:__CastFrom(value) end
@@ -27702,7 +27702,7 @@ function CS.UnityEngine.AnisotropicFiltering:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.BlendWeights = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.BlendWeights
 function CS.UnityEngine.BlendWeights:__CastFrom(value) end
@@ -27736,7 +27736,7 @@ function CS.UnityEngine.BlendWeights:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.SkinWeights = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.SkinWeights
 function CS.UnityEngine.SkinWeights:__CastFrom(value) end
@@ -27775,7 +27775,7 @@ function CS.UnityEngine.SkinWeights:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.MeshTopology = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.MeshTopology
 function CS.UnityEngine.MeshTopology:__CastFrom(value) end
@@ -27809,7 +27809,7 @@ function CS.UnityEngine.MeshTopology:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.SkinQuality = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.SkinQuality
 function CS.UnityEngine.SkinQuality:__CastFrom(value) end
@@ -27858,7 +27858,7 @@ function CS.UnityEngine.SkinQuality:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.CubemapFace = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.CubemapFace
 function CS.UnityEngine.CubemapFace:__CastFrom(value) end
@@ -27887,7 +27887,7 @@ function CS.UnityEngine.CubemapFace:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.ColorSpace = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ColorSpace
 function CS.UnityEngine.ColorSpace:__CastFrom(value) end
@@ -28041,7 +28041,7 @@ function CS.UnityEngine.ColorSpace:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.RenderTextureFormat = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.RenderTextureFormat
 function CS.UnityEngine.RenderTextureFormat:__CastFrom(value) end
@@ -28085,7 +28085,7 @@ function CS.UnityEngine.RenderTextureFormat:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.ColorGamut = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ColorGamut
 function CS.UnityEngine.ColorGamut:__CastFrom(value) end
@@ -28119,7 +28119,7 @@ function CS.UnityEngine.ColorGamut:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.VRTextureUsage = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.VRTextureUsage
 function CS.UnityEngine.VRTextureUsage:__CastFrom(value) end
@@ -28162,7 +28162,7 @@ function CS.UnityEngine.VRTextureUsage:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.ScreenOrientation = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ScreenOrientation
 function CS.UnityEngine.ScreenOrientation:__CastFrom(value) end
@@ -28230,7 +28230,7 @@ function CS.UnityEngine.ScreenOrientation:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.RenderTextureCreationFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.RenderTextureCreationFlags
 function CS.UnityEngine.RenderTextureCreationFlags:__CastFrom(value) end
@@ -28259,7 +28259,7 @@ function CS.UnityEngine.RenderTextureCreationFlags:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.FilterMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.FilterMode
 function CS.UnityEngine.FilterMode:__CastFrom(value) end
@@ -28288,7 +28288,7 @@ function CS.UnityEngine.FilterMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.RenderTextureReadWrite = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.RenderTextureReadWrite
 function CS.UnityEngine.RenderTextureReadWrite:__CastFrom(value) end
@@ -28322,7 +28322,7 @@ function CS.UnityEngine.RenderTextureReadWrite:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.TextureWrapMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.TextureWrapMode
 function CS.UnityEngine.TextureWrapMode:__CastFrom(value) end
@@ -28356,7 +28356,7 @@ function CS.UnityEngine.TextureWrapMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.RenderTextureMemoryless = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.RenderTextureMemoryless
 function CS.UnityEngine.RenderTextureMemoryless:__CastFrom(value) end
@@ -28385,7 +28385,7 @@ function CS.UnityEngine.RenderTextureMemoryless:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.NPOTSupport = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.NPOTSupport
 function CS.UnityEngine.NPOTSupport:__CastFrom(value) end
@@ -28419,7 +28419,7 @@ function CS.UnityEngine.NPOTSupport:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.HDRDisplaySupportFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.HDRDisplaySupportFlags
 function CS.UnityEngine.HDRDisplaySupportFlags:__CastFrom(value) end
@@ -28795,7 +28795,7 @@ function CS.UnityEngine.HDRDisplaySupportFlags:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.TextureFormat = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.TextureFormat
 function CS.UnityEngine.TextureFormat:__CastFrom(value) end
@@ -28830,7 +28830,7 @@ function CS.UnityEngine.TextureFormat:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.LightmapsMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LightmapsMode
 function CS.UnityEngine.LightmapsMode:__CastFrom(value) end
@@ -28869,7 +28869,7 @@ function CS.UnityEngine.LightmapsMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.MaterialGlobalIlluminationFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.MaterialGlobalIlluminationFlags
 function CS.UnityEngine.MaterialGlobalIlluminationFlags:__CastFrom(value) end
@@ -29010,7 +29010,7 @@ CS.UnityEngine.SkinnedMeshRenderer = {}
 --
 --```plaintext
 --Params: index - The index of the BlendShape whose weight you want to retrieve. Index must be smaller than the Mesh.blendShapeCount of the Mesh attached to this Renderer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -29024,7 +29024,7 @@ function CS.UnityEngine.SkinnedMeshRenderer.GetBlendShapeWeight(index) end
 --```plaintext
 --Params: index - The index of the BlendShape to modify. Index must be smaller than the Mesh.blendShapeCount of the Mesh attached to this Renderer.
 --        value - The weight for this BlendShape.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -29038,7 +29038,7 @@ function CS.UnityEngine.SkinnedMeshRenderer.SetBlendShapeWeight(index, value) en
 --```plaintext
 --Params: mesh - A static mesh that will receive the snapshot of the skinned mesh.
 --        useScale - Whether to use the SkinnedMeshRenderer's Transform scale when baking the Mesh. If this is true, Unity bakes the Mesh using the position, rotation, and scale values from the SkinnedMeshRenderer's Transform. If this is false, Unity bakes the Mesh using the position and rotation values from the SkinnedMeshRenderer's Transform, but without using the scale value from the SkinnedMeshRenderer's Transform. The default value is false.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -29051,7 +29051,7 @@ function CS.UnityEngine.SkinnedMeshRenderer.BakeMesh(mesh) end
 --```plaintext
 --Params: mesh - A static mesh that will receive the snapshot of the skinned mesh.
 --        useScale - Whether to use the SkinnedMeshRenderer's Transform scale when baking the Mesh. If this is true, Unity bakes the Mesh using the position, rotation, and scale values from the SkinnedMeshRenderer's Transform. If this is false, Unity bakes the Mesh using the position and rotation values from the SkinnedMeshRenderer's Transform, but without using the scale value from the SkinnedMeshRenderer's Transform. The default value is false.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -29110,7 +29110,7 @@ CS.UnityEngine.MeshRenderer = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.LightmappingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LightmappingMode
 function CS.UnityEngine.LightmappingMode:__CastFrom(value) end
@@ -29197,7 +29197,7 @@ function CS.UnityEngine.LineUtility:Simplify(points, tolerance, simplifiedPoints
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.LODFadeMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LODFadeMode
 function CS.UnityEngine.LODFadeMode:__CastFrom(value) end
@@ -29291,7 +29291,7 @@ function CS.UnityEngine.LODGroup.SetLODS(lods) end
 --
 --```plaintext
 --Params: lods - The LODs to use for this group.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -29301,7 +29301,7 @@ function CS.UnityEngine.LODGroup.SetLODs(lods) end
 --
 --```plaintext
 --Params: index - The LOD level to use. Passing index < 0 will return to standard LOD processing.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -29795,7 +29795,7 @@ function CS.UnityEngine.Texture2D.ClearMinimumMipmapLevel() end
 --
 --```plaintext
 --Params: nativeTex - Native 2D texture object.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -29817,7 +29817,7 @@ function CS.UnityEngine.Texture2D.GetRawTextureData() end
 --        blockWidth - The width length of the pixel array to fetch.
 --        blockHeight - The height length of the pixel array to fetch.
 --        miplevel - The mip level to read pixel data from. The default is 0.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -29840,7 +29840,7 @@ function CS.UnityEngine.Texture2D.GetPixels(x, y, blockWidth, blockHeight) end
 --
 --```plaintext
 --Params: miplevel - The mip level to read pixel data from. The default is 0.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -29858,7 +29858,7 @@ function CS.UnityEngine.Texture2D.GetPixels32() end
 --        padding - Padding in pixels between the packed textures.
 --        maximumAtlasSize - Maximum size of the resulting texture.
 --        makeNoLongerReadable - Should the texture be marked as no longer readable?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -29889,7 +29889,7 @@ function CS.UnityEngine.Texture2D.PackTextures(textures, padding) end
 --        format - Format of underlying texture object.
 --        mipmap - Does the texture have mipmaps?
 --        linear - Is texture using linear color space?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -29944,7 +29944,7 @@ function CS.UnityEngine.Texture2D.SetPixels(x, y, blockWidth, blockHeight, color
 --```plaintext
 --Params: colors - The array of pixel colours to assign (a 2D image flattened to a 1D array).
 --        miplevel - The mip level of the texture to write to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -29994,7 +29994,7 @@ function CS.UnityEngine.Texture2D.GetPixelBilinear(u, v, mipLevel) end
 --```plaintext
 --Params: data - Raw data array to initialize texture pixels with.
 --        size - Size of data in bytes.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -30008,7 +30008,7 @@ function CS.UnityEngine.Texture2D.LoadRawTextureData(data, size) end
 --```plaintext
 --Params: data - Raw data array to initialize texture pixels with.
 --        size - Size of data in bytes.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -30046,7 +30046,7 @@ function CS.UnityEngine.Texture2D.GetRawTextureData() end
 --```plaintext
 --Params: updateMipmaps - When set to true, mipmap levels are recalculated.
 --        makeNoLongerReadable - When set to true, Unity discards the copy of pixel data in CPU-addressable memory after this operation.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -30097,7 +30097,7 @@ function CS.UnityEngine.Texture2D.Resize(width, height, format, hasMipMap) end
 --        destX - The horizontal pixel position in the texture to write the pixels to.
 --        destY - The vertical pixel position in the texture to write the pixels to.
 --        recalculateMipMaps - If this parameter is true, Unity automatically recalculates the mipmaps for the texture after writing the pixel data. Otherwise, Unity does not do this automatically.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -30158,7 +30158,7 @@ function CS.UnityEngine.Texture2D.SetPixels32(x, y, blockWidth, blockHeight, col
 --
 --```plaintext
 --Params: miplevel - The mip level to read pixel data from. The default is 0.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -30187,7 +30187,7 @@ function CS.UnityEngine.Texture2D.GetPixels() end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.ResolutionMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LightProbeProxyVolume.ResolutionMode
 function CS.UnityEngine.ResolutionMode:__CastFrom(value) end
@@ -30216,7 +30216,7 @@ function CS.UnityEngine.ResolutionMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.BoundingBoxMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LightProbeProxyVolume.BoundingBoxMode
 function CS.UnityEngine.BoundingBoxMode:__CastFrom(value) end
@@ -30240,7 +30240,7 @@ function CS.UnityEngine.BoundingBoxMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.ProbePositionMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LightProbeProxyVolume.ProbePositionMode
 function CS.UnityEngine.ProbePositionMode:__CastFrom(value) end
@@ -30269,7 +30269,7 @@ function CS.UnityEngine.ProbePositionMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.RefreshMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LightProbeProxyVolume.RefreshMode
 function CS.UnityEngine.RefreshMode:__CastFrom(value) end
@@ -30293,7 +30293,7 @@ function CS.UnityEngine.RefreshMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.QualityMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LightProbeProxyVolume.QualityMode
 function CS.UnityEngine.QualityMode:__CastFrom(value) end
@@ -30332,7 +30332,7 @@ function CS.UnityEngine.QualityMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.EXRFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Texture2D.EXRFlags
 function CS.UnityEngine.EXRFlags:__CastFrom(value) end
@@ -30356,7 +30356,7 @@ function CS.UnityEngine.EXRFlags:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.DataFormat = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LightProbeProxyVolume.DataFormat
 function CS.UnityEngine.DataFormat:__CastFrom(value) end
@@ -30380,7 +30380,7 @@ function CS.UnityEngine.DataFormat:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.CustomRenderTextureInitializationSource = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.CustomRenderTextureInitializationSource
 function CS.UnityEngine.CustomRenderTextureInitializationSource:__CastFrom(value) end
@@ -30409,7 +30409,7 @@ function CS.UnityEngine.CustomRenderTextureInitializationSource:__CastFrom(value
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.CustomRenderTextureUpdateMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.CustomRenderTextureUpdateMode
 function CS.UnityEngine.CustomRenderTextureUpdateMode:__CastFrom(value) end
@@ -30433,7 +30433,7 @@ function CS.UnityEngine.CustomRenderTextureUpdateMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.CustomRenderTextureUpdateZoneSpace = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.CustomRenderTextureUpdateZoneSpace
 function CS.UnityEngine.CustomRenderTextureUpdateZoneSpace:__CastFrom(value) end
@@ -30462,7 +30462,7 @@ function CS.UnityEngine.CustomRenderTextureUpdateZoneSpace:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.MotionVectorGenerationMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.MotionVectorGenerationMode
 function CS.UnityEngine.MotionVectorGenerationMode:__CastFrom(value) end
@@ -30496,7 +30496,7 @@ function CS.UnityEngine.MotionVectorGenerationMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.LineTextureMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LineTextureMode
 function CS.UnityEngine.LineTextureMode:__CastFrom(value) end
@@ -30525,7 +30525,7 @@ function CS.UnityEngine.LineTextureMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.LineAlignment = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LineAlignment
 function CS.UnityEngine.LineAlignment:__CastFrom(value) end
@@ -30581,7 +30581,7 @@ CS.UnityEngine.Cubemap = {}
 --
 --```plaintext
 --Params: nativeTexture - Native cubemap texture object.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -30593,7 +30593,7 @@ function CS.UnityEngine.Cubemap.UpdateExternalTexture(nativeTexture) end
 --
 --```plaintext
 --Params: smoothRegionWidthInPixels - Pixel distance at edges over which to apply smoothing.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -30609,7 +30609,7 @@ function CS.UnityEngine.Cubemap.SmoothEdges() end
 --```plaintext
 --Params: face - The cubemap face to read pixel data from.
 --        miplevel - The mip level to read pixel data from. The default is 0.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -30628,7 +30628,7 @@ function CS.UnityEngine.Cubemap.GetPixels(face) end
 --Params: colors - Pixel data for the Cubemap face.
 --        face - The face to which the new data should be applied.
 --        miplevel - The mipmap level for the face.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -30663,7 +30663,7 @@ function CS.UnityEngine.Cubemap.IsRequestedMipmapLevelLoaded() end
 --        format - Format of underlying cubemap object.
 --        mipmap - Does the cubemap have mipmaps?
 --        nativeTex - Native cubemap texture object.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -30720,7 +30720,7 @@ function CS.UnityEngine.Cubemap.GetPixel(face, x, y) end
 --```plaintext
 --Params: updateMipmaps - When set to true, mipmap levels are recalculated.
 --        makeNoLongerReadable - When set to true, Unity discards the copy of pixel data in CPU-addressable memory after this operation.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -30761,7 +30761,7 @@ CS.UnityEngine.Texture3D = {}
 --
 --```plaintext
 --Params: nativeTex - Native 3D texture object.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -30773,7 +30773,7 @@ function CS.UnityEngine.Texture3D.UpdateExternalTexture(nativeTex) end
 --
 --```plaintext
 --Params: miplevel - The mip level to read pixel data from. The default is 0.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -30788,7 +30788,7 @@ function CS.UnityEngine.Texture3D.GetPixels() end
 --
 --```plaintext
 --Params: miplevel - The mip level to read pixel data from. The default is 0.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -30804,7 +30804,7 @@ function CS.UnityEngine.Texture3D.GetPixels32() end
 --```plaintext
 --Params: colors - The colors to set the pixels to.
 --        miplevel - The mipmap level to be affected by the new colors.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -30822,7 +30822,7 @@ function CS.UnityEngine.Texture3D.SetPixels(colors) end
 --```plaintext
 --Params: colors - The colors to set the pixels to.
 --        miplevel - The mipmap level to be affected by the new colors.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -30844,7 +30844,7 @@ function CS.UnityEngine.Texture3D.SetPixels32(colors) end
 --        depth - Depth of texture in pixels
 --        format - Format of underlying texture object.
 --        mipmap - Does the texture have mipmaps?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -30863,7 +30863,7 @@ function CS.UnityEngine.Texture3D:CreateExternalTexture(width, height, depth, fo
 --```plaintext
 --Params: updateMipmaps - When set to true, mipmap levels are recalculated.
 --        makeNoLongerReadable - Whether to discard the copy of pixel data in CPU-addressable memory after this operation.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -30894,7 +30894,7 @@ function CS.UnityEngine.Texture3D.SetPixel(x, y, z, color) end
 --        z - Z coordinate to access a pixel.
 --        color - The colors to set the pixels to.
 --        mipLevel - The mipmap level to be affected by the new colors.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -30920,7 +30920,7 @@ function CS.UnityEngine.Texture3D.GetPixel(x, y, z) end
 --        y - Y coordinate to access a pixel.
 --        z - Z coordinate to access a pixel.
 --        mipLevel - The mipmap level to be accessed.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -30946,7 +30946,7 @@ function CS.UnityEngine.Texture3D.GetPixelBilinear(u, v, w) end
 --        v - V normalized coordinate to access a pixel.
 --        w - W normalized coordinate to access a pixel.
 --        mipLevel - The mipmap level to be accessed.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31006,7 +31006,7 @@ CS.UnityEngine.Texture2DArray = {}
 --```plaintext
 --Params: arrayElement - The array slice to read pixel data from.
 --        miplevel - The mip level to read pixel data from. The default is 0.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31024,7 +31024,7 @@ function CS.UnityEngine.Texture2DArray.GetPixels(arrayElement) end
 --```plaintext
 --Params: arrayElement - The array slice to read pixel data from.
 --        miplevel - The mip level to read pixel data from. The default is 0.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31043,7 +31043,7 @@ function CS.UnityEngine.Texture2DArray.GetPixels32(arrayElement) end
 --Params: colors - An array of pixel colors.
 --        arrayElement - The texture array element index.
 --        miplevel - The mip level.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31064,7 +31064,7 @@ function CS.UnityEngine.Texture2DArray.SetPixels(colors, arrayElement) end
 --Params: colors - An array of pixel colors.
 --        arrayElement - The texture array element index.
 --        miplevel - The mip level.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31084,7 +31084,7 @@ function CS.UnityEngine.Texture2DArray.SetPixels32(colors, arrayElement) end
 --```plaintext
 --Params: updateMipmaps - When set to true, mipmap levels are recalculated.
 --        makeNoLongerReadable - When set to true, Unity discards the copy of pixel data in CPU-addressable memory after this operation.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31147,7 +31147,7 @@ CS.UnityEngine.CubemapArray = {}
 --Params: face - The cubemap face to read pixel data from.
 --        arrayElement - The array element ("slice") to read pixel data from.
 --        miplevel - The mip level to read pixel data from. The default is 0.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31168,7 +31168,7 @@ function CS.UnityEngine.CubemapArray.GetPixels(face, arrayElement) end
 --Params: face - The cubemap face to read pixel data from.
 --        arrayElement - The array element ("slice") to read pixel data from.
 --        miplevel - The mip level to read pixel data from. The default is 0.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31190,7 +31190,7 @@ function CS.UnityEngine.CubemapArray.GetPixels32(face, arrayElement) end
 --        face - Cubemap face to set pixels for.
 --        arrayElement - Array element index to set pixels for.
 --        miplevel - Mipmap level to set pixels for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31214,7 +31214,7 @@ function CS.UnityEngine.CubemapArray.SetPixels(colors, face, arrayElement) end
 --        face - Cubemap face to set pixels for.
 --        arrayElement - Array element index to set pixels for.
 --        miplevel - Mipmap level to set pixels for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31236,7 +31236,7 @@ function CS.UnityEngine.CubemapArray.SetPixels32(colors, face, arrayElement) end
 --```plaintext
 --Params: updateMipmaps - When set to true, mipmap levels are recalculated.
 --        makeNoLongerReadable - When set to true, Unity discards the copy of pixel data in CPU-addressable memory after this operation.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31306,7 +31306,7 @@ CS.UnityEngine.SparseTexture = {}
 --        tileY - Tile Y coordinate.
 --        miplevel - Mipmap level of the texture.
 --        data - Tile color data.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31324,7 +31324,7 @@ function CS.UnityEngine.SparseTexture.UpdateTile(tileX, tileY, miplevel, data) e
 --        tileY - Tile Y coordinate.
 --        miplevel - Mipmap level of the texture.
 --        data - Tile raw pixel data.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31341,7 +31341,7 @@ function CS.UnityEngine.SparseTexture.UpdateTileRaw(tileX, tileY, miplevel, data
 --Params: tileX - Tile X coordinate.
 --        tileY - Tile Y coordinate.
 --        miplevel - Mipmap level of the texture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31493,7 +31493,7 @@ function CS.UnityEngine.RenderTexture.GetNativeDepthBufferPtr() end
 --```plaintext
 --Params: discardColor - Should the colour buffer be discarded?
 --        discardDepth - Should the depth buffer be discarded?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31513,7 +31513,7 @@ function CS.UnityEngine.RenderTexture.MarkRestoreExpected() end
 --```plaintext
 --Params: discardColor - Should the colour buffer be discarded?
 --        discardDepth - Should the depth buffer be discarded?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31524,7 +31524,7 @@ function CS.UnityEngine.RenderTexture.DiscardContents() end
 --
 --```plaintext
 --Params: target - The render texture to resolve into.  If set, the target render texture must have the same dimensions and format as the source.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31535,7 +31535,7 @@ function CS.UnityEngine.RenderTexture.ResolveAntiAliasedSurface() end
 --
 --```plaintext
 --Params: target - The render texture to resolve into.  If set, the target render texture must have the same dimensions and format as the source.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31585,7 +31585,7 @@ function CS.UnityEngine.RenderTexture.ConvertToEquirect(equirect, eye) end
 --
 --```plaintext
 --Params: rt - Render texture, or null for main screen.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31612,7 +31612,7 @@ function CS.UnityEngine.RenderTexture:ReleaseTemporary(temp) end
 --        antiAliasing - Number of antialiasing samples to store in the texture. Valid values are 1, 2, 4, and 8. Throws an exception if any other value is passed.
 --        memorylessMode - Render texture memoryless mode.
 --        desc - Use this RenderTextureDesc for the settings when creating the temporary RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31682,7 +31682,7 @@ function CS.UnityEngine.RenderTexture:GetTemporary(width, height, depthBuffer, f
 --        antiAliasing - Number of antialiasing samples to store in the texture. Valid values are 1, 2, 4, and 8. Throws an exception if any other value is passed.
 --        memorylessMode - Render texture memoryless mode.
 --        desc - Use this RenderTextureDesc for the settings when creating the temporary RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -31882,7 +31882,7 @@ CS.UnityEngine.CustomRenderTexture = {}
 --
 --```plaintext
 --Params: count - Number of upate pass to perform. The default value of this count parameter is 1.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -32086,7 +32086,7 @@ CS.UnityEngine.RenderTextureDescriptor = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.FullScreenMovieControlMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.FullScreenMovieControlMode
 function CS.UnityEngine.FullScreenMovieControlMode:__CastFrom(value) end
@@ -32120,7 +32120,7 @@ function CS.UnityEngine.FullScreenMovieControlMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.FullScreenMovieScalingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.FullScreenMovieScalingMode
 function CS.UnityEngine.FullScreenMovieScalingMode:__CastFrom(value) end
@@ -32159,7 +32159,7 @@ function CS.UnityEngine.FullScreenMovieScalingMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.AndroidActivityIndicatorStyle = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AndroidActivityIndicatorStyle
 function CS.UnityEngine.AndroidActivityIndicatorStyle:__CastFrom(value) end
@@ -32186,7 +32186,7 @@ CS.UnityEngine.Handheld = {}
 --        bgColor - Background color.
 --        controlMode - How the playback controls are to be displayed.
 --        scalingMode - How the movie is to be scaled to fit the screen.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -32205,7 +32205,7 @@ function CS.UnityEngine.Handheld:PlayFullScreenMovie(path, bgColor, controlMode,
 --        bgColor - Background color.
 --        controlMode - How the playback controls are to be displayed.
 --        scalingMode - How the movie is to be scaled to fit the screen.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -32223,7 +32223,7 @@ function CS.UnityEngine.Handheld:PlayFullScreenMovie(path, bgColor, controlMode)
 --        bgColor - Background color.
 --        controlMode - How the playback controls are to be displayed.
 --        scalingMode - How the movie is to be scaled to fit the screen.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -32240,7 +32240,7 @@ function CS.UnityEngine.Handheld:PlayFullScreenMovie(path, bgColor) end
 --        bgColor - Background color.
 --        controlMode - How the playback controls are to be displayed.
 --        scalingMode - How the movie is to be scaled to fit the screen.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -32318,7 +32318,7 @@ function CS.UnityEngine.Hash128.ToString() end
 --
 --```plaintext
 --Params: hashString - A hexadecimal-encoded hash string.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -32331,7 +32331,7 @@ function CS.UnityEngine.Hash128:Parse(hashString) end
 --
 --```plaintext
 --Params: data - Input data string. Note that Unity interprets the string as UTF-8 data, even if internally in C# strings are UTF-16.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -32385,7 +32385,7 @@ function CS.UnityEngine.Hash128:Compute(val) end
 --
 --```plaintext
 --Params: val - Input value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -32398,7 +32398,7 @@ function CS.UnityEngine.Hash128:Compute(val) end
 --
 --```plaintext
 --Params: val - Input value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -32412,7 +32412,7 @@ function CS.UnityEngine.Hash128:Compute(val) end
 --```plaintext
 --Params: data - Raw data pointer, usually used with C# stackalloc data.
 --        size - Data size in bytes.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -32426,7 +32426,7 @@ function CS.UnityEngine.Hash128:Compute(data, size) end
 --
 --```plaintext
 --Params: data - Input data string. Note that Unity interprets the string as UTF-8 data, even if internally in C# strings are UTF-16.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -32472,7 +32472,7 @@ function CS.UnityEngine.Hash128.Append(val) end
 --
 --```plaintext
 --Params: val - Input value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -32484,7 +32484,7 @@ function CS.UnityEngine.Hash128.Append(val) end
 --
 --```plaintext
 --Params: val - Input value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -32497,7 +32497,7 @@ function CS.UnityEngine.Hash128.Append(val) end
 --```plaintext
 --Params: data - Raw data pointer, usually used with C# stackalloc data.
 --        size - Data size in bytes.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -32600,7 +32600,7 @@ CS.UnityEngine.HashUnsafeUtilities = {}
 --        hash1 - A pointer to store the low 64 bits of the computed hash.
 --        hash2 - A pointer to store the high 64 bits of the computed hash.
 --        hash - A pointer to the Hash128 to updated with the computed hash.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -32619,7 +32619,7 @@ function CS.UnityEngine.HashUnsafeUtilities:ComputeHash128(data, dataSize, hash1
 --        hash1 - A pointer to store the low 64 bits of the computed hash.
 --        hash2 - A pointer to store the high 64 bits of the computed hash.
 --        hash - A pointer to the Hash128 to updated with the computed hash.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -32647,7 +32647,7 @@ function CS.UnityEngine.HashUnsafeUtilities:ComputeHash128(data, dataSize, hash)
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.CursorMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.CursorMode
 function CS.UnityEngine.CursorMode:__CastFrom(value) end
@@ -32676,7 +32676,7 @@ function CS.UnityEngine.CursorMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.CursorLockMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.CursorLockMode
 function CS.UnityEngine.CursorLockMode:__CastFrom(value) end
@@ -32707,7 +32707,7 @@ CS.UnityEngine.Cursor = {}
 --Params: texture - The texture to use for the cursor. To use a texture, you must first import it with `Read/Write`enabled. Alternatively, you can use the default cursor import setting. If you created your cursor texture from code, it must be in RGBA32 format, have alphaIsTransparency enabled, and have no mip chain. To use the default cursor, set the texture to `Null`.
 --        hotspot - The offset from the top left of the texture to use as the target point (must be within the bounds of the cursor).
 --        cursorMode - Allow this cursor to render as a hardware cursor on supported platforms, or force software cursor.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -34355,7 +34355,7 @@ function CS.UnityEngine.Cursor:SetCursor(texture, hotspot, cursorMode) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.KeyCode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.KeyCode
 function CS.UnityEngine.KeyCode:__CastFrom(value) end
@@ -34402,7 +34402,7 @@ CS.UnityEngine.iPhoneTouch = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.iPhoneScreenOrientation = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.iPhoneScreenOrientation
 function CS.UnityEngine.iPhoneScreenOrientation:__CastFrom(value) end
@@ -34419,7 +34419,7 @@ function CS.UnityEngine.iPhoneScreenOrientation:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.iPhoneNetworkReachability = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.iPhoneNetworkReachability
 function CS.UnityEngine.iPhoneNetworkReachability:__CastFrom(value) end
@@ -34474,7 +34474,7 @@ function CS.UnityEngine.iPhoneNetworkReachability:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.iPhoneGeneration = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.iPhoneGeneration
 function CS.UnityEngine.iPhoneGeneration:__CastFrom(value) end
@@ -34538,7 +34538,7 @@ function CS.UnityEngine.iPhoneSettings:StopLocationServiceUpdates() end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.iPhoneMovieControlMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.iPhoneMovieControlMode
 function CS.UnityEngine.iPhoneMovieControlMode:__CastFrom(value) end
@@ -34559,7 +34559,7 @@ function CS.UnityEngine.iPhoneMovieControlMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.iPhoneTouchPhase = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.iPhoneTouchPhase
 function CS.UnityEngine.iPhoneTouchPhase:__CastFrom(value) end
@@ -34578,7 +34578,7 @@ function CS.UnityEngine.iPhoneTouchPhase:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.iPhoneMovieScalingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.iPhoneMovieScalingMode
 function CS.UnityEngine.iPhoneMovieScalingMode:__CastFrom(value) end
@@ -34654,7 +34654,7 @@ function CS.UnityEngine.iPhoneUtils:Vibrate() end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.iPhoneKeyboardType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.iPhoneKeyboardType
 function CS.UnityEngine.iPhoneKeyboardType:__CastFrom(value) end
@@ -34709,7 +34709,7 @@ CS.UnityEngine.iPhoneAccelerationEvent = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.iPhoneOrientation = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.iPhoneOrientation
 function CS.UnityEngine.iPhoneOrientation:__CastFrom(value) end
@@ -34780,7 +34780,7 @@ function CS.UnityEngine.iPhone:ResetNoBackupFlag(path) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.iOSActivityIndicatorStyle = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.iOSActivityIndicatorStyle
 function CS.UnityEngine.iOSActivityIndicatorStyle:__CastFrom(value) end
@@ -34813,7 +34813,7 @@ function CS.UnityEngine.iOSActivityIndicatorStyle:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.CalendarIdentifier = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.CalendarIdentifier
 function CS.UnityEngine.CalendarIdentifier:__CastFrom(value) end
@@ -34846,7 +34846,7 @@ function CS.UnityEngine.CalendarIdentifier:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.CalendarUnit = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.CalendarUnit
 function CS.UnityEngine.CalendarUnit:__CastFrom(value) end
@@ -34911,7 +34911,7 @@ CS.UnityEngine.RemoteNotification = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.RemoteNotificationType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.RemoteNotificationType
 function CS.UnityEngine.RemoteNotificationType:__CastFrom(value) end
@@ -34997,7 +34997,7 @@ function CS.UnityEngine.ADBannerView:IsAvailable(type) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Layout = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ADBannerView.Layout
 function CS.UnityEngine.Layout:__CastFrom(value) end
@@ -35012,7 +35012,7 @@ function CS.UnityEngine.Layout:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Type = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ADBannerView.Type
 function CS.UnityEngine.Type:__CastFrom(value) end
@@ -35267,7 +35267,7 @@ function CS.UnityEngine.Matrix4x4:Transpose(m) end
 --        top - Top y-coordinate.
 --        zNear - Near depth clipping plane value.
 --        zFar - Far depth clipping plane value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -35288,7 +35288,7 @@ function CS.UnityEngine.Matrix4x4:Ortho(left, right, bottom, top, zNear, zFar) e
 --        aspect - Aspect ratio (width divided by height).
 --        zNear - Near depth clipping plane value.
 --        zFar - Far depth clipping plane value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -35306,7 +35306,7 @@ function CS.UnityEngine.Matrix4x4:Perspective(fov, aspect, zNear, zFar) end
 --Params: from - The source point.
 --        to - The target point.
 --        up - The vector describing the up direction (typically Vector3.up).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -35327,7 +35327,7 @@ function CS.UnityEngine.Matrix4x4:LookAt(from, to, up) end
 --        zNear - Z distance to the near plane from the origin in view space.
 --        zFar - Z distance to the far plane from the origin in view space.
 --        frustumPlanes - Frustum planes struct that contains the view space coordinates of that define a viewing frustum.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -35351,7 +35351,7 @@ function CS.UnityEngine.Matrix4x4:Frustum(left, right, bottom, top, zNear, zFar)
 --        zNear - Z distance to the near plane from the origin in view space.
 --        zFar - Z distance to the far plane from the origin in view space.
 --        frustumPlanes - Frustum planes struct that contains the view space coordinates of that define a viewing frustum.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -35491,7 +35491,7 @@ function CS.UnityEngine.Matrix4x4:Rotate(q) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -35504,7 +35504,7 @@ function CS.UnityEngine.Matrix4x4.ToString() end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -35518,7 +35518,7 @@ function CS.UnityEngine.Matrix4x4.ToString(format) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -35663,7 +35663,7 @@ function CS.UnityEngine.Vector3:OrthoNormalize(normal, tangent, binormal) end
 --        target - The vector.
 --        maxRadiansDelta - The maximum angle in radians allowed for this rotation.
 --        maxMagnitudeDelta - The maximum allowed change in vector magnitude for this rotation.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -35681,7 +35681,7 @@ function CS.UnityEngine.Vector3:RotateTowards(current, target, maxRadiansDelta, 
 --Params: a - Start value, returned when t = 0.
 --        b - End value, returned when t = 1.
 --        t - Value used to interpolate between a and b.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -35708,7 +35708,7 @@ function CS.UnityEngine.Vector3:LerpUnclamped(a, b, t) end
 --Params: current - The position to move from.
 --        target - The position to move towards.
 --        maxDistanceDelta - Distance to move current per call.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -35840,7 +35840,7 @@ function CS.UnityEngine.Vector3:Project(vector, onNormal) end
 --```plaintext
 --Params: planeNormal - The direction from the vector towards the plane.
 --        vector - The location of the vector above the plane.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -35855,7 +35855,7 @@ function CS.UnityEngine.Vector3:ProjectOnPlane(vector, planeNormal) end
 --```plaintext
 --Params: from - The vector from which the angular difference is measured.
 --        to - The vector to which the angular difference is measured.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -35871,7 +35871,7 @@ function CS.UnityEngine.Vector3:Angle(from, to) end
 --Params: from - The vector from which the angular difference is measured.
 --        to - The vector to which the angular difference is measured.
 --        axis - A vector around which the other vectors are rotated.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -35980,7 +35980,7 @@ function CS.UnityEngine.Vector3:op_Inequality(lhs, rhs) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -35993,7 +35993,7 @@ function CS.UnityEngine.Vector3.ToString() end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -36007,7 +36007,7 @@ function CS.UnityEngine.Vector3.ToString(format) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -36100,7 +36100,7 @@ function CS.UnityEngine.Quaternion:Inverse(rotation) end
 --Params: a - Start value, returned when t = 0.
 --        b - End value, returned when t = 1.
 --        t - Interpolation ratio.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -36155,7 +36155,7 @@ function CS.UnityEngine.Quaternion:AngleAxis(angle, axis) end
 --```plaintext
 --Params: forward - The direction to look in.
 --        upwards - The vector that defines in which direction up is.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -36170,7 +36170,7 @@ function CS.UnityEngine.Quaternion:LookRotation(forward, upwards) end
 --```plaintext
 --Params: forward - The direction to look in.
 --        upwards - The vector that defines in which direction up is.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -36227,7 +36227,7 @@ function CS.UnityEngine.Quaternion:Dot(a, b) end
 --```plaintext
 --Params: view - The direction to look in.
 --        up - The vector that defines in which direction up is.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -36240,7 +36240,7 @@ function CS.UnityEngine.Quaternion.SetLookRotation(view) end
 --```plaintext
 --Params: view - The direction to look in.
 --        up - The vector that defines in which direction up is.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -36329,7 +36329,7 @@ function CS.UnityEngine.Quaternion.Equals(other) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -36342,7 +36342,7 @@ function CS.UnityEngine.Quaternion.ToString() end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -36356,7 +36356,7 @@ function CS.UnityEngine.Quaternion.ToString(format) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -36522,7 +36522,7 @@ function CS.UnityEngine.Mathf:LinearToGammaSpace(value) end
 --
 --```plaintext
 --Params: kelvin - Temperature in Kelvin. Range 1000 to 40000 Kelvin.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -36535,7 +36535,7 @@ function CS.UnityEngine.Mathf:CorrelatedColorTemperatureToRGB(kelvin) end
 --
 --```plaintext
 --Params: val - The floating point value to convert.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -36548,7 +36548,7 @@ function CS.UnityEngine.Mathf:FloatToHalf(val) end
 --
 --```plaintext
 --Params: val - The half precision value to convert.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -36562,7 +36562,7 @@ function CS.UnityEngine.Mathf:HalfToFloat(val) end
 --```plaintext
 --Params: x - X-coordinate of sample point.
 --        y - Y-coordinate of sample point.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -36576,7 +36576,7 @@ function CS.UnityEngine.Mathf:PerlinNoise(x, y) end
 --
 --```plaintext
 --Params: f - The input angle, in radians.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -36589,7 +36589,7 @@ function CS.UnityEngine.Mathf:Sin(f) end
 --
 --```plaintext
 --Params: f - The input angle, in radians.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -36835,7 +36835,7 @@ function CS.UnityEngine.Mathf:Sign(f) end
 --Params: value - The floating point value to restrict inside the range defined by the min and max values.
 --        min - The minimum floating point value to compare against.
 --        max - The maximum floating point value to compare against.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -36852,7 +36852,7 @@ function CS.UnityEngine.Mathf:Clamp(value, min, max) end
 --Params: value - The integer point value to restrict inside the min-to-max range
 --        min - The minimum integer point value to compare against.
 --        max - The maximum  integer point value to compare against.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -36877,7 +36877,7 @@ function CS.UnityEngine.Mathf:Clamp01(value) end
 --Params: a - The start value.
 --        b - The end value.
 --        t - The interpolation value between the two floats.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -36894,7 +36894,7 @@ function CS.UnityEngine.Mathf:Lerp(a, b, t) end
 --Params: a - The start value.
 --        b - The end value.
 --        t - The interpolation between the two floats.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -36921,7 +36921,7 @@ function CS.UnityEngine.Mathf:LerpAngle(a, b, t) end
 --Params: current - The current value.
 --        target - The value to move towards.
 --        maxDelta - The maximum change that should be applied to the value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -37046,7 +37046,7 @@ function CS.UnityEngine.Mathf:PingPong(t, length) end
 --Params: a - Start value.
 --        b - End value.
 --        value - Value between start and end.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -37211,7 +37211,7 @@ function CS.UnityEngine.Vector2.Normalize() end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -37224,7 +37224,7 @@ function CS.UnityEngine.Vector2.ToString() end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -37238,7 +37238,7 @@ function CS.UnityEngine.Vector2.ToString(format) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -37278,7 +37278,7 @@ function CS.UnityEngine.Vector2:Reflect(inDirection, inNormal) end
 --
 --```plaintext
 --Params: inDirection - The input direction.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -37301,7 +37301,7 @@ function CS.UnityEngine.Vector2:Dot(lhs, rhs) end
 --```plaintext
 --Params: from - The vector from which the angular difference is measured.
 --        to - The vector to which the angular difference is measured.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -37316,7 +37316,7 @@ function CS.UnityEngine.Vector2:Angle(from, to) end
 --```plaintext
 --Params: from - The vector from which the angular difference is measured.
 --        to - The vector to which the angular difference is measured.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -37699,7 +37699,7 @@ function CS.UnityEngine.Vector2Int.GetHashCode() end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -37712,7 +37712,7 @@ function CS.UnityEngine.Vector2Int.ToString() end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -37726,7 +37726,7 @@ function CS.UnityEngine.Vector2Int.ToString(format) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -37984,7 +37984,7 @@ function CS.UnityEngine.Vector3Int.GetHashCode() end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -37997,7 +37997,7 @@ function CS.UnityEngine.Vector3Int.ToString() end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -38011,7 +38011,7 @@ function CS.UnityEngine.Vector3Int.ToString(format) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -38295,7 +38295,7 @@ function CS.UnityEngine.Vector4:op_Implicit(v) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -38308,7 +38308,7 @@ function CS.UnityEngine.Vector4.ToString() end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -38322,7 +38322,7 @@ function CS.UnityEngine.Vector4.ToString(format) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -38349,7 +38349,7 @@ function CS.UnityEngine.Vector4.SqrMagnitude() end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.RPCMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.RPCMode
 function CS.UnityEngine.RPCMode:__CastFrom(value) end
@@ -38363,7 +38363,7 @@ function CS.UnityEngine.RPCMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.ConnectionTesterStatus = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ConnectionTesterStatus
 function CS.UnityEngine.ConnectionTesterStatus:__CastFrom(value) end
@@ -38377,7 +38377,7 @@ function CS.UnityEngine.ConnectionTesterStatus:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.NetworkConnectionError = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.NetworkConnectionError
 function CS.UnityEngine.NetworkConnectionError:__CastFrom(value) end
@@ -38391,7 +38391,7 @@ function CS.UnityEngine.NetworkConnectionError:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.NetworkDisconnection = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.NetworkDisconnection
 function CS.UnityEngine.NetworkDisconnection:__CastFrom(value) end
@@ -38405,7 +38405,7 @@ function CS.UnityEngine.NetworkDisconnection:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.MasterServerEvent = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.MasterServerEvent
 function CS.UnityEngine.MasterServerEvent:__CastFrom(value) end
@@ -38419,7 +38419,7 @@ function CS.UnityEngine.MasterServerEvent:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.NetworkStateSynchronization = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.NetworkStateSynchronization
 function CS.UnityEngine.NetworkStateSynchronization:__CastFrom(value) end
@@ -38433,7 +38433,7 @@ function CS.UnityEngine.NetworkStateSynchronization:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.NetworkPeerType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.NetworkPeerType
 function CS.UnityEngine.NetworkPeerType:__CastFrom(value) end
@@ -38447,7 +38447,7 @@ function CS.UnityEngine.NetworkPeerType:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.NetworkLogLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.NetworkLogLevel
 function CS.UnityEngine.NetworkLogLevel:__CastFrom(value) end
@@ -39122,7 +39122,7 @@ CS.UnityEngine.ILogHandler = {}
 --        context - Object to which the message applies.
 --        format - A composite format string.
 --        args - Format arguments.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39138,7 +39138,7 @@ function CS.UnityEngine.ILogHandler.LogFormat(logType, context, format, args) en
 --```plaintext
 --Params: exception - Runtime Exception.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39245,7 +39245,7 @@ CS.UnityEngine.Logger = {}
 --
 --```plaintext
 --Params: logType - The type of the log message.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39261,7 +39261,7 @@ function CS.UnityEngine.Logger.IsLogTypeAllowed(logType) end
 --        tag - Used to identify the source of a log message. It usually identifies the class where the log call occurs.
 --        message - String or object to be converted to string representation for display.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39277,7 +39277,7 @@ function CS.UnityEngine.Logger.Log(logType, message) end
 --        tag - Used to identify the source of a log message. It usually identifies the class where the log call occurs.
 --        message - String or object to be converted to string representation for display.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39294,7 +39294,7 @@ function CS.UnityEngine.Logger.Log(logType, message, context) end
 --        tag - Used to identify the source of a log message. It usually identifies the class where the log call occurs.
 --        message - String or object to be converted to string representation for display.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39311,7 +39311,7 @@ function CS.UnityEngine.Logger.Log(logType, tag, message) end
 --        tag - Used to identify the source of a log message. It usually identifies the class where the log call occurs.
 --        message - String or object to be converted to string representation for display.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39329,7 +39329,7 @@ function CS.UnityEngine.Logger.Log(logType, tag, message, context) end
 --        tag - Used to identify the source of a log message. It usually identifies the class where the log call occurs.
 --        message - String or object to be converted to string representation for display.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39344,7 +39344,7 @@ function CS.UnityEngine.Logger.Log(message) end
 --        tag - Used to identify the source of a log message. It usually identifies the class where the log call occurs.
 --        message - String or object to be converted to string representation for display.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39360,7 +39360,7 @@ function CS.UnityEngine.Logger.Log(tag, message) end
 --        tag - Used to identify the source of a log message. It usually identifies the class where the log call occurs.
 --        message - String or object to be converted to string representation for display.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39376,7 +39376,7 @@ function CS.UnityEngine.Logger.Log(tag, message, context) end
 --Params: tag - Used to identify the source of a log message. It usually identifies the class where the log call occurs.
 --        message - String or object to be converted to string representation for display.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39391,7 +39391,7 @@ function CS.UnityEngine.Logger.LogWarning(tag, message) end
 --Params: tag - Used to identify the source of a log message. It usually identifies the class where the log call occurs.
 --        message - String or object to be converted to string representation for display.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39407,7 +39407,7 @@ function CS.UnityEngine.Logger.LogWarning(tag, message, context) end
 --Params: tag - Used to identify the source of a log message. It usually identifies the class where the log call occurs.
 --        message - String or object to be converted to string representation for display.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39422,7 +39422,7 @@ function CS.UnityEngine.Logger.LogError(tag, message) end
 --Params: tag - Used to identify the source of a log message. It usually identifies the class where the log call occurs.
 --        message - String or object to be converted to string representation for display.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39437,7 +39437,7 @@ function CS.UnityEngine.Logger.LogError(tag, message, context) end
 --```plaintext
 --Params: exception - Runtime Exception.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39450,7 +39450,7 @@ function CS.UnityEngine.Logger.LogException(exception) end
 --```plaintext
 --Params: exception - Runtime Exception.
 --        context - Object to which the message applies.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39466,7 +39466,7 @@ function CS.UnityEngine.Logger.LogException(exception, context) end
 --        context - Object to which the message applies.
 --        format - A composite format string.
 --        args - Format arguments.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39483,7 +39483,7 @@ function CS.UnityEngine.Logger.LogFormat(logType, format, args) end
 --        context - Object to which the message applies.
 --        format - A composite format string.
 --        args - Format arguments.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39614,7 +39614,7 @@ CS.UnityEngine.Color = {}
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39627,7 +39627,7 @@ function CS.UnityEngine.Color.ToString() end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39641,7 +39641,7 @@ function CS.UnityEngine.Color.ToString(format) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39719,7 +39719,7 @@ function CS.UnityEngine.Color:op_Inequality(lhs, rhs) end
 --Params: a - Color a.
 --        b - Color b.
 --        t - Float for combining a and b.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39764,7 +39764,7 @@ function CS.UnityEngine.Color:RGBToHSV(rgbColor, H, S, V) end
 --        S - Saturation [0..1].
 --        V - Brightness value [0..1].
 --        hdr - Output HDR colours. If true, the returned colour will not be clamped to [0..1].
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39782,7 +39782,7 @@ function CS.UnityEngine.Color:HSVToRGB(H, S, V) end
 --        S - Saturation [0..1].
 --        V - Brightness value [0..1].
 --        hdr - Output HDR colours. If true, the returned colour will not be clamped to [0..1].
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39919,7 +39919,7 @@ function CS.UnityEngine.Color32:LerpUnclamped(a, b, t) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39932,7 +39932,7 @@ function CS.UnityEngine.Color32.ToString() end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39946,7 +39946,7 @@ function CS.UnityEngine.Color32.ToString(format) end
 --```plaintext
 --Params: format - A numeric format string.
 --        formatProvider - An object that specifies culture-specific formatting.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39975,7 +39975,7 @@ function CS.UnityEngine.ColorUtility:TryParseHtmlString(htmlString, color) end
 --
 --```plaintext
 --Params: color - The color to be converted.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -39988,7 +39988,7 @@ function CS.UnityEngine.ColorUtility:ToHtmlStringRGB(color) end
 --
 --```plaintext
 --Params: color - The color to be converted.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -40124,7 +40124,7 @@ function CS.UnityEngine.MasterServer:ClearHostList() end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.GradientMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.GradientMode
 function CS.UnityEngine.GradientMode:__CastFrom(value) end
@@ -40182,7 +40182,7 @@ CS.UnityEngine.Gradient = {}
 --
 --```plaintext
 --Params: time - Time of the key (0 - 1).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -40196,7 +40196,7 @@ function CS.UnityEngine.Gradient.Evaluate(time) end
 --```plaintext
 --Params: colorKeys - Color keys of the gradient (maximum 8 color keys).
 --        alphaKeys - Alpha keys of the gradient (maximum 8 alpha keys).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -40711,7 +40711,7 @@ CS.UnityEngine.Random = {}
 --
 --```plaintext
 --Params: seed - Seed used to initialize the random number generator.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -40760,7 +40760,7 @@ function CS.UnityEngine.Random:RandomRange(min, max) end
 --        valueMax - Maximum value [0..1].
 --        alphaMin - Minimum alpha [0..1].
 --        alphaMax - Maximum alpha [0..1].
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -40779,7 +40779,7 @@ function CS.UnityEngine.Random:ColorHSV() end
 --        valueMax - Maximum value [0..1].
 --        alphaMin - Minimum alpha [0..1].
 --        alphaMax - Maximum alpha [0..1].
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -40800,7 +40800,7 @@ function CS.UnityEngine.Random:ColorHSV(hueMin, hueMax) end
 --        valueMax - Maximum value [0..1].
 --        alphaMin - Minimum alpha [0..1].
 --        alphaMax - Maximum alpha [0..1].
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -40823,7 +40823,7 @@ function CS.UnityEngine.Random:ColorHSV(hueMin, hueMax, saturationMin, saturatio
 --        valueMax - Maximum value [0..1].
 --        alphaMin - Minimum alpha [0..1].
 --        alphaMax - Maximum alpha [0..1].
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -40848,7 +40848,7 @@ function CS.UnityEngine.Random:ColorHSV(hueMin, hueMax, saturationMin, saturatio
 --        valueMax - Maximum value [0..1].
 --        alphaMin - Minimum alpha [0..1].
 --        alphaMax - Maximum alpha [0..1].
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -40976,7 +40976,7 @@ CS.UnityEngine.Component = {}
 --
 --```plaintext
 --Params: type - The type of Component to retrieve.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41018,7 +41018,7 @@ function CS.UnityEngine.Component.GetComponentInChildren(t, includeInactive) end
 --
 --```plaintext
 --Params: t - The type of Component to retrieve.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41041,7 +41041,7 @@ function CS.UnityEngine.Component.GetComponentInChildren() end
 --```plaintext
 --Params: t - The type of Component to retrieve.
 --        includeInactive - Should Components on inactive GameObjects be included in the found set? includeInactive decides which children of the GameObject will be searched.  The GameObject that you call GetComponentsInChildren on is always searched regardless. Default is false.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41074,7 +41074,7 @@ function CS.UnityEngine.Component.GetComponentsInChildren(results) end
 --
 --```plaintext
 --Params: t - The type of Component to retrieve.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41092,7 +41092,7 @@ function CS.UnityEngine.Component.GetComponentInParent() end
 --```plaintext
 --Params: t - The type of Component to retrieve.
 --        includeInactive - Should inactive Components be included in the found set?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41121,7 +41121,7 @@ function CS.UnityEngine.Component.GetComponentsInParent() end
 --
 --```plaintext
 --Params: type - The type of Component to retrieve.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41145,7 +41145,7 @@ function CS.UnityEngine.Component.GetComponents() end
 --
 --```plaintext
 --Params: tag - The tag to compare.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41160,7 +41160,7 @@ function CS.UnityEngine.Component.CompareTag(tag) end
 --Params: methodName - Name of method to call.
 --        value - Optional parameter value for the method.
 --        options - Should an error be raised if the method does not exist on the target object?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41176,7 +41176,7 @@ function CS.UnityEngine.Component.SendMessageUpwards(methodName, value, options)
 --Params: methodName - Name of method to call.
 --        value - Optional parameter value for the method.
 --        options - Should an error be raised if the method does not exist on the target object?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41191,7 +41191,7 @@ function CS.UnityEngine.Component.SendMessageUpwards(methodName, value) end
 --Params: methodName - Name of method to call.
 --        value - Optional parameter value for the method.
 --        options - Should an error be raised if the method does not exist on the target object?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41205,7 +41205,7 @@ function CS.UnityEngine.Component.SendMessageUpwards(methodName) end
 --Params: methodName - Name of method to call.
 --        value - Optional parameter value for the method.
 --        options - Should an error be raised if the method does not exist on the target object?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41220,7 +41220,7 @@ function CS.UnityEngine.Component.SendMessageUpwards(methodName, options) end
 --Params: methodName - Name of the method to call.
 --        value - Optional parameter for the method.
 --        options - Should an error be raised if the target object doesn't implement the method for the message?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41235,7 +41235,7 @@ function CS.UnityEngine.Component.SendMessage(methodName, value) end
 --Params: methodName - Name of the method to call.
 --        value - Optional parameter for the method.
 --        options - Should an error be raised if the target object doesn't implement the method for the message?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41249,7 +41249,7 @@ function CS.UnityEngine.Component.SendMessage(methodName) end
 --Params: methodName - Name of the method to call.
 --        value - Optional parameter for the method.
 --        options - Should an error be raised if the target object doesn't implement the method for the message?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41265,7 +41265,7 @@ function CS.UnityEngine.Component.SendMessage(methodName, value, options) end
 --Params: methodName - Name of the method to call.
 --        value - Optional parameter for the method.
 --        options - Should an error be raised if the target object doesn't implement the method for the message?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41280,7 +41280,7 @@ function CS.UnityEngine.Component.SendMessage(methodName, options) end
 --Params: methodName - Name of the method to call.
 --        parameter - Optional parameter to pass to the method (can be any value).
 --        options - Should an error be raised if the method does not exist for a given target object?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41296,7 +41296,7 @@ function CS.UnityEngine.Component.BroadcastMessage(methodName, parameter, option
 --Params: methodName - Name of the method to call.
 --        parameter - Optional parameter to pass to the method (can be any value).
 --        options - Should an error be raised if the method does not exist for a given target object?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41311,7 +41311,7 @@ function CS.UnityEngine.Component.BroadcastMessage(methodName, parameter) end
 --Params: methodName - Name of the method to call.
 --        parameter - Optional parameter to pass to the method (can be any value).
 --        options - Should an error be raised if the method does not exist for a given target object?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41325,7 +41325,7 @@ function CS.UnityEngine.Component.BroadcastMessage(methodName) end
 --Params: methodName - Name of the method to call.
 --        parameter - Optional parameter to pass to the method (can be any value).
 --        options - Should an error be raised if the method does not exist for a given target object?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41534,7 +41534,7 @@ CS.UnityEngine.GameObject = {}
 --
 --```plaintext
 --Params: type - The type of primitive object to create.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41551,7 +41551,7 @@ function CS.UnityEngine.GameObject.GetComponent() end
 --
 --```plaintext
 --Params: type - The type of Component to retrieve.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41564,7 +41564,7 @@ function CS.UnityEngine.GameObject.GetComponent(type) end
 --
 --```plaintext
 --Params: type - The type of Component to retrieve.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41577,7 +41577,7 @@ function CS.UnityEngine.GameObject.GetComponent(type) end
 --
 --```plaintext
 --Params: type - The type of Component to retrieve.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41591,7 +41591,7 @@ function CS.UnityEngine.GameObject.GetComponentInChildren(type, includeInactive)
 --
 --```plaintext
 --Params: type - The type of Component to retrieve.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41613,7 +41613,7 @@ function CS.UnityEngine.GameObject.GetComponentInChildren(includeInactive) end
 --
 --```plaintext
 --Params: type - Type of component to find.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41627,7 +41627,7 @@ function CS.UnityEngine.GameObject.GetComponentInParent(type, includeInactive) e
 --
 --```plaintext
 --Params: type - Type of component to find.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41649,7 +41649,7 @@ function CS.UnityEngine.GameObject.GetComponentInParent(includeInactive) end
 --
 --```plaintext
 --Params: type - The type of component to retrieve.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41674,7 +41674,7 @@ function CS.UnityEngine.GameObject.GetComponents(results) end
 --```plaintext
 --Params: type - The type of Component to retrieve.
 --        includeInactive - Should Components on inactive GameObjects be included in the found set?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41687,7 +41687,7 @@ function CS.UnityEngine.GameObject.GetComponentsInChildren(type) end
 --```plaintext
 --Params: type - The type of Component to retrieve.
 --        includeInactive - Should Components on inactive GameObjects be included in the found set?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41721,7 +41721,7 @@ function CS.UnityEngine.GameObject.GetComponentsInParent(type) end
 --```plaintext
 --Params: type - The type of Component to retrieve.
 --        includeInactive - Should inactive Components be included in the found set?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41757,7 +41757,7 @@ function CS.UnityEngine.GameObject.TryGetComponent(type, component) end
 --
 --```plaintext
 --Params: tag - The tag to search for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41797,7 +41797,7 @@ function CS.UnityEngine.GameObject.AddComponent() end
 --
 --```plaintext
 --Params: value - Activate or deactivate the object, where true activates the GameObject and false deactivates the GameObject.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41813,7 +41813,7 @@ function CS.UnityEngine.GameObject.SetActiveRecursively(state) end
 --
 --```plaintext
 --Params: tag - The tag to compare.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41831,7 +41831,7 @@ function CS.UnityEngine.GameObject:FindGameObjectWithTag(tag) end
 --
 --```plaintext
 --Params: tag - The name of the tag to search GameObjects for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41845,7 +41845,7 @@ function CS.UnityEngine.GameObject:FindGameObjectsWithTag(tag) end
 --Params: methodName - The name of the method to call.
 --        value - An optional parameter value to pass to the called method.
 --        options - Should an error be raised if the method doesn't exist on the target object?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41861,7 +41861,7 @@ function CS.UnityEngine.GameObject.SendMessageUpwards(methodName, value, options
 --Params: methodName - The name of the method to call.
 --        value - An optional parameter value to pass to the called method.
 --        options - Should an error be raised if the method doesn't exist on the target object?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41876,7 +41876,7 @@ function CS.UnityEngine.GameObject.SendMessageUpwards(methodName, value) end
 --Params: methodName - The name of the method to call.
 --        value - An optional parameter value to pass to the called method.
 --        options - Should an error be raised if the method doesn't exist on the target object?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41890,7 +41890,7 @@ function CS.UnityEngine.GameObject.SendMessageUpwards(methodName) end
 --Params: methodName - The name of the method to call.
 --        value - An optional parameter value to pass to the called method.
 --        options - Should an error be raised if the method doesn't exist on the target object?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41906,7 +41906,7 @@ function CS.UnityEngine.GameObject.SendMessage(methodName, value, options) end
 --Params: methodName - The name of the method to call.
 --        value - An optional parameter value to pass to the called method.
 --        options - Should an error be raised if the method doesn't exist on the target object?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -41921,7 +41921,7 @@ function CS.UnityEngine.GameObject.SendMessage(methodName, value) end
 --Params: methodName - The name of the method to call.
 --        value - An optional parameter value to pass to the called method.
 --        options - Should an error be raised if the method doesn't exist on the target object?
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -42005,7 +42005,7 @@ function CS.UnityEngine.Resources:FindObjectsOfTypeAll() end
 --```plaintext
 --Params: path - Path to the target resource to load.
 --        systemTypeInstance - Type filter for objects returned.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -42024,7 +42024,7 @@ function CS.UnityEngine.Resources:Load(path) end
 --```plaintext
 --Params: path - Path to the target resource to load.
 --        systemTypeInstance - Type filter for objects returned.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -42038,7 +42038,7 @@ function CS.UnityEngine.Resources:Load(path, systemTypeInstance) end
 --
 --```plaintext
 --Params: path - Pathname of the target folder. When using the empty string (i.e., ""), the function will load the entire contents of the Resources folder.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -42057,7 +42057,7 @@ function CS.UnityEngine.Resources:LoadAsync(path) end
 --```plaintext
 --Params: path - Pathname of the target folder. When using the empty string (i.e., ""), the function will load the entire contents of the Resources folder.
 --        systemTypeInstance - Type filter for objects returned.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -42072,7 +42072,7 @@ function CS.UnityEngine.Resources:LoadAsync(path, type) end
 --```plaintext
 --Params: path - Pathname of the target folder. When using the empty string (i.e., ""), the function will load the entire contents of the Resources folder.
 --        systemTypeInstance - Type filter for objects returned.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -42085,7 +42085,7 @@ function CS.UnityEngine.Resources:LoadAll(path, systemTypeInstance) end
 --
 --```plaintext
 --Params: path - Pathname of the target folder. When using the empty string (i.e., ""), the function will load the entire contents of the Resources folder.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -42126,7 +42126,7 @@ function CS.UnityEngine.Resources:UnloadUnusedAssets() end
 --
 --```plaintext
 --Params: instanceID - Instance ID of an Object.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -42145,7 +42145,7 @@ function CS.UnityEngine.Resources:InstanceIDToObjectList(instanceIDs, objects) e
 --```plaintext
 --Params: assetPath - Pathname of the target asset.
 --        type - Type filter for objects returned.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -42204,7 +42204,7 @@ function CS.UnityEngine.LayerMask:NameToLayer(layerName) end
 --
 --```plaintext
 --Params: layerNames - List of layer names to convert to a layer mask.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -42387,7 +42387,7 @@ function CS.UnityEngine.MonoBehaviour.StartCoroutine_Auto(routine) end
 --```plaintext
 --Params: methodName - Name of coroutine.
 --        routine - Name of the function in code, including coroutines.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -42400,7 +42400,7 @@ function CS.UnityEngine.MonoBehaviour.StopCoroutine(routine) end
 --```plaintext
 --Params: methodName - Name of coroutine.
 --        routine - Name of the function in code, including coroutines.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -42413,7 +42413,7 @@ function CS.UnityEngine.MonoBehaviour.StopCoroutine(routine) end
 --```plaintext
 --Params: methodName - Name of coroutine.
 --        routine - Name of the function in code, including coroutines.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -42628,7 +42628,7 @@ CS.UnityEngine.RangeInt = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.RuntimeInitializeLoadType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.RuntimeInitializeLoadType
 function CS.UnityEngine.RuntimeInitializeLoadType:__CastFrom(value) end
@@ -42666,7 +42666,7 @@ function CS.UnityEngine.ScriptableObject.SetDirty() end
 --```plaintext
 --Params: className - The type of the ScriptableObject to create, as the name of the type.
 --        type - The type of the ScriptableObject to create, as a System.Type instance.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -42680,7 +42680,7 @@ function CS.UnityEngine.ScriptableObject:CreateInstance(className) end
 --```plaintext
 --Params: className - The type of the ScriptableObject to create, as the name of the type.
 --        type - The type of the ScriptableObject to create, as a System.Type instance.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -42877,7 +42877,7 @@ function CS.UnityEngine.TrackedReference:op_Implicit(exists) end
 ---@source UnityEngine.AssetBundleModule.dll
 CS.UnityEngine.AssetBundleLoadResult = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AssetBundleLoadResult
 function CS.UnityEngine.AssetBundleLoadResult:__CastFrom(value) end
@@ -42908,7 +42908,7 @@ CS.UnityEngine.AssetBundle = {}
 --
 --```plaintext
 --Params: unloadAllObjects - Determines whether the current instances of objects loaded from AssetBundles will also be unloaded.
---        
+--
 --```
 --
 ---@source UnityEngine.AssetBundleModule.dll
@@ -42940,7 +42940,7 @@ function CS.UnityEngine.AssetBundle:LoadFromFileAsync(path, crc) end
 --Params: path - Path of the file on disk.
 --        crc - An optional CRC-32 checksum of the uncompressed content. If this is non-zero, then the content will be compared against the checksum before loading it, and give an error if it does not match.
 --        offset - An optional byte offset. This value specifies where to start reading the AssetBundle from.
---        
+--
 --```
 --
 ---@source UnityEngine.AssetBundleModule.dll
@@ -42968,7 +42968,7 @@ function CS.UnityEngine.AssetBundle:LoadFromFile(path, crc) end
 --Params: path - Path of the file on disk.
 --        crc - An optional CRC-32 checksum of the uncompressed content. If this is non-zero, then the content will be compared against the checksum before loading it, and give an error if it does not match.
 --        offset - An optional byte offset. This value specifies where to start reading the AssetBundle from.
---        
+--
 --```
 --
 ---@source UnityEngine.AssetBundleModule.dll
@@ -42989,7 +42989,7 @@ function CS.UnityEngine.AssetBundle:LoadFromMemoryAsync(binary) end
 --```plaintext
 --Params: binary - Array of bytes with the AssetBundle data.
 --        crc - An optional CRC-32 checksum of the uncompressed content. If this is non-zero, then the content will be compared against the checksum before loading it, and give an error if it does not match.
---        
+--
 --```
 --
 ---@source UnityEngine.AssetBundleModule.dll
@@ -43009,7 +43009,7 @@ function CS.UnityEngine.AssetBundle:LoadFromMemory(binary) end
 --```plaintext
 --Params: binary - Array of bytes with the AssetBundle data.
 --        crc - An optional CRC-32 checksum of the uncompressed content. If this is non-zero, then the content will be compared against the checksum before loading it, and give an error if it does not match.
---        
+--
 --```
 --
 ---@source UnityEngine.AssetBundleModule.dll
@@ -43025,7 +43025,7 @@ function CS.UnityEngine.AssetBundle:LoadFromMemory(binary, crc) end
 --Params: stream - The managed Stream object. Unity calls Read(), Seek() and the Length property on this object to load the AssetBundle data.
 --        crc - An optional CRC-32 checksum of the uncompressed content.
 --        managedReadBufferSize - You can use this to override the size of the read buffer Unity uses while loading data. The default size is 32KB.
---        
+--
 --```
 --
 ---@source UnityEngine.AssetBundleModule.dll
@@ -43053,7 +43053,7 @@ function CS.UnityEngine.AssetBundle:LoadFromStreamAsync(stream) end
 --Params: stream - The managed Stream object. Unity calls Read(), Seek() and the Length property on this object to load the AssetBundle data.
 --        crc - An optional CRC-32 checksum of the uncompressed content.
 --        managedReadBufferSize - You can use this to override the size of the read buffer Unity uses while loading data. The default size is 32KB.
---        
+--
 --```
 --
 ---@source UnityEngine.AssetBundleModule.dll
@@ -43226,7 +43226,7 @@ function CS.UnityEngine.AssetBundle.AllAssetNames() end
 --
 --```plaintext
 --Params: unloadAllLoadedObjects - Determines whether the current instances of objects loaded from the AssetBundle will also be unloaded.
---        
+--
 --```
 --
 ---@source UnityEngine.AssetBundleModule.dll
@@ -43254,7 +43254,7 @@ function CS.UnityEngine.AssetBundle.GetAllScenePaths() end
 --        method - The compression method, level and blocksize to use during recompression. Only some BuildCompression types are supported (see note).
 --        expectedCRC - CRC of the AssetBundle to test against. Testing this requires additional file reading and computation. Pass in 0 to skip this check. Unity does not compute a CRC when the source and destination BuildCompression are the same, so no CRC verification takes place (see note).
 --        priority - The priority at which the recompression operation should run. This sets thread priority during the operation and does not effect the order in which operations are performed. Recompression operations run on a background worker thread.
---        
+--
 --```
 --
 ---@source UnityEngine.AssetBundleModule.dll
@@ -43273,7 +43273,7 @@ function CS.UnityEngine.AssetBundle:RecompressAssetBundleAsync(inputPath, output
 --Params: path - Path of the file on disk
 --
 --See Also: UnityWebRequestAssetBundle.GetAssetBundle, DownloadHandlerAssetBundle.
---        
+--
 --```
 --
 ---@source UnityEngine.AssetBundleModule.dll
@@ -43294,7 +43294,7 @@ function CS.UnityEngine.AssetBundle:CreateFromMemory(binary) end
 --
 --```plaintext
 --Params: binary - Array of bytes with the AssetBundle data.
---        
+--
 --```
 --
 ---@source UnityEngine.AssetBundleModule.dll
@@ -43370,7 +43370,7 @@ CS.UnityEngine.UnityAPICompatibilityVersionAttribute = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.HideFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.HideFlags
 function CS.UnityEngine.HideFlags:__CastFrom(value) end
@@ -43424,7 +43424,7 @@ function CS.UnityEngine.Object:op_Implicit(exists) end
 --        rotation - Orientation of the new object.
 --        parent - Parent that will be assigned to the new object.
 --        instantiateInWorldSpace - When you assign a parent Object, pass true to position the new object directly in world space. Pass false to set the Object’s position relative to its new parent..
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -43443,7 +43443,7 @@ function CS.UnityEngine.Object:Instantiate(original, position, rotation) end
 --        rotation - Orientation of the new object.
 --        parent - Parent that will be assigned to the new object.
 --        instantiateInWorldSpace - When you assign a parent Object, pass true to position the new object directly in world space. Pass false to set the Object’s position relative to its new parent..
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -43463,7 +43463,7 @@ function CS.UnityEngine.Object:Instantiate(original, position, rotation, parent)
 --        rotation - Orientation of the new object.
 --        parent - Parent that will be assigned to the new object.
 --        instantiateInWorldSpace - When you assign a parent Object, pass true to position the new object directly in world space. Pass false to set the Object’s position relative to its new parent..
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -43480,7 +43480,7 @@ function CS.UnityEngine.Object:Instantiate(original) end
 --        rotation - Orientation of the new object.
 --        parent - Parent that will be assigned to the new object.
 --        instantiateInWorldSpace - When you assign a parent Object, pass true to position the new object directly in world space. Pass false to set the Object’s position relative to its new parent..
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -43498,7 +43498,7 @@ function CS.UnityEngine.Object:Instantiate(original, parent) end
 --        rotation - Orientation of the new object.
 --        parent - Parent that will be assigned to the new object.
 --        instantiateInWorldSpace - When you assign a parent Object, pass true to position the new object directly in world space. Pass false to set the Object’s position relative to its new parent..
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -43547,7 +43547,7 @@ function CS.UnityEngine.Object:Instantiate(original, parent, worldPositionStays)
 --```plaintext
 --Params: obj - The object to destroy.
 --        t - The optional amount of time to delay before destroying the object.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -43561,7 +43561,7 @@ function CS.UnityEngine.Object:Destroy(obj, t) end
 --```plaintext
 --Params: obj - The object to destroy.
 --        t - The optional amount of time to delay before destroying the object.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -43574,7 +43574,7 @@ function CS.UnityEngine.Object:Destroy(obj) end
 --```plaintext
 --Params: obj - Object to be destroyed.
 --        allowDestroyingAssets - Set to true to allow assets to be destroyed.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -43588,7 +43588,7 @@ function CS.UnityEngine.Object:DestroyImmediate(obj, allowDestroyingAssets) end
 --```plaintext
 --Params: obj - Object to be destroyed.
 --        allowDestroyingAssets - Set to true to allow assets to be destroyed.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -43601,7 +43601,7 @@ function CS.UnityEngine.Object:DestroyImmediate(obj) end
 --```plaintext
 --Params: type - The type of object to find.
 --        includeInactive - If true, components attached to inactive GameObjects are also included.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -43614,7 +43614,7 @@ function CS.UnityEngine.Object:FindObjectsOfType(type) end
 --```plaintext
 --Params: type - The type of object to find.
 --        includeInactive - If true, components attached to inactive GameObjects are also included.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -43627,7 +43627,7 @@ function CS.UnityEngine.Object:FindObjectsOfType(type, includeInactive) end
 --
 --```plaintext
 --Params: target - An Object not destroyed on Scene change.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -43652,7 +43652,7 @@ function CS.UnityEngine.Object:FindSceneObjectsOfType(type) end
 --
 --```plaintext
 --Params: type - The type of object or asset to find.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -43680,7 +43680,7 @@ function CS.UnityEngine.Object:FindObjectOfType(includeInactive) end
 --
 --```plaintext
 --Params: type - The type of object to find.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -43692,7 +43692,7 @@ function CS.UnityEngine.Object:FindObjectsOfTypeAll(type) end
 --
 --```plaintext
 --Params: type - The type of object to find.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -43705,7 +43705,7 @@ function CS.UnityEngine.Object:FindObjectOfType(type) end
 --
 --```plaintext
 --Params: type - The type of object to find.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -43825,7 +43825,7 @@ CS.UnityEngine.Security = {}
 --```plaintext
 --Params: assemblyData - Assembly to verify.
 --        authorizationKey - Public key used to verify assembly.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -43840,7 +43840,7 @@ function CS.UnityEngine.Security:LoadAndVerifyAssembly(assemblyData, authorizati
 --```plaintext
 --Params: assemblyData - Assembly to verify.
 --        authorizationKey - Public key used to verify assembly.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -43855,7 +43855,7 @@ function CS.UnityEngine.Security:LoadAndVerifyAssembly(assemblyData) end
 --Params: ip - IP address of server.
 --        atPort - Port from where socket policy is read.
 --        timeout - Time to wait for response.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -43871,7 +43871,7 @@ function CS.UnityEngine.Security:PrefetchSocketPolicy(ip, atPort) end
 --Params: ip - IP address of server.
 --        atPort - Port from where socket policy is read.
 --        timeout - Time to wait for response.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -43983,7 +43983,7 @@ function CS.UnityEngine.ComputeBuffer.IsValid() end
 --
 --```plaintext
 --Params: data - Array of values to fill the buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44006,7 +44006,7 @@ function CS.UnityEngine.ComputeBuffer.SetData(data) end
 --        managedBufferStartIndex - The first element index in data to copy to the compute buffer.
 --        computeBufferStartIndex - The first element index in compute buffer to receive the data.
 --        count - The number of elements to copy.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44035,7 +44035,7 @@ function CS.UnityEngine.ComputeBuffer.SetData(data, nativeBufferStartIndex, comp
 --
 --```plaintext
 --Params: data - An array to receive the data.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44050,7 +44050,7 @@ function CS.UnityEngine.ComputeBuffer.GetData(data) end
 --        managedBufferStartIndex - The first element index in data where retrieved elements are copied.
 --        computeBufferStartIndex - The first element index of the compute buffer from which elements are read.
 --        count - The number of elements to retrieve.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44075,7 +44075,7 @@ function CS.UnityEngine.ComputeBuffer.EndWrite(countWritten) end
 --
 --```plaintext
 --Params: counterValue - Value of the append/consume counter.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44089,7 +44089,7 @@ function CS.UnityEngine.ComputeBuffer.SetCounterValue(counterValue) end
 --Params: src - Append/consume buffer to copy the counter from.
 --        dst - A buffer to copy the counter to.
 --        dstOffsetBytes - Target byte offset in dst.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44124,7 +44124,7 @@ CS.UnityEngine.ComputeShader = {}
 --
 --```plaintext
 --Params: name - Name of kernel function.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44137,7 +44137,7 @@ function CS.UnityEngine.ComputeShader.FindKernel(name) end
 --
 --```plaintext
 --Params: name - The name of the kernel to look for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44152,7 +44152,7 @@ function CS.UnityEngine.ComputeShader.HasKernel(name) end
 --Params: name - Variable name in shader code.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44167,7 +44167,7 @@ function CS.UnityEngine.ComputeShader.SetFloat(nameID, val) end
 --Params: name - Variable name in shader code.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44182,7 +44182,7 @@ function CS.UnityEngine.ComputeShader.SetInt(nameID, val) end
 --Params: name - Variable name in shader code.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44197,7 +44197,7 @@ function CS.UnityEngine.ComputeShader.SetVector(nameID, val) end
 --Params: name - Variable name in shader code.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44212,7 +44212,7 @@ function CS.UnityEngine.ComputeShader.SetMatrix(nameID, val) end
 --Params: name - Variable name in shader code.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        values - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44227,7 +44227,7 @@ function CS.UnityEngine.ComputeShader.SetVectorArray(nameID, values) end
 --Params: name - Variable name in shader code.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        values - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44245,7 +44245,7 @@ function CS.UnityEngine.ComputeShader.SetMatrixArray(nameID, values) end
 --        texture - Texture to set.
 --        mipLevel - Optional mipmap level of the read-write texture.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44264,7 +44264,7 @@ function CS.UnityEngine.ComputeShader.SetTexture(kernelIndex, nameID, texture, m
 --        name - Name of the buffer variable in shader code.
 --        globalTextureName - Global texture property to assign to shader.
 --        globalTextureNameID - Property name ID, use Shader.PropertyToID to get it.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44281,7 +44281,7 @@ function CS.UnityEngine.ComputeShader.SetTextureFromGlobal(kernelIndex, nameID, 
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        name - Name of the buffer variable in shader code.
 --        buffer - Buffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44298,7 +44298,7 @@ function CS.UnityEngine.ComputeShader.SetBuffer(kernelIndex, nameID, buffer) end
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        name - Name of the buffer variable in shader code.
 --        buffer - Buffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44322,7 +44322,7 @@ function CS.UnityEngine.ComputeShader.GetKernelThreadGroupSizes(kernelIndex, x, 
 --        threadGroupsX - Number of work groups in the X dimension.
 --        threadGroupsY - Number of work groups in the Y dimension.
 --        threadGroupsZ - Number of work groups in the Z dimension.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44337,7 +44337,7 @@ function CS.UnityEngine.ComputeShader.Dispatch(kernelIndex, threadGroupsX, threa
 --
 --```plaintext
 --Params: keyword - The name of the local shader keyword to enable.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44349,7 +44349,7 @@ function CS.UnityEngine.ComputeShader.EnableKeyword(keyword) end
 --
 --```plaintext
 --Params: keyword - The name of the local shader keyword to disable.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44361,7 +44361,7 @@ function CS.UnityEngine.ComputeShader.DisableKeyword(keyword) end
 --
 --```plaintext
 --Params: keyword - The name of the local shader keyword to check.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44376,7 +44376,7 @@ function CS.UnityEngine.ComputeShader.IsKeywordEnabled(keyword) end
 --Params: name - Variable name in shader code.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44391,7 +44391,7 @@ function CS.UnityEngine.ComputeShader.SetFloat(name, val) end
 --Params: name - Variable name in shader code.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44406,7 +44406,7 @@ function CS.UnityEngine.ComputeShader.SetInt(name, val) end
 --Params: name - Variable name in shader code.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44421,7 +44421,7 @@ function CS.UnityEngine.ComputeShader.SetVector(name, val) end
 --Params: name - Variable name in shader code.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44436,7 +44436,7 @@ function CS.UnityEngine.ComputeShader.SetMatrix(name, val) end
 --Params: name - Variable name in shader code.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        values - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44451,7 +44451,7 @@ function CS.UnityEngine.ComputeShader.SetVectorArray(name, values) end
 --Params: name - Variable name in shader code.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        values - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44466,7 +44466,7 @@ function CS.UnityEngine.ComputeShader.SetMatrixArray(name, values) end
 --Params: name - Array variable name in the shader code.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        values - Value array to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44481,7 +44481,7 @@ function CS.UnityEngine.ComputeShader.SetFloats(name, values) end
 --Params: name - Array variable name in the shader code.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        values - Value array to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44496,7 +44496,7 @@ function CS.UnityEngine.ComputeShader.SetFloats(nameID, values) end
 --Params: name - Array variable name in the shader code.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        values - Value array to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44511,7 +44511,7 @@ function CS.UnityEngine.ComputeShader.SetInts(name, values) end
 --Params: name - Array variable name in the shader code.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        values - Value array to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44526,7 +44526,7 @@ function CS.UnityEngine.ComputeShader.SetInts(nameID, values) end
 --Params: name - Variable name in shader code.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44541,7 +44541,7 @@ function CS.UnityEngine.ComputeShader.SetBool(name, val) end
 --Params: name - Variable name in shader code.
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44559,7 +44559,7 @@ function CS.UnityEngine.ComputeShader.SetBool(nameID, val) end
 --        texture - Texture to set.
 --        mipLevel - Optional mipmap level of the read-write texture.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44578,7 +44578,7 @@ function CS.UnityEngine.ComputeShader.SetTexture(kernelIndex, nameID, texture) e
 --        texture - Texture to set.
 --        mipLevel - Optional mipmap level of the read-write texture.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44597,7 +44597,7 @@ function CS.UnityEngine.ComputeShader.SetTexture(kernelIndex, name, texture) end
 --        texture - Texture to set.
 --        mipLevel - Optional mipmap level of the read-write texture.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44617,7 +44617,7 @@ function CS.UnityEngine.ComputeShader.SetTexture(kernelIndex, name, texture, mip
 --        texture - Texture to set.
 --        mipLevel - Optional mipmap level of the read-write texture.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44638,7 +44638,7 @@ function CS.UnityEngine.ComputeShader.SetTexture(kernelIndex, nameID, texture, m
 --        texture - Texture to set.
 --        mipLevel - Optional mipmap level of the read-write texture.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44658,7 +44658,7 @@ function CS.UnityEngine.ComputeShader.SetTexture(kernelIndex, name, texture, mip
 --        name - Name of the buffer variable in shader code.
 --        globalTextureName - Global texture property to assign to shader.
 --        globalTextureNameID - Property name ID, use Shader.PropertyToID to get it.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44675,7 +44675,7 @@ function CS.UnityEngine.ComputeShader.SetTextureFromGlobal(kernelIndex, name, gl
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        name - Name of the buffer variable in shader code.
 --        buffer - Buffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44692,7 +44692,7 @@ function CS.UnityEngine.ComputeShader.SetBuffer(kernelIndex, name, buffer) end
 --        nameID - Property name ID, use Shader.PropertyToID to get it.
 --        name - Name of the buffer variable in shader code.
 --        buffer - Buffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44710,7 +44710,7 @@ function CS.UnityEngine.ComputeShader.SetBuffer(kernelIndex, name, buffer) end
 --        buffer - The buffer to bind as constant buffer.
 --        offset - The offset in bytes from the beginning of the ComputeBuffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44729,7 +44729,7 @@ function CS.UnityEngine.ComputeShader.SetConstantBuffer(nameID, buffer, offset, 
 --        buffer - The buffer to bind as constant buffer.
 --        offset - The offset in bytes from the beginning of the ComputeBuffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44748,7 +44748,7 @@ function CS.UnityEngine.ComputeShader.SetConstantBuffer(name, buffer, offset, si
 --        buffer - The buffer to bind as constant buffer.
 --        offset - The offset in bytes from the beginning of the ComputeBuffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44767,7 +44767,7 @@ function CS.UnityEngine.ComputeShader.SetConstantBuffer(nameID, buffer, offset, 
 --        buffer - The buffer to bind as constant buffer.
 --        offset - The offset in bytes from the beginning of the ComputeBuffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44784,7 +44784,7 @@ function CS.UnityEngine.ComputeShader.SetConstantBuffer(name, buffer, offset, si
 --Params: kernelIndex - Which kernel to execute. A single compute shader asset can have multiple kernel entry points.
 --        argsBuffer - Buffer with dispatch arguments.
 --        argsOffset - The byte offset into the buffer, where the draw arguments start.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44805,7 +44805,7 @@ function CS.UnityEngine.ComputeShader.DispatchIndirect(kernelIndex, argsBuffer) 
 --Params: kernelIndex - Which kernel to execute. A single compute shader asset can have multiple kernel entry points.
 --        argsBuffer - Buffer with dispatch arguments.
 --        argsOffset - The byte offset into the buffer, where the draw arguments start.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44928,7 +44928,7 @@ CS.UnityEngine.ShaderVariant = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.SnapAxis = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.SnapAxis
 function CS.UnityEngine.SnapAxis:__CastFrom(value) end
@@ -44948,7 +44948,7 @@ CS.UnityEngine.Snapping = {}
 --```plaintext
 --Params: val - The value to round.
 --        snap - The increment to round to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44963,7 +44963,7 @@ function CS.UnityEngine.Snapping:Snap(val, snap) end
 --```plaintext
 --Params: val - The value to round.
 --        snap - The increment to round to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44979,7 +44979,7 @@ function CS.UnityEngine.Snapping:Snap(val, snap) end
 --Params: val - The value to round.
 --        snap - The increment to round to.
 --        axis - Restrict snapping to the components on these axes.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -45003,7 +45003,7 @@ CS.UnityEngine.StaticBatchingUtility = {}
 --
 --```plaintext
 --Params: staticBatchRoot - The GameObject that should become the root of the combined batch.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -45016,7 +45016,7 @@ function CS.UnityEngine.StaticBatchingUtility:Combine(staticBatchRoot) end
 --```plaintext
 --Params: gos - The GameObjects to prepare for static batching.
 --        staticBatchRoot - The GameObject that should become the root of the combined batch.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -45058,7 +45058,7 @@ function CS.UnityEngine.StaticBatchingUtility:Combine(gos, staticBatchRoot) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.BatteryStatus = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.BatteryStatus
 function CS.UnityEngine.BatteryStatus:__CastFrom(value) end
@@ -45092,7 +45092,7 @@ function CS.UnityEngine.BatteryStatus:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.OperatingSystemFamily = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.OperatingSystemFamily
 function CS.UnityEngine.OperatingSystemFamily:__CastFrom(value) end
@@ -45126,7 +45126,7 @@ function CS.UnityEngine.OperatingSystemFamily:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.DeviceType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.DeviceType
 function CS.UnityEngine.DeviceType:__CastFrom(value) end
@@ -45594,7 +45594,7 @@ CS.UnityEngine.SystemInfo = {}
 --
 --```plaintext
 --Params: format - The format to look up.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -45607,7 +45607,7 @@ function CS.UnityEngine.SystemInfo:SupportsRenderTextureFormat(format) end
 --
 --```plaintext
 --Params: format - The format to look up.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -45620,7 +45620,7 @@ function CS.UnityEngine.SystemInfo:SupportsBlendingOnRenderTextureFormat(format)
 --
 --```plaintext
 --Params: format - The TextureFormat format to look up.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -45634,7 +45634,7 @@ function CS.UnityEngine.SystemInfo:SupportsTextureFormat(format) end
 --```plaintext
 --Params: format - The VertexAttributeFormat format to look up.
 --        dimension - The dimension of vertex data to check for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -45660,7 +45660,7 @@ function CS.UnityEngine.SystemInfo:GetCompatibleFormat(format, usage) end
 --
 --```plaintext
 --Params: format - The DefaultFormat format to look up.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -45673,7 +45673,7 @@ function CS.UnityEngine.SystemInfo:GetGraphicsFormat(format) end
 --
 --```plaintext
 --Params: desc - The RenderTextureDescriptor to check.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -45913,7 +45913,7 @@ CS.UnityEngine.TouchScreenKeyboard = {}
 --        alert - Is the keyboard opened in alert mode?
 --        textPlaceholder - Text to be used if no other text is present.
 --        characterLimit - How many characters the keyboard input field is limited to. 0 = infinite. (Android and iOS only)
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -45940,7 +45940,7 @@ function CS.UnityEngine.TouchScreenKeyboard:Open(text, keyboardType, autocorrect
 --        alert - Is the keyboard opened in alert mode?
 --        textPlaceholder - Text to be used if no other text is present.
 --        characterLimit - How many characters the keyboard input field is limited to. 0 = infinite. (Android and iOS only)
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -45966,7 +45966,7 @@ function CS.UnityEngine.TouchScreenKeyboard:Open(text, keyboardType, autocorrect
 --        alert - Is the keyboard opened in alert mode?
 --        textPlaceholder - Text to be used if no other text is present.
 --        characterLimit - How many characters the keyboard input field is limited to. 0 = infinite. (Android and iOS only)
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -45991,7 +45991,7 @@ function CS.UnityEngine.TouchScreenKeyboard:Open(text, keyboardType, autocorrect
 --        alert - Is the keyboard opened in alert mode?
 --        textPlaceholder - Text to be used if no other text is present.
 --        characterLimit - How many characters the keyboard input field is limited to. 0 = infinite. (Android and iOS only)
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -46015,7 +46015,7 @@ function CS.UnityEngine.TouchScreenKeyboard:Open(text, keyboardType, autocorrect
 --        alert - Is the keyboard opened in alert mode?
 --        textPlaceholder - Text to be used if no other text is present.
 --        characterLimit - How many characters the keyboard input field is limited to. 0 = infinite. (Android and iOS only)
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -46038,7 +46038,7 @@ function CS.UnityEngine.TouchScreenKeyboard:Open(text, keyboardType, autocorrect
 --        alert - Is the keyboard opened in alert mode?
 --        textPlaceholder - Text to be used if no other text is present.
 --        characterLimit - How many characters the keyboard input field is limited to. 0 = infinite. (Android and iOS only)
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -46060,7 +46060,7 @@ function CS.UnityEngine.TouchScreenKeyboard:Open(text, keyboardType, autocorrect
 --        alert - Is the keyboard opened in alert mode?
 --        textPlaceholder - Text to be used if no other text is present.
 --        characterLimit - How many characters the keyboard input field is limited to. 0 = infinite. (Android and iOS only)
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -46081,7 +46081,7 @@ function CS.UnityEngine.TouchScreenKeyboard:Open(text, keyboardType) end
 --        alert - Is the keyboard opened in alert mode?
 --        textPlaceholder - Text to be used if no other text is present.
 --        characterLimit - How many characters the keyboard input field is limited to. 0 = infinite. (Android and iOS only)
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -46118,7 +46118,7 @@ function CS.UnityEngine.TouchScreenKeyboard:Open(text) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Status = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.TouchScreenKeyboard.Status
 function CS.UnityEngine.Status:__CastFrom(value) end
@@ -46216,7 +46216,7 @@ CS.UnityEngine.Android = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.TouchScreenKeyboardType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.TouchScreenKeyboardType
 function CS.UnityEngine.TouchScreenKeyboardType:__CastFrom(value) end
@@ -46460,7 +46460,7 @@ function CS.UnityEngine.Pose:op_Inequality(a, b) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.DrivenTransformProperties = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.DrivenTransformProperties
 function CS.UnityEngine.DrivenTransformProperties:__CastFrom(value) end
@@ -46493,7 +46493,7 @@ function CS.UnityEngine.DrivenRectTransformTracker:StartRecordingUndo() end
 --Params: driver - The object to drive properties.
 --        rectTransform - The RectTransform to be driven.
 --        drivenProperties - The properties to be driven.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -46587,7 +46587,7 @@ function CS.UnityEngine.RectTransform.ForceUpdateRectTransforms() end
 --
 --```plaintext
 --Params: fourCornersArray - The array that corners are filled into.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -46599,7 +46599,7 @@ function CS.UnityEngine.RectTransform.GetLocalCorners(fourCornersArray) end
 --
 --```plaintext
 --Params: fourCornersArray - The array that corners are filled into.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -46646,7 +46646,7 @@ function CS.UnityEngine.RectTransform.SetSizeWithCurrentAnchors(axis, size) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Edge = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.RectTransform.Edge
 function CS.UnityEngine.Edge:__CastFrom(value) end
@@ -46670,7 +46670,7 @@ function CS.UnityEngine.Edge:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Axis = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.RectTransform.Axis
 function CS.UnityEngine.Axis:__CastFrom(value) end
@@ -46809,7 +46809,7 @@ CS.UnityEngine.Transform = {}
 --```plaintext
 --Params: parent - The parent Transform to use.
 --        worldPositionStays - If true, the parent-relative position, scale and rotation are modified such that the object keeps the same world space position, rotation and scale as before.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -46822,7 +46822,7 @@ function CS.UnityEngine.Transform.SetParent(p) end
 --```plaintext
 --Params: parent - The parent Transform to use.
 --        worldPositionStays - If true, the parent-relative position, scale and rotation are modified such that the object keeps the same world space position, rotation and scale as before.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -46896,7 +46896,7 @@ function CS.UnityEngine.Transform.Translate(x, y, z, relativeTo) end
 --```plaintext
 --Params: eulers - The rotation to apply in euler angles.
 --        relativeTo - Determines whether to rotate the GameObject either locally to  the GameObject or relative to the Scene in world space.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -46909,7 +46909,7 @@ function CS.UnityEngine.Transform.Rotate(eulers, relativeTo) end
 --
 --```plaintext
 --Params: eulers - The rotation to apply in euler angles.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -46924,7 +46924,7 @@ function CS.UnityEngine.Transform.Rotate(eulers) end
 --        xAngle - Degrees to rotate the GameObject around the X axis.
 --        yAngle - Degrees to rotate the GameObject around the Y axis.
 --        zAngle - Degrees to rotate the GameObject around the Z axis.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -46941,7 +46941,7 @@ function CS.UnityEngine.Transform.Rotate(xAngle, yAngle, zAngle, relativeTo) end
 --Params: xAngle - Degrees to rotate the GameObject around the X axis.
 --        yAngle - Degrees to rotate the GameObject around the Y axis.
 --        zAngle - Degrees to rotate the GameObject around the Z axis.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -46957,7 +46957,7 @@ function CS.UnityEngine.Transform.Rotate(xAngle, yAngle, zAngle) end
 --Params: angle - The degrees of rotation to apply.
 --        axis - The axis to apply rotation to.
 --        relativeTo - Determines whether to rotate the GameObject either locally to the GameObject or relative to the Scene in world space.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -46972,7 +46972,7 @@ function CS.UnityEngine.Transform.Rotate(axis, angle, relativeTo) end
 --```plaintext
 --Params: axis - The axis to apply rotation to.
 --        angle - The degrees of rotation to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -46995,7 +46995,7 @@ function CS.UnityEngine.Transform.RotateAround(point, axis, angle) end
 --```plaintext
 --Params: target - Object to point towards.
 --        worldUp - Vector specifying the upward direction.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -47009,7 +47009,7 @@ function CS.UnityEngine.Transform.LookAt(target, worldUp) end
 --```plaintext
 --Params: target - Object to point towards.
 --        worldUp - Vector specifying the upward direction.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -47022,7 +47022,7 @@ function CS.UnityEngine.Transform.LookAt(target) end
 --```plaintext
 --Params: worldPosition - Point to look at.
 --        worldUp - Vector specifying the upward direction.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -47036,7 +47036,7 @@ function CS.UnityEngine.Transform.LookAt(worldPosition, worldUp) end
 --```plaintext
 --Params: worldPosition - Point to look at.
 --        worldUp - Vector specifying the upward direction.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -47174,7 +47174,7 @@ function CS.UnityEngine.Transform.SetAsLastSibling() end
 --
 --```plaintext
 --Params: index - Index to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -47193,7 +47193,7 @@ function CS.UnityEngine.Transform.GetSiblingIndex() end
 --
 --```plaintext
 --Params: n - Name of child to be found.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -47233,7 +47233,7 @@ function CS.UnityEngine.Transform.RotateAroundLocal(axis, angle) end
 --
 --```plaintext
 --Params: index - Index of the child transform to return. Must be smaller than Transform.childCount.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -47269,7 +47269,7 @@ function CS.UnityEngine.Transform.GetChildCount() end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.SpriteDrawMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.SpriteDrawMode
 function CS.UnityEngine.SpriteDrawMode:__CastFrom(value) end
@@ -47293,7 +47293,7 @@ function CS.UnityEngine.SpriteDrawMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.SpriteTileMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.SpriteTileMode
 function CS.UnityEngine.SpriteTileMode:__CastFrom(value) end
@@ -47322,7 +47322,7 @@ function CS.UnityEngine.SpriteTileMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.SpriteMaskInteraction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.SpriteMaskInteraction
 function CS.UnityEngine.SpriteMaskInteraction:__CastFrom(value) end
@@ -47405,7 +47405,7 @@ CS.UnityEngine.SpriteRenderer = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.SpriteMeshType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.SpriteMeshType
 function CS.UnityEngine.SpriteMeshType:__CastFrom(value) end
@@ -47469,7 +47469,7 @@ function CS.UnityEngine.SpriteMeshType:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.SpriteAlignment = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.SpriteAlignment
 function CS.UnityEngine.SpriteAlignment:__CastFrom(value) end
@@ -47493,7 +47493,7 @@ function CS.UnityEngine.SpriteAlignment:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.SpritePackingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.SpritePackingMode
 function CS.UnityEngine.SpritePackingMode:__CastFrom(value) end
@@ -47532,7 +47532,7 @@ function CS.UnityEngine.SpritePackingMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.SpritePackingRotation = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.SpritePackingRotation
 function CS.UnityEngine.SpritePackingRotation:__CastFrom(value) end
@@ -47556,7 +47556,7 @@ function CS.UnityEngine.SpritePackingRotation:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.SpriteSortPoint = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.SpriteSortPoint
 function CS.UnityEngine.SpriteSortPoint:__CastFrom(value) end
@@ -47683,7 +47683,7 @@ function CS.UnityEngine.Sprite.GetPhysicsShapeCount() end
 --
 --```plaintext
 --Params: shapeIdx - The index of the physics shape to retrieve the number of points from.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -47707,7 +47707,7 @@ function CS.UnityEngine.Sprite.OverridePhysicsShape(physicsShapes) end
 --```plaintext
 --Params: vertices - Array of vertex positions in Sprite Rect space.
 --        triangles - Array of sprite mesh triangle indices.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -47727,7 +47727,7 @@ function CS.UnityEngine.Sprite.OverrideGeometry(vertices, triangles) end
 --        meshType - Controls the type of mesh generated for the sprite.
 --        border - The border sizes of the sprite (X=left, Y=bottom, Z=right, W=top).
 --        generateFallbackPhysicsShape - Generates a default physics shape for the sprite.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -47754,7 +47754,7 @@ function CS.UnityEngine.Sprite:Create(texture, rect, pivot, pixelsPerUnit, extru
 --        meshType - Controls the type of mesh generated for the sprite.
 --        border - The border sizes of the sprite (X=left, Y=bottom, Z=right, W=top).
 --        generateFallbackPhysicsShape - Generates a default physics shape for the sprite.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -47780,7 +47780,7 @@ function CS.UnityEngine.Sprite:Create(texture, rect, pivot, pixelsPerUnit, extru
 --        meshType - Controls the type of mesh generated for the sprite.
 --        border - The border sizes of the sprite (X=left, Y=bottom, Z=right, W=top).
 --        generateFallbackPhysicsShape - Generates a default physics shape for the sprite.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -47805,7 +47805,7 @@ function CS.UnityEngine.Sprite:Create(texture, rect, pivot, pixelsPerUnit, extru
 --        meshType - Controls the type of mesh generated for the sprite.
 --        border - The border sizes of the sprite (X=left, Y=bottom, Z=right, W=top).
 --        generateFallbackPhysicsShape - Generates a default physics shape for the sprite.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -47829,7 +47829,7 @@ function CS.UnityEngine.Sprite:Create(texture, rect, pivot, pixelsPerUnit, extru
 --        meshType - Controls the type of mesh generated for the sprite.
 --        border - The border sizes of the sprite (X=left, Y=bottom, Z=right, W=top).
 --        generateFallbackPhysicsShape - Generates a default physics shape for the sprite.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -47852,7 +47852,7 @@ function CS.UnityEngine.Sprite:Create(texture, rect, pivot, pixelsPerUnit) end
 --        meshType - Controls the type of mesh generated for the sprite.
 --        border - The border sizes of the sprite (X=left, Y=bottom, Z=right, W=top).
 --        generateFallbackPhysicsShape - Generates a default physics shape for the sprite.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -48157,7 +48157,7 @@ function CS.UnityEngine.GUISkin.GetEnumerator() end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemEmitterVelocityMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemEmitterVelocityMode
 function CS.UnityEngine.ParticleSystemEmitterVelocityMode:__CastFrom(value) end
@@ -48523,7 +48523,7 @@ function CS.UnityEngine.GUIStyle.ToString() end
 ---@source UnityEngine.IMGUIModule.dll
 CS.UnityEngine.ImagePosition = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ImagePosition
 function CS.UnityEngine.ImagePosition:__CastFrom(value) end
@@ -48547,7 +48547,7 @@ function CS.UnityEngine.ImagePosition:__CastFrom(value) end
 ---@source UnityEngine.IMGUIModule.dll
 CS.UnityEngine.TextClipping = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.TextClipping
 function CS.UnityEngine.TextClipping:__CastFrom(value) end
@@ -48571,7 +48571,7 @@ function CS.UnityEngine.TextClipping:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemInheritVelocityMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemInheritVelocityMode
 function CS.UnityEngine.ParticleSystemInheritVelocityMode:__CastFrom(value) end
@@ -48614,7 +48614,7 @@ CS.UnityEngine.GUITargetAttribute = {}
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemTriggerEventType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemTriggerEventType
 function CS.UnityEngine.ParticleSystemTriggerEventType:__CastFrom(value) end
@@ -48789,7 +48789,7 @@ function CS.UnityEngine.GUIUtility:ScaleAroundPivot(scale, pivotPoint) end
 --Params: local - The local space rectangle that needs to be processed.
 --        widthInPixels - Width, in pixel units, of the axis-aligned bounding box that encompasses the aligned points.
 --        heightInPixels - Height, in pixel units, of the axis-aligned bounding box that encompasses the aligned points.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -49045,7 +49045,7 @@ CS.UnityEngine.ExitGUIException = {}
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemVertexStream = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemVertexStream
 function CS.UnityEngine.ParticleSystemVertexStream:__CastFrom(value) end
@@ -49069,7 +49069,7 @@ function CS.UnityEngine.ParticleSystemVertexStream:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemCustomData = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemCustomData
 function CS.UnityEngine.ParticleSystemCustomData:__CastFrom(value) end
@@ -49356,7 +49356,7 @@ function CS.UnityEngine.TextEditor.DetectFocusChange() end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemCustomDataMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemCustomDataMode
 function CS.UnityEngine.ParticleSystemCustomDataMode:__CastFrom(value) end
@@ -49385,7 +49385,7 @@ function CS.UnityEngine.ParticleSystemCustomDataMode:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemNoiseQuality = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemNoiseQuality
 function CS.UnityEngine.ParticleSystemNoiseQuality:__CastFrom(value) end
@@ -49424,7 +49424,7 @@ function CS.UnityEngine.ParticleSystemNoiseQuality:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemSubEmitterType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemSubEmitterType
 function CS.UnityEngine.ParticleSystemSubEmitterType:__CastFrom(value) end
@@ -49473,7 +49473,7 @@ function CS.UnityEngine.ParticleSystemSubEmitterType:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemSubEmitterProperties = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemSubEmitterProperties
 function CS.UnityEngine.ParticleSystemSubEmitterProperties:__CastFrom(value) end
@@ -49497,7 +49497,7 @@ function CS.UnityEngine.ParticleSystemSubEmitterProperties:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemTrailMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemTrailMode
 function CS.UnityEngine.ParticleSystemTrailMode:__CastFrom(value) end
@@ -49516,7 +49516,7 @@ CS.UnityEngine.PhysicsSceneExtensions2D = {}
 --
 --```plaintext
 --Params: scene - The Scene from which to return the 2D physics Scene.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -49552,7 +49552,7 @@ function CS.UnityEngine.PhysicsSceneExtensions2D.GetPhysicsScene2D() end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemTrailTextureMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemTrailTextureMode
 function CS.UnityEngine.ParticleSystemTrailTextureMode:__CastFrom(value) end
@@ -49586,7 +49586,7 @@ function CS.UnityEngine.ParticleSystemTrailTextureMode:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemShapeMultiModeValue = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemShapeMultiModeValue
 function CS.UnityEngine.ParticleSystemShapeMultiModeValue:__CastFrom(value) end
@@ -49805,7 +49805,7 @@ CS.UnityEngine.Physics2D = {}
 --
 --```plaintext
 --Params: step - The time to advance physics by.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -49831,7 +49831,7 @@ function CS.UnityEngine.Physics2D:IgnoreCollision(collider1, collider2) end
 --Params: collider1 - The first Collider to compare to collider2.
 --        collider2 - The second Collider to compare to collider1.
 --        ignore - Whether collisionstriggers between collider1 and collider2/ should be ignored or not.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -49846,7 +49846,7 @@ function CS.UnityEngine.Physics2D:IgnoreCollision(collider1, collider2, ignore) 
 --```plaintext
 --Params: collider1 - The first Collider to compare to collider2.
 --        collider2 - The second Collider to compare to collider1.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -49867,7 +49867,7 @@ function CS.UnityEngine.Physics2D:IgnoreLayerCollision(layer1, layer2) end
 --Params: layer1 - ID of the first layer.
 --        layer2 - ID of the second layer.
 --        ignore - Should collisions between these layers be ignored?
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -49882,7 +49882,7 @@ function CS.UnityEngine.Physics2D:IgnoreLayerCollision(layer1, layer2, ignore) e
 --```plaintext
 --Params: layer1 - ID of first layer.
 --        layer2 - ID of second layer.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -49897,7 +49897,7 @@ function CS.UnityEngine.Physics2D:GetIgnoreLayerCollision(layer1, layer2) end
 --```plaintext
 --Params: layer - The layer to set the collision layer mask for.
 --        layerMask - A mask where each bit indicates a layer and whether it can collide with layer or not.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -49910,7 +49910,7 @@ function CS.UnityEngine.Physics2D:SetLayerCollisionMask(layer, layerMask) end
 --
 --```plaintext
 --Params: layer - The layer to retrieve the collision layer mask for.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -49924,7 +49924,7 @@ function CS.UnityEngine.Physics2D:GetLayerCollisionMask(layer) end
 --```plaintext
 --Params: collider1 - The Collider to check if it is touching collider2.
 --        collider2 - The Collider to check if it is touching collider1.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -49940,7 +49940,7 @@ function CS.UnityEngine.Physics2D:IsTouching(collider1, collider2) end
 --Params: collider1 - The Collider to check if it is touching collider2.
 --        collider2 - The Collider to check if it is touching collider1.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -49956,7 +49956,7 @@ function CS.UnityEngine.Physics2D:IsTouching(collider1, collider2, contactFilter
 --```plaintext
 --Params: Collider - The Collider to check if it is touching any other Collider filtered by the contactFilter.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -49976,7 +49976,7 @@ function CS.UnityEngine.Physics2D:IsTouchingLayers(collider) end
 --```plaintext
 --Params: Collider - The Collider to check if it is touching Colliders on the layerMask.
 --        layerMask - Any Colliders on any of these layers count as touching.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -49991,7 +49991,7 @@ function CS.UnityEngine.Physics2D:IsTouchingLayers(collider, layerMask) end
 --```plaintext
 --Params: colliderA - A Collider used to calculate the minimum distance against colliderB.
 --        colliderB - A Collider used to calculate the minimum distance against colliderA.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -50006,7 +50006,7 @@ function CS.UnityEngine.Physics2D:Distance(colliderA, colliderB) end
 --```plaintext
 --Params: position - The position from which to find the closest point on the specified Collider.
 --        Collider - The Collider on which to find the closest specified position.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -50021,7 +50021,7 @@ function CS.UnityEngine.Physics2D:ClosestPoint(position, collider) end
 --```plaintext
 --Params: position - The position from which to find the closest point on the specified rigidbody.
 --        rigidbody - The Rigidbody on which to find the closest specified position.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -50060,7 +50060,7 @@ function CS.UnityEngine.Physics2D:Linecast(start, end, layerMask, minDepth) end
 --        layerMask - Filter to detect Colliders only on certain layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than or equal to this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than or equal to this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -50080,7 +50080,7 @@ function CS.UnityEngine.Physics2D:Linecast(start, end, layerMask, minDepth, maxD
 --        end - The end point of the line in world space.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -50126,7 +50126,7 @@ function CS.UnityEngine.Physics2D:LinecastAll(start, end, layerMask, minDepth) e
 --        layerMask - Filter to detect Colliders only on certain layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than or equal to this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than or equal to this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -50171,7 +50171,7 @@ function CS.UnityEngine.Physics2D:LinecastNonAlloc(start, end, results, layerMas
 --        end - The end point of the line in world space.
 --        results - Returned array of objects that intersect the line.
 --        layerMask - Filter to detect Colliders only on certain layers.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -50224,7 +50224,7 @@ function CS.UnityEngine.Physics2D:Raycast(origin, direction, distance, layerMask
 --        layerMask - Filter to detect Colliders only on certain layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than or equal to this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than or equal to this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -50254,7 +50254,7 @@ function CS.UnityEngine.Physics2D:Raycast(origin, direction, contactFilter, resu
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        distance - The maximum distance over which to cast the ray.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -50320,7 +50320,7 @@ function CS.UnityEngine.Physics2D:RaycastNonAlloc(origin, direction, results, di
 --        results - Array to receive results.
 --        distance - The maximum distance over which to cast the ray.
 --        layerMask - Filter to check objects only on specific layers.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -50370,7 +50370,7 @@ function CS.UnityEngine.Physics2D:RaycastAll(origin, direction, distance, layerM
 --        layerMask - Filter to detect Colliders only on certain layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than or equal to this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than or equal to this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -50427,7 +50427,7 @@ function CS.UnityEngine.Physics2D:CircleCast(origin, radius, direction, distance
 --        layerMask - Filter to detect Colliders only on certain layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than or equal to this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than or equal to this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -50460,7 +50460,7 @@ function CS.UnityEngine.Physics2D:CircleCast(origin, radius, direction, contactF
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        distance - The maximum distance over which to cast the circle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -50524,7 +50524,7 @@ function CS.UnityEngine.Physics2D:CircleCastAll(origin, radius, direction, dista
 --        layerMask - Filter to detect Colliders only on certain layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than or equal to this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than or equal to this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -50587,7 +50587,7 @@ function CS.UnityEngine.Physics2D:CircleCastNonAlloc(origin, radius, direction, 
 --        layerMask - Filter to detect Colliders only on certain layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than or equal to this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than or equal to this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -50652,7 +50652,7 @@ function CS.UnityEngine.Physics2D:BoxCast(origin, size, angle, direction, distan
 --        layerMask - Filter to detect Colliders only on certain layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than or equal to this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than or equal to this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -50688,7 +50688,7 @@ function CS.UnityEngine.Physics2D:BoxCast(origin, size, angle, direction, contac
 --        distance - The maximum distance over which to cast the box.
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -50759,7 +50759,7 @@ function CS.UnityEngine.Physics2D:BoxCastAll(origin, size, angle, direction, dis
 --        layerMask - Filter to detect Colliders only on certain layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than or equal to this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than or equal to this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -50828,7 +50828,7 @@ function CS.UnityEngine.Physics2D:BoxCastNonAlloc(origin, size, angle, direction
 --        layerMask - Filter to detect Colliders only on certain layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than or equal to this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than or equal to this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -50899,7 +50899,7 @@ function CS.UnityEngine.Physics2D:CapsuleCast(origin, size, capsuleDirection, an
 --        layerMask - Filter to detect Colliders only on certain layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -50938,7 +50938,7 @@ function CS.UnityEngine.Physics2D:CapsuleCast(origin, size, capsuleDirection, an
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        distance - The maximum distance over which to cast the capsule.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51016,7 +51016,7 @@ function CS.UnityEngine.Physics2D:CapsuleCastAll(origin, size, capsuleDirection,
 --        layerMask - Filter to detect Colliders only on certain layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51091,7 +51091,7 @@ function CS.UnityEngine.Physics2D:CapsuleCastNonAlloc(origin, size, capsuleDirec
 --        layerMask - Filter to detect Colliders only on certain layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51126,7 +51126,7 @@ function CS.UnityEngine.Physics2D:GetRayIntersection(ray, distance) end
 --Params: ray - The 3D ray defining origin and direction to test.
 --        distance - The maximum distance over which to cast the ray.
 --        layerMask - Filter to detect Colliders only on certain layers.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51152,7 +51152,7 @@ function CS.UnityEngine.Physics2D:GetRayIntersectionAll(ray, distance) end
 --Params: ray - The 3D ray defining origin and direction to test.
 --        distance - The maximum distance over which to cast the ray.
 --        layerMask - Filter to detect Colliders only on certain layers.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51182,7 +51182,7 @@ function CS.UnityEngine.Physics2D:GetRayIntersectionNonAlloc(ray, results, dista
 --        distance - The maximum distance over which to cast the ray.
 --        layerMask - Filter to detect Colliders only on certain layers.
 --        results - Array to receive results.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51219,7 +51219,7 @@ function CS.UnityEngine.Physics2D:OverlapPoint(point, layerMask, minDepth) end
 --        layerMask - Filter to check objects only on specific layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than or equal to this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than or equal to this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51237,7 +51237,7 @@ function CS.UnityEngine.Physics2D:OverlapPoint(point, layerMask, minDepth, maxDe
 --Params: point - A point in world space.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth.  Note that normal angle is not used for overlap testing.
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51277,7 +51277,7 @@ function CS.UnityEngine.Physics2D:OverlapPointAll(point, layerMask, minDepth) en
 --        maxDepth - Only include objects with a Z coordinate (depth) less than or equal to this value.
 --        point - A point in space.
 --        layerMask - Filter to check objects only on specific layers.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51317,7 +51317,7 @@ function CS.UnityEngine.Physics2D:OverlapPointNonAlloc(point, results, layerMask
 --        point - A point in space.
 --        results - Array to receive results.
 --        layerMask - Filter to check objects only on specific layers.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51359,7 +51359,7 @@ function CS.UnityEngine.Physics2D:OverlapCircle(point, radius, layerMask, minDep
 --        layerMask - Filter to check objects only on specific layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than or equal to this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than or equal to this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51379,7 +51379,7 @@ function CS.UnityEngine.Physics2D:OverlapCircle(point, radius, layerMask, minDep
 --        radius - The radius of the circle.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth.  Note that normal angle is not used for overlap testing.
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51425,7 +51425,7 @@ function CS.UnityEngine.Physics2D:OverlapCircleAll(point, radius, layerMask, min
 --        layerMask - Filter to check objects only on specified layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than or equal to this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than or equal to this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51470,7 +51470,7 @@ function CS.UnityEngine.Physics2D:OverlapCircleNonAlloc(point, radius, results, 
 --        layerMask - Filter to check objects only on specific layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than or equal to this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than or equal to this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51517,7 +51517,7 @@ function CS.UnityEngine.Physics2D:OverlapBox(point, size, angle, layerMask, minD
 --        layerMask - Filter to check objects only on specific layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51539,7 +51539,7 @@ function CS.UnityEngine.Physics2D:OverlapBox(point, size, angle, layerMask, minD
 --        angle - The angle of the box.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth.  Note that normal angle is not used for overlap testing.
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51591,7 +51591,7 @@ function CS.UnityEngine.Physics2D:OverlapBoxAll(point, size, angle, layerMask, m
 --        layerMask - Filter to check objects only on specific layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51641,7 +51641,7 @@ function CS.UnityEngine.Physics2D:OverlapBoxNonAlloc(point, size, angle, results
 --        layerMask - Filter to check objects only on specific layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51685,7 +51685,7 @@ function CS.UnityEngine.Physics2D:OverlapArea(pointA, pointB, layerMask, minDept
 --        layerMask - Filter to check objects only on specific layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than or equal to this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than or equal to this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51705,7 +51705,7 @@ function CS.UnityEngine.Physics2D:OverlapArea(pointA, pointB, layerMask, minDept
 --        pointB - Diagonally opposite the point A corner of the rectangle.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth.  Note that normal angle is not used for overlap testing.
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51751,7 +51751,7 @@ function CS.UnityEngine.Physics2D:OverlapAreaAll(pointA, pointB, layerMask, minD
 --        layerMask - Filter to check objects only on specific layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than or equal to this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than or equal to this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51796,7 +51796,7 @@ function CS.UnityEngine.Physics2D:OverlapAreaNonAlloc(pointA, pointB, results, l
 --        layerMask - Filter to check objects only on specified layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than or equal to this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than or equal to this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51847,7 +51847,7 @@ function CS.UnityEngine.Physics2D:OverlapCapsule(point, size, direction, angle, 
 --        layerMask - Filter to check objects only on specific layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51871,7 +51871,7 @@ function CS.UnityEngine.Physics2D:OverlapCapsule(point, size, direction, angle, 
 --        angle - The angle of the capsule.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth.  Note that normal angle is not used for overlap testing.
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51929,7 +51929,7 @@ function CS.UnityEngine.Physics2D:OverlapCapsuleAll(point, size, direction, angl
 --        layerMask - Filter to check objects only on specific layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -51984,7 +51984,7 @@ function CS.UnityEngine.Physics2D:OverlapCapsuleNonAlloc(point, size, direction,
 --        layerMask - Filter to check objects only on specific layers.
 --        minDepth - Only include objects with a Z coordinate (depth) greater than this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than this value.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -52006,7 +52006,7 @@ function CS.UnityEngine.Physics2D:OverlapCapsuleNonAlloc(point, size, direction,
 --Params: Collider - The Collider that defines the area used to query for other Collider overlaps.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth.  Note that normal angle is not used for overlap testing.
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -52031,7 +52031,7 @@ function CS.UnityEngine.Physics2D:OverlapCollider(collider, contactFilter, resul
 --        collider2 - The Collider to check if it has contacts against collider1.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
 --        contacts - An array of ContactPoint2D used to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -52048,7 +52048,7 @@ function CS.UnityEngine.Physics2D:GetContacts(collider1, collider2, contactFilte
 --```plaintext
 --Params: Collider - The Collider to retrieve contacts for.
 --        contacts - An array of ContactPoint2D used to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -52064,7 +52064,7 @@ function CS.UnityEngine.Physics2D:GetContacts(collider, contacts) end
 --Params: Collider - The Collider to retrieve contacts for.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
 --        contacts - An array of ContactPoint2D used to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -52080,7 +52080,7 @@ function CS.UnityEngine.Physics2D:GetContacts(collider, contactFilter, contacts)
 --```plaintext
 --Params: Collider - The Collider to retrieve contacts for.
 --        Colliders - An array of Collider2D used to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -52096,7 +52096,7 @@ function CS.UnityEngine.Physics2D:GetContacts(collider, colliders) end
 --Params: Collider - The Collider to retrieve contacts for.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
 --        Colliders - An array of Collider2D used to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -52112,7 +52112,7 @@ function CS.UnityEngine.Physics2D:GetContacts(collider, contactFilter, colliders
 --```plaintext
 --Params: rigidbody - The rigidbody to retrieve contacts for.  All Colliders attached to this rigidbody will be checked.
 --        contacts - An array of ContactPoint2D used to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -52128,7 +52128,7 @@ function CS.UnityEngine.Physics2D:GetContacts(rigidbody, contacts) end
 --Params: rigidbody - The rigidbody to retrieve contacts for.  All Colliders attached to this rigidbody will be checked.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
 --        contacts - An array of ContactPoint2D used to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -52144,7 +52144,7 @@ function CS.UnityEngine.Physics2D:GetContacts(rigidbody, contactFilter, contacts
 --```plaintext
 --Params: rigidbody - The rigidbody to retrieve contacts for.  All Colliders attached to this rigidbody will be checked.
 --        Colliders - An array of Collider2D used to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -52160,7 +52160,7 @@ function CS.UnityEngine.Physics2D:GetContacts(rigidbody, colliders) end
 --Params: rigidbody - The rigidbody to retrieve contacts for.  All Colliders attached to this rigidbody will be checked.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
 --        Colliders - An array of Collider2D used to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -52254,7 +52254,7 @@ function CS.UnityEngine.Physics2D:GetContacts(rigidbody, contactFilter, collider
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemRingBufferMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemRingBufferMode
 function CS.UnityEngine.ParticleSystemRingBufferMode:__CastFrom(value) end
@@ -52283,7 +52283,7 @@ function CS.UnityEngine.ParticleSystemRingBufferMode:__CastFrom(value) end
 ---@source UnityEngine.Physics2DModule.dll
 CS.UnityEngine.SimulationMode2D = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.SimulationMode2D
 function CS.UnityEngine.SimulationMode2D:__CastFrom(value) end
@@ -52312,7 +52312,7 @@ function CS.UnityEngine.SimulationMode2D:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemGameObjectFilter = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemGameObjectFilter
 function CS.UnityEngine.ParticleSystemGameObjectFilter:__CastFrom(value) end
@@ -52336,7 +52336,7 @@ function CS.UnityEngine.ParticleSystemGameObjectFilter:__CastFrom(value) end
 ---@source UnityEngine.Physics2DModule.dll
 CS.UnityEngine.CapsuleDirection2D = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.CapsuleDirection2D
 function CS.UnityEngine.CapsuleDirection2D:__CastFrom(value) end
@@ -52370,7 +52370,7 @@ function CS.UnityEngine.CapsuleDirection2D:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemForceFieldShape = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemForceFieldShape
 function CS.UnityEngine.ParticleSystemForceFieldShape:__CastFrom(value) end
@@ -52465,7 +52465,7 @@ function CS.UnityEngine.ParticleSystemForceFieldShape:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemVertexStreams = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemVertexStreams
 function CS.UnityEngine.ParticleSystemVertexStreams:__CastFrom(value) end
@@ -52599,7 +52599,7 @@ CS.UnityEngine.ParticleSystemRenderer = {}
 --
 --```plaintext
 --Params: streams - Streams to enable.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -52612,7 +52612,7 @@ function CS.UnityEngine.ParticleSystemRenderer.EnableVertexStreams(streams) end
 --
 --```plaintext
 --Params: streams - Streams to disable.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -52624,7 +52624,7 @@ function CS.UnityEngine.ParticleSystemRenderer.DisableVertexStreams(streams) end
 --
 --```plaintext
 --Params: streams - Streams to query.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -52637,7 +52637,7 @@ function CS.UnityEngine.ParticleSystemRenderer.AreVertexStreamsEnabled(streams) 
 --
 --```plaintext
 --Params: streams - Streams to query.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -52650,7 +52650,7 @@ function CS.UnityEngine.ParticleSystemRenderer.GetEnabledVertexStreams(streams) 
 --
 --```plaintext
 --Params: meshes - This array is populated with the list of Meshes being used for particle rendering.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -52664,7 +52664,7 @@ function CS.UnityEngine.ParticleSystemRenderer.GetMeshes(meshes) end
 --```plaintext
 --Params: meshes - Array of Meshes to use.
 --        size - Number of elements from the Mesh array to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -52678,7 +52678,7 @@ function CS.UnityEngine.ParticleSystemRenderer.SetMeshes(meshes, size) end
 --```plaintext
 --Params: meshes - Array of Meshes to use.
 --        size - Number of elements from the Mesh array to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -52692,7 +52692,7 @@ function CS.UnityEngine.ParticleSystemRenderer.SetMeshes(meshes) end
 --Params: mesh - A static Mesh to receive the snapshot of the particles.
 --        camera - The Camera used to determine which way camera-space particles face.
 --        useTransform - Specifies whether to include the rotation and scale of the Transform in the baked Mesh.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -52707,7 +52707,7 @@ function CS.UnityEngine.ParticleSystemRenderer.BakeMesh(mesh, useTransform) end
 --Params: mesh - A static Mesh to receive the snapshot of the particles.
 --        camera - The Camera used to determine which way camera-space particles face.
 --        useTransform - Specifies whether to include the rotation and scale of the Transform in the baked Mesh.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -52723,7 +52723,7 @@ function CS.UnityEngine.ParticleSystemRenderer.BakeMesh(mesh, camera, useTransfo
 --Params: mesh - A static Mesh to receive the snapshot of the particle trails.
 --        camera - The Camera used to determine which way camera-space trails face.
 --        useTransform - Specifies whether to include the rotation and scale of the Transform in the baked Mesh.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -52738,7 +52738,7 @@ function CS.UnityEngine.ParticleSystemRenderer.BakeTrailsMesh(mesh, useTransform
 --Params: mesh - A static Mesh to receive the snapshot of the particle trails.
 --        camera - The Camera used to determine which way camera-space trails face.
 --        useTransform - Specifies whether to include the rotation and scale of the Transform in the baked Mesh.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -52867,7 +52867,7 @@ function CS.UnityEngine.ParticleSystemForceField:FindAll() end
 ---@source UnityEngine.IMGUIModule.dll
 CS.UnityEngine.DblClickSnapping = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.TextEditor.DblClickSnapping
 function CS.UnityEngine.DblClickSnapping:__CastFrom(value) end
@@ -52911,7 +52911,7 @@ function CS.UnityEngine.DblClickSnapping:__CastFrom(value) end
 ---@source UnityEngine.Physics2DModule.dll
 CS.UnityEngine.RigidbodyConstraints2D = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.RigidbodyConstraints2D
 function CS.UnityEngine.RigidbodyConstraints2D:__CastFrom(value) end
@@ -52974,7 +52974,7 @@ function CS.UnityEngine.PhysicsScene2D.IsEmpty() end
 --
 --```plaintext
 --Params: step - The time to advance physics by.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -52990,7 +52990,7 @@ function CS.UnityEngine.PhysicsScene2D.Simulate(step) end
 --        end - The end point of the line in world space.
 --        layerMask - The filter used to detect Colliders only on certain layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53008,7 +53008,7 @@ function CS.UnityEngine.PhysicsScene2D.Linecast(start, end, layerMask) end
 --        end - The end point of the line in world space.
 --        layerMask - The filter used to detect Colliders only on certain layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53027,7 +53027,7 @@ function CS.UnityEngine.PhysicsScene2D.Linecast(start, end, contactFilter) end
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - The filter used to detect Colliders only on certain layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53047,7 +53047,7 @@ function CS.UnityEngine.PhysicsScene2D.Linecast(start, end, results, layerMask) 
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - The filter used to detect Colliders only on certain layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53075,7 +53075,7 @@ function CS.UnityEngine.PhysicsScene2D.Linecast(start, end, contactFilter, resul
 --        distance - Maximum distance over which to cast the ray.
 --        layerMask - The filter used to detect Colliders only on certain layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53095,7 +53095,7 @@ function CS.UnityEngine.PhysicsScene2D.Raycast(origin, direction, distance, laye
 --        distance - Maximum distance over which to cast the ray.
 --        layerMask - The filter used to detect Colliders only on certain layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53116,7 +53116,7 @@ function CS.UnityEngine.PhysicsScene2D.Raycast(origin, direction, distance, cont
 --        layerMask - The filter used to detect Colliders only on certain layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth, or normal angle.
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53138,7 +53138,7 @@ function CS.UnityEngine.PhysicsScene2D.Raycast(origin, direction, distance, resu
 --        layerMask - The filter used to detect Colliders only on certain layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth, or normal angle.
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53169,7 +53169,7 @@ function CS.UnityEngine.PhysicsScene2D.Raycast(origin, direction, distance, cont
 --        distance - Maximum distance over which to cast the circle.
 --        layerMask - The filter used to detect Colliders only on certain layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53191,7 +53191,7 @@ function CS.UnityEngine.PhysicsScene2D.CircleCast(origin, radius, direction, dis
 --        distance - Maximum distance over which to cast the circle.
 --        layerMask - The filter used to detect Colliders only on certain layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53214,7 +53214,7 @@ function CS.UnityEngine.PhysicsScene2D.CircleCast(origin, radius, direction, dis
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - The filter used to detect Colliders only on certain layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53238,7 +53238,7 @@ function CS.UnityEngine.PhysicsScene2D.CircleCast(origin, radius, direction, dis
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - The filter used to detect Colliders only on certain layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53272,7 +53272,7 @@ function CS.UnityEngine.PhysicsScene2D.CircleCast(origin, radius, direction, dis
 --        distance - Maximum distance over which to cast the box.
 --        layerMask - Filter to detect colliders only on certain layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53296,7 +53296,7 @@ function CS.UnityEngine.PhysicsScene2D.BoxCast(origin, size, angle, direction, d
 --        distance - Maximum distance over which to cast the box.
 --        layerMask - Filter to detect colliders only on certain layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53321,7 +53321,7 @@ function CS.UnityEngine.PhysicsScene2D.BoxCast(origin, size, angle, direction, d
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - Filter to detect colliders only on certain layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53347,7 +53347,7 @@ function CS.UnityEngine.PhysicsScene2D.BoxCast(origin, size, angle, direction, d
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - Filter to detect colliders only on certain layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53384,7 +53384,7 @@ function CS.UnityEngine.PhysicsScene2D.BoxCast(origin, size, angle, direction, d
 --        distance - Maximum distance over which to cast the capsule.
 --        layerMask - The filter used to detect Colliders only on certain layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53410,7 +53410,7 @@ function CS.UnityEngine.PhysicsScene2D.CapsuleCast(origin, size, capsuleDirectio
 --        distance - Maximum distance over which to cast the capsule.
 --        layerMask - The filter used to detect Colliders only on certain layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53437,7 +53437,7 @@ function CS.UnityEngine.PhysicsScene2D.CapsuleCast(origin, size, capsuleDirectio
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - The filter used to detect Colliders only on certain layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53465,7 +53465,7 @@ function CS.UnityEngine.PhysicsScene2D.CapsuleCast(origin, size, capsuleDirectio
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - The filter used to detect Colliders only on certain layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53499,7 +53499,7 @@ function CS.UnityEngine.PhysicsScene2D.CapsuleCast(origin, size, capsuleDirectio
 --Params: ray - The 3D ray defining origin and direction to test.
 --        distance - Maximum distance over which to cast the ray.
 --        layerMask - Filter to detect colliders only on certain layers.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53517,7 +53517,7 @@ function CS.UnityEngine.PhysicsScene2D.GetRayIntersection(ray, distance, layerMa
 --        distance - Maximum distance over which to cast the ray.
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - Filter to detect colliders only on certain layers.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53535,7 +53535,7 @@ function CS.UnityEngine.PhysicsScene2D.GetRayIntersection(ray, distance, results
 --Params: point - A point in world space.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53551,7 +53551,7 @@ function CS.UnityEngine.PhysicsScene2D.OverlapPoint(point, layerMask) end
 --Params: point - A point in world space.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53568,7 +53568,7 @@ function CS.UnityEngine.PhysicsScene2D.OverlapPoint(point, contactFilter) end
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53586,7 +53586,7 @@ function CS.UnityEngine.PhysicsScene2D.OverlapPoint(point, results, layerMask) e
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53611,7 +53611,7 @@ function CS.UnityEngine.PhysicsScene2D.OverlapPoint(point, contactFilter, result
 --        radius - The radius of the circle.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53629,7 +53629,7 @@ function CS.UnityEngine.PhysicsScene2D.OverlapCircle(point, radius, layerMask) e
 --        radius - The radius of the circle.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53648,7 +53648,7 @@ function CS.UnityEngine.PhysicsScene2D.OverlapCircle(point, radius, contactFilte
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53668,7 +53668,7 @@ function CS.UnityEngine.PhysicsScene2D.OverlapCircle(point, radius, results, lay
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53696,7 +53696,7 @@ function CS.UnityEngine.PhysicsScene2D.OverlapCircle(point, radius, contactFilte
 --        angle - The angle of the box.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53716,7 +53716,7 @@ function CS.UnityEngine.PhysicsScene2D.OverlapBox(point, size, angle, layerMask)
 --        angle - The angle of the box.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53737,7 +53737,7 @@ function CS.UnityEngine.PhysicsScene2D.OverlapBox(point, size, angle, contactFil
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53759,7 +53759,7 @@ function CS.UnityEngine.PhysicsScene2D.OverlapBox(point, size, angle, results, l
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53788,7 +53788,7 @@ function CS.UnityEngine.PhysicsScene2D.OverlapBox(point, size, angle, contactFil
 --        pointB - The corner of the rectangle diagonally opposite the pointA corner.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53806,7 +53806,7 @@ function CS.UnityEngine.PhysicsScene2D.OverlapArea(pointA, pointB, layerMask) en
 --        pointB - The corner of the rectangle diagonally opposite the pointA corner.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53825,7 +53825,7 @@ function CS.UnityEngine.PhysicsScene2D.OverlapArea(pointA, pointB, contactFilter
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53845,7 +53845,7 @@ function CS.UnityEngine.PhysicsScene2D.OverlapArea(pointA, pointB, results, laye
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53874,7 +53874,7 @@ function CS.UnityEngine.PhysicsScene2D.OverlapArea(pointA, pointB, contactFilter
 --        angle - The angle of the capsule.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53896,7 +53896,7 @@ function CS.UnityEngine.PhysicsScene2D.OverlapCapsule(point, size, direction, an
 --        angle - The angle of the capsule.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53919,7 +53919,7 @@ function CS.UnityEngine.PhysicsScene2D.OverlapCapsule(point, size, direction, an
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53943,7 +53943,7 @@ function CS.UnityEngine.PhysicsScene2D.OverlapCapsule(point, size, direction, an
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53974,7 +53974,7 @@ function CS.UnityEngine.PhysicsScene2D.OverlapCapsule(point, size, direction, an
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -53992,7 +53992,7 @@ function CS.UnityEngine.PhysicsScene2D:OverlapCollider(collider, results, layerM
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
 --        layerMask - Filter to check objects only on specific layers.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask and Z depth. Note that the normal angle is not used for overlap testing.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -54033,7 +54033,7 @@ function CS.UnityEngine.PhysicsScene2D:OverlapCollider(collider, contactFilter, 
 ---@source UnityEngine.Physics2DModule.dll
 CS.UnityEngine.RigidbodyInterpolation2D = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.RigidbodyInterpolation2D
 function CS.UnityEngine.RigidbodyInterpolation2D:__CastFrom(value) end
@@ -54099,7 +54099,7 @@ function CS.UnityEngine.AndroidInput:GetSecondaryTouch(index) end
 ---@source UnityEngine.Physics2DModule.dll
 CS.UnityEngine.RigidbodySleepMode2D = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.RigidbodySleepMode2D
 function CS.UnityEngine.RigidbodySleepMode2D:__CastFrom(value) end
@@ -54128,7 +54128,7 @@ function CS.UnityEngine.RigidbodySleepMode2D:__CastFrom(value) end
 ---@source UnityEngine.Physics2DModule.dll
 CS.UnityEngine.CollisionDetectionMode2D = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.CollisionDetectionMode2D
 function CS.UnityEngine.CollisionDetectionMode2D:__CastFrom(value) end
@@ -54157,7 +54157,7 @@ function CS.UnityEngine.CollisionDetectionMode2D:__CastFrom(value) end
 ---@source UnityEngine.Physics2DModule.dll
 CS.UnityEngine.RigidbodyType2D = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.RigidbodyType2D
 function CS.UnityEngine.RigidbodyType2D:__CastFrom(value) end
@@ -54196,7 +54196,7 @@ function CS.UnityEngine.RigidbodyType2D:__CastFrom(value) end
 ---@source UnityEngine.InputLegacyModule.dll
 CS.UnityEngine.TouchPhase = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.TouchPhase
 function CS.UnityEngine.TouchPhase:__CastFrom(value) end
@@ -54220,7 +54220,7 @@ function CS.UnityEngine.TouchPhase:__CastFrom(value) end
 ---@source UnityEngine.Physics2DModule.dll
 CS.UnityEngine.ForceMode2D = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ForceMode2D
 function CS.UnityEngine.ForceMode2D:__CastFrom(value) end
@@ -54249,7 +54249,7 @@ function CS.UnityEngine.ForceMode2D:__CastFrom(value) end
 ---@source UnityEngine.InputLegacyModule.dll
 CS.UnityEngine.IMECompositionMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.IMECompositionMode
 function CS.UnityEngine.IMECompositionMode:__CastFrom(value) end
@@ -54283,7 +54283,7 @@ function CS.UnityEngine.IMECompositionMode:__CastFrom(value) end
 ---@source UnityEngine.Physics2DModule.dll
 CS.UnityEngine.JointLimitState2D = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.JointLimitState2D
 function CS.UnityEngine.JointLimitState2D:__CastFrom(value) end
@@ -54312,7 +54312,7 @@ function CS.UnityEngine.JointLimitState2D:__CastFrom(value) end
 ---@source UnityEngine.InputLegacyModule.dll
 CS.UnityEngine.TouchType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.TouchType
 function CS.UnityEngine.TouchType:__CastFrom(value) end
@@ -54440,7 +54440,7 @@ CS.UnityEngine.Touch = {}
 ---@source UnityEngine.InputLegacyModule.dll
 CS.UnityEngine.DeviceOrientation = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.DeviceOrientation
 function CS.UnityEngine.DeviceOrientation:__CastFrom(value) end
@@ -54566,7 +54566,7 @@ CS.UnityEngine.LocationInfo = {}
 ---@source UnityEngine.Physics2DModule.dll
 CS.UnityEngine.EffectorSelection2D = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.EffectorSelection2D
 function CS.UnityEngine.EffectorSelection2D:__CastFrom(value) end
@@ -54600,7 +54600,7 @@ function CS.UnityEngine.EffectorSelection2D:__CastFrom(value) end
 ---@source UnityEngine.InputLegacyModule.dll
 CS.UnityEngine.LocationServiceStatus = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.LocationServiceStatus
 function CS.UnityEngine.LocationServiceStatus:__CastFrom(value) end
@@ -54629,7 +54629,7 @@ function CS.UnityEngine.LocationServiceStatus:__CastFrom(value) end
 ---@source UnityEngine.Physics2DModule.dll
 CS.UnityEngine.EffectorForceMode2D = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.EffectorForceMode2D
 function CS.UnityEngine.EffectorForceMode2D:__CastFrom(value) end
@@ -54665,7 +54665,7 @@ CS.UnityEngine.LocationService = {}
 --Params: desiredAccuracyInMeters - The service accuracy you want to use, in meters. This determines the accuracy of the device's last location coordinates. Higher values like 500 don't require the device to use its GPS chip and
 --                    thus save battery power. Lower values like 5-10 provide the best accuracy but require the GPS chip and thus use more battery power. The default value is 10 meters.
 --        updateDistanceInMeters - The minimum distance, in meters, that the device must move laterally before Unity updates Input.location. Higher values like 500 produce fewer updates and are less resource intensive to process. The default is 10 meters.
---        
+--
 --```
 --
 ---@source UnityEngine.InputLegacyModule.dll
@@ -54680,7 +54680,7 @@ function CS.UnityEngine.LocationService.Start(desiredAccuracyInMeters, updateDis
 --Params: desiredAccuracyInMeters - The service accuracy you want to use, in meters. This determines the accuracy of the device's last location coordinates. Higher values like 500 don't require the device to use its GPS chip and
 --                    thus save battery power. Lower values like 5-10 provide the best accuracy but require the GPS chip and thus use more battery power. The default value is 10 meters.
 --        updateDistanceInMeters - The minimum distance, in meters, that the device must move laterally before Unity updates Input.location. Higher values like 500 produce fewer updates and are less resource intensive to process. The default is 10 meters.
---        
+--
 --```
 --
 ---@source UnityEngine.InputLegacyModule.dll
@@ -54694,7 +54694,7 @@ function CS.UnityEngine.LocationService.Start(desiredAccuracyInMeters) end
 --Params: desiredAccuracyInMeters - The service accuracy you want to use, in meters. This determines the accuracy of the device's last location coordinates. Higher values like 500 don't require the device to use its GPS chip and
 --                    thus save battery power. Lower values like 5-10 provide the best accuracy but require the GPS chip and thus use more battery power. The default value is 10 meters.
 --        updateDistanceInMeters - The minimum distance, in meters, that the device must move laterally before Unity updates Input.location. Higher values like 500 produce fewer updates and are less resource intensive to process. The default is 10 meters.
---        
+--
 --```
 --
 ---@source UnityEngine.InputLegacyModule.dll
@@ -54834,7 +54834,7 @@ function CS.UnityEngine.ContactFilter2D.ClearLayerMask() end
 --
 --```plaintext
 --Params: layerMask - The value used to set the layerMask.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -54853,7 +54853,7 @@ function CS.UnityEngine.ContactFilter2D.ClearDepth() end
 --```plaintext
 --Params: minDepth - The value used to set minDepth.
 --        maxDepth - The value used to set maxDepth.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -54873,7 +54873,7 @@ function CS.UnityEngine.ContactFilter2D.ClearNormalAngle() end
 --```plaintext
 --Params: minNormalAngle - The value used to set the minNormalAngle.
 --        maxNormalAngle - The value used to set the maxNormalAngle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -54886,7 +54886,7 @@ function CS.UnityEngine.ContactFilter2D.SetNormalAngle(minNormalAngle, maxNormal
 --
 --```plaintext
 --Params: collider - The Collider2D used to check for a trigger.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -54899,7 +54899,7 @@ function CS.UnityEngine.ContactFilter2D.IsFilteringTrigger(collider) end
 --
 --```plaintext
 --Params: obj - The GameObject used to check the GameObject.layer.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -54912,7 +54912,7 @@ function CS.UnityEngine.ContactFilter2D.IsFilteringLayerMask(obj) end
 --
 --```plaintext
 --Params: obj - The GameObject used to check the z-position (depth) of Transform.position.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -54925,7 +54925,7 @@ function CS.UnityEngine.ContactFilter2D.IsFilteringDepth(obj) end
 --
 --```plaintext
 --Params: normal - The normal used to calculate an angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -54938,7 +54938,7 @@ function CS.UnityEngine.ContactFilter2D.IsFilteringNormalAngle(normal) end
 --
 --```plaintext
 --Params: angle - The angle used for comparison in the filter.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -55010,7 +55010,7 @@ CS.UnityEngine.Collision2D = {}
 --
 --```plaintext
 --Params: index - The index of the contact to retrieve.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -55023,7 +55023,7 @@ function CS.UnityEngine.Collision2D.GetContact(index) end
 --
 --```plaintext
 --Params: contacts - An array of ContactPoint2D used to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -55276,7 +55276,7 @@ CS.UnityEngine.JsonUtility = {}
 --```plaintext
 --Params: obj - The object to convert to JSON form.
 --        prettyPrint - If true, format the output for readability. If false, format the output for minimum size. Default is false.
---        
+--
 --```
 --
 ---@source UnityEngine.JSONSerializeModule.dll
@@ -55290,7 +55290,7 @@ function CS.UnityEngine.JsonUtility:ToJson(obj) end
 --```plaintext
 --Params: obj - The object to convert to JSON form.
 --        prettyPrint - If true, format the output for readability. If false, format the output for minimum size. Default is false.
---        
+--
 --```
 --
 ---@source UnityEngine.JSONSerializeModule.dll
@@ -55310,7 +55310,7 @@ function CS.UnityEngine.JsonUtility:FromJson(json) end
 --```plaintext
 --Params: json - The JSON representation of the object.
 --        type - The type of object represented by the Json.
---        
+--
 --```
 --
 ---@source UnityEngine.JSONSerializeModule.dll
@@ -55325,7 +55325,7 @@ function CS.UnityEngine.JsonUtility:FromJson(json, type) end
 --```plaintext
 --Params: json - The JSON representation of the object.
 --        objectToOverwrite - The object that should be overwritten.
---        
+--
 --```
 --
 ---@source UnityEngine.JSONSerializeModule.dll
@@ -55422,7 +55422,7 @@ function CS.UnityEngine.PolygonCollider2D.GetTotalPointCount() end
 --
 --```plaintext
 --Params: index - The index of the path to retrieve.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -55435,7 +55435,7 @@ function CS.UnityEngine.PolygonCollider2D.GetPath(index) end
 --```plaintext
 --Params: index - Index of the path to set.
 --        points - An ordered array of the vertices (points) that define the path.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -55470,7 +55470,7 @@ function CS.UnityEngine.PolygonCollider2D.CreatePrimitive(sides, scale) end
 --Params: sides - The number of sides in the polygon.  This must be greater than two.
 --        scale - The X/Y scale of the polygon.  These must be greater than zero.
 --        offset - The X/Y offset of the polygon.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -55504,7 +55504,7 @@ CS.UnityEngine.LocalizationAsset = {}
 --```plaintext
 --Params: original - Original string acting as key.
 --        localized - Localized string matching the original in the LocalizationAsset locale
---        
+--
 --```
 --
 ---@source UnityEngine.LocalizationModule.dll
@@ -55517,7 +55517,7 @@ function CS.UnityEngine.LocalizationAsset.SetLocalizedString(original, localized
 --
 --```plaintext
 --Params: original - Original string acting as key.
---        
+--
 --```
 --
 ---@source UnityEngine.LocalizationModule.dll
@@ -55639,7 +55639,7 @@ function CS.UnityEngine.CompositeCollider2D.GenerateGeometry() end
 --
 --```plaintext
 --Params: index - The index of the path from 0 to pathCount minus 1.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -55653,7 +55653,7 @@ function CS.UnityEngine.CompositeCollider2D.GetPathPointCount(index) end
 --```plaintext
 --Params: index - The index of the path from 0 to pathCount minus 1.
 --        points - An ordered array of the vertices (points) in the selected path.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -55687,7 +55687,7 @@ function CS.UnityEngine.CompositeCollider2D.GetPath(index, points) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemEmissionType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemEmissionType
 function CS.UnityEngine.ParticleSystemEmissionType:__CastFrom(value) end
@@ -56171,7 +56171,7 @@ function CS.UnityEngine.ParticleSystem.SetTrails(trailData) end
 --        withChildren - Fast-forward all child Particle Systems as well.
 --        restart - Restart and start from the beginning.
 --        fixedTimeStep - Only update the system at fixed intervals, based on the value in "Fixed Time" in the Time options.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -56189,7 +56189,7 @@ function CS.UnityEngine.ParticleSystem.Simulate(t, withChildren, restart, fixedT
 --        withChildren - Fast-forward all child Particle Systems as well.
 --        restart - Restart and start from the beginning.
 --        fixedTimeStep - Only update the system at fixed intervals, based on the value in "Fixed Time" in the Time options.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -56206,7 +56206,7 @@ function CS.UnityEngine.ParticleSystem.Simulate(t, withChildren, restart) end
 --        withChildren - Fast-forward all child Particle Systems as well.
 --        restart - Restart and start from the beginning.
 --        fixedTimeStep - Only update the system at fixed intervals, based on the value in "Fixed Time" in the Time options.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -56222,7 +56222,7 @@ function CS.UnityEngine.ParticleSystem.Simulate(t, withChildren) end
 --        withChildren - Fast-forward all child Particle Systems as well.
 --        restart - Restart and start from the beginning.
 --        fixedTimeStep - Only update the system at fixed intervals, based on the value in "Fixed Time" in the Time options.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -56234,7 +56234,7 @@ function CS.UnityEngine.ParticleSystem.Simulate(t) end
 --
 --```plaintext
 --Params: withChildren - Play all child Particle Systems as well.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -56246,7 +56246,7 @@ function CS.UnityEngine.ParticleSystem.Play(withChildren) end
 --
 --```plaintext
 --Params: withChildren - Play all child Particle Systems as well.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -56257,7 +56257,7 @@ function CS.UnityEngine.ParticleSystem.Play() end
 --
 --```plaintext
 --Params: withChildren - Pause all child Particle Systems as well.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -56269,7 +56269,7 @@ function CS.UnityEngine.ParticleSystem.Pause(withChildren) end
 --
 --```plaintext
 --Params: withChildren - Pause all child Particle Systems as well.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -56281,7 +56281,7 @@ function CS.UnityEngine.ParticleSystem.Pause() end
 --```plaintext
 --Params: withChildren - Stop all child Particle Systems as well.
 --        stopBehavior - Stop emitting or stop emitting and clear the system.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -56295,7 +56295,7 @@ function CS.UnityEngine.ParticleSystem.Stop(withChildren, stopBehavior) end
 --```plaintext
 --Params: withChildren - Stop all child Particle Systems as well.
 --        stopBehavior - Stop emitting or stop emitting and clear the system.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -56308,7 +56308,7 @@ function CS.UnityEngine.ParticleSystem.Stop(withChildren) end
 --```plaintext
 --Params: withChildren - Stop all child Particle Systems as well.
 --        stopBehavior - Stop emitting or stop emitting and clear the system.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -56319,7 +56319,7 @@ function CS.UnityEngine.ParticleSystem.Stop() end
 --
 --```plaintext
 --Params: withChildren - Clear all child Particle Systems as well.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -56331,7 +56331,7 @@ function CS.UnityEngine.ParticleSystem.Clear(withChildren) end
 --
 --```plaintext
 --Params: withChildren - Clear all child Particle Systems as well.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -56342,7 +56342,7 @@ function CS.UnityEngine.ParticleSystem.Clear() end
 --
 --```plaintext
 --Params: withChildren - Check all child Particle Systems as well.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -56355,7 +56355,7 @@ function CS.UnityEngine.ParticleSystem.IsAlive(withChildren) end
 --
 --```plaintext
 --Params: withChildren - Check all child Particle Systems as well.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -56367,7 +56367,7 @@ function CS.UnityEngine.ParticleSystem.IsAlive() end
 --
 --```plaintext
 --Params: count - Number of particles to emit.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -56384,7 +56384,7 @@ function CS.UnityEngine.ParticleSystem.Emit(emitParams, count) end
 --
 --```plaintext
 --Params: subEmitterIndex - Index of the sub emitter to trigger.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -56413,7 +56413,7 @@ function CS.UnityEngine.ParticleSystem:ResetPreMappedBufferMemory() end
 --```plaintext
 --Params: vertexBuffersCount - The maximum number of cached vertex buffers.
 --        indexBuffersCount - The maximum number of cached index buffers.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -56438,7 +56438,7 @@ function CS.UnityEngine.ParticleSystem.AllocateMeshIndexAttribute() end
 --
 --```plaintext
 --Params: stream - The custom data stream to allocate.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -56579,7 +56579,7 @@ CS.UnityEngine.Rigidbody2D = {}
 --
 --```plaintext
 --Params: angle - The rotation of the Rigidbody (in degrees).
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56591,7 +56591,7 @@ function CS.UnityEngine.Rigidbody2D.SetRotation(angle) end
 --
 --```plaintext
 --Params: rotation - Full 3D rotation used to extract only the z-axis rotation.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56603,7 +56603,7 @@ function CS.UnityEngine.Rigidbody2D.SetRotation(rotation) end
 --
 --```plaintext
 --Params: position - The new position for the Rigidbody object.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56615,7 +56615,7 @@ function CS.UnityEngine.Rigidbody2D.MovePosition(position) end
 --
 --```plaintext
 --Params: angle - The new rotation angle for the Rigidbody object.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56627,7 +56627,7 @@ function CS.UnityEngine.Rigidbody2D.MoveRotation(angle) end
 --
 --```plaintext
 --Params: rotation - Full 3D rotation used to extract only the z-axis rotation.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56665,7 +56665,7 @@ function CS.UnityEngine.Rigidbody2D.WakeUp() end
 --
 --```plaintext
 --Params: collider - The collider to check if it is touching any of the collider(s) attached to this rigidbody.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56679,7 +56679,7 @@ function CS.UnityEngine.Rigidbody2D.IsTouching(collider) end
 --```plaintext
 --Params: collider - The collider to check if it is touching any of the collider(s) attached to this rigidbody.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56693,7 +56693,7 @@ function CS.UnityEngine.Rigidbody2D.IsTouching(collider, contactFilter) end
 --
 --```plaintext
 --Params: contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56710,7 +56710,7 @@ function CS.UnityEngine.Rigidbody2D.IsTouchingLayers() end
 --
 --```plaintext
 --Params: layerMask - Any colliders on any of these layers count as touching.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56723,7 +56723,7 @@ function CS.UnityEngine.Rigidbody2D.IsTouchingLayers(layerMask) end
 --
 --```plaintext
 --Params: point - A point in world space.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56736,7 +56736,7 @@ function CS.UnityEngine.Rigidbody2D.OverlapPoint(point) end
 --
 --```plaintext
 --Params: collider - A collider used to calculate the minimum distance against all colliders attached to this Rigidbody2D.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56749,7 +56749,7 @@ function CS.UnityEngine.Rigidbody2D.Distance(collider) end
 --
 --```plaintext
 --Params: position - The position from which to find the closest point on this Rigidbody.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56767,7 +56767,7 @@ function CS.UnityEngine.Rigidbody2D.AddForce(force) end
 --```plaintext
 --Params: force - Components of the force in the X and Y axes.
 --        mode - The method used to apply the specified force.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56785,7 +56785,7 @@ function CS.UnityEngine.Rigidbody2D.AddRelativeForce(relativeForce) end
 --```plaintext
 --Params: relativeForce - Components of the force in the X and Y axes.
 --        mode - The method used to apply the specified force.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56805,7 +56805,7 @@ function CS.UnityEngine.Rigidbody2D.AddForceAtPosition(force, position) end
 --Params: force - Components of the force in the X and Y axes.
 --        position - Position in world space to apply the force.
 --        mode - The method used to apply the specified force.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56824,7 +56824,7 @@ function CS.UnityEngine.Rigidbody2D.AddTorque(torque) end
 --```plaintext
 --Params: torque - Torque to apply.
 --        mode - The force mode to use.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56837,7 +56837,7 @@ function CS.UnityEngine.Rigidbody2D.AddTorque(torque, mode) end
 --
 --```plaintext
 --Params: point - The global space point to transform into local space.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56850,7 +56850,7 @@ function CS.UnityEngine.Rigidbody2D.GetPoint(point) end
 --
 --```plaintext
 --Params: relativePoint - The local space point to transform into global space.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56863,7 +56863,7 @@ function CS.UnityEngine.Rigidbody2D.GetRelativePoint(relativePoint) end
 --
 --```plaintext
 --Params: vector - The global space vector to transform into a local space vector.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56876,7 +56876,7 @@ function CS.UnityEngine.Rigidbody2D.GetVector(vector) end
 --
 --```plaintext
 --Params: relativeVector - The local space vector to transform into a global space vector.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56889,7 +56889,7 @@ function CS.UnityEngine.Rigidbody2D.GetRelativeVector(relativeVector) end
 --
 --```plaintext
 --Params: point - The global space point to calculate velocity for.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56902,7 +56902,7 @@ function CS.UnityEngine.Rigidbody2D.GetPointVelocity(point) end
 --
 --```plaintext
 --Params: relativePoint - The local space point to calculate velocity for.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56916,7 +56916,7 @@ function CS.UnityEngine.Rigidbody2D.GetRelativePointVelocity(relativePoint) end
 --```plaintext
 --Params: contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth.  Note that normal angle is not used for overlap testing.
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56936,7 +56936,7 @@ function CS.UnityEngine.Rigidbody2D.OverlapCollider(contactFilter, results) end
 --
 --```plaintext
 --Params: contacts - An array of ContactPoint2D used to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56955,7 +56955,7 @@ function CS.UnityEngine.Rigidbody2D.GetContacts(contacts) end
 --```plaintext
 --Params: contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
 --        contacts - An array of ContactPoint2D used to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56975,7 +56975,7 @@ function CS.UnityEngine.Rigidbody2D.GetContacts(contactFilter, contacts) end
 --
 --```plaintext
 --Params: colliders - An array of Collider2D used to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -56994,7 +56994,7 @@ function CS.UnityEngine.Rigidbody2D.GetContacts(colliders) end
 --```plaintext
 --Params: contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
 --        colliders - An array of Collider2D used to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57014,7 +57014,7 @@ function CS.UnityEngine.Rigidbody2D.GetContacts(contactFilter, colliders) end
 --
 --```plaintext
 --Params: results - An array of Collider2D used to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57040,7 +57040,7 @@ function CS.UnityEngine.Rigidbody2D.Cast(direction, results) end
 --Params: direction - Vector representing the direction to cast each Collider2D shape.
 --        results - Array to receive results.
 --        distance - Maximum distance over which to cast the Collider(s).
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57072,7 +57072,7 @@ function CS.UnityEngine.Rigidbody2D.Cast(direction, contactFilter, results) end
 --        contactFilter - Filter results defined by the contact filter.
 --        results - Array to receive results.
 --        distance - Maximum distance over which to cast the Collider(s).
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57166,7 +57166,7 @@ CS.UnityEngine.Collider2D = {}
 --```plaintext
 --Params: useBodyPosition - Should the mesh be transformed by the position of the attached Rigidbody2D?
 --        useBodyRotation - Should the mesh be transformed by the rotation of the attached Rigidbody2D?
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57187,7 +57187,7 @@ function CS.UnityEngine.Collider2D.GetShapeHash() end
 --
 --```plaintext
 --Params: collider - The collider to check if it is touching this collider.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57201,7 +57201,7 @@ function CS.UnityEngine.Collider2D.IsTouching(collider) end
 --```plaintext
 --Params: collider - The collider to check if it is touching this collider.
 --        contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57215,7 +57215,7 @@ function CS.UnityEngine.Collider2D.IsTouching(collider, contactFilter) end
 --
 --```plaintext
 --Params: contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57232,7 +57232,7 @@ function CS.UnityEngine.Collider2D.IsTouchingLayers() end
 --
 --```plaintext
 --Params: layerMask - Any colliders on any of these layers count as touching.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57245,7 +57245,7 @@ function CS.UnityEngine.Collider2D.IsTouchingLayers(layerMask) end
 --
 --```plaintext
 --Params: point - A point in world space.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57258,7 +57258,7 @@ function CS.UnityEngine.Collider2D.OverlapPoint(point) end
 --
 --```plaintext
 --Params: collider - A collider used to calculate the minimum separation against this collider.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57272,7 +57272,7 @@ function CS.UnityEngine.Collider2D.Distance(collider) end
 --```plaintext
 --Params: contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth.  Note that normal angle is not used for overlap testing.
 --        results - The array to receive results.  The size of the array determines the maximum number of results that can be returned.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57292,7 +57292,7 @@ function CS.UnityEngine.Collider2D.OverlapCollider(contactFilter, results) end
 --
 --```plaintext
 --Params: contacts - An array of ContactPoint2D used to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57311,7 +57311,7 @@ function CS.UnityEngine.Collider2D.GetContacts(contacts) end
 --```plaintext
 --Params: contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
 --        contacts - An array of ContactPoint2D used to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57331,7 +57331,7 @@ function CS.UnityEngine.Collider2D.GetContacts(contactFilter, contacts) end
 --
 --```plaintext
 --Params: colliders - An array of Collider2D used to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57350,7 +57350,7 @@ function CS.UnityEngine.Collider2D.GetContacts(colliders) end
 --```plaintext
 --Params: contactFilter - The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.
 --        colliders - An array of Collider2D used to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57386,7 +57386,7 @@ function CS.UnityEngine.Collider2D.Cast(direction, results, distance) end
 --        results - Array to receive results.
 --        distance - Maximum distance over which to cast the shape.
 --        ignoreSiblingColliders - Determines whether the cast should ignore Colliders attached to the same Rigidbody2D (known as sibling Colliders).
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57421,7 +57421,7 @@ function CS.UnityEngine.Collider2D.Cast(direction, contactFilter, results, dista
 --        results - Array to receive results.
 --        distance - Maximum distance over which to cast the shape.
 --        ignoreSiblingColliders - Determines whether the cast should ignore Colliders attached to the same Rigidbody2D (known as sibling Colliders).
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57483,7 +57483,7 @@ function CS.UnityEngine.Collider2D.Raycast(direction, results, distance, layerMa
 --        minDepth - Only include objects with a Z coordinate (depth) greater than this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than this value.
 --        contactFilter - Filter results defined by the contact filter.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57514,7 +57514,7 @@ function CS.UnityEngine.Collider2D.Raycast(direction, contactFilter, results) en
 --        minDepth - Only include objects with a Z coordinate (depth) greater than this value.
 --        maxDepth - Only include objects with a Z coordinate (depth) less than this value.
 --        contactFilter - Filter results defined by the contact filter.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57538,7 +57538,7 @@ function CS.UnityEngine.Collider2D.Raycast(direction, contactFilter, results, di
 --
 --```plaintext
 --Params: position - The position from which to find the closest point on this Collider.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57603,7 +57603,7 @@ CS.UnityEngine.CapsuleCollider2D = {}
 ---@source UnityEngine.Physics2DModule.dll
 CS.UnityEngine.GeometryType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.CompositeCollider2D.GeometryType
 function CS.UnityEngine.GeometryType:__CastFrom(value) end
@@ -57627,7 +57627,7 @@ function CS.UnityEngine.GeometryType:__CastFrom(value) end
 ---@source UnityEngine.Physics2DModule.dll
 CS.UnityEngine.GenerationType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.CompositeCollider2D.GenerationType
 function CS.UnityEngine.GenerationType:__CastFrom(value) end
@@ -57686,7 +57686,7 @@ CS.UnityEngine.Joint2D = {}
 --
 --```plaintext
 --Params: timeStep - The time to calculate the reaction force for.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57699,7 +57699,7 @@ function CS.UnityEngine.Joint2D.GetReactionForce(timeStep) end
 --
 --```plaintext
 --Params: timeStep - The time to calculate the reaction torque for.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57857,7 +57857,7 @@ CS.UnityEngine.HingeJoint2D = {}
 --
 --```plaintext
 --Params: timeStep - The time to calculate the motor torque for.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -57973,7 +57973,7 @@ CS.UnityEngine.SliderJoint2D = {}
 --
 --```plaintext
 --Params: timeStep - The time to calculate the motor force for.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -58093,7 +58093,7 @@ CS.UnityEngine.WheelJoint2D = {}
 --
 --```plaintext
 --Params: timeStep - The time to calculate the motor torque for.
---        
+--
 --```
 --
 ---@source UnityEngine.Physics2DModule.dll
@@ -58155,7 +58155,7 @@ CS.UnityEngine.Effector2D = {}
 ---@source UnityEngine.PhysicsModule.dll
 CS.UnityEngine.CollisionFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.CollisionFlags
 function CS.UnityEngine.CollisionFlags:__CastFrom(value) end
@@ -58435,7 +58435,7 @@ CS.UnityEngine.PhysicsUpdateBehaviour2D = {}
 ---@source UnityEngine.PhysicsModule.dll
 CS.UnityEngine.QueryTriggerInteraction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.QueryTriggerInteraction
 function CS.UnityEngine.QueryTriggerInteraction:__CastFrom(value) end
@@ -58493,7 +58493,7 @@ CS.UnityEngine.ConstantForce2D = {}
 ---@source UnityEngine.PhysicsModule.dll
 CS.UnityEngine.CollisionDetectionMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.CollisionDetectionMode
 function CS.UnityEngine.CollisionDetectionMode:__CastFrom(value) end
@@ -58557,7 +58557,7 @@ function CS.UnityEngine.CollisionDetectionMode:__CastFrom(value) end
 ---@source UnityEngine.PhysicsModule.dll
 CS.UnityEngine.RigidbodyConstraints = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.RigidbodyConstraints
 function CS.UnityEngine.RigidbodyConstraints:__CastFrom(value) end
@@ -58591,7 +58591,7 @@ function CS.UnityEngine.RigidbodyConstraints:__CastFrom(value) end
 ---@source UnityEngine.PhysicsModule.dll
 CS.UnityEngine.ForceMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ForceMode
 function CS.UnityEngine.ForceMode:__CastFrom(value) end
@@ -58620,7 +58620,7 @@ function CS.UnityEngine.ForceMode:__CastFrom(value) end
 ---@source UnityEngine.PhysicsModule.dll
 CS.UnityEngine.ConfigurableJointMotion = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ConfigurableJointMotion
 function CS.UnityEngine.ConfigurableJointMotion:__CastFrom(value) end
@@ -58654,7 +58654,7 @@ function CS.UnityEngine.ConfigurableJointMotion:__CastFrom(value) end
 ---@source UnityEngine.PhysicsModule.dll
 CS.UnityEngine.JointDriveMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.JointDriveMode
 function CS.UnityEngine.JointDriveMode:__CastFrom(value) end
@@ -58678,7 +58678,7 @@ function CS.UnityEngine.JointDriveMode:__CastFrom(value) end
 ---@source UnityEngine.PhysicsModule.dll
 CS.UnityEngine.RotationDriveMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.RotationDriveMode
 function CS.UnityEngine.RotationDriveMode:__CastFrom(value) end
@@ -58707,7 +58707,7 @@ function CS.UnityEngine.RotationDriveMode:__CastFrom(value) end
 ---@source UnityEngine.PhysicsModule.dll
 CS.UnityEngine.JointProjectionMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.JointProjectionMode
 function CS.UnityEngine.JointProjectionMode:__CastFrom(value) end
@@ -58751,7 +58751,7 @@ function CS.UnityEngine.JointProjectionMode:__CastFrom(value) end
 ---@source UnityEngine.PhysicsModule.dll
 CS.UnityEngine.MeshColliderCookingOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.MeshColliderCookingOptions
 function CS.UnityEngine.MeshColliderCookingOptions:__CastFrom(value) end
@@ -59022,7 +59022,7 @@ CS.UnityEngine.RaycastHit = {}
 ---@source UnityEngine.PhysicsModule.dll
 CS.UnityEngine.RigidbodyInterpolation = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.RigidbodyInterpolation
 function CS.UnityEngine.RigidbodyInterpolation:__CastFrom(value) end
@@ -59206,7 +59206,7 @@ function CS.UnityEngine.Rigidbody.SetDensity(density) end
 --
 --```plaintext
 --Params: position - Provides the new position for the Rigidbody object.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59218,7 +59218,7 @@ function CS.UnityEngine.Rigidbody.MovePosition(position) end
 --
 --```plaintext
 --Params: rot - The new rotation for the Rigidbody.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59282,7 +59282,7 @@ function CS.UnityEngine.Rigidbody.SetMaxAngularVelocity(a) end
 --```plaintext
 --Params: force - Force vector in world coordinates.
 --        mode - Type of force to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59296,7 +59296,7 @@ function CS.UnityEngine.Rigidbody.AddForce(force, mode) end
 --```plaintext
 --Params: force - Force vector in world coordinates.
 --        mode - Type of force to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59311,7 +59311,7 @@ function CS.UnityEngine.Rigidbody.AddForce(force) end
 --        y - Size of force along the world y-axis.
 --        z - Size of force along the world z-axis.
 --        mode - Type of force to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59329,7 +59329,7 @@ function CS.UnityEngine.Rigidbody.AddForce(x, y, z, mode) end
 --        y - Size of force along the world y-axis.
 --        z - Size of force along the world z-axis.
 --        mode - Type of force to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59344,7 +59344,7 @@ function CS.UnityEngine.Rigidbody.AddForce(x, y, z) end
 --```plaintext
 --Params: force - Force vector in local coordinates.
 --        mode - Type of force to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59358,7 +59358,7 @@ function CS.UnityEngine.Rigidbody.AddRelativeForce(force, mode) end
 --```plaintext
 --Params: force - Force vector in local coordinates.
 --        mode - Type of force to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59373,7 +59373,7 @@ function CS.UnityEngine.Rigidbody.AddRelativeForce(force) end
 --        y - Size of force along the local y-axis.
 --        z - Size of force along the local z-axis.
 --        mode - Type of force to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59391,7 +59391,7 @@ function CS.UnityEngine.Rigidbody.AddRelativeForce(x, y, z, mode) end
 --        y - Size of force along the local y-axis.
 --        z - Size of force along the local z-axis.
 --        mode - Type of force to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59406,7 +59406,7 @@ function CS.UnityEngine.Rigidbody.AddRelativeForce(x, y, z) end
 --```plaintext
 --Params: torque - Torque vector in world coordinates.
 --        mode - Type of torque to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59420,7 +59420,7 @@ function CS.UnityEngine.Rigidbody.AddTorque(torque, mode) end
 --```plaintext
 --Params: torque - Torque vector in world coordinates.
 --        mode - Type of torque to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59435,7 +59435,7 @@ function CS.UnityEngine.Rigidbody.AddTorque(torque) end
 --        y - Size of torque along the world y-axis.
 --        z - Size of torque along the world z-axis.
 --        mode - Type of torque to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59453,7 +59453,7 @@ function CS.UnityEngine.Rigidbody.AddTorque(x, y, z, mode) end
 --        y - Size of torque along the world y-axis.
 --        z - Size of torque along the world z-axis.
 --        mode - Type of torque to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59468,7 +59468,7 @@ function CS.UnityEngine.Rigidbody.AddTorque(x, y, z) end
 --```plaintext
 --Params: torque - Torque vector in local coordinates.
 --        mode - Type of torque to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59482,7 +59482,7 @@ function CS.UnityEngine.Rigidbody.AddRelativeTorque(torque, mode) end
 --```plaintext
 --Params: torque - Torque vector in local coordinates.
 --        mode - Type of torque to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59497,7 +59497,7 @@ function CS.UnityEngine.Rigidbody.AddRelativeTorque(torque) end
 --        y - Size of torque along the local y-axis.
 --        z - Size of torque along the local z-axis.
 --        mode - Type of torque to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59515,7 +59515,7 @@ function CS.UnityEngine.Rigidbody.AddRelativeTorque(x, y, z, mode) end
 --        y - Size of torque along the local y-axis.
 --        z - Size of torque along the local z-axis.
 --        mode - Type of torque to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59531,7 +59531,7 @@ function CS.UnityEngine.Rigidbody.AddRelativeTorque(x, y, z) end
 --Params: force - Force vector in world coordinates.
 --        position - Position in world coordinates.
 --        mode - Type of force to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59547,7 +59547,7 @@ function CS.UnityEngine.Rigidbody.AddForceAtPosition(force, position, mode) end
 --Params: force - Force vector in world coordinates.
 --        position - Position in world coordinates.
 --        mode - Type of force to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59564,7 +59564,7 @@ function CS.UnityEngine.Rigidbody.AddForceAtPosition(force, position) end
 --        explosionRadius - The radius of the sphere within which the explosion has its effect.
 --        upwardsModifier - Adjustment to the apparent position of the explosion to make it seem to lift objects.
 --        mode - The method used to apply the force to its targets.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59584,7 +59584,7 @@ function CS.UnityEngine.Rigidbody.AddExplosionForce(explosionForce, explosionPos
 --        explosionRadius - The radius of the sphere within which the explosion has its effect.
 --        upwardsModifier - Adjustment to the apparent position of the explosion to make it seem to lift objects.
 --        mode - The method used to apply the force to its targets.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59603,7 +59603,7 @@ function CS.UnityEngine.Rigidbody.AddExplosionForce(explosionForce, explosionPos
 --        explosionRadius - The radius of the sphere within which the explosion has its effect.
 --        upwardsModifier - Adjustment to the apparent position of the explosion to make it seem to lift objects.
 --        mode - The method used to apply the force to its targets.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59648,7 +59648,7 @@ function CS.UnityEngine.Rigidbody.SweepTest(direction, hitInfo) end
 --Params: direction - The direction into which to sweep the rigidbody.
 --        maxDistance - The length of the sweep.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59782,7 +59782,7 @@ CS.UnityEngine.Collider = {}
 --
 --```plaintext
 --Params: position - Location you want to find the closest point to.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -59894,7 +59894,7 @@ CS.UnityEngine.ControllerColliderHit = {}
 ---@source UnityEngine.PhysicsModule.dll
 CS.UnityEngine.PhysicMaterialCombine = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.PhysicMaterialCombine
 function CS.UnityEngine.PhysicMaterialCombine:__CastFrom(value) end
@@ -60055,7 +60055,7 @@ CS.UnityEngine.Collision = {}
 --
 --```plaintext
 --Params: index - The index of the contact to retrieve.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -60068,7 +60068,7 @@ function CS.UnityEngine.Collision.GetContact(index) end
 --
 --```plaintext
 --Params: contacts - An array of ContactPoint used to receive the results.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -60250,7 +60250,7 @@ CS.UnityEngine.MinMaxCurve = {}
 --```plaintext
 --Params: time - Normalized time (in the range 0 - 1, where 1 represents 100%) at which to evaluate the curve. This is valid when ParticleSystem.MinMaxCurve.mode is set to ParticleSystemCurveMode.Curve or ParticleSystemCurveMode.TwoCurves.
 --        lerpFactor - Blend between the two curves/constants (Valid when ParticleSystem.MinMaxCurve.mode is set to ParticleSystemCurveMode.TwoConstants or ParticleSystemCurveMode.TwoCurves).
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -60264,7 +60264,7 @@ function CS.UnityEngine.MinMaxCurve.Evaluate(time) end
 --```plaintext
 --Params: time - Normalized time (in the range 0 - 1, where 1 represents 100%) at which to evaluate the curve. This is valid when ParticleSystem.MinMaxCurve.mode is set to ParticleSystemCurveMode.Curve or ParticleSystemCurveMode.TwoCurves.
 --        lerpFactor - Blend between the two curves/constants (Valid when ParticleSystem.MinMaxCurve.mode is set to ParticleSystemCurveMode.TwoConstants or ParticleSystemCurveMode.TwoCurves).
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -60742,7 +60742,7 @@ function CS.UnityEngine.EmissionModule.SetBurst(index, burst) end
 --
 --```plaintext
 --Params: index - The index of the burst to retrieve.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61181,7 +61181,7 @@ CS.UnityEngine.CollisionModule = {}
 --
 --```plaintext
 --Params: transform - The plane to add.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61193,7 +61193,7 @@ function CS.UnityEngine.CollisionModule.AddPlane(transform) end
 --
 --```plaintext
 --Params: index - The collision plane to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61205,7 +61205,7 @@ function CS.UnityEngine.CollisionModule.RemovePlane(index) end
 --
 --```plaintext
 --Params: transform - The collision plane to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61218,7 +61218,7 @@ function CS.UnityEngine.CollisionModule.RemovePlane(transform) end
 --```plaintext
 --Params: index - The plane entry to set.
 --        transform - The plane to collide particles against.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61231,7 +61231,7 @@ function CS.UnityEngine.CollisionModule.SetPlane(index, transform) end
 --
 --```plaintext
 --Params: index - The plane to return.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61363,7 +61363,7 @@ CS.UnityEngine.TriggerModule = {}
 --
 --```plaintext
 --Params: transform - The Collider to associate with this trigger.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61375,7 +61375,7 @@ function CS.UnityEngine.TriggerModule.AddCollider(collider) end
 --
 --```plaintext
 --Params: index - The Collider to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61387,7 +61387,7 @@ function CS.UnityEngine.TriggerModule.RemoveCollider(index) end
 --
 --```plaintext
 --Params: collider - The Collider to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61400,7 +61400,7 @@ function CS.UnityEngine.TriggerModule.RemoveCollider(collider) end
 --```plaintext
 --Params: index - The Collider entry to assign.
 --        collider - The Collider to associate with this trigger.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61413,7 +61413,7 @@ function CS.UnityEngine.TriggerModule.SetCollider(index, collider) end
 --
 --```plaintext
 --Params: index - The Collider to return.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61656,7 +61656,7 @@ CS.UnityEngine.SubEmittersModule = {}
 --        type - The event that creates new particles.
 --        properties - The properties of the new particles.
 --        emitProbability - The probability that the sub-emitter emits particles. Accepts values from 0 to 1, where 0 is never and 1 is always.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61674,7 +61674,7 @@ function CS.UnityEngine.SubEmittersModule.AddSubEmitter(subEmitter, type, proper
 --        type - The event that creates new particles.
 --        properties - The properties of the new particles.
 --        emitProbability - The probability that the sub-emitter emits particles. Accepts values from 0 to 1, where 0 is never and 1 is always.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61688,7 +61688,7 @@ function CS.UnityEngine.SubEmittersModule.AddSubEmitter(subEmitter, type, proper
 --
 --```plaintext
 --Params: index - The index from which to remove a sub-emitter.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61700,7 +61700,7 @@ function CS.UnityEngine.SubEmittersModule.RemoveSubEmitter(index) end
 --
 --```plaintext
 --Params: subEmitter - The sub-emitter to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61713,7 +61713,7 @@ function CS.UnityEngine.SubEmittersModule.RemoveSubEmitter(subEmitter) end
 --```plaintext
 --Params: index - The index of the sub-emitter you want to modify.
 --        subEmitter - The Particle System to use as the sub-emitter at the specified index.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61727,7 +61727,7 @@ function CS.UnityEngine.SubEmittersModule.SetSubEmitterSystem(index, subEmitter)
 --```plaintext
 --Params: index - The index of the sub-emitter you want to modify.
 --        type - The new spawning type to assign to this sub-emitter.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61741,7 +61741,7 @@ function CS.UnityEngine.SubEmittersModule.SetSubEmitterType(index, type) end
 --```plaintext
 --Params: index - The index of the sub-emitter you want to modify.
 --        properties - The new properties to assign to this sub-emitter.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61755,7 +61755,7 @@ function CS.UnityEngine.SubEmittersModule.SetSubEmitterProperties(index, propert
 --```plaintext
 --Params: index - The index of the sub-emitter you want to modify.
 --        emitProbability - The probability value.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61768,7 +61768,7 @@ function CS.UnityEngine.SubEmittersModule.SetSubEmitterEmitProbability(index, em
 --
 --```plaintext
 --Params: index - The index of the desired sub-emitter.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61781,7 +61781,7 @@ function CS.UnityEngine.SubEmittersModule.GetSubEmitterSystem(index) end
 --
 --```plaintext
 --Params: index - The index of the desired sub-emitter.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61794,7 +61794,7 @@ function CS.UnityEngine.SubEmittersModule.GetSubEmitterType(index) end
 --
 --```plaintext
 --Params: index - The index of the sub-emitter.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61807,7 +61807,7 @@ function CS.UnityEngine.SubEmittersModule.GetSubEmitterProperties(index) end
 --
 --```plaintext
 --Params: index - The index of the sub-emitter.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61963,7 +61963,7 @@ CS.UnityEngine.TextureSheetAnimationModule = {}
 --
 --```plaintext
 --Params: sprite - The Sprite to be added.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61975,7 +61975,7 @@ function CS.UnityEngine.TextureSheetAnimationModule.AddSprite(sprite) end
 --
 --```plaintext
 --Params: index - The index from which to remove a Sprite.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -61988,7 +61988,7 @@ function CS.UnityEngine.TextureSheetAnimationModule.RemoveSprite(index) end
 --```plaintext
 --Params: index - The index of the Sprite being modified.
 --        sprite - The Sprite being assigned.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -62001,7 +62001,7 @@ function CS.UnityEngine.TextureSheetAnimationModule.SetSprite(index, sprite) end
 --
 --```plaintext
 --Params: index - The index of the desired Sprite.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -62067,7 +62067,7 @@ function CS.UnityEngine.PhysicsScene.IsEmpty() end
 --
 --```plaintext
 --Params: step - The time to advance physics by.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -62083,7 +62083,7 @@ function CS.UnityEngine.PhysicsScene.Simulate(step) end
 --        maxDistance - The max distance the ray should check for collisions.
 --        layerMask - A that is used to selectively ignore Colliders when casting a ray.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -62115,7 +62115,7 @@ function CS.UnityEngine.PhysicsScene.Raycast(origin, direction, hitInfo, maxDist
 --        maxDistance - The max distance the rayhit is allowed to be from the start of the ray.
 --        layerMask - A that is used to selectively ignore colliders when casting a ray.
 --        queryTriggerInteraction - The amount of hits stored into the results buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -62152,7 +62152,7 @@ function CS.UnityEngine.PhysicsScene.CapsuleCast(point1, point2, radius, directi
 --        maxDistance - The max length of the sweep.
 --        layerMask - A that is used to selectively ignore colliders when casting a capsule.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -62177,7 +62177,7 @@ function CS.UnityEngine.PhysicsScene.CapsuleCast(point1, point2, radius, directi
 --        results - The buffer to store the results into.
 --        layerMask - A that is used to selectively ignore colliders when casting a capsule.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -62212,7 +62212,7 @@ function CS.UnityEngine.PhysicsScene.SphereCast(origin, radius, direction, hitIn
 --        maxDistance - The max length of the cast.
 --        layerMask - A that is used to selectively ignore colliders when casting a capsule.
 --        queryTriggerInteraction - A that is used to selectively ignore colliders when casting a capsule.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -62235,7 +62235,7 @@ function CS.UnityEngine.PhysicsScene.SphereCast(origin, radius, direction, resul
 --        results - The buffer to store the results into.
 --        layerMask - A that is used to selectively ignore colliders when casting a ray.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -62277,7 +62277,7 @@ function CS.UnityEngine.PhysicsScene.BoxCast(center, halfExtents, direction, hit
 --        orientation - Rotation of the box.
 --        layerMask - A that is used to selectively ignore colliders when casting a ray.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -62309,7 +62309,7 @@ function CS.UnityEngine.PhysicsScene.OverlapBox(center, halfExtents, results) en
 --        maxDistance - The max length of the cast.
 --        layerMask - A that is used to selectively ignore colliders when casting a capsule.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -62435,7 +62435,7 @@ CS.UnityEngine.Particle = {}
 --
 --```plaintext
 --Params: system - The Particle System from which this particle was emitted.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -62448,7 +62448,7 @@ function CS.UnityEngine.Particle.GetCurrentSize(system) end
 --
 --```plaintext
 --Params: system - The Particle System from which this particle was emitted.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -62461,7 +62461,7 @@ function CS.UnityEngine.Particle.GetCurrentSize3D(system) end
 --
 --```plaintext
 --Params: system - The Particle System from which this particle was emitted.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -62474,7 +62474,7 @@ function CS.UnityEngine.Particle.GetCurrentColor(system) end
 --
 --```plaintext
 --Params: index - The Mesh index.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -62486,7 +62486,7 @@ function CS.UnityEngine.Particle.SetMeshIndex(index) end
 --
 --```plaintext
 --Params: system - The Particle System from which this particle was emitted.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -62508,7 +62508,7 @@ CS.UnityEngine.PhysicsSceneExtensions = {}
 --
 --```plaintext
 --Params: scene - The Scene from which to return the 3D physics Scene.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -62544,7 +62544,7 @@ function CS.UnityEngine.PhysicsSceneExtensions.GetPhysicsScene() end
 ---@source UnityEngine.PhysicsModule.dll
 CS.UnityEngine.ArticulationJointType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ArticulationJointType
 function CS.UnityEngine.ArticulationJointType:__CastFrom(value) end
@@ -62607,7 +62607,7 @@ function CS.UnityEngine.IntegratedSubsystem.Destroy() end
 ---@source UnityEngine.PhysicsModule.dll
 CS.UnityEngine.ArticulationDofLock = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ArticulationDofLock
 function CS.UnityEngine.ArticulationDofLock:__CastFrom(value) end
@@ -62790,7 +62790,7 @@ CS.UnityEngine.MinMaxGradient = {}
 --```plaintext
 --Params: time - Normalized time (in the range 0 - 1, where 1 represents 100%) at which to evaluate the gradient. This is valid when ParticleSystem.MinMaxGradient.mode is set to ParticleSystemGradientMode.Gradient or ParticleSystemGradientMode.TwoGradients.
 --        lerpFactor - Blend between the two gradients/colors (Valid when ParticleSystem.MinMaxGradient.mode is set to ParticleSystemGradientMode.TwoColors or ParticleSystemGradientMode.TwoGradients).
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -62804,7 +62804,7 @@ function CS.UnityEngine.MinMaxGradient.Evaluate(time) end
 --```plaintext
 --Params: time - Normalized time (in the range 0 - 1, where 1 represents 100%) at which to evaluate the gradient. This is valid when ParticleSystem.MinMaxGradient.mode is set to ParticleSystemGradientMode.Gradient or ParticleSystemGradientMode.TwoGradients.
 --        lerpFactor - Blend between the two gradients/colors (Valid when ParticleSystem.MinMaxGradient.mode is set to ParticleSystemGradientMode.TwoColors or ParticleSystemGradientMode.TwoGradients).
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -63336,7 +63336,7 @@ CS.UnityEngine.ArticulationBody = {}
 --
 --```plaintext
 --Params: force - The force vector to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -63348,7 +63348,7 @@ function CS.UnityEngine.ArticulationBody.AddForce(force) end
 --
 --```plaintext
 --Params: force - Force vector in local coordinates.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -63360,7 +63360,7 @@ function CS.UnityEngine.ArticulationBody.AddRelativeForce(force) end
 --
 --```plaintext
 --Params: torque - The torque to apply.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -63372,7 +63372,7 @@ function CS.UnityEngine.ArticulationBody.AddTorque(torque) end
 --
 --```plaintext
 --Params: torque - Torque vector in local coordinates.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -63385,7 +63385,7 @@ function CS.UnityEngine.ArticulationBody.AddRelativeTorque(torque) end
 --```plaintext
 --Params: force - Force vector in world coordinates.
 --        position - Position in world coordinates.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -63430,7 +63430,7 @@ function CS.UnityEngine.ArticulationBody.WakeUp() end
 --```plaintext
 --Params: position - The new position of the root articulation body.
 --        rotation - The new orientation of the root articulation body.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -63443,7 +63443,7 @@ function CS.UnityEngine.ArticulationBody.TeleportRoot(position, rotation) end
 --
 --```plaintext
 --Params: point - The point of interest.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -63692,7 +63692,7 @@ CS.UnityEngine.Physics = {}
 --Params: collider1 - Any collider.
 --        collider2 - Another collider you want to have collider1 to start or stop ignoring collisions with.
 --        ignore - Whether or not the collisions between the two colliders should be ignored or not.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -63737,7 +63737,7 @@ function CS.UnityEngine.Physics:GetIgnoreLayerCollision(layer1, layer2) end
 --```plaintext
 --Params: collider1 - The first collider to compare to collider2.
 --        collider2 - The second collider to compare to collider1.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -63755,7 +63755,7 @@ function CS.UnityEngine.Physics:GetIgnoreCollision(collider1, collider2) end
 --        maxDistance - The max distance the ray should check for collisions.
 --        layerMask - A that is used to selectively ignore Colliders when casting a ray.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -63830,7 +63830,7 @@ function CS.UnityEngine.Physics:Raycast(origin, direction, hitInfo) end
 --        maxDistance - The max distance the ray should check for collisions.
 --        layerMask - A that is used to selectively ignore colliders when casting a ray.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -63897,7 +63897,7 @@ function CS.UnityEngine.Physics:Raycast(ray, hitInfo) end
 --        end - End point.
 --        layerMask - A that is used to selectively ignore colliders when casting a ray.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -63956,7 +63956,7 @@ function CS.UnityEngine.Physics:Linecast(start, end, hitInfo) end
 --        maxDistance - The max length of the sweep.
 --        layerMask - A that is used to selectively ignore colliders when casting a capsule.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64086,7 +64086,7 @@ function CS.UnityEngine.Physics:SphereCast(origin, radius, direction, hitInfo) e
 --        maxDistance - The max length of the cast.
 --        layerMask - A that is used to selectively ignore colliders when casting a capsule.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64164,7 +64164,7 @@ function CS.UnityEngine.Physics:SphereCast(ray, radius, hitInfo) end
 --        maxDistance - The max length of the cast.
 --        layerMask - A that is used to selectively ignore colliders when casting a capsule.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64271,7 +64271,7 @@ function CS.UnityEngine.Physics:BoxCast(center, halfExtents, direction, hitInfo)
 --        maxDistance - The max distance the rayhit is allowed to be from the start of the ray.
 --        layermask - A that is used to selectively ignore colliders when casting a ray.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64308,7 +64308,7 @@ function CS.UnityEngine.Physics:RaycastAll(origin, direction) end
 --        maxDistance - The max distance the rayhit is allowed to be from the start of the ray.
 --        layerMask - A that is used to selectively ignore colliders when casting a ray.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64342,7 +64342,7 @@ function CS.UnityEngine.Physics:RaycastAll(ray) end
 --        maxDistance - The max distance the rayhit is allowed to be from the start of the ray.
 --        layerMask - A that is used to selectively ignore colliders when casting a ray.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64385,7 +64385,7 @@ function CS.UnityEngine.Physics:RaycastNonAlloc(ray, results) end
 --        maxDistance - The max distance the rayhit is allowed to be from the start of the ray.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
 --        layerMask - A that is used to selectively ignore colliders when casting a ray.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64433,7 +64433,7 @@ function CS.UnityEngine.Physics:RaycastNonAlloc(origin, direction, results) end
 --        maxDistance - The max length of the sweep.
 --        layermask - A that is used to selectively ignore colliders when casting a capsule.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64480,7 +64480,7 @@ function CS.UnityEngine.Physics:CapsuleCastAll(point1, point2, radius, direction
 --        maxDistance - The max length of the sweep.
 --        layerMask - A that is used to selectively ignore colliders when casting a sphere.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64522,7 +64522,7 @@ function CS.UnityEngine.Physics:SphereCastAll(origin, radius, direction) end
 --        maxDistance - The max length of the sweep.
 --        layerMask - A that is used to selectively ignore colliders when casting a sphere.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64560,7 +64560,7 @@ function CS.UnityEngine.Physics:SphereCastAll(ray, radius) end
 --        radius - The radius of the capsule.
 --        layerMask - A that is used to selectively ignore colliders when casting a capsule.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64592,7 +64592,7 @@ function CS.UnityEngine.Physics:OverlapCapsule(point0, point1, radius) end
 --        radius - Radius of the sphere.
 --        layerMask - A defines which layers of colliders to include in the query.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64618,7 +64618,7 @@ function CS.UnityEngine.Physics:OverlapSphere(position, radius) end
 --
 --```plaintext
 --Params: step - The time to advance physics by.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64651,7 +64651,7 @@ function CS.UnityEngine.Physics:ComputePenetration(colliderA, positionA, rotatio
 --        collider - The collider that you find the closest point on.
 --        position - The position of the collider.
 --        rotation - The rotation of the collider.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64671,7 +64671,7 @@ function CS.UnityEngine.Physics:ClosestPoint(point, collider, position, rotation
 --        results - The buffer to store the results into.
 --        layerMask - A defines which layers of colliders to include in the query.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64706,7 +64706,7 @@ function CS.UnityEngine.Physics:OverlapSphereNonAlloc(position, radius, results)
 --        radius - Radius of the sphere.
 --        layerMask - A that is used to selectively ignore colliders when casting a capsule.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64742,7 +64742,7 @@ function CS.UnityEngine.Physics:CheckSphere(position, radius) end
 --        maxDistance - The max length of the sweep.
 --        layerMask - A that is used to selectively ignore colliders when casting a capsule.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64798,7 +64798,7 @@ function CS.UnityEngine.Physics:CapsuleCastNonAlloc(point1, point2, radius, dire
 --        maxDistance - The max length of the sweep.
 --        layerMask - A that is used to selectively ignore colliders when casting a sphere.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64849,7 +64849,7 @@ function CS.UnityEngine.Physics:SphereCastNonAlloc(origin, radius, direction, re
 --        maxDistance - The max length of the sweep.
 --        layerMask - A that is used to selectively ignore colliders when casting a sphere.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64895,7 +64895,7 @@ function CS.UnityEngine.Physics:SphereCastNonAlloc(ray, radius, results) end
 --        radius - The radius of the capsule.
 --        layermask - A that is used to selectively ignore colliders when casting a capsule.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64931,7 +64931,7 @@ function CS.UnityEngine.Physics:CheckCapsule(start, end, radius) end
 --        orientation - Rotation of the box.
 --        layermask - A that is used to selectively ignore colliders when casting a ray.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -64973,7 +64973,7 @@ function CS.UnityEngine.Physics:CheckBox(center, halfExtents) end
 --        orientation - Rotation of the box.
 --        layerMask - A that is used to selectively ignore colliders when casting a ray.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -65012,7 +65012,7 @@ function CS.UnityEngine.Physics:OverlapBox(center, halfExtents) end
 --        orientation - Rotation of the box.
 --        layerMask - A that is used to selectively ignore colliders when casting a ray.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -65061,7 +65061,7 @@ function CS.UnityEngine.Physics:OverlapBoxNonAlloc(center, halfExtents, results)
 --        maxDistance - The max length of the cast.
 --        layermask - A that is used to selectively ignore colliders when casting a capsule.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -65125,7 +65125,7 @@ function CS.UnityEngine.Physics:BoxCastNonAlloc(center, halfExtents, direction, 
 --        maxDistance - The max length of the cast.
 --        layermask - A that is used to selectively ignore colliders when casting a capsule.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -65178,7 +65178,7 @@ function CS.UnityEngine.Physics:BoxCastAll(center, halfExtents, direction) end
 --        results - The buffer to store the results into.
 --        layerMask - A that is used to selectively ignore colliders when casting a capsule.
 --        queryTriggerInteraction - Specifies whether this query should hit Triggers.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -65214,7 +65214,7 @@ function CS.UnityEngine.Physics:OverlapCapsuleNonAlloc(point0, point1, radius, r
 --```plaintext
 --Params: worldBounds - Boundaries of the physics world.
 --        subdivisions - How many cells to create along x and z axis.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -65228,7 +65228,7 @@ function CS.UnityEngine.Physics:RebuildBroadphaseRegions(worldBounds, subdivisio
 --```plaintext
 --Params: meshID - The instance ID of the Mesh to bake collision data from.
 --        convex - A flag to indicate whether to bake convex geometry or not.
---        
+--
 --```
 --
 ---@source UnityEngine.PhysicsModule.dll
@@ -65530,7 +65530,7 @@ function CS.UnityEngine.ScreenCapture:CaptureScreenshot(filename) end
 --Params: filename - Pathname to save the screenshot file to.
 --        superSize - Factor by which to increase resolution.
 --        stereoCaptureMode - Specifies the eye texture to capture when stereo rendering is enabled.
---        
+--
 --```
 --
 ---@source UnityEngine.ScreenCaptureModule.dll
@@ -65553,7 +65553,7 @@ function CS.UnityEngine.ScreenCapture:CaptureScreenshotAsTexture() end
 --```plaintext
 --Params: superSize - Factor by which to increase resolution.
 --        stereoCaptureMode - Specifies the eye texture to capture when stereo rendering is enabled.
---        
+--
 --```
 --
 ---@source UnityEngine.ScreenCaptureModule.dll
@@ -65571,7 +65571,7 @@ function CS.UnityEngine.ScreenCapture:CaptureScreenshotAsTexture(stereoCaptureMo
 --
 --```plaintext
 --Params: renderTexture - RenderTexture that will get filled with the screen content.
---        
+--
 --```
 --
 ---@source UnityEngine.ScreenCaptureModule.dll
@@ -65632,7 +65632,7 @@ function CS.UnityEngine.ScreenCapture:CaptureScreenshotIntoRenderTexture(renderT
 ---@source UnityEngine.TerrainModule.dll
 CS.UnityEngine.TerrainChangedFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.TerrainChangedFlags
 function CS.UnityEngine.TerrainChangedFlags:__CastFrom(value) end
@@ -65674,7 +65674,7 @@ function CS.UnityEngine.TerrainChangedFlags:__CastFrom(value) end
 ---@source UnityEngine.TerrainModule.dll
 CS.UnityEngine.TerrainRenderFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.TerrainRenderFlags
 function CS.UnityEngine.TerrainRenderFlags:__CastFrom(value) end
@@ -65703,7 +65703,7 @@ function CS.UnityEngine.TerrainRenderFlags:__CastFrom(value) end
 ---@source UnityEngine.ScreenCaptureModule.dll
 CS.UnityEngine.StereoScreenCaptureMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ScreenCapture.StereoScreenCaptureMode
 function CS.UnityEngine.StereoScreenCaptureMode:__CastFrom(value) end
@@ -66003,7 +66003,7 @@ function CS.UnityEngine.Terrain.AddTreeInstance(instance) end
 --        top - The Terrain tile to the top is in the positive Z direction.
 --        right - The Terrain tile to the right is in the positive X direction.
 --        bottom - The Terrain tile to the bottom is in the negative Z direction.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -66130,7 +66130,7 @@ CS.UnityEngine.StreamingController = {}
 --Params: timeoutSeconds - Optional timeout before stopping preloading. Set to 0.0f when no timeout is required.
 --        activateCameraOnTimeout - Set to True to activate the connected Camera component when timeout expires.
 --        disableCameraCuttingFrom - Camera to deactivate on timeout (if Camera.activateCameraOnTime is True). This parameter can be null.
---        
+--
 --```
 --
 ---@source UnityEngine.StreamingModule.dll
@@ -66195,7 +66195,7 @@ CS.UnityEngine.Trails = {}
 ---@source UnityEngine.TerrainModule.dll
 CS.UnityEngine.MaterialType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Terrain.MaterialType
 function CS.UnityEngine.MaterialType:__CastFrom(value) end
@@ -66214,7 +66214,7 @@ CS.UnityEngine.ColliderData = {}
 --
 --```plaintext
 --Params: particleIndex - The index of the particle event.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -66228,7 +66228,7 @@ function CS.UnityEngine.ColliderData.GetColliderCount(particleIndex) end
 --```plaintext
 --Params: particleIndex - The index of the particle event.
 --        colliderIndex - The index of the collider to obtain.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -66924,7 +66924,7 @@ CS.UnityEngine.ExternalForcesModule = {}
 --
 --```plaintext
 --Params: field - The Force Field to test.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -66937,7 +66937,7 @@ function CS.UnityEngine.ExternalForcesModule.IsAffectedBy(field) end
 --
 --```plaintext
 --Params: field - The Force Field to add to the influencers list.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -66950,7 +66950,7 @@ function CS.UnityEngine.ExternalForcesModule.AddInfluence(field) end
 --```plaintext
 --Params: index - The index to remove the chosen Force Field from.
 --        field - The Force Field to remove from the list.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -66963,7 +66963,7 @@ function CS.UnityEngine.ExternalForcesModule.RemoveInfluence(index) end
 --```plaintext
 --Params: index - The index to remove the chosen Force Field from.
 --        field - The Force Field to remove from the list.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -66982,7 +66982,7 @@ function CS.UnityEngine.ExternalForcesModule.RemoveAllInfluences() end
 --```plaintext
 --Params: index - Index to assign the Force Field.
 --        field - Force Field that to assign.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -66995,7 +66995,7 @@ function CS.UnityEngine.ExternalForcesModule.SetInfluence(index, field) end
 --
 --```plaintext
 --Params: index - The index to return the chosen Force Field from.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -67365,7 +67365,7 @@ CS.UnityEngine.CustomDataModule = {}
 --```plaintext
 --Params: stream - The name of the custom data stream to enable data generation on.
 --        mode - The type of data to generate.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -67378,7 +67378,7 @@ function CS.UnityEngine.CustomDataModule.SetMode(stream, mode) end
 --
 --```plaintext
 --Params: stream - The name of the custom data stream to query.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -67392,7 +67392,7 @@ function CS.UnityEngine.CustomDataModule.GetMode(stream) end
 --```plaintext
 --Params: stream - The name of the custom data stream to apply the curve to.
 --        curveCount - The number of curves to generate data for.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -67405,7 +67405,7 @@ function CS.UnityEngine.CustomDataModule.SetVectorComponentCount(stream, count) 
 --
 --```plaintext
 --Params: stream - The name of the custom data stream to retrieve the curve from.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -67425,7 +67425,7 @@ function CS.UnityEngine.CustomDataModule.SetVector(stream, component, curve) end
 --```plaintext
 --Params: stream - The name of the custom data stream to retrieve the curve from.
 --        component - The component index to retrieve the curve for (0-3, mapping to the xyzw components of a Vector4 or float4).
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -67444,7 +67444,7 @@ function CS.UnityEngine.CustomDataModule.SetColor(stream, gradient) end
 --
 --```plaintext
 --Params: stream - The name of the custom data stream to retrieve the gradient from.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -67467,7 +67467,7 @@ CS.UnityEngine.ParticlePhysicsExtensions = {}
 --```plaintext
 --Params: go - The GameObject for which to retrieve collision events.
 --        collisionEvents - Array to write collision events to.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -67495,7 +67495,7 @@ function CS.UnityEngine.ParticlePhysicsExtensions.GetCollisionEvents(go, collisi
 --```plaintext
 --Params: ps - Particle system.
 --        type - Type of trigger to return size for.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -67601,7 +67601,7 @@ CS.UnityEngine.ParticleCollisionEvent = {}
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemRenderMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemRenderMode
 function CS.UnityEngine.ParticleSystemRenderMode:__CastFrom(value) end
@@ -67640,7 +67640,7 @@ function CS.UnityEngine.ParticleSystemRenderMode:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemSortMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemSortMode
 function CS.UnityEngine.ParticleSystemSortMode:__CastFrom(value) end
@@ -67669,7 +67669,7 @@ function CS.UnityEngine.ParticleSystemSortMode:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemCollisionQuality = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemCollisionQuality
 function CS.UnityEngine.ParticleSystemCollisionQuality:__CastFrom(value) end
@@ -67708,7 +67708,7 @@ function CS.UnityEngine.ParticleSystemCollisionQuality:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemRenderSpace = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemRenderSpace
 function CS.UnityEngine.ParticleSystemRenderSpace:__CastFrom(value) end
@@ -67742,7 +67742,7 @@ function CS.UnityEngine.ParticleSystemRenderSpace:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemCurveMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemCurveMode
 function CS.UnityEngine.ParticleSystemCurveMode:__CastFrom(value) end
@@ -67781,7 +67781,7 @@ function CS.UnityEngine.ParticleSystemCurveMode:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemGradientMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemGradientMode
 function CS.UnityEngine.ParticleSystemGradientMode:__CastFrom(value) end
@@ -67900,7 +67900,7 @@ function CS.UnityEngine.ParticleSystemGradientMode:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemShapeType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemShapeType
 function CS.UnityEngine.ParticleSystemShapeType:__CastFrom(value) end
@@ -67929,7 +67929,7 @@ function CS.UnityEngine.ParticleSystemShapeType:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemMeshShapeType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemMeshShapeType
 function CS.UnityEngine.ParticleSystemMeshShapeType:__CastFrom(value) end
@@ -67963,7 +67963,7 @@ function CS.UnityEngine.ParticleSystemMeshShapeType:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemShapeTextureChannel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemShapeTextureChannel
 function CS.UnityEngine.ParticleSystemShapeTextureChannel:__CastFrom(value) end
@@ -67987,7 +67987,7 @@ function CS.UnityEngine.ParticleSystemShapeTextureChannel:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemAnimationMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemAnimationMode
 function CS.UnityEngine.ParticleSystemAnimationMode:__CastFrom(value) end
@@ -68016,7 +68016,7 @@ function CS.UnityEngine.ParticleSystemAnimationMode:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemAnimationTimeMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemAnimationTimeMode
 function CS.UnityEngine.ParticleSystemAnimationTimeMode:__CastFrom(value) end
@@ -68073,7 +68073,7 @@ function CS.UnityEngine.TreePrototype.GetHashCode() end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemAnimationType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemAnimationType
 function CS.UnityEngine.ParticleSystemAnimationType:__CastFrom(value) end
@@ -68102,7 +68102,7 @@ function CS.UnityEngine.ParticleSystemAnimationType:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemAnimationRowMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemAnimationRowMode
 function CS.UnityEngine.ParticleSystemAnimationRowMode:__CastFrom(value) end
@@ -68131,7 +68131,7 @@ function CS.UnityEngine.ParticleSystemAnimationRowMode:__CastFrom(value) end
 ---@source UnityEngine.TerrainModule.dll
 CS.UnityEngine.DetailRenderMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.DetailRenderMode
 function CS.UnityEngine.DetailRenderMode:__CastFrom(value) end
@@ -68155,7 +68155,7 @@ function CS.UnityEngine.DetailRenderMode:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemCollisionType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemCollisionType
 function CS.UnityEngine.ParticleSystemCollisionType:__CastFrom(value) end
@@ -68248,7 +68248,7 @@ function CS.UnityEngine.DetailPrototype.GetHashCode() end
 --
 --```plaintext
 --Params: errorMessage - Returns a message that indicates the cause of failed validation.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -68279,7 +68279,7 @@ function CS.UnityEngine.DetailPrototype.Validate(errorMessage) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemCollisionMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemCollisionMode
 function CS.UnityEngine.ParticleSystemCollisionMode:__CastFrom(value) end
@@ -68349,7 +68349,7 @@ CS.UnityEngine.SplatPrototype = {}
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemOverlapAction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemOverlapAction
 function CS.UnityEngine.ParticleSystemOverlapAction:__CastFrom(value) end
@@ -68424,7 +68424,7 @@ CS.UnityEngine.TreeInstance = {}
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemColliderQueryMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemColliderQueryMode
 function CS.UnityEngine.ParticleSystemColliderQueryMode:__CastFrom(value) end
@@ -68472,7 +68472,7 @@ CS.UnityEngine.PatchExtents = {}
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemSimulationSpace = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemSimulationSpace
 function CS.UnityEngine.ParticleSystemSimulationSpace:__CastFrom(value) end
@@ -68501,7 +68501,7 @@ function CS.UnityEngine.ParticleSystemSimulationSpace:__CastFrom(value) end
 ---@source UnityEngine.TerrainModule.dll
 CS.UnityEngine.TerrainHeightmapSyncControl = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.TerrainHeightmapSyncControl
 function CS.UnityEngine.TerrainHeightmapSyncControl:__CastFrom(value) end
@@ -68525,7 +68525,7 @@ function CS.UnityEngine.TerrainHeightmapSyncControl:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemStopBehavior = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemStopBehavior
 function CS.UnityEngine.ParticleSystemStopBehavior:__CastFrom(value) end
@@ -68723,7 +68723,7 @@ CS.UnityEngine.TerrainData = {}
 --        width - Width of the the dirty heightmap region.
 --        height - Width of the the dirty heightmap region.
 --        syncHeightmapTextureImmediately - Update immediately, instead of deferring the update.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -68749,7 +68749,7 @@ function CS.UnityEngine.TerrainData.GetHeight(x, y) end
 --```plaintext
 --Params: x - X coordinate of the point in the range of [0, 1].
 --        y - Y coordinate of the point in the range of [0, 1].
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -68768,7 +68768,7 @@ function CS.UnityEngine.TerrainData.GetInterpolatedHeight(x, y) end
 --        yCount - The number of queries along the Y axis.
 --        xInterval - The interval between each query along the X axis.
 --        yInterval - The interval between each query along the Y axis.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -68800,7 +68800,7 @@ function CS.UnityEngine.TerrainData.GetInterpolatedHeights(results, resultXOffse
 --        yBase - First index of heightmap samples to retrieve along the Terrain's z axis.
 --        width - Number of samples to retrieve along the Terrain's x axis.
 --        height - Number of samples to retrieve along the Terrain's z axis.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -68827,7 +68827,7 @@ function CS.UnityEngine.TerrainData.GetPatchMinMaxHeights() end
 --
 --```plaintext
 --Params: minMaxHeights - Array of minimum and maximum terrain patch height values.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -68845,7 +68845,7 @@ function CS.UnityEngine.TerrainData.GetMaximumHeightError() end
 --
 --```plaintext
 --Params: maxError - Provided maximum height error values.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -68875,7 +68875,7 @@ function CS.UnityEngine.TerrainData.IsHole(x, y) end
 --        yBase - First y index of Terrain holes samples to retrieve.
 --        width - Number of samples to retrieve along the Terrain holes x axis.
 --        height - Number of samples to retrieve along the Terrain holes y axis.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -68921,7 +68921,7 @@ function CS.UnityEngine.TerrainData.GetInterpolatedNormal(x, y) end
 --```plaintext
 --Params: detailResolution - Specifies the number of pixels in the detail resolution map. A larger detailResolution, leads to more accurate detail object painting.
 --        resolutionPerPatch - Specifies the size in pixels of each individually rendered detail patch. A larger number reduces draw calls, but might increase triangle count since detail patches are culled on a per batch basis. A recommended value is 16. If you use a very large detail object distance and your grass is very sparse, it makes sense to increase the value.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -68954,7 +68954,7 @@ function CS.UnityEngine.TerrainData.GetSupportedLayers(xBase, yBase, totalWidth,
 --        width - The amount of detail object density data to retrieve along the Terrain's x axis.
 --        height - The amount of detail object density data to retrieve along the Terrain's z axis.
 --        layer - The index of the detail in the TerrainData.detailPrototypes array.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -68977,7 +68977,7 @@ function CS.UnityEngine.TerrainData.SetDetailLayer(xBase, yBase, layer, details)
 --
 --```plaintext
 --Params: density - The detail density value. See Terrain.detailObjectDensity.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -68990,7 +68990,7 @@ function CS.UnityEngine.TerrainData.GetClampedDetailPatches(density) end
 --```plaintext
 --Params: instances - The array of TreeInstance objects.
 --        snapToHeightmap - Specifies whether to snap Trees to the Terrain heightmap.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -69003,7 +69003,7 @@ function CS.UnityEngine.TerrainData.SetTreeInstances(instances, snapToHeightmap)
 --
 --```plaintext
 --Params: index - The index of the tree instance.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -69017,7 +69017,7 @@ function CS.UnityEngine.TerrainData.GetTreeInstance(index) end
 --```plaintext
 --Params: index - The index of the tree instance.
 --        instance - The new TreeInstance value.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -69033,7 +69033,7 @@ function CS.UnityEngine.TerrainData.SetTreeInstance(index, instance) end
 --        y - The y offset to read from.
 --        width - The width of the alpha map area to read.
 --        height - The height of the alpha map area to read.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -69060,7 +69060,7 @@ function CS.UnityEngine.TerrainData.SetBaseMapDirty() end
 --
 --```plaintext
 --Params: index - Index of the alphamap.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -69074,7 +69074,7 @@ function CS.UnityEngine.TerrainData.GetAlphamapTexture(index) end
 --```plaintext
 --Params: terrainLayers - The Terrain Layer assets to set.
 --        undoName - The name of the Editor's undo action.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -69095,7 +69095,7 @@ function CS.UnityEngine.TerrainData.SyncHeightmap() end
 --Params: sourceRect - The part of the active Render Texture to copy.
 --        dest - The X and Y coordinates of the heightmap texture to copy into.
 --        syncControl - Controls how CPU synchronization is performed.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -69110,7 +69110,7 @@ function CS.UnityEngine.TerrainData.CopyActiveRenderTextureToHeightmap(sourceRec
 --```plaintext
 --Params: region - The rectangular region to mark as dirty.
 --        syncControl - Controls how CPU synchronization is performed.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -69127,7 +69127,7 @@ function CS.UnityEngine.TerrainData.DirtyHeightmapRegion(region, syncControl) en
 --        sourceRect - The part of the active Render Texture to copy.
 --        dest - The X and Y coordinates of the Terrain texture to copy into.
 --        allowDelayedCPUSync - Specifies whether to allow delayed CPU synchronization of the texture.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -69145,7 +69145,7 @@ function CS.UnityEngine.TerrainData.CopyActiveRenderTextureToTexture(textureName
 --Params: textureName - The name of the Terrain texture.
 --        region - The rectangular region to mark as dirty.
 --        allowDelayedCPUSync - Specifies whether to allow delayed CPU synchronization of the texture.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -69159,7 +69159,7 @@ function CS.UnityEngine.TerrainData.DirtyTextureRegion(textureName, region, allo
 --
 --```plaintext
 --Params: textureName - The name of the Terrain texture to synchronize.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -69191,7 +69191,7 @@ function CS.UnityEngine.TerrainData.SyncTexture(textureName) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemScalingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemScalingMode
 function CS.UnityEngine.ParticleSystemScalingMode:__CastFrom(value) end
@@ -69225,7 +69225,7 @@ function CS.UnityEngine.ParticleSystemScalingMode:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemStopAction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemStopAction
 function CS.UnityEngine.ParticleSystemStopAction:__CastFrom(value) end
@@ -69259,7 +69259,7 @@ function CS.UnityEngine.ParticleSystemStopAction:__CastFrom(value) end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.ParticleSystemCullingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ParticleSystemCullingMode
 function CS.UnityEngine.ParticleSystemCullingMode:__CastFrom(value) end
@@ -69288,7 +69288,7 @@ function CS.UnityEngine.ParticleSystemCullingMode:__CastFrom(value) end
 ---@source UnityEngine.UIModule.dll
 CS.UnityEngine.RenderMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.RenderMode
 function CS.UnityEngine.RenderMode:__CastFrom(value) end
@@ -69410,7 +69410,7 @@ CS.UnityEngine.TerrainCollider = {}
 ---@source UnityEngine.TextRenderingModule.dll
 CS.UnityEngine.FontStyle = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.FontStyle
 function CS.UnityEngine.FontStyle:__CastFrom(value) end
@@ -69543,7 +69543,7 @@ function CS.UnityEngine.TextGenerationSettings.Equals(other) end
 ---@source UnityEngine.TextRenderingModule.dll
 CS.UnityEngine.TextAlignment = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.TextAlignment
 function CS.UnityEngine.TextAlignment:__CastFrom(value) end
@@ -69602,7 +69602,7 @@ function CS.UnityEngine.TextAlignment:__CastFrom(value) end
 ---@source UnityEngine.TextRenderingModule.dll
 CS.UnityEngine.TextAnchor = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.TextAnchor
 function CS.UnityEngine.TextAnchor:__CastFrom(value) end
@@ -69626,7 +69626,7 @@ function CS.UnityEngine.TextAnchor:__CastFrom(value) end
 ---@source UnityEngine.TextRenderingModule.dll
 CS.UnityEngine.HorizontalWrapMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.HorizontalWrapMode
 function CS.UnityEngine.HorizontalWrapMode:__CastFrom(value) end
@@ -69650,7 +69650,7 @@ function CS.UnityEngine.HorizontalWrapMode:__CastFrom(value) end
 ---@source UnityEngine.TextRenderingModule.dll
 CS.UnityEngine.VerticalWrapMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.VerticalWrapMode
 function CS.UnityEngine.VerticalWrapMode:__CastFrom(value) end
@@ -69867,7 +69867,7 @@ CS.UnityEngine.CharacterInfo = {}
 ---@source UnityEngine.UIModule.dll
 CS.UnityEngine.AdditionalCanvasShaderChannels = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AdditionalCanvasShaderChannels
 function CS.UnityEngine.AdditionalCanvasShaderChannels:__CastFrom(value) end
@@ -70195,7 +70195,7 @@ function CS.UnityEngine.Font:remove_textureRebuilt(value) end
 --Params: fontname - The name of the OS font to use for this font object.
 --        size - The default character size of the generated font.
 --        fontnames - Am array of names of OS fonts to use for this font object. When rendering characters using this font object, the first font which is installed on the machine, which contains the requested character will be used.
---        
+--
 --```
 --
 ---@source UnityEngine.TextRenderingModule.dll
@@ -70211,7 +70211,7 @@ function CS.UnityEngine.Font:CreateDynamicFontFromOSFont(fontname, size) end
 --Params: fontname - The name of the OS font to use for this font object.
 --        size - The default character size of the generated font.
 --        fontnames - Am array of names of OS fonts to use for this font object. When rendering characters using this font object, the first font which is installed on the machine, which contains the requested character will be used.
---        
+--
 --```
 --
 ---@source UnityEngine.TextRenderingModule.dll
@@ -70225,7 +70225,7 @@ function CS.UnityEngine.Font:CreateDynamicFontFromOSFont(fontnames, size) end
 --
 --```plaintext
 --Params: str - Input string.
---        
+--
 --```
 --
 ---@source UnityEngine.TextRenderingModule.dll
@@ -70238,7 +70238,7 @@ function CS.UnityEngine.Font:GetMaxVertsForString(str) end
 --
 --```plaintext
 --Params: c - The character to check for.
---        
+--
 --```
 --
 ---@source UnityEngine.TextRenderingModule.dll
@@ -70286,7 +70286,7 @@ function CS.UnityEngine.Font.GetCharacterInfo(ch, info) end
 --Params: characters - The characters which are needed to be in the font texture.
 --        size - The size of the requested characters (the default value of zero will use the font's default size).
 --        style - The style of the requested characters.
---        
+--
 --```
 --
 ---@source UnityEngine.TextRenderingModule.dll
@@ -70408,7 +70408,7 @@ CS.UnityEngine.GridBrushBase = {}
 --Params: grid - Grid used for layout.
 --        brushTarget - Target of the paint operation. By default the currently selected GameObject.
 --        position - The coordinates of the cell to paint data to.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -70424,7 +70424,7 @@ function CS.UnityEngine.GridBrushBase.Paint(gridLayout, brushTarget, position) e
 --Params: grid - Grid used for layout.
 --        brushTarget - Target of the erase operation. By default the currently selected GameObject.
 --        position - The coordinates of the cell to erase data from.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -70440,7 +70440,7 @@ function CS.UnityEngine.GridBrushBase.Erase(gridLayout, brushTarget, position) e
 --Params: gridLayout - Grid used for layout.
 --        brushTarget - Target of box fill operation. By default the currently selected GameObject.
 --        position - The bounds to box fill data to.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -70456,7 +70456,7 @@ function CS.UnityEngine.GridBrushBase.BoxFill(gridLayout, brushTarget, position)
 --Params: gridLayout - Grid used for layout.
 --        brushTarget - Target of the erase operation. By default the currently selected GameObject.
 --        position - The bounds to erase data from.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -70472,7 +70472,7 @@ function CS.UnityEngine.GridBrushBase.BoxErase(gridLayout, brushTarget, position
 --Params: grid - Grid used for layout.
 --        brushTarget - Targets of paint operation. By default the currently selected GameObject.
 --        position - Area to get selected.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -70488,7 +70488,7 @@ function CS.UnityEngine.GridBrushBase.Select(gridLayout, brushTarget, position) 
 --Params: gridLayout - Grid used for layout.
 --        brushTarget - Targets of flood fill operation. By default the currently selected GameObject.
 --        position - Starting position of the flood fill.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -70515,7 +70515,7 @@ function CS.UnityEngine.GridBrushBase.Flip(flip, layout) end
 --        brushTarget - Target of the paint operation. By default the currently selected GameObject.
 --        position - The coordinates of the cells to paint data from.
 --        pivot - Pivot of the picking brush.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -70533,7 +70533,7 @@ function CS.UnityEngine.GridBrushBase.Pick(gridLayout, brushTarget, position, pi
 --        brushTarget - Target of the move operation. By default the currently selected GameObject.
 --        from - Source bounds of the move.
 --        to - Target bounds of the move.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -70550,7 +70550,7 @@ function CS.UnityEngine.GridBrushBase.Move(gridLayout, brushTarget, from, to) en
 --Params: grid - Grid used for layout.
 --        brushTarget - Target of the move operation. By default the currently selected GameObject.
 --        position - Position where the move operation has started.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -70566,7 +70566,7 @@ function CS.UnityEngine.GridBrushBase.MoveStart(gridLayout, brushTarget, positio
 --Params: position - Layers affected by the move operation.
 --        brushTarget - Target of the move operation. By default the currently selected GameObject.
 --        grid - Grid used for layout.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -70580,7 +70580,7 @@ function CS.UnityEngine.GridBrushBase.MoveEnd(gridLayout, brushTarget, position)
 --
 --```plaintext
 --Params: change - Modify the Z position of GridBrushBase by this value.
---        
+--
 --```
 --
 ---@source UnityEngine.TilemapModule.dll
@@ -70637,7 +70637,7 @@ function CS.UnityEngine.GridBrushBase.ResetZPosition() end
 ---@source UnityEngine.TilemapModule.dll
 CS.UnityEngine.Tool = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.GridBrushBase.Tool
 function CS.UnityEngine.Tool:__CastFrom(value) end
@@ -70661,7 +70661,7 @@ function CS.UnityEngine.Tool:__CastFrom(value) end
 ---@source UnityEngine.TilemapModule.dll
 CS.UnityEngine.RotationDirection = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.GridBrushBase.RotationDirection
 function CS.UnityEngine.RotationDirection:__CastFrom(value) end
@@ -70685,7 +70685,7 @@ function CS.UnityEngine.RotationDirection:__CastFrom(value) end
 ---@source UnityEngine.TilemapModule.dll
 CS.UnityEngine.FlipAxis = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.GridBrushBase.FlipAxis
 function CS.UnityEngine.FlipAxis:__CastFrom(value) end
@@ -70700,7 +70700,7 @@ function CS.UnityEngine.FlipAxis:__CastFrom(value) end
 ---@source UnityEngine.UIModule.dll
 CS.UnityEngine.SampleType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UISystemProfilerApi.SampleType
 function CS.UnityEngine.SampleType:__CastFrom(value) end
@@ -70766,7 +70766,7 @@ function CS.UnityEngine.RemoteSettings:WasLastUpdatedFromServer() end
 --```plaintext
 --Params: key - The key identifying the setting.
 --        defaultValue - The default value to use if the setting identified by the key parameter cannot be found or is unavailable.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -70780,7 +70780,7 @@ function CS.UnityEngine.RemoteSettings:GetInt(key) end
 --```plaintext
 --Params: key - The key identifying the setting.
 --        defaultValue - The default value to use if the setting identified by the key parameter cannot be found or is unavailable.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -70800,7 +70800,7 @@ function CS.UnityEngine.RemoteSettings:GetLong(key) end
 --```plaintext
 --Params: key - The key identifying the setting.
 --        defaultValue - The default value to use if the setting identified by the key parameter cannot be found or is unavailable.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -70815,7 +70815,7 @@ function CS.UnityEngine.RemoteSettings:GetLong(key, defaultValue) end
 --```plaintext
 --Params: key - The key identifying the setting.
 --        defaultValue - The default value to use if the setting identified by the key parameter cannot be found or is unavailable.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -70829,7 +70829,7 @@ function CS.UnityEngine.RemoteSettings:GetFloat(key) end
 --```plaintext
 --Params: key - The key identifying the setting.
 --        defaultValue - The default value to use if the setting identified by the key parameter cannot be found or is unavailable.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -70844,7 +70844,7 @@ function CS.UnityEngine.RemoteSettings:GetFloat(key, defaultValue) end
 --```plaintext
 --Params: key - The key identifying the setting.
 --        defaultValue - The default value to use if the setting identified by the key parameter cannot be found or is unavailable.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -70858,7 +70858,7 @@ function CS.UnityEngine.RemoteSettings:GetString(key) end
 --```plaintext
 --Params: key - The key identifying the setting.
 --        defaultValue - The default value to use if the setting identified by the key parameter cannot be found or is unavailable.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -70873,7 +70873,7 @@ function CS.UnityEngine.RemoteSettings:GetString(key, defaultValue) end
 --```plaintext
 --Params: key - The key identifying the setting.
 --        defaultValue - The default value to use if the setting identified by the key parameter cannot be found or is unavailable.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -70887,7 +70887,7 @@ function CS.UnityEngine.RemoteSettings:GetBool(key) end
 --```plaintext
 --Params: key - The key identifying the setting.
 --        defaultValue - The default value to use if the setting identified by the key parameter cannot be found or is unavailable.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -70901,7 +70901,7 @@ function CS.UnityEngine.RemoteSettings:GetBool(key, defaultValue) end
 --
 --```plaintext
 --Params: key - The key identifying the setting.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -70933,7 +70933,7 @@ function CS.UnityEngine.RemoteSettings:GetObject(key) end
 --```plaintext
 --Params: key - The key identifying the setting.
 --        type - The type of object represented in RemoteSettings.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -70948,7 +70948,7 @@ function CS.UnityEngine.RemoteSettings:GetObject(type, key) end
 --```plaintext
 --Params: defaultValue - The object that should be for default values.
 --        key - The key identifying the setting.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -70962,7 +70962,7 @@ function CS.UnityEngine.RemoteSettings:GetObject(key, defaultValue) end
 --
 --```plaintext
 --Params: key - The key identifying the setting.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -71295,7 +71295,7 @@ CS.UnityEngine.WWW = {}
 --```plaintext
 --Params: s - A string with characters to be escaped.
 --        e - The text encoding to use.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestWWWModule.dll
@@ -71309,7 +71309,7 @@ function CS.UnityEngine.WWW:EscapeURL(s) end
 --```plaintext
 --Params: s - A string with characters to be escaped.
 --        e - The text encoding to use.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestWWWModule.dll
@@ -71324,7 +71324,7 @@ function CS.UnityEngine.WWW:EscapeURL(s, e) end
 --```plaintext
 --Params: s - A string containing escaped characters.
 --        e - The text encoding to use.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestWWWModule.dll
@@ -71338,7 +71338,7 @@ function CS.UnityEngine.WWW:UnEscapeURL(s) end
 --```plaintext
 --Params: s - A string containing escaped characters.
 --        e - The text encoding to use.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestWWWModule.dll
@@ -71358,7 +71358,7 @@ function CS.UnityEngine.WWW:UnEscapeURL(s, e) end
 --
 --Analogous to the cachedAssetBundle parameter for UnityWebRequestAssetBundle.GetAssetBundle.</param>
 --        crc - An optional CRC-32 Checksum of the uncompressed contents. If this is non-zero, then the content will be compared against the checksum before loading it, and give an error if it does not match. You can use this to avoid data corruption from bad downloads or users tampering with the cached files on disk. If the CRC does not match, Unity will try to redownload the data, and if the CRC on the server does not match it will fail with an error. Look at the error string returned to see the correct CRC value to use for an AssetBundle.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestWWWModule.dll
@@ -71378,7 +71378,7 @@ function CS.UnityEngine.WWW:LoadFromCacheOrDownload(url, version) end
 --
 --Analogous to the cachedAssetBundle parameter for UnityWebRequestAssetBundle.GetAssetBundle.</param>
 --        crc - An optional CRC-32 Checksum of the uncompressed contents. If this is non-zero, then the content will be compared against the checksum before loading it, and give an error if it does not match. You can use this to avoid data corruption from bad downloads or users tampering with the cached files on disk. If the CRC does not match, Unity will try to redownload the data, and if the CRC on the server does not match it will fail with an error. Look at the error string returned to see the correct CRC value to use for an AssetBundle.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestWWWModule.dll
@@ -71405,7 +71405,7 @@ function CS.UnityEngine.WWW:LoadFromCacheOrDownload(url, hash) end
 --
 --Analogous to the cachedAssetBundle parameter for UnityWebRequestAssetBundle.GetAssetBundle.</param>
 --        crc - An optional CRC-32 Checksum of the uncompressed contents. If this is non-zero, then the content will be compared against the checksum before loading it, and give an error if it does not match. You can use this to avoid data corruption from bad downloads or users tampering with the cached files on disk. If the CRC does not match, Unity will try to redownload the data, and if the CRC on the server does not match it will fail with an error. Look at the error string returned to see the correct CRC value to use for an AssetBundle.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestWWWModule.dll
@@ -71426,7 +71426,7 @@ function CS.UnityEngine.WWW:LoadFromCacheOrDownload(url, hash, crc) end
 --
 --Analogous to the cachedAssetBundle parameter for UnityWebRequestAssetBundle.GetAssetBundle.</param>
 --        crc - An optional CRC-32 Checksum of the uncompressed contents. If this is non-zero, then the content will be compared against the checksum before loading it, and give an error if it does not match. You can use this to avoid data corruption from bad downloads or users tampering with the cached files on disk. If the CRC does not match, Unity will try to redownload the data, and if the CRC on the server does not match it will fail with an error. Look at the error string returned to see the correct CRC value to use for an AssetBundle.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestWWWModule.dll
@@ -71441,7 +71441,7 @@ function CS.UnityEngine.WWW:LoadFromCacheOrDownload(url, cachedBundle, crc) end
 --
 --```plaintext
 --Params: tex - An existing texture object to be overwritten with the image data.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestWWWModule.dll
@@ -71646,7 +71646,7 @@ CS.UnityEngine.WheelHit = {}
 --
 --```plaintext
 --Params: active - Turns on/off the property
---        
+--
 --```
 --
 ---@source UnityEngine.VehiclesModule.dll
@@ -71722,7 +71722,7 @@ function CS.UnityEngine.WheelCollider.ResetSprungMasses() end
 --Params: speedThreshold - The speed threshold of the sub-stepping algorithm.
 --        stepsBelowThreshold - Amount of simulation sub-steps when vehicle's speed is below speedThreshold.
 --        stepsAboveThreshold - Amount of simulation sub-steps when vehicle's speed is above speedThreshold.
---        
+--
 --```
 --
 ---@source UnityEngine.VehiclesModule.dll
@@ -71760,7 +71760,7 @@ function CS.UnityEngine.WheelCollider.GetGroundHit(hit) end
 ---@source UnityEngine.WindModule.dll
 CS.UnityEngine.WindZoneMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.WindZoneMode
 function CS.UnityEngine.WindZoneMode:__CastFrom(value) end
@@ -71816,7 +71816,7 @@ CS.UnityEngine.ICanvasRaycastFilter = {}
 --```plaintext
 --Params: sp - Screen position.
 --        eventCamera - Raycast camera.
---        
+--
 --```
 --
 ---@source UnityEngine.UIModule.dll
@@ -71935,7 +71935,7 @@ CS.UnityEngine.CanvasRenderer = {}
 --
 --```plaintext
 --Params: color - Renderer multiply color.
---        
+--
 --```
 --
 ---@source UnityEngine.UIModule.dll
@@ -71970,7 +71970,7 @@ function CS.UnityEngine.CanvasRenderer.DisableRectClipping() end
 --Params: material - Material for rendering.
 --        texture - Material texture overide.
 --        index - Material index.
---        
+--
 --```
 --
 ---@source UnityEngine.UIModule.dll
@@ -71983,7 +71983,7 @@ function CS.UnityEngine.CanvasRenderer.SetMaterial(material, index) end
 --
 --```plaintext
 --Params: index - The material index to retrieve (0 if this parameter is omitted).
---        
+--
 --```
 --
 ---@source UnityEngine.UIModule.dll
@@ -72019,7 +72019,7 @@ function CS.UnityEngine.CanvasRenderer.SetTexture(texture) end
 --
 --```plaintext
 --Params: texture - The Texture to be passed.
---        
+--
 --```
 --
 ---@source UnityEngine.UIModule.dll
@@ -72051,7 +72051,7 @@ function CS.UnityEngine.CanvasRenderer.GetAlpha() end
 --
 --```plaintext
 --Params: alpha - Alpha.
---        
+--
 --```
 --
 ---@source UnityEngine.UIModule.dll
@@ -72073,7 +72073,7 @@ function CS.UnityEngine.CanvasRenderer.GetInheritedAlpha() end
 --Params: material - Material for rendering.
 --        texture - Material texture overide.
 --        index - Material index.
---        
+--
 --```
 --
 ---@source UnityEngine.UIModule.dll
@@ -72086,7 +72086,7 @@ function CS.UnityEngine.CanvasRenderer.SetMaterial(material, texture) end
 --
 --```plaintext
 --Params: index - The material index to retrieve (0 if this parameter is omitted).
---        
+--
 --```
 --
 ---@source UnityEngine.UIModule.dll
@@ -72173,7 +72173,7 @@ function CS.UnityEngine.CanvasRenderer.SetVertices(vertices) end
 --```plaintext
 --Params: vertices - Array of vertices to set.
 --        size - Number of vertices to set.
---        
+--
 --```
 --
 ---@source UnityEngine.UIModule.dll
@@ -72249,7 +72249,7 @@ function CS.UnityEngine.RectTransformUtility:RectangleContainsScreenPoint(rect, 
 --Params: rect - The RectTransform to test with.
 --        screenPoint - The screen point to test.
 --        cam - The camera from which the test is performed from. (Optional)
---        
+--
 --```
 --
 ---@source UnityEngine.UIModule.dll
@@ -72314,7 +72314,7 @@ function CS.UnityEngine.RectTransformUtility:CalculateRelativeRectTransformBound
 --        keepPositioning - Flips around the pivot if true. Flips within the parent rect if false.
 --        recursive - Flip the children as well?
 --        axis - The axis to flip along. 0 is horizontal and 1 is vertical.
---        
+--
 --```
 --
 ---@source UnityEngine.UIModule.dll
@@ -72331,7 +72331,7 @@ function CS.UnityEngine.RectTransformUtility:FlipLayoutOnAxis(rect, axis, keepPo
 --Params: rect - The RectTransform to flip.
 --        keepPositioning - Flips around the pivot if true. Flips within the parent rect if false.
 --        recursive - Flip the children as well?
---        
+--
 --```
 --
 ---@source UnityEngine.UIModule.dll
@@ -72627,7 +72627,7 @@ function CS.UnityEngine.ProceduralMaterial.FreezeAndReleaseSourceData() end
 ---@source UnityEngine.SubstanceModule.dll
 CS.UnityEngine.ProceduralProcessorUsage = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ProceduralProcessorUsage
 function CS.UnityEngine.ProceduralProcessorUsage:__CastFrom(value) end
@@ -72666,7 +72666,7 @@ function CS.UnityEngine.ProceduralProcessorUsage:__CastFrom(value) end
 ---@source UnityEngine.SubstanceModule.dll
 CS.UnityEngine.ProceduralCacheSize = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ProceduralCacheSize
 function CS.UnityEngine.ProceduralCacheSize:__CastFrom(value) end
@@ -72710,7 +72710,7 @@ function CS.UnityEngine.ProceduralCacheSize:__CastFrom(value) end
 ---@source UnityEngine.SubstanceModule.dll
 CS.UnityEngine.ProceduralLoadingBehavior = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ProceduralLoadingBehavior
 function CS.UnityEngine.ProceduralLoadingBehavior:__CastFrom(value) end
@@ -72774,7 +72774,7 @@ function CS.UnityEngine.ProceduralLoadingBehavior:__CastFrom(value) end
 ---@source UnityEngine.SubstanceModule.dll
 CS.UnityEngine.ProceduralPropertyType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ProceduralPropertyType
 function CS.UnityEngine.ProceduralPropertyType:__CastFrom(value) end
@@ -72848,7 +72848,7 @@ function CS.UnityEngine.ProceduralPropertyType:__CastFrom(value) end
 ---@source UnityEngine.SubstanceModule.dll
 CS.UnityEngine.ProceduralOutputType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ProceduralOutputType
 function CS.UnityEngine.ProceduralOutputType:__CastFrom(value) end
@@ -73021,7 +73021,7 @@ CS.UnityEngine.Grid = {}
 --
 --```plaintext
 --Params: position - Grid cell position.
---        
+--
 --```
 --
 ---@source UnityEngine.GridModule.dll
@@ -73034,7 +73034,7 @@ function CS.UnityEngine.Grid.GetCellCenterLocal(position) end
 --
 --```plaintext
 --Params: position - Grid cell position.
---        
+--
 --```
 --
 ---@source UnityEngine.GridModule.dll
@@ -73088,7 +73088,7 @@ CS.UnityEngine.GridLayout = {}
 --
 --```plaintext
 --Params: cellPosition - Location of the cell.
---        
+--
 --```
 --
 ---@source UnityEngine.GridModule.dll
@@ -73102,7 +73102,7 @@ function CS.UnityEngine.GridLayout.GetBoundsLocal(cellPosition) end
 --```plaintext
 --Params: origin - Origin of the group of cells.
 --        size - Size of the group of cells.
---        
+--
 --```
 --
 ---@source UnityEngine.GridModule.dll
@@ -73116,7 +73116,7 @@ function CS.UnityEngine.GridLayout.GetBoundsLocal(origin, size) end
 --
 --```plaintext
 --Params: cellPosition - Cell position to convert.
---        
+--
 --```
 --
 ---@source UnityEngine.GridModule.dll
@@ -73129,7 +73129,7 @@ function CS.UnityEngine.GridLayout.CellToLocal(cellPosition) end
 --
 --```plaintext
 --Params: localPosition - Local Position to convert.
---        
+--
 --```
 --
 ---@source UnityEngine.GridModule.dll
@@ -73142,7 +73142,7 @@ function CS.UnityEngine.GridLayout.LocalToCell(localPosition) end
 --
 --```plaintext
 --Params: cellPosition - Interpolated cell position to convert.
---        
+--
 --```
 --
 ---@source UnityEngine.GridModule.dll
@@ -73155,7 +73155,7 @@ function CS.UnityEngine.GridLayout.CellToLocalInterpolated(cellPosition) end
 --
 --```plaintext
 --Params: localPosition - Local Position to convert.
---        
+--
 --```
 --
 ---@source UnityEngine.GridModule.dll
@@ -73168,7 +73168,7 @@ function CS.UnityEngine.GridLayout.LocalToCellInterpolated(localPosition) end
 --
 --```plaintext
 --Params: cellPosition - Cell position to convert.
---        
+--
 --```
 --
 ---@source UnityEngine.GridModule.dll
@@ -73181,7 +73181,7 @@ function CS.UnityEngine.GridLayout.CellToWorld(cellPosition) end
 --
 --```plaintext
 --Params: worldPosition - World Position to convert.
---        
+--
 --```
 --
 ---@source UnityEngine.GridModule.dll
@@ -73194,7 +73194,7 @@ function CS.UnityEngine.GridLayout.WorldToCell(worldPosition) end
 --
 --```plaintext
 --Params: localPosition - Local Position to convert.
---        
+--
 --```
 --
 ---@source UnityEngine.GridModule.dll
@@ -73207,7 +73207,7 @@ function CS.UnityEngine.GridLayout.LocalToWorld(localPosition) end
 --
 --```plaintext
 --Params: worldPosition - World Position to convert.
---        
+--
 --```
 --
 ---@source UnityEngine.GridModule.dll
@@ -73251,7 +73251,7 @@ function CS.UnityEngine.GridLayout.GetLayoutCellCenter() end
 ---@source UnityEngine.GridModule.dll
 CS.UnityEngine.CellLayout = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.GridLayout.CellLayout
 function CS.UnityEngine.CellLayout:__CastFrom(value) end
@@ -73295,7 +73295,7 @@ function CS.UnityEngine.CellLayout:__CastFrom(value) end
 ---@source UnityEngine.GridModule.dll
 CS.UnityEngine.CellSwizzle = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.GridLayout.CellSwizzle
 function CS.UnityEngine.CellSwizzle:__CastFrom(value) end
@@ -73323,7 +73323,7 @@ CS.UnityEngine.ImageConversion = {}
 --        width - The width of the image data in pixels.
 --        height - The height of the image data in pixels.
 --        rowBytes - The length of a single row in bytes.
---        
+--
 --```
 --
 ---@source UnityEngine.ImageConversionModule.dll
@@ -73343,7 +73343,7 @@ function CS.UnityEngine.ImageConversion:EncodeArrayToTGA(array, format, width, h
 --        width - The width of the image data in pixels.
 --        height - The height of the image data in pixels.
 --        rowBytes - The length of a single row in bytes.
---        
+--
 --```
 --
 ---@source UnityEngine.ImageConversionModule.dll
@@ -73364,7 +73364,7 @@ function CS.UnityEngine.ImageConversion:EncodeArrayToPNG(array, format, width, h
 --        height - The height of the image data in pixels.
 --        rowBytes - The length of a single row in bytes.
 --        quality - JPG quality to encode with, 1..100 (default 75).
---        
+--
 --```
 --
 ---@source UnityEngine.ImageConversionModule.dll
@@ -73428,7 +73428,7 @@ function CS.UnityEngine.ImageConversion:EncodeNativeArrayToEXR(input, format, wi
 --
 --```plaintext
 --Params: tex - The texture to encode.
---        
+--
 --```
 --
 ---@source UnityEngine.ImageConversionModule.dll
@@ -73439,7 +73439,7 @@ function CS.UnityEngine.ImageConversion.EncodeToTGA() end
 --
 --```plaintext
 --Params: tex - The texture to convert.
---        
+--
 --```
 --
 ---@source UnityEngine.ImageConversionModule.dll
@@ -73451,7 +73451,7 @@ function CS.UnityEngine.ImageConversion.EncodeToPNG() end
 --```plaintext
 --Params: tex - Text texture to convert.
 --        quality - JPG quality to encode with, 1..100 (default 75).
---        
+--
 --```
 --
 ---@source UnityEngine.ImageConversionModule.dll
@@ -73464,7 +73464,7 @@ function CS.UnityEngine.ImageConversion.EncodeToJPG(quality) end
 --```plaintext
 --Params: tex - Text texture to convert.
 --        quality - JPG quality to encode with, 1..100 (default 75).
---        
+--
 --```
 --
 ---@source UnityEngine.ImageConversionModule.dll
@@ -73484,7 +73484,7 @@ function CS.UnityEngine.ImageConversion.EncodeToEXR() end
 --Params: data - The byte array containing the image data to load.
 --        markNonReadable - Set to false by default, pass true to optionally mark the texture as non-readable.
 --        tex - The texture to load the image into.
---        
+--
 --```
 --
 ---@source UnityEngine.ImageConversionModule.dll
@@ -73628,7 +73628,7 @@ CS.UnityEngine.Event = {}
 --
 --```plaintext
 --Params: controlID - The ID of the control you are querying from.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -73641,7 +73641,7 @@ function CS.UnityEngine.Event.GetTypeForControl(controlID) end
 --
 --```plaintext
 --Params: outEvent - Next Event.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -73852,7 +73852,7 @@ function CS.UnityEngine.Event.Use() end
 ---@source UnityEngine.IMGUIModule.dll
 CS.UnityEngine.EventType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.EventType
 function CS.UnityEngine.EventType:__CastFrom(value) end
@@ -73906,7 +73906,7 @@ function CS.UnityEngine.EventType:__CastFrom(value) end
 ---@source UnityEngine.IMGUIModule.dll
 CS.UnityEngine.EventModifiers = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.EventModifiers
 function CS.UnityEngine.EventModifiers:__CastFrom(value) end
@@ -73935,7 +73935,7 @@ function CS.UnityEngine.EventModifiers:__CastFrom(value) end
 ---@source UnityEngine.IMGUIModule.dll
 CS.UnityEngine.PointerType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.PointerType
 function CS.UnityEngine.PointerType:__CastFrom(value) end
@@ -74013,7 +74013,7 @@ function CS.UnityEngine.GUI:GetNameOfFocusedControl() end
 --
 --```plaintext
 --Params: name - Name set using SetNextControlName.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74025,7 +74025,7 @@ function CS.UnityEngine.GUI:FocusControl(name) end
 --
 --```plaintext
 --Params: position - The part of the window that can be dragged. This is clipped to the actual window.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74037,7 +74037,7 @@ function CS.UnityEngine.GUI:DragWindow(position) end
 --
 --```plaintext
 --Params: windowID - The identifier used when you created the window in the Window call.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74049,7 +74049,7 @@ function CS.UnityEngine.GUI:BringWindowToFront(windowID) end
 --
 --```plaintext
 --Params: windowID - The identifier used when you created the window in the Window call.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74061,7 +74061,7 @@ function CS.UnityEngine.GUI:BringWindowToBack(windowID) end
 --
 --```plaintext
 --Params: windowID - The identifier used when you created the window in the Window call.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74083,7 +74083,7 @@ function CS.UnityEngine.GUI:UnfocusWindow() end
 --        image - Texture to display on the label.
 --        content - Text, image and tooltip for this label.
 --        style - The style to use. If left out, the label style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74100,7 +74100,7 @@ function CS.UnityEngine.GUI:Label(position, text) end
 --        image - Texture to display on the label.
 --        content - Text, image and tooltip for this label.
 --        style - The style to use. If left out, the label style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74117,7 +74117,7 @@ function CS.UnityEngine.GUI:Label(position, image) end
 --        image - Texture to display on the label.
 --        content - Text, image and tooltip for this label.
 --        style - The style to use. If left out, the label style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74134,7 +74134,7 @@ function CS.UnityEngine.GUI:Label(position, content) end
 --        image - Texture to display on the label.
 --        content - Text, image and tooltip for this label.
 --        style - The style to use. If left out, the label style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74152,7 +74152,7 @@ function CS.UnityEngine.GUI:Label(position, text, style) end
 --        image - Texture to display on the label.
 --        content - Text, image and tooltip for this label.
 --        style - The style to use. If left out, the label style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74170,7 +74170,7 @@ function CS.UnityEngine.GUI:Label(position, image, style) end
 --        image - Texture to display on the label.
 --        content - Text, image and tooltip for this label.
 --        style - The style to use. If left out, the label style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74188,7 +74188,7 @@ function CS.UnityEngine.GUI:Label(position, content, style) end
 --        scaleMode - How to scale the image when the aspect ratio of it doesn't fit the aspect ratio to be drawn within.
 --        alphaBlend - Whether to apply alpha blending when drawing the image (enabled by default).
 --        imageAspect - Aspect ratio to use for the source image. If 0 (the default), the aspect ratio from the image is used.  Pass in w/h for the desired aspect ratio.  This allows the aspect ratio of the source image to be adjusted without changing the pixel width and height.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74205,7 +74205,7 @@ function CS.UnityEngine.GUI:DrawTexture(position, image) end
 --        scaleMode - How to scale the image when the aspect ratio of it doesn't fit the aspect ratio to be drawn within.
 --        alphaBlend - Whether to apply alpha blending when drawing the image (enabled by default).
 --        imageAspect - Aspect ratio to use for the source image. If 0 (the default), the aspect ratio from the image is used.  Pass in w/h for the desired aspect ratio.  This allows the aspect ratio of the source image to be adjusted without changing the pixel width and height.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74223,7 +74223,7 @@ function CS.UnityEngine.GUI:DrawTexture(position, image, scaleMode) end
 --        scaleMode - How to scale the image when the aspect ratio of it doesn't fit the aspect ratio to be drawn within.
 --        alphaBlend - Whether to apply alpha blending when drawing the image (enabled by default).
 --        imageAspect - Aspect ratio to use for the source image. If 0 (the default), the aspect ratio from the image is used.  Pass in w/h for the desired aspect ratio.  This allows the aspect ratio of the source image to be adjusted without changing the pixel width and height.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74242,7 +74242,7 @@ function CS.UnityEngine.GUI:DrawTexture(position, image, scaleMode, alphaBlend) 
 --        scaleMode - How to scale the image when the aspect ratio of it doesn't fit the aspect ratio to be drawn within.
 --        alphaBlend - Whether to apply alpha blending when drawing the image (enabled by default).
 --        imageAspect - Aspect ratio to use for the source image. If 0 (the default), the aspect ratio from the image is used.  Pass in w/h for the desired aspect ratio.  This allows the aspect ratio of the source image to be adjusted without changing the pixel width and height.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74267,7 +74267,7 @@ function CS.UnityEngine.GUI:DrawTexture(position, image, scaleMode, alphaBlend, 
 --        borderWidths - The width of the borders (left, top, right and bottom). If Vector4.zero, the full texture is drawn.
 --        borderRadius - The radius for rounded corners. If 0, corners will not be rounded.
 --        borderRadiuses - The radiuses for rounded corners (top-left, top-right, bottom-right and bottom-left). If Vector4.zero, corners will not be rounded.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74295,7 +74295,7 @@ function CS.UnityEngine.GUI:DrawTexture(position, image, scaleMode, alphaBlend, 
 --        borderWidths - The width of the borders (left, top, right and bottom). If Vector4.zero, the full texture is drawn.
 --        borderRadius - The radius for rounded corners. If 0, corners will not be rounded.
 --        borderRadiuses - The radiuses for rounded corners (top-left, top-right, bottom-right and bottom-left). If Vector4.zero, corners will not be rounded.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74328,7 +74328,7 @@ function CS.UnityEngine.GUI:DrawTexture(position, image, scaleMode, alphaBlend, 
 --        image - Texture to display.
 --        texCoords - How to scale the image when the aspect ratio of it doesn't fit the aspect ratio to be drawn within.
 --        alphaBlend - Whether to alpha blend the image on to the display (the default). If false, the picture is drawn on to the display.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74345,7 +74345,7 @@ function CS.UnityEngine.GUI:DrawTextureWithTexCoords(position, image, texCoords)
 --        image - Texture to display.
 --        texCoords - How to scale the image when the aspect ratio of it doesn't fit the aspect ratio to be drawn within.
 --        alphaBlend - Whether to alpha blend the image on to the display (the default). If false, the picture is drawn on to the display.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74364,7 +74364,7 @@ function CS.UnityEngine.GUI:DrawTextureWithTexCoords(position, image, texCoords,
 --        image - Texture to display on the box.
 --        content - Text, image and tooltip for this box.
 --        style - The style to use. If left out, the box style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74381,7 +74381,7 @@ function CS.UnityEngine.GUI:Box(position, text) end
 --        image - Texture to display on the box.
 --        content - Text, image and tooltip for this box.
 --        style - The style to use. If left out, the box style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74398,7 +74398,7 @@ function CS.UnityEngine.GUI:Box(position, image) end
 --        image - Texture to display on the box.
 --        content - Text, image and tooltip for this box.
 --        style - The style to use. If left out, the box style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74415,7 +74415,7 @@ function CS.UnityEngine.GUI:Box(position, content) end
 --        image - Texture to display on the box.
 --        content - Text, image and tooltip for this box.
 --        style - The style to use. If left out, the box style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74433,7 +74433,7 @@ function CS.UnityEngine.GUI:Box(position, text, style) end
 --        image - Texture to display on the box.
 --        content - Text, image and tooltip for this box.
 --        style - The style to use. If left out, the box style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74451,7 +74451,7 @@ function CS.UnityEngine.GUI:Box(position, image, style) end
 --        image - Texture to display on the box.
 --        content - Text, image and tooltip for this box.
 --        style - The style to use. If left out, the box style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74469,7 +74469,7 @@ function CS.UnityEngine.GUI:Box(position, content, style) end
 --        image - Texture to display on the button.
 --        content - Text, image and tooltip for this button.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74487,7 +74487,7 @@ function CS.UnityEngine.GUI:Button(position, text) end
 --        image - Texture to display on the button.
 --        content - Text, image and tooltip for this button.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74505,7 +74505,7 @@ function CS.UnityEngine.GUI:Button(position, image) end
 --        image - Texture to display on the button.
 --        content - Text, image and tooltip for this button.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74523,7 +74523,7 @@ function CS.UnityEngine.GUI:Button(position, content) end
 --        image - Texture to display on the button.
 --        content - Text, image and tooltip for this button.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74542,7 +74542,7 @@ function CS.UnityEngine.GUI:Button(position, text, style) end
 --        image - Texture to display on the button.
 --        content - Text, image and tooltip for this button.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74561,7 +74561,7 @@ function CS.UnityEngine.GUI:Button(position, image, style) end
 --        image - Texture to display on the button.
 --        content - Text, image and tooltip for this button.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74580,7 +74580,7 @@ function CS.UnityEngine.GUI:Button(position, content, style) end
 --        image - Texture to display on the button.
 --        content - Text, image and tooltip for this button.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74598,7 +74598,7 @@ function CS.UnityEngine.GUI:RepeatButton(position, text) end
 --        image - Texture to display on the button.
 --        content - Text, image and tooltip for this button.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74616,7 +74616,7 @@ function CS.UnityEngine.GUI:RepeatButton(position, image) end
 --        image - Texture to display on the button.
 --        content - Text, image and tooltip for this button.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74634,7 +74634,7 @@ function CS.UnityEngine.GUI:RepeatButton(position, content) end
 --        image - Texture to display on the button.
 --        content - Text, image and tooltip for this button.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74653,7 +74653,7 @@ function CS.UnityEngine.GUI:RepeatButton(position, text, style) end
 --        image - Texture to display on the button.
 --        content - Text, image and tooltip for this button.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74672,7 +74672,7 @@ function CS.UnityEngine.GUI:RepeatButton(position, image, style) end
 --        image - Texture to display on the button.
 --        content - Text, image and tooltip for this button.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74690,7 +74690,7 @@ function CS.UnityEngine.GUI:RepeatButton(position, content, style) end
 --        text - Text to edit. The return value of this function should be assigned back to the string as shown in the example.
 --        maxLength - The maximum length of the string. If left out, the user can type for ever and ever.
 --        style - The style to use. If left out, the textField style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74707,7 +74707,7 @@ function CS.UnityEngine.GUI:TextField(position, text) end
 --        text - Text to edit. The return value of this function should be assigned back to the string as shown in the example.
 --        maxLength - The maximum length of the string. If left out, the user can type for ever and ever.
 --        style - The style to use. If left out, the textField style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74725,7 +74725,7 @@ function CS.UnityEngine.GUI:TextField(position, text, maxLength) end
 --        text - Text to edit. The return value of this function should be assigned back to the string as shown in the example.
 --        maxLength - The maximum length of the string. If left out, the user can type for ever and ever.
 --        style - The style to use. If left out, the textField style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74743,7 +74743,7 @@ function CS.UnityEngine.GUI:TextField(position, text, style) end
 --        text - Text to edit. The return value of this function should be assigned back to the string as shown in the example.
 --        maxLength - The maximum length of the string. If left out, the user can type for ever and ever.
 --        style - The style to use. If left out, the textField style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74763,7 +74763,7 @@ function CS.UnityEngine.GUI:TextField(position, text, maxLength, style) end
 --        maskChar - Character to mask the password with.
 --        maxLength - The maximum length of the string. If left out, the user can type for ever and ever.
 --        style - The style to use. If left out, the textField style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74782,7 +74782,7 @@ function CS.UnityEngine.GUI:PasswordField(position, password, maskChar) end
 --        maskChar - Character to mask the password with.
 --        maxLength - The maximum length of the string. If left out, the user can type for ever and ever.
 --        style - The style to use. If left out, the textField style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74802,7 +74802,7 @@ function CS.UnityEngine.GUI:PasswordField(position, password, maskChar, maxLengt
 --        maskChar - Character to mask the password with.
 --        maxLength - The maximum length of the string. If left out, the user can type for ever and ever.
 --        style - The style to use. If left out, the textField style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74822,7 +74822,7 @@ function CS.UnityEngine.GUI:PasswordField(position, password, maskChar, style) e
 --        maskChar - Character to mask the password with.
 --        maxLength - The maximum length of the string. If left out, the user can type for ever and ever.
 --        style - The style to use. If left out, the textField style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74842,7 +74842,7 @@ function CS.UnityEngine.GUI:PasswordField(position, password, maskChar, maxLengt
 --        text - Text to edit. The return value of this function should be assigned back to the string as shown in the example.
 --        maxLength - The maximum length of the string. If left out, the user can type for ever and ever.
 --        style - The style to use. If left out, the textArea style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74859,7 +74859,7 @@ function CS.UnityEngine.GUI:TextArea(position, text) end
 --        text - Text to edit. The return value of this function should be assigned back to the string as shown in the example.
 --        maxLength - The maximum length of the string. If left out, the user can type for ever and ever.
 --        style - The style to use. If left out, the textArea style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74877,7 +74877,7 @@ function CS.UnityEngine.GUI:TextArea(position, text, maxLength) end
 --        text - Text to edit. The return value of this function should be assigned back to the string as shown in the example.
 --        maxLength - The maximum length of the string. If left out, the user can type for ever and ever.
 --        style - The style to use. If left out, the textArea style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74895,7 +74895,7 @@ function CS.UnityEngine.GUI:TextArea(position, text, style) end
 --        text - Text to edit. The return value of this function should be assigned back to the string as shown in the example.
 --        maxLength - The maximum length of the string. If left out, the user can type for ever and ever.
 --        style - The style to use. If left out, the textArea style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74916,7 +74916,7 @@ function CS.UnityEngine.GUI:TextArea(position, text, maxLength, style) end
 --        image - Texture to display on the button.
 --        content - Text, image and tooltip for this button.
 --        style - The style to use. If left out, the toggle style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74936,7 +74936,7 @@ function CS.UnityEngine.GUI:Toggle(position, value, text) end
 --        image - Texture to display on the button.
 --        content - Text, image and tooltip for this button.
 --        style - The style to use. If left out, the toggle style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74956,7 +74956,7 @@ function CS.UnityEngine.GUI:Toggle(position, value, image) end
 --        image - Texture to display on the button.
 --        content - Text, image and tooltip for this button.
 --        style - The style to use. If left out, the toggle style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74976,7 +74976,7 @@ function CS.UnityEngine.GUI:Toggle(position, value, content) end
 --        image - Texture to display on the button.
 --        content - Text, image and tooltip for this button.
 --        style - The style to use. If left out, the toggle style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -74997,7 +74997,7 @@ function CS.UnityEngine.GUI:Toggle(position, value, text, style) end
 --        image - Texture to display on the button.
 --        content - Text, image and tooltip for this button.
 --        style - The style to use. If left out, the toggle style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75018,7 +75018,7 @@ function CS.UnityEngine.GUI:Toggle(position, value, image, style) end
 --        image - Texture to display on the button.
 --        content - Text, image and tooltip for this button.
 --        style - The style to use. If left out, the toggle style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75049,7 +75049,7 @@ function CS.UnityEngine.GUI:Toggle(position, id, value, content, style) end
 --        contents - An array of text, image and tooltips for the toolbar buttons.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
 --        buttonSize - Determines how toolbar button size is calculated.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75070,7 +75070,7 @@ function CS.UnityEngine.GUI:Toolbar(position, selected, texts) end
 --        contents - An array of text, image and tooltips for the toolbar buttons.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
 --        buttonSize - Determines how toolbar button size is calculated.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75091,7 +75091,7 @@ function CS.UnityEngine.GUI:Toolbar(position, selected, images) end
 --        contents - An array of text, image and tooltips for the toolbar buttons.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
 --        buttonSize - Determines how toolbar button size is calculated.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75112,7 +75112,7 @@ function CS.UnityEngine.GUI:Toolbar(position, selected, contents) end
 --        contents - An array of text, image and tooltips for the toolbar buttons.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
 --        buttonSize - Determines how toolbar button size is calculated.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75134,7 +75134,7 @@ function CS.UnityEngine.GUI:Toolbar(position, selected, texts, style) end
 --        contents - An array of text, image and tooltips for the toolbar buttons.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
 --        buttonSize - Determines how toolbar button size is calculated.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75156,7 +75156,7 @@ function CS.UnityEngine.GUI:Toolbar(position, selected, images, style) end
 --        contents - An array of text, image and tooltips for the toolbar buttons.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
 --        buttonSize - Determines how toolbar button size is calculated.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75187,7 +75187,7 @@ function CS.UnityEngine.GUI:Toolbar(position, selected, contents, style, buttonS
 --        contents - An array of text, image and tooltips for the grid button.
 --        xCount - How many elements to fit in the horizontal direction. The controls will be scaled to fit unless the style defines a fixedWidth to use.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75209,7 +75209,7 @@ function CS.UnityEngine.GUI:SelectionGrid(position, selected, texts, xCount) end
 --        contents - An array of text, image and tooltips for the grid button.
 --        xCount - How many elements to fit in the horizontal direction. The controls will be scaled to fit unless the style defines a fixedWidth to use.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75231,7 +75231,7 @@ function CS.UnityEngine.GUI:SelectionGrid(position, selected, images, xCount) en
 --        contents - An array of text, image and tooltips for the grid button.
 --        xCount - How many elements to fit in the horizontal direction. The controls will be scaled to fit unless the style defines a fixedWidth to use.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75253,7 +75253,7 @@ function CS.UnityEngine.GUI:SelectionGrid(position, selected, content, xCount) e
 --        contents - An array of text, image and tooltips for the grid button.
 --        xCount - How many elements to fit in the horizontal direction. The controls will be scaled to fit unless the style defines a fixedWidth to use.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75276,7 +75276,7 @@ function CS.UnityEngine.GUI:SelectionGrid(position, selected, texts, xCount, sty
 --        contents - An array of text, image and tooltips for the grid button.
 --        xCount - How many elements to fit in the horizontal direction. The controls will be scaled to fit unless the style defines a fixedWidth to use.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75299,7 +75299,7 @@ function CS.UnityEngine.GUI:SelectionGrid(position, selected, images, xCount, st
 --        contents - An array of text, image and tooltips for the grid button.
 --        xCount - How many elements to fit in the horizontal direction. The controls will be scaled to fit unless the style defines a fixedWidth to use.
 --        style - The style to use. If left out, the button style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75321,7 +75321,7 @@ function CS.UnityEngine.GUI:SelectionGrid(position, selected, contents, xCount, 
 --        rightValue - The value at the right end of the slider.
 --        slider - The GUIStyle to use for displaying the dragging area. If left out, the horizontalSlider style from the current GUISkin is used.
 --        thumb - The GUIStyle to use for displaying draggable thumb. If left out, the horizontalSliderThumb style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75342,7 +75342,7 @@ function CS.UnityEngine.GUI:HorizontalSlider(position, value, leftValue, rightVa
 --        rightValue - The value at the right end of the slider.
 --        slider - The GUIStyle to use for displaying the dragging area. If left out, the horizontalSlider style from the current GUISkin is used.
 --        thumb - The GUIStyle to use for displaying draggable thumb. If left out, the horizontalSliderThumb style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75376,7 +75376,7 @@ function CS.UnityEngine.GUI:HorizontalSlider(position, value, leftValue, rightVa
 --        bottomValue - The value at the bottom end of the slider.
 --        slider - The GUIStyle to use for displaying the dragging area. If left out, the horizontalSlider style from the current GUISkin is used.
 --        thumb - The GUIStyle to use for displaying draggable thumb. If left out, the horizontalSliderThumb style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75397,7 +75397,7 @@ function CS.UnityEngine.GUI:VerticalSlider(position, value, topValue, bottomValu
 --        bottomValue - The value at the bottom end of the slider.
 --        slider - The GUIStyle to use for displaying the dragging area. If left out, the horizontalSlider style from the current GUISkin is used.
 --        thumb - The GUIStyle to use for displaying draggable thumb. If left out, the horizontalSliderThumb style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75445,7 +75445,7 @@ function CS.UnityEngine.GUI:Slider(position, value, size, start, end, slider, th
 --        leftValue - The value at the left end of the scrollbar.
 --        rightValue - The value at the right end of the scrollbar.
 --        style - The style to use for the scrollbar background. If left out, the horizontalScrollbar style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75467,7 +75467,7 @@ function CS.UnityEngine.GUI:HorizontalScrollbar(position, value, size, leftValue
 --        leftValue - The value at the left end of the scrollbar.
 --        rightValue - The value at the right end of the scrollbar.
 --        style - The style to use for the scrollbar background. If left out, the horizontalScrollbar style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75490,7 +75490,7 @@ function CS.UnityEngine.GUI:HorizontalScrollbar(position, value, size, leftValue
 --        topValue - The value at the top of the scrollbar.
 --        bottomValue - The value at the bottom of the scrollbar.
 --        style - The style to use for the scrollbar background. If left out, the horizontalScrollbar style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75512,7 +75512,7 @@ function CS.UnityEngine.GUI:VerticalScrollbar(position, value, size, topValue, b
 --        topValue - The value at the top of the scrollbar.
 --        bottomValue - The value at the bottom of the scrollbar.
 --        style - The style to use for the scrollbar background. If left out, the horizontalScrollbar style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75541,7 +75541,7 @@ function CS.UnityEngine.GUI:BeginClip(position, scrollOffset, renderOffset, rese
 --        image - Texture to display on the group.
 --        content - Text, image and tooltip for this group. If supplied, any mouse clicks are "captured" by the group and not If left out, no background is rendered, and mouse clicks are passed.
 --        style - The style to use for the background.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75557,7 +75557,7 @@ function CS.UnityEngine.GUI:BeginGroup(position) end
 --        image - Texture to display on the group.
 --        content - Text, image and tooltip for this group. If supplied, any mouse clicks are "captured" by the group and not If left out, no background is rendered, and mouse clicks are passed.
 --        style - The style to use for the background.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75574,7 +75574,7 @@ function CS.UnityEngine.GUI:BeginGroup(position, text) end
 --        image - Texture to display on the group.
 --        content - Text, image and tooltip for this group. If supplied, any mouse clicks are "captured" by the group and not If left out, no background is rendered, and mouse clicks are passed.
 --        style - The style to use for the background.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75591,7 +75591,7 @@ function CS.UnityEngine.GUI:BeginGroup(position, image) end
 --        image - Texture to display on the group.
 --        content - Text, image and tooltip for this group. If supplied, any mouse clicks are "captured" by the group and not If left out, no background is rendered, and mouse clicks are passed.
 --        style - The style to use for the background.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75608,7 +75608,7 @@ function CS.UnityEngine.GUI:BeginGroup(position, content) end
 --        image - Texture to display on the group.
 --        content - Text, image and tooltip for this group. If supplied, any mouse clicks are "captured" by the group and not If left out, no background is rendered, and mouse clicks are passed.
 --        style - The style to use for the background.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75625,7 +75625,7 @@ function CS.UnityEngine.GUI:BeginGroup(position, style) end
 --        image - Texture to display on the group.
 --        content - Text, image and tooltip for this group. If supplied, any mouse clicks are "captured" by the group and not If left out, no background is rendered, and mouse clicks are passed.
 --        style - The style to use for the background.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75643,7 +75643,7 @@ function CS.UnityEngine.GUI:BeginGroup(position, text, style) end
 --        image - Texture to display on the group.
 --        content - Text, image and tooltip for this group. If supplied, any mouse clicks are "captured" by the group and not If left out, no background is rendered, and mouse clicks are passed.
 --        style - The style to use for the background.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75661,7 +75661,7 @@ function CS.UnityEngine.GUI:BeginGroup(position, image, style) end
 --        image - Texture to display on the group.
 --        content - Text, image and tooltip for this group. If supplied, any mouse clicks are "captured" by the group and not If left out, no background is rendered, and mouse clicks are passed.
 --        style - The style to use for the background.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75694,7 +75694,7 @@ function CS.UnityEngine.GUI:EndClip() end
 --        verticalScrollbar - Optional GUIStyle to use for the vertical scrollbar. If left out, the verticalScrollbar style from the current GUISkin is used.
 --        alwaysShowHorizontal - Optional parameter to always show the horizontal scrollbar. If false or left out, it is only shown when viewRect is wider than position.
 --        alwaysShowVertical - Optional parameter to always show the vertical scrollbar. If false or left out, it is only shown when viewRect is taller than position.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75715,7 +75715,7 @@ function CS.UnityEngine.GUI:BeginScrollView(position, scrollPosition, viewRect) 
 --        verticalScrollbar - Optional GUIStyle to use for the vertical scrollbar. If left out, the verticalScrollbar style from the current GUISkin is used.
 --        alwaysShowHorizontal - Optional parameter to always show the horizontal scrollbar. If false or left out, it is only shown when viewRect is wider than position.
 --        alwaysShowVertical - Optional parameter to always show the vertical scrollbar. If false or left out, it is only shown when viewRect is taller than position.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75738,7 +75738,7 @@ function CS.UnityEngine.GUI:BeginScrollView(position, scrollPosition, viewRect, 
 --        verticalScrollbar - Optional GUIStyle to use for the vertical scrollbar. If left out, the verticalScrollbar style from the current GUISkin is used.
 --        alwaysShowHorizontal - Optional parameter to always show the horizontal scrollbar. If false or left out, it is only shown when viewRect is wider than position.
 --        alwaysShowVertical - Optional parameter to always show the vertical scrollbar. If false or left out, it is only shown when viewRect is taller than position.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75761,7 +75761,7 @@ function CS.UnityEngine.GUI:BeginScrollView(position, scrollPosition, viewRect, 
 --        verticalScrollbar - Optional GUIStyle to use for the vertical scrollbar. If left out, the verticalScrollbar style from the current GUISkin is used.
 --        alwaysShowHorizontal - Optional parameter to always show the horizontal scrollbar. If false or left out, it is only shown when viewRect is wider than position.
 --        alwaysShowVertical - Optional parameter to always show the vertical scrollbar. If false or left out, it is only shown when viewRect is taller than position.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -75928,7 +75928,7 @@ function CS.UnityEngine.GUI:DragWindow() end
 ---@source UnityEngine.IMGUIModule.dll
 CS.UnityEngine.ToolbarButtonSize = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.GUI.ToolbarButtonSize
 function CS.UnityEngine.ToolbarButtonSize:__CastFrom(value) end
@@ -76053,7 +76053,7 @@ CS.UnityEngine.GUIContent = {}
 ---@source UnityEngine.IMGUIModule.dll
 CS.UnityEngine.ScaleMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.ScaleMode
 function CS.UnityEngine.ScaleMode:__CastFrom(value) end
@@ -76079,7 +76079,7 @@ function CS.UnityEngine.ScaleMode:__CastFrom(value) end
 ---@source UnityEngine.IMGUIModule.dll
 CS.UnityEngine.FocusType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.FocusType
 function CS.UnityEngine.FocusType:__CastFrom(value) end
@@ -76104,7 +76104,7 @@ CS.UnityEngine.GUILayout = {}
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76123,7 +76123,7 @@ function CS.UnityEngine.GUILayout:Label(image, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76142,7 +76142,7 @@ function CS.UnityEngine.GUILayout:Label(text, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76161,7 +76161,7 @@ function CS.UnityEngine.GUILayout:Label(content, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76181,7 +76181,7 @@ function CS.UnityEngine.GUILayout:Label(image, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76201,7 +76201,7 @@ function CS.UnityEngine.GUILayout:Label(text, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76221,7 +76221,7 @@ function CS.UnityEngine.GUILayout:Label(content, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76240,7 +76240,7 @@ function CS.UnityEngine.GUILayout:Box(image, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76259,7 +76259,7 @@ function CS.UnityEngine.GUILayout:Box(text, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76278,7 +76278,7 @@ function CS.UnityEngine.GUILayout:Box(content, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76298,7 +76298,7 @@ function CS.UnityEngine.GUILayout:Box(image, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76318,7 +76318,7 @@ function CS.UnityEngine.GUILayout:Box(text, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76338,7 +76338,7 @@ function CS.UnityEngine.GUILayout:Box(content, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76358,7 +76358,7 @@ function CS.UnityEngine.GUILayout:Button(image, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76378,7 +76378,7 @@ function CS.UnityEngine.GUILayout:Button(text, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76398,7 +76398,7 @@ function CS.UnityEngine.GUILayout:Button(content, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76419,7 +76419,7 @@ function CS.UnityEngine.GUILayout:Button(image, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76440,7 +76440,7 @@ function CS.UnityEngine.GUILayout:Button(text, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76461,7 +76461,7 @@ function CS.UnityEngine.GUILayout:Button(content, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76481,7 +76481,7 @@ function CS.UnityEngine.GUILayout:RepeatButton(image, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76501,7 +76501,7 @@ function CS.UnityEngine.GUILayout:RepeatButton(text, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76521,7 +76521,7 @@ function CS.UnityEngine.GUILayout:RepeatButton(content, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76542,7 +76542,7 @@ function CS.UnityEngine.GUILayout:RepeatButton(image, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76563,7 +76563,7 @@ function CS.UnityEngine.GUILayout:RepeatButton(text, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76583,7 +76583,7 @@ function CS.UnityEngine.GUILayout:RepeatButton(content, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76602,7 +76602,7 @@ function CS.UnityEngine.GUILayout:TextField(text, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76622,7 +76622,7 @@ function CS.UnityEngine.GUILayout:TextField(text, maxLength, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76642,7 +76642,7 @@ function CS.UnityEngine.GUILayout:TextField(text, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76661,7 +76661,7 @@ function CS.UnityEngine.GUILayout:TextField(text, maxLength, style, options) end
 --        maskChar - Character to mask the password with.
 --        maxLength - The maximum length of the string. If left out, the user can type for ever and ever.
 --        style - The style to use. If left out, the textField style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76679,7 +76679,7 @@ function CS.UnityEngine.GUILayout:PasswordField(password, maskChar, options) end
 --        maskChar - Character to mask the password with.
 --        maxLength - The maximum length of the string. If left out, the user can type for ever and ever.
 --        style - The style to use. If left out, the textField style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76698,7 +76698,7 @@ function CS.UnityEngine.GUILayout:PasswordField(password, maskChar, maxLength, o
 --        maskChar - Character to mask the password with.
 --        maxLength - The maximum length of the string. If left out, the user can type for ever and ever.
 --        style - The style to use. If left out, the textField style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76717,7 +76717,7 @@ function CS.UnityEngine.GUILayout:PasswordField(password, maskChar, style, optio
 --        maskChar - Character to mask the password with.
 --        maxLength - The maximum length of the string. If left out, the user can type for ever and ever.
 --        style - The style to use. If left out, the textField style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76739,7 +76739,7 @@ function CS.UnityEngine.GUILayout:PasswordField(password, maskChar, maxLength, s
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.&amp;lt;br&amp;gt;
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76758,7 +76758,7 @@ function CS.UnityEngine.GUILayout:TextArea(text, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.&amp;lt;br&amp;gt;
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76778,7 +76778,7 @@ function CS.UnityEngine.GUILayout:TextArea(text, maxLength, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.&amp;lt;br&amp;gt;
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76798,7 +76798,7 @@ function CS.UnityEngine.GUILayout:TextArea(text, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.&amp;lt;br&amp;gt;
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76821,7 +76821,7 @@ function CS.UnityEngine.GUILayout:TextArea(text, maxLength, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76843,7 +76843,7 @@ function CS.UnityEngine.GUILayout:Toggle(value, image, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76865,7 +76865,7 @@ function CS.UnityEngine.GUILayout:Toggle(value, text, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76887,7 +76887,7 @@ function CS.UnityEngine.GUILayout:Toggle(value, content, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76910,7 +76910,7 @@ function CS.UnityEngine.GUILayout:Toggle(value, image, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76933,7 +76933,7 @@ function CS.UnityEngine.GUILayout:Toggle(value, text, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76957,7 +76957,7 @@ function CS.UnityEngine.GUILayout:Toggle(value, content, style, options) end
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
 --        buttonSize - Determines how toolbar button size is calculated.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -76980,7 +76980,7 @@ function CS.UnityEngine.GUILayout:Toolbar(selected, texts, options) end
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
 --        buttonSize - Determines how toolbar button size is calculated.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77003,7 +77003,7 @@ function CS.UnityEngine.GUILayout:Toolbar(selected, images, options) end
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
 --        buttonSize - Determines how toolbar button size is calculated.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77026,7 +77026,7 @@ function CS.UnityEngine.GUILayout:Toolbar(selected, contents, options) end
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
 --        buttonSize - Determines how toolbar button size is calculated.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77050,7 +77050,7 @@ function CS.UnityEngine.GUILayout:Toolbar(selected, texts, style, options) end
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
 --        buttonSize - Determines how toolbar button size is calculated.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77092,7 +77092,7 @@ function CS.UnityEngine.GUILayout:Toolbar(selected, images, style, buttonSize, o
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
 --        buttonSize - Determines how toolbar button size is calculated.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77144,7 +77144,7 @@ function CS.UnityEngine.GUILayout:Toolbar(selected, contents, enabled, style, bu
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77168,7 +77168,7 @@ function CS.UnityEngine.GUILayout:SelectionGrid(selected, texts, xCount, options
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77192,7 +77192,7 @@ function CS.UnityEngine.GUILayout:SelectionGrid(selected, images, xCount, option
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77216,7 +77216,7 @@ function CS.UnityEngine.GUILayout:SelectionGrid(selected, content, xCount, optio
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77241,7 +77241,7 @@ function CS.UnityEngine.GUILayout:SelectionGrid(selected, texts, xCount, style, 
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77266,7 +77266,7 @@ function CS.UnityEngine.GUILayout:SelectionGrid(selected, images, xCount, style,
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77288,7 +77288,7 @@ function CS.UnityEngine.GUILayout:SelectionGrid(selected, contents, xCount, styl
 --        slider - The GUIStyle to use for displaying the dragging area. If left out, the horizontalSlider style from the current GUISkin is used.
 --        thumb - The GUIStyle to use for displaying draggable thumb. If left out, the horizontalSliderThumb style from the current GUISkin is used.
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77309,7 +77309,7 @@ function CS.UnityEngine.GUILayout:HorizontalSlider(value, leftValue, rightValue,
 --        slider - The GUIStyle to use for displaying the dragging area. If left out, the horizontalSlider style from the current GUISkin is used.
 --        thumb - The GUIStyle to use for displaying draggable thumb. If left out, the horizontalSliderThumb style from the current GUISkin is used.
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77332,7 +77332,7 @@ function CS.UnityEngine.GUILayout:HorizontalSlider(value, leftValue, rightValue,
 --        slider - The GUIStyle to use for displaying the dragging area. If left out, the horizontalSlider style from the current GUISkin is used.
 --        thumb - The GUIStyle to use for displaying draggable thumb. If left out, the horizontalSliderThumb style from the current GUISkin is used.
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77353,7 +77353,7 @@ function CS.UnityEngine.GUILayout:VerticalSlider(value, leftValue, rightValue, o
 --        slider - The GUIStyle to use for displaying the dragging area. If left out, the horizontalSlider style from the current GUISkin is used.
 --        thumb - The GUIStyle to use for displaying draggable thumb. If left out, the horizontalSliderThumb style from the current GUISkin is used.
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77376,7 +77376,7 @@ function CS.UnityEngine.GUILayout:VerticalSlider(value, leftValue, rightValue, s
 --        rightValue - The value at the right end of the scrollbar.
 --        style - The style to use for the scrollbar background. If left out, the horizontalScrollbar style from the current GUISkin is used.
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77398,7 +77398,7 @@ function CS.UnityEngine.GUILayout:HorizontalScrollbar(value, size, leftValue, ri
 --        rightValue - The value at the right end of the scrollbar.
 --        style - The style to use for the scrollbar background. If left out, the horizontalScrollbar style from the current GUISkin is used.
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77421,7 +77421,7 @@ function CS.UnityEngine.GUILayout:HorizontalScrollbar(value, size, leftValue, ri
 --        bottomValue - The value at the bottom end of the scrollbar.
 --        style - The style to use for the scrollbar background. If left out, the horizontalScrollbar style from the current GUISkin is used.
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77443,7 +77443,7 @@ function CS.UnityEngine.GUILayout:VerticalScrollbar(value, size, topValue, botto
 --        bottomValue - The value at the bottom end of the scrollbar.
 --        style - The style to use for the scrollbar background. If left out, the horizontalScrollbar style from the current GUISkin is used.
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77480,7 +77480,7 @@ function CS.UnityEngine.GUILayout:FlexibleSpace() end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77498,7 +77498,7 @@ function CS.UnityEngine.GUILayout:BeginHorizontal(options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77517,7 +77517,7 @@ function CS.UnityEngine.GUILayout:BeginHorizontal(style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77537,7 +77537,7 @@ function CS.UnityEngine.GUILayout:BeginHorizontal(text, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77557,7 +77557,7 @@ function CS.UnityEngine.GUILayout:BeginHorizontal(image, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77583,7 +77583,7 @@ function CS.UnityEngine.GUILayout:EndHorizontal() end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77601,7 +77601,7 @@ function CS.UnityEngine.GUILayout:BeginVertical(options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77620,7 +77620,7 @@ function CS.UnityEngine.GUILayout:BeginVertical(style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77640,7 +77640,7 @@ function CS.UnityEngine.GUILayout:BeginVertical(text, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77660,7 +77660,7 @@ function CS.UnityEngine.GUILayout:BeginVertical(image, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77683,7 +77683,7 @@ function CS.UnityEngine.GUILayout:EndVertical() end
 --        image - Optional texture to display in the area.
 --        content - Optional text, image and tooltip top display for this area.
 --        style - The style to use. If left out, the empty GUIStyle (GUIStyle.none) is used, giving a transparent background.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77698,7 +77698,7 @@ function CS.UnityEngine.GUILayout:BeginArea(screenRect) end
 --        image - Optional texture to display in the area.
 --        content - Optional text, image and tooltip top display for this area.
 --        style - The style to use. If left out, the empty GUIStyle (GUIStyle.none) is used, giving a transparent background.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77714,7 +77714,7 @@ function CS.UnityEngine.GUILayout:BeginArea(screenRect, text) end
 --        image - Optional texture to display in the area.
 --        content - Optional text, image and tooltip top display for this area.
 --        style - The style to use. If left out, the empty GUIStyle (GUIStyle.none) is used, giving a transparent background.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77730,7 +77730,7 @@ function CS.UnityEngine.GUILayout:BeginArea(screenRect, image) end
 --        image - Optional texture to display in the area.
 --        content - Optional text, image and tooltip top display for this area.
 --        style - The style to use. If left out, the empty GUIStyle (GUIStyle.none) is used, giving a transparent background.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77746,7 +77746,7 @@ function CS.UnityEngine.GUILayout:BeginArea(screenRect, content) end
 --        image - Optional texture to display in the area.
 --        content - Optional text, image and tooltip top display for this area.
 --        style - The style to use. If left out, the empty GUIStyle (GUIStyle.none) is used, giving a transparent background.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77762,7 +77762,7 @@ function CS.UnityEngine.GUILayout:BeginArea(screenRect, style) end
 --        image - Optional texture to display in the area.
 --        content - Optional text, image and tooltip top display for this area.
 --        style - The style to use. If left out, the empty GUIStyle (GUIStyle.none) is used, giving a transparent background.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77779,7 +77779,7 @@ function CS.UnityEngine.GUILayout:BeginArea(screenRect, text, style) end
 --        image - Optional texture to display in the area.
 --        content - Optional text, image and tooltip top display for this area.
 --        style - The style to use. If left out, the empty GUIStyle (GUIStyle.none) is used, giving a transparent background.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77796,7 +77796,7 @@ function CS.UnityEngine.GUILayout:BeginArea(screenRect, image, style) end
 --        image - Optional texture to display in the area.
 --        content - Optional text, image and tooltip top display for this area.
 --        style - The style to use. If left out, the empty GUIStyle (GUIStyle.none) is used, giving a transparent background.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77820,7 +77820,7 @@ function CS.UnityEngine.GUILayout:EndArea() end
 --        alwayShowVertical - Optional parameter to always show the vertical scrollbar. If false or left out, it is only shown when content inside the ScrollView is taller than the scrollview itself.
 --        horizontalScrollbar - Optional GUIStyle to use for the horizontal scrollbar. If left out, the horizontalScrollbar style from the current GUISkin is used.
 --        verticalScrollbar - Optional GUIStyle to use for the vertical scrollbar. If left out, the verticalScrollbar style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77838,7 +77838,7 @@ function CS.UnityEngine.GUILayout:BeginScrollView(scrollPosition, options) end
 --        alwayShowVertical - Optional parameter to always show the vertical scrollbar. If false or left out, it is only shown when content inside the ScrollView is taller than the scrollview itself.
 --        horizontalScrollbar - Optional GUIStyle to use for the horizontal scrollbar. If left out, the horizontalScrollbar style from the current GUISkin is used.
 --        verticalScrollbar - Optional GUIStyle to use for the vertical scrollbar. If left out, the verticalScrollbar style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77858,7 +77858,7 @@ function CS.UnityEngine.GUILayout:BeginScrollView(scrollPosition, alwaysShowHori
 --        alwayShowVertical - Optional parameter to always show the vertical scrollbar. If false or left out, it is only shown when content inside the ScrollView is taller than the scrollview itself.
 --        horizontalScrollbar - Optional GUIStyle to use for the horizontal scrollbar. If left out, the horizontalScrollbar style from the current GUISkin is used.
 --        verticalScrollbar - Optional GUIStyle to use for the vertical scrollbar. If left out, the verticalScrollbar style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77878,7 +77878,7 @@ function CS.UnityEngine.GUILayout:BeginScrollView(scrollPosition, horizontalScro
 --        alwayShowVertical - Optional parameter to always show the vertical scrollbar. If false or left out, it is only shown when content inside the ScrollView is taller than the scrollview itself.
 --        horizontalScrollbar - Optional GUIStyle to use for the horizontal scrollbar. If left out, the horizontalScrollbar style from the current GUISkin is used.
 --        verticalScrollbar - Optional GUIStyle to use for the vertical scrollbar. If left out, the verticalScrollbar style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77896,7 +77896,7 @@ function CS.UnityEngine.GUILayout:BeginScrollView(scrollPosition, style) end
 --        alwayShowVertical - Optional parameter to always show the vertical scrollbar. If false or left out, it is only shown when content inside the ScrollView is taller than the scrollview itself.
 --        horizontalScrollbar - Optional GUIStyle to use for the horizontal scrollbar. If left out, the horizontalScrollbar style from the current GUISkin is used.
 --        verticalScrollbar - Optional GUIStyle to use for the vertical scrollbar. If left out, the verticalScrollbar style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77915,7 +77915,7 @@ function CS.UnityEngine.GUILayout:BeginScrollView(scrollPosition, style, options
 --        alwayShowVertical - Optional parameter to always show the vertical scrollbar. If false or left out, it is only shown when content inside the ScrollView is taller than the scrollview itself.
 --        horizontalScrollbar - Optional GUIStyle to use for the horizontal scrollbar. If left out, the horizontalScrollbar style from the current GUISkin is used.
 --        verticalScrollbar - Optional GUIStyle to use for the vertical scrollbar. If left out, the verticalScrollbar style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -77937,7 +77937,7 @@ function CS.UnityEngine.GUILayout:BeginScrollView(scrollPosition, alwaysShowHori
 --        alwayShowVertical - Optional parameter to always show the vertical scrollbar. If false or left out, it is only shown when content inside the ScrollView is taller than the scrollview itself.
 --        horizontalScrollbar - Optional GUIStyle to use for the horizontal scrollbar. If left out, the horizontalScrollbar style from the current GUISkin is used.
 --        verticalScrollbar - Optional GUIStyle to use for the vertical scrollbar. If left out, the verticalScrollbar style from the current GUISkin is used.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -78159,7 +78159,7 @@ function CS.UnityEngine.GUILayoutUtility:EndGroup(groupName) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -78177,7 +78177,7 @@ function CS.UnityEngine.GUILayoutUtility:GetRect(content, style) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -78197,7 +78197,7 @@ function CS.UnityEngine.GUILayoutUtility:GetRect(content, style, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -78216,7 +78216,7 @@ function CS.UnityEngine.GUILayoutUtility:GetRect(width, height) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -78236,7 +78236,7 @@ function CS.UnityEngine.GUILayoutUtility:GetRect(width, height, style) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -78256,7 +78256,7 @@ function CS.UnityEngine.GUILayoutUtility:GetRect(width, height, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -78279,7 +78279,7 @@ function CS.UnityEngine.GUILayoutUtility:GetRect(width, height, style, options) 
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -78302,7 +78302,7 @@ function CS.UnityEngine.GUILayoutUtility:GetRect(minWidth, maxWidth, minHeight, 
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -78326,7 +78326,7 @@ function CS.UnityEngine.GUILayoutUtility:GetRect(minWidth, maxWidth, minHeight, 
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -78350,7 +78350,7 @@ function CS.UnityEngine.GUILayoutUtility:GetRect(minWidth, maxWidth, minHeight, 
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -78379,7 +78379,7 @@ function CS.UnityEngine.GUILayoutUtility:GetLastRect() end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -78396,7 +78396,7 @@ function CS.UnityEngine.GUILayoutUtility:GetAspectRect(aspect) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -78414,7 +78414,7 @@ function CS.UnityEngine.GUILayoutUtility:GetAspectRect(aspect, style) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll
@@ -78432,7 +78432,7 @@ function CS.UnityEngine.GUILayoutUtility:GetAspectRect(aspect, options) end
 --        options - An optional list of layout options that specify extra layouting properties. Any values passed in here will override settings defined by the style.<br>
 --See Also: GUILayout.Width, GUILayout.Height, GUILayout.MinWidth, GUILayout.MaxWidth, GUILayout.MinHeight,
 --GUILayout.MaxHeight, GUILayout.ExpandWidth, GUILayout.ExpandHeight.
---        
+--
 --```
 --
 ---@source UnityEngine.IMGUIModule.dll

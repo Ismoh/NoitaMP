@@ -7,10 +7,10 @@ cc.Material=Material
 
 
 
----*  returns a clone (deep-copy) of the material 
+---*  returns a clone (deep-copy) of the material
 ---@return self
 function Material:clone () end
----* 
+---*
 ---@param meshCommand cc.MeshCommand
 ---@param globalZOrder float
 ---@param vertexBuffer cc.backend.Buffer
@@ -21,7 +21,7 @@ function Material:clone () end
 ---@param modelView mat4_table
 ---@return self
 function Material:draw (meshCommand,globalZOrder,vertexBuffer,indexBuffer,primitive,indexFormat,indexCount,modelView) end
----* 
+---*
 ---@return cc.RenderState
 function Material:getRenderState () end
 ---* / sets the material name
@@ -36,13 +36,13 @@ function Material:getTechniqueByIndex (index) end
 ---* / returns the material name
 ---@return string
 function Material:getName () end
----*  Returns the list of Techniques 
+---*  Returns the list of Techniques
 ---@return array_table
 function Material:getTechniques () end
----*  Returns the number of Techniques in the Material. 
+---*  Returns the number of Techniques in the Material.
 ---@return int
 function Material:getTechniqueCount () end
----*  Sets the current technique 
+---*  Sets the current technique
 ---@param techniqueName string
 ---@return self
 function Material:setTechnique (techniqueName) end
@@ -51,11 +51,11 @@ function Material:setTechnique (techniqueName) end
 ---@param name string
 ---@return cc.Technique
 function Material:getTechniqueByName (name) end
----*  Adds a Technique into the Material 
+---*  Adds a Technique into the Material
 ---@param technique cc.Technique
 ---@return self
 function Material:addTechnique (technique) end
----*  Returns the Technique used by the Material 
+---*  Returns the Technique used by the Material
 ---@return cc.Technique
 function Material:getTechnique () end
 ---* Creates a Material using the data from the Properties object defined at the specified URL,<br>

@@ -167,7 +167,7 @@ function CS.System.Security.HostSecurityManager.ResolvePolicy(evidence) end
 ---@source mscorlib.dll
 CS.System.Security.HostSecurityManagerOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.HostSecurityManagerOptions
 function CS.System.Security.HostSecurityManagerOptions:__CastFrom(value) end
@@ -302,7 +302,7 @@ function CS.System.Security.NamedPermissionSet.ToXml() end
 ---@source mscorlib.dll
 CS.System.Security.PartialTrustVisibilityLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.PartialTrustVisibilityLevel
 function CS.System.Security.PartialTrustVisibilityLevel:__CastFrom(value) end
@@ -437,7 +437,7 @@ function CS.System.Security.PermissionSet.Union(other) end
 ---@source mscorlib.dll
 CS.System.Security.PolicyLevelType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.PolicyLevelType
 function CS.System.Security.PolicyLevelType:__CastFrom(value) end
@@ -557,7 +557,7 @@ function CS.System.Security.SecurityContext:SuppressFlowWindowsIdentity() end
 ---@source mscorlib.dll
 CS.System.Security.SecurityContextSource = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.SecurityContextSource
 function CS.System.Security.SecurityContextSource:__CastFrom(value) end
@@ -580,7 +580,7 @@ CS.System.Security.SecurityCriticalAttribute = {}
 ---@source mscorlib.dll
 CS.System.Security.SecurityCriticalScope = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.SecurityCriticalScope
 function CS.System.Security.SecurityCriticalScope:__CastFrom(value) end
@@ -816,7 +816,7 @@ CS.System.Security.SecurityTransparentAttribute = {}
 ---@source mscorlib.dll
 CS.System.Security.SecurityRuleSet = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.SecurityRuleSet
 function CS.System.Security.SecurityRuleSet:__CastFrom(value) end
@@ -864,7 +864,7 @@ function CS.System.Security.SecurityState.IsStateAvailable() end
 ---@source mscorlib.dll
 CS.System.Security.SecurityZone = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.SecurityZone
 function CS.System.Security.SecurityZone:__CastFrom(value) end
@@ -907,7 +907,7 @@ CS.System.Security.UnverifiableCodeAttribute = {}
 ---@source System.Core.dll
 CS.System.Security.ManifestKinds = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.ManifestKinds
 function CS.System.Security.ManifestKinds:__CastFrom(value) end

@@ -19,16 +19,16 @@ function MoveTo:initWithDuration (duration,position) end
 ---@param position vec2_table
 ---@return self
 function MoveTo:create (duration,position) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function MoveTo:startWithTarget (target) end
----* 
+---*
 ---@return self
 function MoveTo:clone () end
----* 
+---*
 ---@return self
 function MoveTo:reverse () end
----* 
+---*
 ---@return self
 function MoveTo:MoveTo () end

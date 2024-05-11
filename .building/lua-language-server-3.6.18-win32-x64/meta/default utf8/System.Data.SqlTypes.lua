@@ -922,7 +922,7 @@ function CS.System.Data.SqlTypes.SqlChars.Write(offset, buffer, offsetInBuffer, 
 ---@source System.Data.dll
 CS.System.Data.SqlTypes.SqlCompareOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.SqlTypes.SqlCompareOptions
 function CS.System.Data.SqlTypes.SqlCompareOptions:__CastFrom(value) end
@@ -3863,7 +3863,7 @@ function CS.System.Data.SqlTypes.SqlXml:GetXsdType(schemaSet) end
 ---@source System.Data.dll
 CS.System.Data.SqlTypes.StorageState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.SqlTypes.StorageState
 function CS.System.Data.SqlTypes.StorageState:__CastFrom(value) end

@@ -63,7 +63,7 @@ CS.UnityEngine.Video.VideoClip = {}
 --
 --```plaintext
 --Params: audioTrackIdx - Index of the audio queried audio track.
---        
+--
 --```
 --
 ---@source UnityEngine.VideoModule.dll
@@ -76,7 +76,7 @@ function CS.UnityEngine.Video.VideoClip.GetAudioChannelCount(audioTrackIdx) end
 --
 --```plaintext
 --Params: audioTrackIdx - Index of the audio queried audio track.
---        
+--
 --```
 --
 ---@source UnityEngine.VideoModule.dll
@@ -89,7 +89,7 @@ function CS.UnityEngine.Video.VideoClip.GetAudioSampleRate(audioTrackIdx) end
 --
 --```plaintext
 --Params: audioTrackIdx - Index of the audio queried audio track.
---        
+--
 --```
 --
 ---@source UnityEngine.VideoModule.dll
@@ -131,7 +131,7 @@ function CS.UnityEngine.Video.VideoClip.GetAudioLanguage(audioTrackIdx) end
 ---@source UnityEngine.VideoModule.dll
 CS.UnityEngine.Video.VideoRenderMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Video.VideoRenderMode
 function CS.UnityEngine.Video.VideoRenderMode:__CastFrom(value) end
@@ -160,7 +160,7 @@ function CS.UnityEngine.Video.VideoRenderMode:__CastFrom(value) end
 ---@source UnityEngine.VideoModule.dll
 CS.UnityEngine.Video.Video3DLayout = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Video.Video3DLayout
 function CS.UnityEngine.Video.Video3DLayout:__CastFrom(value) end
@@ -204,7 +204,7 @@ function CS.UnityEngine.Video.Video3DLayout:__CastFrom(value) end
 ---@source UnityEngine.VideoModule.dll
 CS.UnityEngine.Video.VideoAspectRatio = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Video.VideoAspectRatio
 function CS.UnityEngine.Video.VideoAspectRatio:__CastFrom(value) end
@@ -228,7 +228,7 @@ function CS.UnityEngine.Video.VideoAspectRatio:__CastFrom(value) end
 ---@source UnityEngine.VideoModule.dll
 CS.UnityEngine.Video.VideoTimeSource = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Video.VideoTimeSource
 function CS.UnityEngine.Video.VideoTimeSource:__CastFrom(value) end
@@ -257,7 +257,7 @@ function CS.UnityEngine.Video.VideoTimeSource:__CastFrom(value) end
 ---@source UnityEngine.VideoModule.dll
 CS.UnityEngine.Video.VideoTimeReference = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Video.VideoTimeReference
 function CS.UnityEngine.Video.VideoTimeReference:__CastFrom(value) end
@@ -281,7 +281,7 @@ function CS.UnityEngine.Video.VideoTimeReference:__CastFrom(value) end
 ---@source UnityEngine.VideoModule.dll
 CS.UnityEngine.Video.VideoSource = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Video.VideoSource
 function CS.UnityEngine.Video.VideoSource:__CastFrom(value) end
@@ -315,7 +315,7 @@ function CS.UnityEngine.Video.VideoSource:__CastFrom(value) end
 ---@source UnityEngine.VideoModule.dll
 CS.UnityEngine.Video.VideoAudioOutputMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Video.VideoAudioOutputMode
 function CS.UnityEngine.Video.VideoAudioOutputMode:__CastFrom(value) end
@@ -600,7 +600,7 @@ function CS.UnityEngine.Video.VideoPlayer.StepForward() end
 --
 --```plaintext
 --Params: trackIndex - Index of the audio track to query.
---        
+--
 --```
 --
 ---@source UnityEngine.VideoModule.dll
@@ -613,7 +613,7 @@ function CS.UnityEngine.Video.VideoPlayer.GetAudioLanguageCode(trackIndex) end
 --
 --```plaintext
 --Params: trackIndex - Index for the audio track being queried.
---        
+--
 --```
 --
 ---@source UnityEngine.VideoModule.dll
@@ -626,7 +626,7 @@ function CS.UnityEngine.Video.VideoPlayer.GetAudioChannelCount(trackIndex) end
 --
 --```plaintext
 --Params: trackIndex - Index of the audio track to query.
---        
+--
 --```
 --
 ---@source UnityEngine.VideoModule.dll
@@ -640,7 +640,7 @@ function CS.UnityEngine.Video.VideoPlayer.GetAudioSampleRate(trackIndex) end
 --```plaintext
 --Params: trackIndex - Index of the audio track to enable/disable.
 --        enabled - True for enabling the track. False for disabling the track.
---        
+--
 --```
 --
 ---@source UnityEngine.VideoModule.dll
@@ -653,7 +653,7 @@ function CS.UnityEngine.Video.VideoPlayer.EnableAudioTrack(trackIndex, enabled) 
 --
 --```plaintext
 --Params: trackIndex - Index of the audio track being queried.
---        
+--
 --```
 --
 ---@source UnityEngine.VideoModule.dll
@@ -666,7 +666,7 @@ function CS.UnityEngine.Video.VideoPlayer.IsAudioTrackEnabled(trackIndex) end
 --
 --```plaintext
 --Params: trackIndex - Track index for which the volume is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.VideoModule.dll
@@ -680,7 +680,7 @@ function CS.UnityEngine.Video.VideoPlayer.GetDirectAudioVolume(trackIndex) end
 --```plaintext
 --Params: trackIndex - Track index for which the volume is set.
 --        volume - New volume, between 0 and 1.
---        
+--
 --```
 --
 ---@source UnityEngine.VideoModule.dll
@@ -702,7 +702,7 @@ function CS.UnityEngine.Video.VideoPlayer.GetDirectAudioMute(trackIndex) end
 --```plaintext
 --Params: trackIndex - Track index for which the mute is set.
 --        mute - Mute on/off.
---        
+--
 --```
 --
 ---@source UnityEngine.VideoModule.dll
@@ -715,7 +715,7 @@ function CS.UnityEngine.Video.VideoPlayer.SetDirectAudioMute(trackIndex, mute) e
 --
 --```plaintext
 --Params: trackIndex - Index of the audio track for which the AudioSource is wanted.
---        
+--
 --```
 --
 ---@source UnityEngine.VideoModule.dll
@@ -729,7 +729,7 @@ function CS.UnityEngine.Video.VideoPlayer.GetTargetAudioSource(trackIndex) end
 --```plaintext
 --Params: trackIndex - Index of the audio track to associate with the specified AudioSource.
 --        source - AudioSource to associate with the audio track.
---        
+--
 --```
 --
 ---@source UnityEngine.VideoModule.dll
@@ -807,7 +807,7 @@ function CS.UnityEngine.Video.VideoPlayer.remove_frameReady(value) end
 --
 --```plaintext
 --Params: source - The VideoPlayer that is emitting the event.
---        
+--
 --```
 --
 ---@source UnityEngine.VideoModule.dll
@@ -837,7 +837,7 @@ function CS.UnityEngine.Video.EventHandler.EndInvoke(result) end
 --```plaintext
 --Params: source - The VideoPlayer that is emitting the event.
 --        message - Message describing the error just encountered.
---        
+--
 --```
 --
 ---@source UnityEngine.VideoModule.dll
@@ -869,7 +869,7 @@ function CS.UnityEngine.Video.ErrorEventHandler.EndInvoke(result) end
 --```plaintext
 --Params: source - The VideoPlayer that is emitting the event.
 --        frameNum - The current frame of the VideoPlayer.
---        
+--
 --```
 --
 ---@source UnityEngine.VideoModule.dll
@@ -901,7 +901,7 @@ function CS.UnityEngine.Video.FrameReadyEventHandler.EndInvoke(result) end
 --```plaintext
 --Params: source - The VideoPlayer that is emitting the event.
 --        seconds - Time position.
---        
+--
 --```
 --
 ---@source UnityEngine.VideoModule.dll

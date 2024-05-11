@@ -23,17 +23,17 @@ function SplitRows:initWithDuration (duration,rows) end
 ---@param rows unsigned_int
 ---@return self
 function SplitRows:create (duration,rows) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function SplitRows:startWithTarget (target) end
----* 
+---*
 ---@return self
 function SplitRows:clone () end
----* 
+---*
 ---@param time float
 ---@return self
 function SplitRows:update (time) end
----* 
+---*
 ---@return self
 function SplitRows:SplitRows () end

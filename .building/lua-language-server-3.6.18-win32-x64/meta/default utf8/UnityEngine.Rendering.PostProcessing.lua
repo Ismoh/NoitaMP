@@ -69,7 +69,7 @@ CS.UnityEngine.Rendering.PostProcessing.TrackballAttribute = {}
 ---@source Unity.Postprocessing.Runtime.dll
 CS.UnityEngine.Rendering.PostProcessing.Mode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PostProcessing.TrackballAttribute.Mode
 function CS.UnityEngine.Rendering.PostProcessing.Mode:__CastFrom(value) end
@@ -84,7 +84,7 @@ function CS.UnityEngine.Rendering.PostProcessing.Mode:__CastFrom(value) end
 ---@source Unity.Postprocessing.Runtime.dll
 CS.UnityEngine.Rendering.PostProcessing.AmbientOcclusionMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PostProcessing.AmbientOcclusionMode
 function CS.UnityEngine.Rendering.PostProcessing.AmbientOcclusionMode:__CastFrom(value) end
@@ -105,7 +105,7 @@ function CS.UnityEngine.Rendering.PostProcessing.AmbientOcclusionMode:__CastFrom
 ---@source Unity.Postprocessing.Runtime.dll
 CS.UnityEngine.Rendering.PostProcessing.AmbientOcclusionQuality = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PostProcessing.AmbientOcclusionQuality
 function CS.UnityEngine.Rendering.PostProcessing.AmbientOcclusionQuality:__CastFrom(value) end
@@ -165,7 +165,7 @@ function CS.UnityEngine.Rendering.PostProcessing.AmbientOcclusion.IsEnabledAndSu
 ---@source Unity.Postprocessing.Runtime.dll
 CS.UnityEngine.Rendering.PostProcessing.EyeAdaptation = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PostProcessing.EyeAdaptation
 function CS.UnityEngine.Rendering.PostProcessing.EyeAdaptation:__CastFrom(value) end
@@ -261,7 +261,7 @@ function CS.UnityEngine.Rendering.PostProcessing.ChromaticAberration.IsEnabledAn
 ---@source Unity.Postprocessing.Runtime.dll
 CS.UnityEngine.Rendering.PostProcessing.GradingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PostProcessing.GradingMode
 function CS.UnityEngine.Rendering.PostProcessing.GradingMode:__CastFrom(value) end
@@ -280,7 +280,7 @@ function CS.UnityEngine.Rendering.PostProcessing.GradingMode:__CastFrom(value) e
 ---@source Unity.Postprocessing.Runtime.dll
 CS.UnityEngine.Rendering.PostProcessing.Tonemapper = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PostProcessing.Tonemapper
 function CS.UnityEngine.Rendering.PostProcessing.Tonemapper:__CastFrom(value) end
@@ -400,7 +400,7 @@ function CS.UnityEngine.Rendering.PostProcessing.ColorGrading.IsEnabledAndSuppor
 ---@source Unity.Postprocessing.Runtime.dll
 CS.UnityEngine.Rendering.PostProcessing.KernelSize = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PostProcessing.KernelSize
 function CS.UnityEngine.Rendering.PostProcessing.KernelSize:__CastFrom(value) end
@@ -529,7 +529,7 @@ function CS.UnityEngine.Rendering.PostProcessing.MotionBlur.IsEnabledAndSupporte
 ---@source Unity.Postprocessing.Runtime.dll
 CS.UnityEngine.Rendering.PostProcessing.ScreenSpaceReflectionPreset = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PostProcessing.ScreenSpaceReflectionPreset
 function CS.UnityEngine.Rendering.PostProcessing.ScreenSpaceReflectionPreset:__CastFrom(value) end
@@ -546,7 +546,7 @@ function CS.UnityEngine.Rendering.PostProcessing.ScreenSpaceReflectionPreset:__C
 ---@source Unity.Postprocessing.Runtime.dll
 CS.UnityEngine.Rendering.PostProcessing.ScreenSpaceReflectionResolution = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PostProcessing.ScreenSpaceReflectionResolution
 function CS.UnityEngine.Rendering.PostProcessing.ScreenSpaceReflectionResolution:__CastFrom(value) end
@@ -612,7 +612,7 @@ function CS.UnityEngine.Rendering.PostProcessing.SubpixelMorphologicalAntialiasi
 ---@source Unity.Postprocessing.Runtime.dll
 CS.UnityEngine.Rendering.PostProcessing.Quality = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PostProcessing.SubpixelMorphologicalAntialiasing.Quality
 function CS.UnityEngine.Rendering.PostProcessing.Quality:__CastFrom(value) end
@@ -664,7 +664,7 @@ function CS.UnityEngine.Rendering.PostProcessing.TemporalAntialiasing.ConfigureS
 ---@source Unity.Postprocessing.Runtime.dll
 CS.UnityEngine.Rendering.PostProcessing.VignetteMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PostProcessing.VignetteMode
 function CS.UnityEngine.Rendering.PostProcessing.VignetteMode:__CastFrom(value) end
@@ -730,7 +730,7 @@ CS.UnityEngine.Rendering.PostProcessing.HistogramMonitor = {}
 ---@source Unity.Postprocessing.Runtime.dll
 CS.UnityEngine.Rendering.PostProcessing.Channel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PostProcessing.HistogramMonitor.Channel
 function CS.UnityEngine.Rendering.PostProcessing.Channel:__CastFrom(value) end
@@ -761,7 +761,7 @@ CS.UnityEngine.Rendering.PostProcessing.LightMeterMonitor = {}
 ---@source Unity.Postprocessing.Runtime.dll
 CS.UnityEngine.Rendering.PostProcessing.MonitorType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PostProcessing.MonitorType
 function CS.UnityEngine.Rendering.PostProcessing.MonitorType:__CastFrom(value) end
@@ -983,7 +983,7 @@ function CS.UnityEngine.Rendering.PostProcessing.SplineParameter.Interp(from, to
 ---@source Unity.Postprocessing.Runtime.dll
 CS.UnityEngine.Rendering.PostProcessing.TextureParameterDefault = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PostProcessing.TextureParameterDefault
 function CS.UnityEngine.Rendering.PostProcessing.TextureParameterDefault:__CastFrom(value) end
@@ -1058,7 +1058,7 @@ CS.UnityEngine.Rendering.PostProcessing.PostProcessDebug = {}
 ---@source Unity.Postprocessing.Runtime.dll
 CS.UnityEngine.Rendering.PostProcessing.DebugOverlay = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PostProcessing.DebugOverlay
 function CS.UnityEngine.Rendering.PostProcessing.DebugOverlay:__CastFrom(value) end
@@ -1075,7 +1075,7 @@ function CS.UnityEngine.Rendering.PostProcessing.DebugOverlay:__CastFrom(value) 
 ---@source Unity.Postprocessing.Runtime.dll
 CS.UnityEngine.Rendering.PostProcessing.ColorBlindnessType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PostProcessing.ColorBlindnessType
 function CS.UnityEngine.Rendering.PostProcessing.ColorBlindnessType:__CastFrom(value) end
@@ -1200,7 +1200,7 @@ function CS.UnityEngine.Rendering.PostProcessing.PostProcessEffectSettings.GetHa
 ---@source Unity.Postprocessing.Runtime.dll
 CS.UnityEngine.Rendering.PostProcessing.PostProcessEvent = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PostProcessing.PostProcessEvent
 function CS.UnityEngine.Rendering.PostProcessing.PostProcessEvent:__CastFrom(value) end
@@ -1309,7 +1309,7 @@ function CS.UnityEngine.Rendering.PostProcessing.PostProcessLayer.Render(context
 ---@source Unity.Postprocessing.Runtime.dll
 CS.UnityEngine.Rendering.PostProcessing.Antialiasing = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PostProcessing.PostProcessLayer.Antialiasing
 function CS.UnityEngine.Rendering.PostProcessing.Antialiasing:__CastFrom(value) end
@@ -1514,7 +1514,7 @@ function CS.UnityEngine.Rendering.PostProcessing.PostProcessRenderContext.Update
 ---@source Unity.Postprocessing.Runtime.dll
 CS.UnityEngine.Rendering.PostProcessing.StereoRenderingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PostProcessing.PostProcessRenderContext.StereoRenderingMode
 function CS.UnityEngine.Rendering.PostProcessing.StereoRenderingMode:__CastFrom(value) end

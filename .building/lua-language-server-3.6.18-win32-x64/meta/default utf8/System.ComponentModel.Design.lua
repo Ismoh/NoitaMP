@@ -443,7 +443,7 @@ function CS.System.ComponentModel.Design.DesigntimeLicenseContextSerializer:Seri
 ---@source System.dll
 CS.System.ComponentModel.Design.HelpContextType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ComponentModel.Design.HelpContextType
 function CS.System.ComponentModel.Design.HelpContextType:__CastFrom(value) end
@@ -483,7 +483,7 @@ function CS.System.ComponentModel.Design.HelpKeywordAttribute.IsDefaultAttribute
 ---@source System.dll
 CS.System.ComponentModel.Design.HelpKeywordType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ComponentModel.Design.HelpKeywordType
 function CS.System.ComponentModel.Design.HelpKeywordType:__CastFrom(value) end
@@ -1335,7 +1335,7 @@ function CS.System.ComponentModel.Design.MenuCommand.ToString() end
 ---@source System.dll
 CS.System.ComponentModel.Design.SelectionTypes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ComponentModel.Design.SelectionTypes
 function CS.System.ComponentModel.Design.SelectionTypes:__CastFrom(value) end
@@ -1576,7 +1576,7 @@ function CS.System.ComponentModel.Design.TypeDescriptionProviderService.GetProvi
 ---@source System.dll
 CS.System.ComponentModel.Design.ViewTechnology = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ComponentModel.Design.ViewTechnology
 function CS.System.ComponentModel.Design.ViewTechnology:__CastFrom(value) end

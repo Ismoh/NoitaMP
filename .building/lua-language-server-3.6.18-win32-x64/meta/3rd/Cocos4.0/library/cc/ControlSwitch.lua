@@ -13,11 +13,11 @@ cc.ControlSwitch=ControlSwitch
 ---@param animated boolean
 ---@return self
 function ControlSwitch:setOn (isOn,animated) end
----* 
+---*
 ---@param touch cc.Touch
 ---@return vec2_table
 function ControlSwitch:locationFromTouch (touch) end
----* 
+---*
 ---@return boolean
 function ControlSwitch:isOn () end
 ---@overload fun(cc.Sprite:cc.Sprite,cc.Sprite:cc.Sprite,cc.Sprite:cc.Sprite,cc.Sprite:cc.Sprite,cc.Label:cc.Label,cc.Label:cc.Label):self
@@ -30,7 +30,7 @@ function ControlSwitch:isOn () end
 ---@param offLabel cc.Label
 ---@return boolean
 function ControlSwitch:initWithMaskSprite (maskSprite,onSprite,offSprite,thumbSprite,onLabel,offLabel) end
----* 
+---*
 ---@return boolean
 function ControlSwitch:hasMoved () end
 ---@overload fun(cc.Sprite:cc.Sprite,cc.Sprite:cc.Sprite,cc.Sprite:cc.Sprite,cc.Sprite:cc.Sprite):self
@@ -43,26 +43,26 @@ function ControlSwitch:hasMoved () end
 ---@param offLabel cc.Label
 ---@return self
 function ControlSwitch:create (maskSprite,onSprite,offSprite,thumbSprite,onLabel,offLabel) end
----* 
+---*
 ---@param enabled boolean
 ---@return self
 function ControlSwitch:setEnabled (enabled) end
----* 
+---*
 ---@param pTouch cc.Touch
 ---@param pEvent cc.Event
 ---@return self
 function ControlSwitch:onTouchMoved (pTouch,pEvent) end
----* 
+---*
 ---@param pTouch cc.Touch
 ---@param pEvent cc.Event
 ---@return self
 function ControlSwitch:onTouchEnded (pTouch,pEvent) end
----* 
+---*
 ---@param pTouch cc.Touch
 ---@param pEvent cc.Event
 ---@return self
 function ControlSwitch:onTouchCancelled (pTouch,pEvent) end
----* 
+---*
 ---@param pTouch cc.Touch
 ---@param pEvent cc.Event
 ---@return boolean

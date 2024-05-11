@@ -54,13 +54,13 @@ function Lens3D:getPosition () end
 ---@param radius float
 ---@return self
 function Lens3D:create (duration,gridSize,position,radius) end
----* 
+---*
 ---@return self
 function Lens3D:clone () end
----* 
+---*
 ---@param time float
 ---@return self
 function Lens3D:update (time) end
----* 
+---*
 ---@return self
 function Lens3D:Lens3D () end

@@ -50,7 +50,7 @@ function FastTMXLayer:removeTileAt (tileCoordinate) end
 ---@overload fun():self
 ---@return map_table
 function FastTMXLayer:getProperties () end
----*  Creates the tiles. 
+---*  Creates the tiles.
 ---@return self
 function FastTMXLayer:setupTiles () end
 ---*  Set an sprite to the tile,with the tile coordinate and gid.<br>
@@ -116,18 +116,18 @@ function FastTMXLayer:getTileAt (tileCoordinate) end
 ---@param mapInfo cc.TMXMapInfo
 ---@return self
 function FastTMXLayer:create (tilesetInfo,layerInfo,mapInfo) end
----* 
+---*
 ---@param child cc.Node
 ---@param cleanup boolean
 ---@return self
 function FastTMXLayer:removeChild (child,cleanup) end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param transform mat4_table
 ---@param flags unsigned_int
 ---@return self
 function FastTMXLayer:draw (renderer,transform,flags) end
----* 
+---*
 ---@return string
 function FastTMXLayer:getDescription () end
 ---* js ctor

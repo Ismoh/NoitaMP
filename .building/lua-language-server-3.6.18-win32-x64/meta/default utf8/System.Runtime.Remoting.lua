@@ -41,7 +41,7 @@ function CS.System.Runtime.Remoting.ActivatedServiceTypeEntry.ToString() end
 ---@source mscorlib.dll
 CS.System.Runtime.Remoting.CustomErrorsModes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.Remoting.CustomErrorsModes
 function CS.System.Runtime.Remoting.CustomErrorsModes:__CastFrom(value) end
@@ -588,7 +588,7 @@ function CS.System.Runtime.Remoting.WellKnownClientTypeEntry.ToString() end
 ---@source mscorlib.dll
 CS.System.Runtime.Remoting.WellKnownObjectMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.Remoting.WellKnownObjectMode
 function CS.System.Runtime.Remoting.WellKnownObjectMode:__CastFrom(value) end

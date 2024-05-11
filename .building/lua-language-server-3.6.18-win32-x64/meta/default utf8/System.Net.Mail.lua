@@ -110,7 +110,7 @@ function CS.System.Net.Mail.AttachmentCollection.Dispose() end
 ---@source System.dll
 CS.System.Net.Mail.DeliveryNotificationOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Mail.DeliveryNotificationOptions
 function CS.System.Net.Mail.DeliveryNotificationOptions:__CastFrom(value) end
@@ -250,7 +250,7 @@ function CS.System.Net.Mail.MailMessage.Dispose() end
 ---@source System.dll
 CS.System.Net.Mail.MailPriority = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Mail.MailPriority
 function CS.System.Net.Mail.MailPriority:__CastFrom(value) end
@@ -290,7 +290,7 @@ function CS.System.Net.Mail.SendCompletedEventHandler.EndInvoke(result) end
 ---@source System.dll
 CS.System.Net.Mail.SmtpAccess = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Mail.SmtpAccess
 function CS.System.Net.Mail.SmtpAccess:__CastFrom(value) end
@@ -388,7 +388,7 @@ function CS.System.Net.Mail.SmtpClient.SendMailAsync(from, recipients, subject, 
 ---@source System.dll
 CS.System.Net.Mail.SmtpDeliveryFormat = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Mail.SmtpDeliveryFormat
 function CS.System.Net.Mail.SmtpDeliveryFormat:__CastFrom(value) end
@@ -405,7 +405,7 @@ function CS.System.Net.Mail.SmtpDeliveryFormat:__CastFrom(value) end
 ---@source System.dll
 CS.System.Net.Mail.SmtpDeliveryMethod = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Mail.SmtpDeliveryMethod
 function CS.System.Net.Mail.SmtpDeliveryMethod:__CastFrom(value) end
@@ -560,7 +560,7 @@ function CS.System.Net.Mail.SmtpPermissionAttribute.CreatePermission() end
 ---@source System.dll
 CS.System.Net.Mail.SmtpStatusCode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Mail.SmtpStatusCode
 function CS.System.Net.Mail.SmtpStatusCode:__CastFrom(value) end

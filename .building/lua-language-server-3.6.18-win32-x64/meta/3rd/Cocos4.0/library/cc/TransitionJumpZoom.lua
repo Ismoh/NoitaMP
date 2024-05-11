@@ -15,6 +15,6 @@ cc.TransitionJumpZoom=TransitionJumpZoom
 ---@param scene cc.Scene
 ---@return self
 function TransitionJumpZoom:create (t,scene) end
----* 
+---*
 ---@return self
 function TransitionJumpZoom:TransitionJumpZoom () end

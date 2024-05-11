@@ -21,23 +21,23 @@ function Blink:initWithDuration (duration,blinks) end
 ---@param blinks int
 ---@return self
 function Blink:create (duration,blinks) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function Blink:startWithTarget (target) end
----* 
+---*
 ---@return self
 function Blink:clone () end
----* 
+---*
 ---@return self
 function Blink:stop () end
----* 
+---*
 ---@return self
 function Blink:reverse () end
 ---* param time In seconds.
 ---@param time float
 ---@return self
 function Blink:update (time) end
----* 
+---*
 ---@return self
 function Blink:Blink () end

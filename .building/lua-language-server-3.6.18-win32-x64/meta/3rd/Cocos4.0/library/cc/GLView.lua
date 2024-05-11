@@ -22,11 +22,11 @@ function GLView:getViewPortRect () end
 ---* return Scale factor of the vertical direction.
 ---@return float
 function GLView:getScaleY () end
----*  Only works on ios platform. Set Content Scale of the Factor. 
+---*  Only works on ios platform. Set Content Scale of the Factor.
 ---@param t floa
 ---@return boolean
 function GLView:setContentScaleFactor (t) end
----*  Only works on ios platform. Get Content Scale of the Factor. 
+---*  Only works on ios platform. Get Content Scale of the Factor.
 ---@return float
 function GLView:getContentScaleFactor () end
 ---*  Open or close IME keyboard , subclass must implement this method. <br>
@@ -52,7 +52,7 @@ function GLView:setScissorInPoints (x,y,w,h) end
 ---* return The view name.
 ---@return string
 function GLView:getViewName () end
----*  Get whether opengl render system is ready, subclass must implement this method. 
+---*  Get whether opengl render system is ready, subclass must implement this method.
 ---@return boolean
 function GLView:isOpenGLReady () end
 ---* Hide or Show the mouse cursor if there is one.<br>
@@ -104,7 +104,7 @@ function GLView:setIcon (filename) end
 ---* return In ios and android it will return false,if in windows or Mac it will return true.
 ---@return boolean
 function GLView:windowShouldClose () end
----*  Exchanges the front and back buffers, subclass must implement this method. 
+---*  Exchanges the front and back buffers, subclass must implement this method.
 ---@return self
 function GLView:swapBuffers () end
 ---* Set the design resolution size.<br>
@@ -173,7 +173,7 @@ function GLView:getVisibleSize () end
 ---* return Whether GL_SCISSOR_TEST is enable.
 ---@return boolean
 function GLView:isScissorEnabled () end
----*  Polls the events. 
+---*  Polls the events.
 ---@return self
 function GLView:pollEvents () end
 ---*  Static method and member so that we can modify it on all platforms before create OpenGL context. <br>

@@ -1,6 +1,6 @@
 ---@meta
 
----@class cc.Ref 
+---@class cc.Ref
 local Ref={ }
 cc.Ref=Ref
 

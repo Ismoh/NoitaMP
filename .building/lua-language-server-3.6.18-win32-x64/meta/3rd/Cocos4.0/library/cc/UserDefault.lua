@@ -1,6 +1,6 @@
 ---@meta
 
----@class cc.UserDefault 
+---@class cc.UserDefault
 local UserDefault={ }
 cc.UserDefault=UserDefault
 

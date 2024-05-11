@@ -43,7 +43,7 @@ function ParticleSystemQuad:create (dictionary) end
 ---@param numberOfParticles int
 ---@return self
 function ParticleSystemQuad:createWithTotalParticles (numberOfParticles) end
----* 
+---*
 ---@return string
 function ParticleSystemQuad:getDescription () end
 ---* js NA<br>

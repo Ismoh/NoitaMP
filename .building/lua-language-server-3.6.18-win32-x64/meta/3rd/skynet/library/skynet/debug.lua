@@ -2,7 +2,7 @@
 ---@class debug
 local debug = {}
 
----初始化 debug 
+---初始化 debug
 ---@param skynet table
 ---@param export table
 function debug.init(skynet, export)

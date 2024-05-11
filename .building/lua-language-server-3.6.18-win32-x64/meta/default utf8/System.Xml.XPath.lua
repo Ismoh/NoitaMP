@@ -21,7 +21,7 @@ function CS.System.Xml.XPath.IXPathNavigable.CreateNavigator() end
 ---@source System.Xml.dll
 CS.System.Xml.XPath.XmlCaseOrder = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.XPath.XmlCaseOrder
 function CS.System.Xml.XPath.XmlCaseOrder:__CastFrom(value) end
@@ -36,7 +36,7 @@ function CS.System.Xml.XPath.XmlCaseOrder:__CastFrom(value) end
 ---@source System.Xml.dll
 CS.System.Xml.XPath.XmlDataType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.XPath.XmlDataType
 function CS.System.Xml.XPath.XmlDataType:__CastFrom(value) end
@@ -159,7 +159,7 @@ function CS.System.Xml.XPath.XPathItem.ValueAs(returnType, nsResolver) end
 ---@source System.Xml.dll
 CS.System.Xml.XPath.XPathNamespaceScope = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.XPath.XPathNamespaceScope
 function CS.System.Xml.XPath.XPathNamespaceScope:__CastFrom(value) end
@@ -702,7 +702,7 @@ function CS.System.Xml.XPath.XPathNodeIterator.MoveNext() end
 ---@source System.Xml.dll
 CS.System.Xml.XPath.XPathNodeType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.XPath.XPathNodeType
 function CS.System.Xml.XPath.XPathNodeType:__CastFrom(value) end
@@ -727,7 +727,7 @@ function CS.System.Xml.XPath.XPathNodeType:__CastFrom(value) end
 ---@source System.Xml.dll
 CS.System.Xml.XPath.XPathResultType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.XPath.XPathResultType
 function CS.System.Xml.XPath.XPathResultType:__CastFrom(value) end

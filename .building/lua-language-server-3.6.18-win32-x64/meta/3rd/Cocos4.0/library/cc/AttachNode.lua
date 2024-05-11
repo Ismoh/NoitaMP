@@ -12,21 +12,21 @@ cc.AttachNode=AttachNode
 ---@param attachBone cc.Bone3D
 ---@return self
 function AttachNode:create (attachBone) end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param parentTransform mat4_table
 ---@param parentFlags unsigned_int
 ---@return self
 function AttachNode:visit (renderer,parentTransform,parentFlags) end
----* 
+---*
 ---@return mat4_table
 function AttachNode:getWorldToNodeTransform () end
----* 
+---*
 ---@return mat4_table
 function AttachNode:getNodeToWorldTransform () end
----* 
+---*
 ---@return mat4_table
 function AttachNode:getNodeToParentTransform () end
----* 
+---*
 ---@return self
 function AttachNode:AttachNode () end

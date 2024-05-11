@@ -7,10 +7,10 @@ cc.ParticleExplosion=ParticleExplosion
 
 
 
----* 
+---*
 ---@return boolean
 function ParticleExplosion:init () end
----* 
+---*
 ---@param numberOfParticles int
 ---@return boolean
 function ParticleExplosion:initWithTotalParticles (numberOfParticles) end

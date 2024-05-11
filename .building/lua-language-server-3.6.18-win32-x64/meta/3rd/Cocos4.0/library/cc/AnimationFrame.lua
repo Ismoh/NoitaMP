@@ -21,7 +21,7 @@ function AnimationFrame:getUserInfo () end
 ---@param delayUnits float
 ---@return self
 function AnimationFrame:setDelayUnits (delayUnits) end
----* 
+---*
 ---@return self
 function AnimationFrame:clone () end
 ---*  Return a SpriteFrameName to be used.<br>
@@ -37,7 +37,7 @@ function AnimationFrame:getDelayUnits () end
 ---@param userInfo map_table
 ---@return self
 function AnimationFrame:setUserInfo (userInfo) end
----*  initializes the animation frame with a spriteframe, number of delay units and a notification user info 
+---*  initializes the animation frame with a spriteframe, number of delay units and a notification user info
 ---@param spriteFrame cc.SpriteFrame
 ---@param delayUnits float
 ---@param userInfo map_table

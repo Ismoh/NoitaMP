@@ -492,7 +492,7 @@ CS.System.CodeDom.Compiler.GeneratedCodeAttribute = {}
 ---@source System.dll
 CS.System.CodeDom.Compiler.GeneratorSupport = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.CodeDom.Compiler.GeneratorSupport
 function CS.System.CodeDom.Compiler.GeneratorSupport:__CastFrom(value) end
@@ -774,7 +774,7 @@ function CS.System.CodeDom.Compiler.IndentedTextWriter.WriteLineNoTabs(s) end
 ---@source System.dll
 CS.System.CodeDom.Compiler.LanguageOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.CodeDom.Compiler.LanguageOptions
 function CS.System.CodeDom.Compiler.LanguageOptions:__CastFrom(value) end

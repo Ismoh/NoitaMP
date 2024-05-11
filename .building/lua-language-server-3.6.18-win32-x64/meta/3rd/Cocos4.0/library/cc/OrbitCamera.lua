@@ -7,7 +7,7 @@ cc.OrbitCamera=OrbitCamera
 
 
 
----*  Initializes a OrbitCamera action with radius, delta-radius,  z, deltaZ, x, deltaX. 
+---*  Initializes a OrbitCamera action with radius, delta-radius,  z, deltaZ, x, deltaX.
 ---@param t float
 ---@param radius float
 ---@param deltaRadius float
@@ -35,14 +35,14 @@ function OrbitCamera:initWithDuration (t,radius,deltaRadius,angleZ,deltaAngleZ,a
 ---@param deltaAngleX float
 ---@return self
 function OrbitCamera:create (t,radius,deltaRadius,angleZ,deltaAngleZ,angleX,deltaAngleX) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function OrbitCamera:startWithTarget (target) end
----* 
+---*
 ---@return self
 function OrbitCamera:clone () end
----* 
+---*
 ---@param time float
 ---@return self
 function OrbitCamera:update (time) end

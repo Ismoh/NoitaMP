@@ -85,6 +85,6 @@ function FastTMXTiledMap:create (tmxFile) end
 ---@param resourcePath string
 ---@return self
 function FastTMXTiledMap:createWithXML (tmxString,resourcePath) end
----* 
+---*
 ---@return string
 function FastTMXTiledMap:getDescription () end

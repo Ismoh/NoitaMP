@@ -736,7 +736,7 @@ function CS.System.IO.DriveInfo.ToString() end
 ---@source mscorlib.dll
 CS.System.IO.DriveType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.DriveType
 function CS.System.IO.DriveType:__CastFrom(value) end
@@ -1064,7 +1064,7 @@ function CS.System.IO.File:WriteAllText(path, contents, encoding) end
 ---@source mscorlib.dll
 CS.System.IO.FileAccess = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.FileAccess
 function CS.System.IO.FileAccess:__CastFrom(value) end
@@ -1107,7 +1107,7 @@ function CS.System.IO.FileAccess:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.IO.FileAttributes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.FileAttributes
 function CS.System.IO.FileAttributes:__CastFrom(value) end
@@ -1265,7 +1265,7 @@ function CS.System.IO.FileLoadException.ToString() end
 ---@source mscorlib.dll
 CS.System.IO.FileMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.FileMode
 function CS.System.IO.FileMode:__CastFrom(value) end
@@ -1311,7 +1311,7 @@ function CS.System.IO.FileNotFoundException.ToString() end
 ---@source mscorlib.dll
 CS.System.IO.FileOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.FileOptions
 function CS.System.IO.FileOptions:__CastFrom(value) end
@@ -1334,7 +1334,7 @@ function CS.System.IO.FileOptions:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.IO.FileShare = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.FileShare
 function CS.System.IO.FileShare:__CastFrom(value) end
@@ -1729,7 +1729,7 @@ CS.System.IO.PathTooLongException = {}
 ---@source mscorlib.dll
 CS.System.IO.SearchOption = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.SearchOption
 function CS.System.IO.SearchOption:__CastFrom(value) end
@@ -1746,7 +1746,7 @@ function CS.System.IO.SearchOption:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.IO.SeekOrigin = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.SeekOrigin
 function CS.System.IO.SeekOrigin:__CastFrom(value) end
@@ -2855,7 +2855,7 @@ CS.System.IO.IODescriptionAttribute = {}
 ---@source System.dll
 CS.System.IO.NotifyFilters = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.NotifyFilters
 function CS.System.IO.NotifyFilters:__CastFrom(value) end
@@ -2923,7 +2923,7 @@ CS.System.IO.WaitForChangedResult = {}
 ---@source System.dll
 CS.System.IO.WatcherChangeTypes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.WatcherChangeTypes
 function CS.System.IO.WatcherChangeTypes:__CastFrom(value) end
@@ -2938,7 +2938,7 @@ function CS.System.IO.WatcherChangeTypes:__CastFrom(value) end
 ---@source System.Core.dll
 CS.System.IO.HandleInheritability = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.HandleInheritability
 function CS.System.IO.HandleInheritability:__CastFrom(value) end

@@ -49,13 +49,13 @@ function Waves3D:setAmplitude (amplitude) end
 ---@param amplitude float
 ---@return self
 function Waves3D:create (duration,gridSize,waves,amplitude) end
----* 
+---*
 ---@return self
 function Waves3D:clone () end
----* 
+---*
 ---@param time float
 ---@return self
 function Waves3D:update (time) end
----* 
+---*
 ---@return self
 function Waves3D:Waves3D () end

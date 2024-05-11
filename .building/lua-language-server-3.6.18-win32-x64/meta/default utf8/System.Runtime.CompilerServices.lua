@@ -173,7 +173,7 @@ CS.System.Runtime.CompilerServices.CallerMemberNameAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.CompilerServices.CompilationRelaxations = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.CompilerServices.CompilationRelaxations
 function CS.System.Runtime.CompilerServices.CompilationRelaxations:__CastFrom(value) end
@@ -606,7 +606,7 @@ CS.System.Runtime.CompilerServices.IUnknownConstantAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.CompilerServices.LoadHint = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.CompilerServices.LoadHint
 function CS.System.Runtime.CompilerServices.LoadHint:__CastFrom(value) end
@@ -625,7 +625,7 @@ function CS.System.Runtime.CompilerServices.LoadHint:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Runtime.CompilerServices.MethodCodeType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.CompilerServices.MethodCodeType
 function CS.System.Runtime.CompilerServices.MethodCodeType:__CastFrom(value) end
@@ -662,7 +662,7 @@ CS.System.Runtime.CompilerServices.MethodImplAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.CompilerServices.MethodImplOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.CompilerServices.MethodImplOptions
 function CS.System.Runtime.CompilerServices.MethodImplOptions:__CastFrom(value) end

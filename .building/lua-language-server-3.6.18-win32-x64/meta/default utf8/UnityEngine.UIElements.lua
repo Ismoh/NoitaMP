@@ -67,7 +67,7 @@ CS.UnityEngine.UIElements.ContextualMenuManager = {}
 --```plaintext
 --Params: eventHandler - The element for which the menu is displayed.
 --        evt - The event to inspect.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -81,7 +81,7 @@ function CS.UnityEngine.UIElements.ContextualMenuManager.DisplayMenuIfEventMatch
 --```plaintext
 --Params: triggerEvent - The event that triggered the display of the menu.
 --        target - The element for which the menu is displayed.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -228,7 +228,7 @@ CS.UnityEngine.UIElements.DropdownMenuAction = {}
 --
 --```plaintext
 --Params: a - Unused parameter.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -241,7 +241,7 @@ function CS.UnityEngine.UIElements.DropdownMenuAction:AlwaysEnabled(a) end
 --
 --```plaintext
 --Params: a - Unused parameter.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -254,7 +254,7 @@ function CS.UnityEngine.UIElements.DropdownMenuAction:AlwaysDisabled(a) end
 --
 --```plaintext
 --Params: eventInfo - Information about the event that triggered the display of the drop-down menu, such as the mouse position or the key pressed.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -316,7 +316,7 @@ function CS.UnityEngine.UIElements.DropdownMenu.InsertAction(atIndex, actionName
 --
 --```plaintext
 --Params: subMenuPath - The submenu path where the separator will be added. Path components are delimited by forward slashes ('/').
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -329,7 +329,7 @@ function CS.UnityEngine.UIElements.DropdownMenu.AppendSeparator(subMenuPath) end
 --```plaintext
 --Params: atIndex - Index where the separator should be inserted.
 --        subMenuPath - The submenu path where the separator is added. Path components are delimited by forward slashes ('/').
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -342,7 +342,7 @@ function CS.UnityEngine.UIElements.DropdownMenu.InsertSeparator(subMenuPath, atI
 --
 --```plaintext
 --Params: index - The index of the item to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -390,7 +390,7 @@ function CS.UnityEngine.UIElements.DropdownMenu.PrepareForDisplay(e) end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.Status = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.DropdownMenuAction.Status
 function CS.UnityEngine.UIElements.Status:__CastFrom(value) end
@@ -621,7 +621,7 @@ function CS.UnityEngine.UIElements.IMGUIContainer.Dispose() end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.SelectionType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.SelectionType
 function CS.UnityEngine.UIElements.SelectionType:__CastFrom(value) end
@@ -695,7 +695,7 @@ function CS.UnityEngine.UIElements.ManipulatorActivationFilter.GetHashCode() end
 --
 --```plaintext
 --Params: e - The mouse event.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -708,7 +708,7 @@ function CS.UnityEngine.UIElements.ManipulatorActivationFilter.Matches(e) end
 --
 --```plaintext
 --Params: e - The pointer event.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -777,7 +777,7 @@ CS.UnityEngine.UIElements.Manipulator = {}
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.MouseButton = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.MouseButton
 function CS.UnityEngine.UIElements.MouseButton:__CastFrom(value) end
@@ -803,7 +803,7 @@ function CS.UnityEngine.UIElements.MouseCaptureController:IsMouseCaptured() end
 --
 --```plaintext
 --Params: handler - The event handler to stop capturing the mouse. If this handler is not assigned to capturing the mouse, nothing happens.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -814,7 +814,7 @@ function CS.UnityEngine.UIElements.MouseCaptureController:ReleaseMouse() end
 --
 --```plaintext
 --Params: handler - Event handler to check.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -826,7 +826,7 @@ function CS.UnityEngine.UIElements.MouseCaptureController.HasMouseCapture() end
 --
 --```plaintext
 --Params: handler - The event handler that captures mouse events.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -837,7 +837,7 @@ function CS.UnityEngine.UIElements.MouseCaptureController.CaptureMouse() end
 --
 --```plaintext
 --Params: handler - The event handler to stop capturing the mouse. If this handler is not assigned to capturing the mouse, nothing happens.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -876,7 +876,7 @@ CS.UnityEngine.UIElements.MouseManipulator = {}
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.ContextType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.ContextType
 function CS.UnityEngine.UIElements.ContextType:__CastFrom(value) end
@@ -909,7 +909,7 @@ function CS.UnityEngine.UIElements.ContextType:__CastFrom(value) end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.UsageHints = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.UsageHints
 function CS.UnityEngine.UIElements.UsageHints:__CastFrom(value) end
@@ -950,7 +950,7 @@ CS.UnityEngine.UIElements.IPanel = {}
 --
 --```plaintext
 --Params: point - World coordinates.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -979,7 +979,7 @@ CS.UnityEngine.UIElements.PointerCaptureHelper = {}
 --```plaintext
 --Params: handler - The VisualElement being tested.
 --        pointerId - The captured pointer.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -993,7 +993,7 @@ function CS.UnityEngine.UIElements.PointerCaptureHelper.HasPointerCapture(pointe
 --```plaintext
 --Params: handler - The VisualElement that captures the pointer.
 --        pointerId - The pointer to capture.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -1006,7 +1006,7 @@ function CS.UnityEngine.UIElements.PointerCaptureHelper.CapturePointer(pointerId
 --```plaintext
 --Params: handler - The element which potentially captured the pointer.
 --        pointerId - The captured pointer.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -1019,7 +1019,7 @@ function CS.UnityEngine.UIElements.PointerCaptureHelper.ReleasePointer(pointerId
 --```plaintext
 --Params: panel - The panel that holds the element.
 --        pointerId - The captured pointer.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -1033,7 +1033,7 @@ function CS.UnityEngine.UIElements.PointerCaptureHelper.GetCapturingElement(poin
 --```plaintext
 --Params: panel - The panel that holds the element that captured the pointer.
 --        pointerId - The captured pointer.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -1079,7 +1079,7 @@ CS.UnityEngine.UIElements.TimerState = {}
 --```plaintext
 --Params: obj - The object to compare with.
 --        other - The object to compare with.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -1093,7 +1093,7 @@ function CS.UnityEngine.UIElements.TimerState.Equals(obj) end
 --```plaintext
 --Params: obj - The object to compare with.
 --        other - The object to compare with.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -1136,7 +1136,7 @@ function CS.UnityEngine.UIElements.TimerState:op_Inequality(state1, state2) end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.Position = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.Position
 function CS.UnityEngine.UIElements.Position:__CastFrom(value) end
@@ -1160,7 +1160,7 @@ function CS.UnityEngine.UIElements.Position:__CastFrom(value) end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.Overflow = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.Overflow
 function CS.UnityEngine.UIElements.Overflow:__CastFrom(value) end
@@ -1222,7 +1222,7 @@ function CS.UnityEngine.UIElements.TextElement.MeasureTextSize(textToMeasure, wi
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.OverflowClipBox = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.OverflowClipBox
 function CS.UnityEngine.UIElements.OverflowClipBox:__CastFrom(value) end
@@ -1256,7 +1256,7 @@ function CS.UnityEngine.UIElements.OverflowClipBox:__CastFrom(value) end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.FlexDirection = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.FlexDirection
 function CS.UnityEngine.UIElements.FlexDirection:__CastFrom(value) end
@@ -1285,7 +1285,7 @@ function CS.UnityEngine.UIElements.FlexDirection:__CastFrom(value) end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.Wrap = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.Wrap
 function CS.UnityEngine.UIElements.Wrap:__CastFrom(value) end
@@ -1324,7 +1324,7 @@ function CS.UnityEngine.UIElements.Wrap:__CastFrom(value) end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.Align = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.Align
 function CS.UnityEngine.UIElements.Align:__CastFrom(value) end
@@ -1363,7 +1363,7 @@ function CS.UnityEngine.UIElements.Align:__CastFrom(value) end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.Justify = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.Justify
 function CS.UnityEngine.UIElements.Justify:__CastFrom(value) end
@@ -1392,7 +1392,7 @@ function CS.UnityEngine.UIElements.Justify:__CastFrom(value) end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.TextOverflowPosition = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.TextOverflowPosition
 function CS.UnityEngine.UIElements.TextOverflowPosition:__CastFrom(value) end
@@ -1416,7 +1416,7 @@ function CS.UnityEngine.UIElements.TextOverflowPosition:__CastFrom(value) end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.TextOverflow = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.TextOverflow
 function CS.UnityEngine.UIElements.TextOverflow:__CastFrom(value) end
@@ -1440,7 +1440,7 @@ function CS.UnityEngine.UIElements.TextOverflow:__CastFrom(value) end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.Visibility = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.Visibility
 function CS.UnityEngine.UIElements.Visibility:__CastFrom(value) end
@@ -1464,7 +1464,7 @@ function CS.UnityEngine.UIElements.Visibility:__CastFrom(value) end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.WhiteSpace = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.WhiteSpace
 function CS.UnityEngine.UIElements.WhiteSpace:__CastFrom(value) end
@@ -1497,7 +1497,7 @@ CS.UnityEngine.UIElements.UQuery = {}
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.DisplayStyle = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.DisplayStyle
 function CS.UnityEngine.UIElements.DisplayStyle:__CastFrom(value) end
@@ -1545,7 +1545,7 @@ CS.UnityEngine.UIElements.UxmlTraits = {}
 --Params: ve - VisualElement to initialize.
 --        bag - Bag of attributes where to get the value from.
 --        cc - Creation Context, not used.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -1663,7 +1663,7 @@ CS.UnityEngine.UIElements.UxmlTraits = {}
 --Params: ve - The object to initialize.
 --        bag - The attribute bag.
 --        cc - The creation context; unused.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -1881,7 +1881,7 @@ function CS.UnityEngine.UIElements.UQueryExtensions.Q(name, classes) end
 --        name - If specified, will select elements with this name.
 --        classes - If specified, will select elements with the given class (not to be confused with Type).
 --        className - If specified, will select elements with the given class (not to be confused with Type).
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -1904,7 +1904,7 @@ function CS.UnityEngine.UIElements.UQueryExtensions.Q(name, className) end
 --        name - If specified, will select elements with this name.
 --        classes - If specified, will select elements with the given class (not to be confused with Type).
 --        className - If specified, will select elements with the given class (not to be confused with Type).
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -1921,7 +1921,7 @@ function CS.UnityEngine.UIElements.UQueryExtensions.Q(name, className) end
 --        name - If specified, will select elements with this name.
 --        classes - If specified, will select elements with the given class (not to be confused with Type).
 --        className - If specified, will select elements with the given class (not to be confused with Type).
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -1938,7 +1938,7 @@ function CS.UnityEngine.UIElements.UQueryExtensions.Query(name, classes) end
 --        name - If specified, will select elements with this name.
 --        classes - If specified, will select elements with the given class (not to be confused with Type).
 --        className - If specified, will select elements with the given class (not to be confused with Type).
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -1964,7 +1964,7 @@ function CS.UnityEngine.UIElements.UQueryExtensions.Query(name, className) end
 --
 --```plaintext
 --Params: e - Root VisualElement on which the selector will be applied.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -1990,7 +1990,7 @@ function CS.UnityEngine.UIElements.UQueryExtensions.Query() end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.PickingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.PickingMode
 function CS.UnityEngine.UIElements.PickingMode:__CastFrom(value) end
@@ -2134,7 +2134,7 @@ function CS.UnityEngine.UIElements.VisualElement.Focus() end
 --
 --```plaintext
 --Params: e - The event to send.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -2146,7 +2146,7 @@ function CS.UnityEngine.UIElements.VisualElement.SendEvent(e) end
 --
 --```plaintext
 --Params: value - New enabled state
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -2196,7 +2196,7 @@ function CS.UnityEngine.UIElements.VisualElement.RemoveFromClassList(className) 
 --
 --```plaintext
 --Params: className - The class name to add or remove from the class list.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -2209,7 +2209,7 @@ function CS.UnityEngine.UIElements.VisualElement.ToggleInClassList(className) en
 --```plaintext
 --Params: className - The name of the class to enable or disable.
 --        enable - A boolean flag that adds or removes the class name from the class list. If true, EnableInClassList adds the class name to the class list. If false, EnableInClassList removes the class name from the class list.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -2274,7 +2274,7 @@ function CS.UnityEngine.UIElements.VisualElement.ElementAt(index) end
 --
 --```plaintext
 --Params: element - The child to return the index for.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -2310,7 +2310,7 @@ function CS.UnityEngine.UIElements.VisualElement.SendToBack() end
 --
 --```plaintext
 --Params: sibling - The sibling element.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -2322,7 +2322,7 @@ function CS.UnityEngine.UIElements.VisualElement.PlaceBehind(sibling) end
 --
 --```plaintext
 --Params: sibling - The sibling element.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -2389,7 +2389,7 @@ CS.UnityEngine.UIElements.UxmlTraits = {}
 --Params: ve - The object to initialize.
 --        bag - The attribute bag.
 --        cc - The creation context; unused.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -2422,7 +2422,7 @@ function CS.UnityEngine.UIElements.UxmlTraits.Init(ve, bag, cc) end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.MeasureMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.VisualElement.MeasureMode
 function CS.UnityEngine.UIElements.MeasureMode:__CastFrom(value) end
@@ -2485,7 +2485,7 @@ function CS.UnityEngine.UIElements.Hierarchy.Clear() end
 --
 --```plaintext
 --Params: element - The element to return the index for.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -2594,7 +2594,7 @@ function CS.UnityEngine.UIElements.VisualElementExtensions.StretchToParentWidth(
 --```plaintext
 --Params: ele - VisualElement associated to the manipulator.
 --        manipulator - Manipulator to be added to the VisualElement.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -2607,7 +2607,7 @@ function CS.UnityEngine.UIElements.VisualElementExtensions.AddManipulator(manipu
 --```plaintext
 --Params: ele - VisualElement associated to the manipulator.
 --        manipulator - Manipulator to be removed from the VisualElement.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -2700,7 +2700,7 @@ function CS.UnityEngine.UIElements.VisualElementFocusRing.GetNextFocusable(curre
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.DefaultFocusOrder = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.VisualElementFocusRing.DefaultFocusOrder
 function CS.UnityEngine.UIElements.DefaultFocusOrder:__CastFrom(value) end
@@ -2738,7 +2738,7 @@ function CS.UnityEngine.UIElements.IVisualElementScheduledItem.Pause() end
 --
 --```plaintext
 --Params: delayMs - Minimum time in milliseconds before this item will be executed.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -2750,7 +2750,7 @@ function CS.UnityEngine.UIElements.IVisualElementScheduledItem.ExecuteLater(dela
 --
 --```plaintext
 --Params: delayMs - The minimum number of milliseconds after activation where this item's action will be executed.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -2763,7 +2763,7 @@ function CS.UnityEngine.UIElements.IVisualElementScheduledItem.StartingIn(delayM
 --
 --```plaintext
 --Params: intervalMs - Minimum amount of time in milliseconds between each action execution.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -2781,7 +2781,7 @@ function CS.UnityEngine.UIElements.IVisualElementScheduledItem.Until(stopConditi
 --
 --```plaintext
 --Params: durationMs - The total duration in milliseconds where this item will be active.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -2806,7 +2806,7 @@ function CS.UnityEngine.UIElements.IVisualElementScheduler.Execute(timerUpdateEv
 --```plaintext
 --Params: timerUpdateEvent - The action to be executed.
 --        updateEvent - The action to be executed.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -3024,7 +3024,7 @@ function CS.UnityEngine.UIElements.BaseFieldTraits.Init(ve, bag, cc) end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.SliderDirection = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.SliderDirection
 function CS.UnityEngine.UIElements.SliderDirection:__CastFrom(value) end
@@ -3134,7 +3134,7 @@ CS.UnityEngine.UIElements.IBindingExtensions = {}
 --
 --```plaintext
 --Params: control - This Bindable object.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -3260,7 +3260,7 @@ function CS.UnityEngine.UIElements.Foldout.SetValueWithoutNotify(newValue) end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.HelpBoxMessageType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.HelpBoxMessageType
 function CS.UnityEngine.UIElements.HelpBoxMessageType:__CastFrom(value) end
@@ -3444,7 +3444,7 @@ CS.UnityEngine.UIElements.UxmlTraits = {}
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.AlternatingRowBackground = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.AlternatingRowBackground
 function CS.UnityEngine.UIElements.AlternatingRowBackground:__CastFrom(value) end
@@ -3624,7 +3624,7 @@ function CS.UnityEngine.UIElements.ListView.OnKeyDown(evt) end
 --
 --```plaintext
 --Params: index - Item index to scroll to. Specify -1 to make the last item visible.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -3636,7 +3636,7 @@ function CS.UnityEngine.UIElements.ListView.ScrollToItem(index) end
 --
 --```plaintext
 --Params: index - Item index.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -3648,7 +3648,7 @@ function CS.UnityEngine.UIElements.ListView.AddToSelection(index) end
 --
 --```plaintext
 --Params: index - Item index.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -3660,7 +3660,7 @@ function CS.UnityEngine.UIElements.ListView.RemoveFromSelection(index) end
 --
 --```plaintext
 --Params: index - Item index.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -3686,7 +3686,7 @@ function CS.UnityEngine.UIElements.ListView.ClearSelection() end
 --
 --```plaintext
 --Params: visualElement - Element to scroll to.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -3724,7 +3724,7 @@ CS.UnityEngine.UIElements.UxmlTraits = {}
 --Params: ve - The Element to initialize.
 --        bag - The attribute bag.
 --        cc - The creation context; unused.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -3934,7 +3934,7 @@ CS.UnityEngine.UIElements.UxmlTraits = {}
 --Params: ve - The object to initialize.
 --        bag - The attribute bag.
 --        cc - The creation context; unused.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -3968,7 +3968,7 @@ CS.UnityEngine.UIElements.UxmlTraits = {}
 --Params: ve - The element to initialize.
 --        bag - The bag of attributes.
 --        cc - Creation Context, unused.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -4021,7 +4021,7 @@ CS.UnityEngine.UIElements.RepeatButton = {}
 --Params: clickEvent - The action to execute.
 --        delay - The initial delay before the action is executed for the first time.
 --        interval - The interval between each execution of the action.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -4119,7 +4119,7 @@ function CS.UnityEngine.UIElements.Scroller.remove_valueChanged(value) end
 --
 --```plaintext
 --Params: factor - Slider size ratio.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -4177,7 +4177,7 @@ CS.UnityEngine.UIElements.UxmlTraits = {}
 --Params: ve - The object to initialize.
 --        bag - The attribute bag.
 --        cc - The creation context; unused.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -4216,7 +4216,7 @@ CS.UnityEngine.UIElements.UxmlTraits = {}
 --Params: ve - The object to initialize.
 --        bag - The attribute bag.
 --        cc - The creation context; unused.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -4293,7 +4293,7 @@ function CS.UnityEngine.UIElements.TextInputBaseField.SelectAll() end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.ScrollViewMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.ScrollViewMode
 function CS.UnityEngine.UIElements.ScrollViewMode:__CastFrom(value) end
@@ -4405,7 +4405,7 @@ CS.UnityEngine.UIElements.ScrollView = {}
 --
 --```plaintext
 --Params: child - The child to scroll to.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -4510,7 +4510,7 @@ CS.UnityEngine.UIElements.UxmlTraits = {}
 --Params: ve - The object to initialize.
 --        bag - The attribute bag.
 --        cc - The creation context; unused.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -4583,7 +4583,7 @@ CS.UnityEngine.UIElements.UxmlTraits = {}
 --Params: ve - The object to initialize.
 --        bag - The attribute bag.
 --        cc - The creation context; unused.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -4643,7 +4643,7 @@ CS.UnityEngine.UIElements.UxmlTraits = {}
 --Params: ve - The object to initialize.
 --        bag - The attribute bag.
 --        cc - The creation context; unused.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -4662,7 +4662,7 @@ function CS.UnityEngine.UIElements.UxmlTraits.Init(ve, bag, cc) end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.TwoPaneSplitViewOrientation = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.TwoPaneSplitViewOrientation
 function CS.UnityEngine.UIElements.TwoPaneSplitViewOrientation:__CastFrom(value) end
@@ -4721,7 +4721,7 @@ CS.UnityEngine.UIElements.UxmlTraits = {}
 --Params: ve - The object to initialize.
 --        bag - The bag of attributes.
 --        cc - The creation context; unused.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -4770,7 +4770,7 @@ CS.UnityEngine.UIElements.TextField = {}
 --```plaintext
 --Params: cursorIndex - The caret and selection start position.
 --        selectionIndex - The selection end position.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -4911,7 +4911,7 @@ CS.UnityEngine.UIElements.UxmlTraits = {}
 --Params: ve - The object to initialize.
 --        bag - The attribute bag.
 --        cc - The creation context; unused.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -4999,7 +4999,7 @@ CS.UnityEngine.UIElements.DragExitedEvent = {}
 --
 --```plaintext
 --Params: systemEvent - An IMGUI drag exited event.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -5039,7 +5039,7 @@ CS.UnityEngine.UIElements.DragUpdatedEvent = {}
 --
 --```plaintext
 --Params: systemEvent - An IMGUI drag updated event.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -5217,7 +5217,7 @@ function CS.UnityEngine.UIElements.EventCallback.EndInvoke(result) end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.TrickleDown = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.TrickleDown
 function CS.UnityEngine.UIElements.TrickleDown:__CastFrom(value) end
@@ -5255,7 +5255,7 @@ CS.UnityEngine.UIElements.IEventHandler = {}
 --
 --```plaintext
 --Params: e - The event to send.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -5267,7 +5267,7 @@ function CS.UnityEngine.UIElements.IEventHandler.SendEvent(e) end
 --
 --```plaintext
 --Params: evt - The event to handle.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -5323,7 +5323,7 @@ function CS.UnityEngine.UIElements.CallbackEventHandler.UnregisterCallback(callb
 --
 --```plaintext
 --Params: e - The event to send.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -5335,7 +5335,7 @@ function CS.UnityEngine.UIElements.CallbackEventHandler.SendEvent(e) end
 --
 --```plaintext
 --Params: evt - The event to handle.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -5469,7 +5469,7 @@ CS.UnityEngine.UIElements.FocusEvent = {}
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.PropagationPhase = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.PropagationPhase
 function CS.UnityEngine.UIElements.PropagationPhase:__CastFrom(value) end
@@ -5499,7 +5499,7 @@ CS.UnityEngine.UIElements.InputEvent = {}
 --```plaintext
 --Params: newData - The new text.
 --        previousData - The text before the change occured.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -5634,7 +5634,7 @@ CS.UnityEngine.UIElements.GeometryChangedEvent = {}
 --```plaintext
 --Params: oldRect - The old dimensions of the element.
 --        newRect - The new dimensions of the element.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -5777,7 +5777,7 @@ CS.UnityEngine.UIElements.MouseDownEvent = {}
 --
 --```plaintext
 --Params: systemEvent - An IMGUI mouse event.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -5799,7 +5799,7 @@ CS.UnityEngine.UIElements.MouseUpEvent = {}
 --
 --```plaintext
 --Params: systemEvent - An IMGUI mouse event.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -5821,7 +5821,7 @@ CS.UnityEngine.UIElements.MouseMoveEvent = {}
 --
 --```plaintext
 --Params: systemEvent - An IMGUI mouse event.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -5857,7 +5857,7 @@ CS.UnityEngine.UIElements.WheelEvent = {}
 --
 --```plaintext
 --Params: systemEvent - A wheel IMGUI event.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -5906,7 +5906,7 @@ CS.UnityEngine.UIElements.MouseLeaveWindowEvent = {}
 --
 --```plaintext
 --Params: systemEvent - An IMGUI MouseLeaveWindow event.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -5959,7 +5959,7 @@ CS.UnityEngine.UIElements.ContextualMenuPopulateEvent = {}
 --        menu - The menu to populate.
 --        target - The element that triggered the display of the contextual menu.
 --        menuManager - The menu manager that displays the menu.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -6358,7 +6358,7 @@ CS.UnityEngine.UIElements.IMGUIEvent = {}
 --
 --```plaintext
 --Params: systemEvent - The IMGUI event used to initialize the event.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -6465,7 +6465,7 @@ CS.UnityEngine.UIElements.MeshWriteData = {}
 --
 --```plaintext
 --Params: vertex - The value of the next vertex.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -6477,7 +6477,7 @@ function CS.UnityEngine.UIElements.MeshWriteData.SetNextVertex(vertex) end
 --
 --```plaintext
 --Params: index - The value of the next index.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -6490,7 +6490,7 @@ function CS.UnityEngine.UIElements.MeshWriteData.SetNextIndex(index) end
 --
 --```plaintext
 --Params: vertices - The array of vertices to copy from. The length of the array must match the allocated vertex count.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -6506,7 +6506,7 @@ function CS.UnityEngine.UIElements.MeshWriteData.SetAllVertices(vertices) end
 --
 --```plaintext
 --Params: indices - The array of indices to copy from. The length of the array must match the allocated index count.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -6538,7 +6538,7 @@ CS.UnityEngine.UIElements.MeshGenerationContext = {}
 --Params: vertexCount - The number of vertices to allocate. The maximum is 65535 (or UInt16.MaxValue).
 --        indexCount - The number of triangle list indices to allocate. Each 3 indices represent one triangle, so this value should be multiples of 3.
 --        texture - An optional texture to be applied on the triangles allocated. Pass null to rely on vertex colors only.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -6615,7 +6615,7 @@ function CS.UnityEngine.UIElements.ICustomStyle.TryGetValue(property, value) end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.LengthUnit = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.LengthUnit
 function CS.UnityEngine.UIElements.LengthUnit:__CastFrom(value) end
@@ -6644,7 +6644,7 @@ CS.UnityEngine.UIElements.Background = {}
 --
 --```plaintext
 --Params: t - The texture to use as a background.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -6657,7 +6657,7 @@ function CS.UnityEngine.UIElements.Background:FromTexture2D(t) end
 --
 --```plaintext
 --Params: vi - The vector image to use as a background.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -7316,7 +7316,7 @@ function CS.UnityEngine.UIElements.StyleLength.ToString() end
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.StyleKeyword = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.StyleKeyword
 function CS.UnityEngine.UIElements.StyleKeyword:__CastFrom(value) end
@@ -8220,7 +8220,7 @@ CS.UnityEngine.UIElements.UxmlAttributeDescription = {}
 ---@source UnityEngine.UIElementsModule.dll
 CS.UnityEngine.UIElements.Use = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UIElements.UxmlAttributeDescription.Use
 function CS.UnityEngine.UIElements.Use:__CastFrom(value) end
@@ -8264,7 +8264,7 @@ CS.UnityEngine.UIElements.UxmlStringAttributeDescription = {}
 --```plaintext
 --Params: bag - The bag of attributes.
 --        cc - The context in which the values are retrieved.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -8300,7 +8300,7 @@ CS.UnityEngine.UIElements.UxmlFloatAttributeDescription = {}
 --```plaintext
 --Params: bag - The bag of attributes.
 --        cc - The context in which the values are retrieved.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -8360,7 +8360,7 @@ CS.UnityEngine.UIElements.UxmlDoubleAttributeDescription = {}
 --```plaintext
 --Params: bag - The bag of attributes.
 --        cc - The context in which the values are retrieved.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -8415,7 +8415,7 @@ CS.UnityEngine.UIElements.UxmlIntAttributeDescription = {}
 --```plaintext
 --Params: bag - The bag of attributes.
 --        cc - The context in which the values are retrieved.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -8462,7 +8462,7 @@ CS.UnityEngine.UIElements.UxmlTraits = {}
 --Params: ve - The VisualElement to initialize.
 --        bag - A bag of name-value pairs, one for each attribute of the UXML element.
 --        cc - When the element is created as part of a template instance inserted in another document, this contains information about the insertion point.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -8491,7 +8491,7 @@ CS.UnityEngine.UIElements.UxmlLongAttributeDescription = {}
 --```plaintext
 --Params: bag - The bag of attributes.
 --        cc - The context in which the values are retrieved.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -8527,7 +8527,7 @@ CS.UnityEngine.UIElements.UxmlBoolAttributeDescription = {}
 --```plaintext
 --Params: bag - The bag of attributes.
 --        cc - The context in which the values are retrieved.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -8563,7 +8563,7 @@ CS.UnityEngine.UIElements.UxmlColorAttributeDescription = {}
 --```plaintext
 --Params: bag - The bag of attributes.
 --        cc - The context in which the values are retrieved.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -8666,7 +8666,7 @@ function CS.UnityEngine.UIElements.IUxmlFactory.AcceptsAttributeBag(bag, cc) end
 --```plaintext
 --Params: bag - A bag of name-value pairs, one for each attribute of the UXML element. This can be used to initialize the properties of the created object.
 --        cc - When the element is created as part of a template instance inserted in another document, this contains information about the insertion point.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -8737,7 +8737,7 @@ CS.UnityEngine.UIElements.UxmlTypeRestriction = {}
 --
 --```plaintext
 --Params: other - The object to compare with.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -8764,7 +8764,7 @@ CS.UnityEngine.UIElements.UxmlValueMatches = {}
 --
 --```plaintext
 --Params: other - The object to compare with.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -8806,7 +8806,7 @@ CS.UnityEngine.UIElements.UxmlValueBounds = {}
 --
 --```plaintext
 --Params: other - The object to compare with.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -8833,7 +8833,7 @@ CS.UnityEngine.UIElements.UxmlEnumeration = {}
 --
 --```plaintext
 --Params: other - The object to compare with.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -8879,7 +8879,7 @@ CS.UnityEngine.UIElements.VisualTreeAsset = {}
 --
 --```plaintext
 --Params: bindingPath - The path to the property that you want to bind to the root of the cloned tree.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -8891,7 +8891,7 @@ function CS.UnityEngine.UIElements.VisualTreeAsset.Instantiate() end
 --
 --```plaintext
 --Params: bindingPath - The path to the property that you want to bind to the root of the cloned tree.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -8904,7 +8904,7 @@ function CS.UnityEngine.UIElements.VisualTreeAsset.Instantiate(bindingPath) end
 --
 --```plaintext
 --Params: bindingPath - The path to the property that you want to bind to the root of the cloned tree.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -8916,7 +8916,7 @@ function CS.UnityEngine.UIElements.VisualTreeAsset.CloneTree() end
 --
 --```plaintext
 --Params: bindingPath - The path to the property that you want to bind to the root of the cloned tree.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll
@@ -8929,7 +8929,7 @@ function CS.UnityEngine.UIElements.VisualTreeAsset.CloneTree(bindingPath) end
 --
 --```plaintext
 --Params: target - A VisualElement that will act as the root of the cloned tree.
---        
+--
 --```
 --
 ---@source UnityEngine.UIElementsModule.dll

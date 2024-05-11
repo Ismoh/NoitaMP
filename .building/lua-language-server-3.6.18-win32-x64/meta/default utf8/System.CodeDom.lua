@@ -221,7 +221,7 @@ CS.System.CodeDom.CodeBinaryOperatorExpression = {}
 ---@source System.dll
 CS.System.CodeDom.CodeBinaryOperatorType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.CodeDom.CodeBinaryOperatorType
 function CS.System.CodeDom.CodeBinaryOperatorType:__CastFrom(value) end
@@ -1005,7 +1005,7 @@ CS.System.CodeDom.CodeRegionDirective = {}
 ---@source System.dll
 CS.System.CodeDom.CodeRegionMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.CodeDom.CodeRegionMode
 function CS.System.CodeDom.CodeRegionMode:__CastFrom(value) end
@@ -1403,7 +1403,7 @@ CS.System.CodeDom.CodeVariableReferenceExpression = {}
 ---@source System.dll
 CS.System.CodeDom.FieldDirection = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.CodeDom.FieldDirection
 function CS.System.CodeDom.FieldDirection:__CastFrom(value) end
@@ -1446,7 +1446,7 @@ function CS.System.CodeDom.FieldDirection:__CastFrom(value) end
 ---@source System.dll
 CS.System.CodeDom.MemberAttributes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.CodeDom.MemberAttributes
 function CS.System.CodeDom.MemberAttributes:__CastFrom(value) end

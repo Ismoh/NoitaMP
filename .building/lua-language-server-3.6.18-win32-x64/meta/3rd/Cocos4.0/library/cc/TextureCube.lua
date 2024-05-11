@@ -10,7 +10,7 @@ cc.TextureCube=TextureCube
 ---*  reload texture cube after GLESContext reconstructed.
 ---@return boolean
 function TextureCube:reloadTexture () end
----* 
+---*
 ---@return cc.backend.TextureBackend
 function TextureCube:getBackendTexture () end
 ---*  Sets the min filter, mag filter, wrap s and wrap t texture parameters.<br>

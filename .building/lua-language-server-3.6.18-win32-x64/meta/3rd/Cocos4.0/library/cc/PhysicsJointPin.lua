@@ -7,7 +7,7 @@ cc.PhysicsJointPin=PhysicsJointPin
 
 
 
----* 
+---*
 ---@return boolean
 function PhysicsJointPin:createConstraints () end
 ---@overload fun(cc.PhysicsBody:cc.PhysicsBody,cc.PhysicsBody:cc.PhysicsBody,vec2_table:vec2_table,vec2_table:vec2_table):self

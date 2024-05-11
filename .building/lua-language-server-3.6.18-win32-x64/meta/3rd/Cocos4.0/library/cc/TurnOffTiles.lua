@@ -34,17 +34,17 @@ function TurnOffTiles:initWithDuration (duration,gridSize,seed) end
 ---@param seed unsigned_int
 ---@return self
 function TurnOffTiles:create (duration,gridSize,seed) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function TurnOffTiles:startWithTarget (target) end
----* 
+---*
 ---@return self
 function TurnOffTiles:clone () end
----* 
+---*
 ---@param time float
 ---@return self
 function TurnOffTiles:update (time) end
----* 
+---*
 ---@return self
 function TurnOffTiles:TurnOffTiles () end

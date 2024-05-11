@@ -1,16 +1,16 @@
 ---@meta
 
----@class ccs.Tween 
+---@class ccs.Tween
 local Tween={ }
 ccs.Tween=Tween
 
 
 
 
----* 
+---*
 ---@return ccs.ArmatureAnimation
 function Tween:getAnimation () end
----* 
+---*
 ---@param frameIndex int
 ---@return self
 function Tween:gotoAndPause (frameIndex) end
@@ -35,7 +35,7 @@ function Tween:gotoAndPause (frameIndex) end
 ---@param tweenEasing int
 ---@return self
 function Tween:play (movementBoneData,durationTo,durationTween,loop,tweenEasing) end
----* 
+---*
 ---@param frameIndex int
 ---@return self
 function Tween:gotoAndPlay (frameIndex) end
@@ -44,7 +44,7 @@ function Tween:gotoAndPlay (frameIndex) end
 ---@param bone ccs.Bone
 ---@return boolean
 function Tween:init (bone) end
----* 
+---*
 ---@param animation ccs.ArmatureAnimation
 ---@return self
 function Tween:setAnimation (animation) end
@@ -53,6 +53,6 @@ function Tween:setAnimation (animation) end
 ---@param bone ccs.Bone
 ---@return self
 function Tween:create (bone) end
----* 
+---*
 ---@return self
 function Tween:Tween () end

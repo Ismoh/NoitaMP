@@ -795,7 +795,7 @@ function CS.System.Runtime.Serialization.StreamingContext.GetHashCode() end
 ---@source mscorlib.dll
 CS.System.Runtime.Serialization.StreamingContextStates = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.Serialization.StreamingContextStates
 function CS.System.Runtime.Serialization.StreamingContextStates:__CastFrom(value) end
@@ -1084,7 +1084,7 @@ CS.System.Runtime.Serialization.DateTimeFormat = {}
 ---@source System.Runtime.Serialization.dll
 CS.System.Runtime.Serialization.EmitTypeInformation = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.Serialization.EmitTypeInformation
 function CS.System.Runtime.Serialization.EmitTypeInformation:__CastFrom(value) end

@@ -28,7 +28,7 @@ function PhysicsJointGroove:getGrooveB () end
 ---*  Get the anchor point on body b.
 ---@return vec2_table
 function PhysicsJointGroove:getAnchr2 () end
----* 
+---*
 ---@return boolean
 function PhysicsJointGroove:createConstraints () end
 ---*  Create a groove joint.<br>

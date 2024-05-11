@@ -11,7 +11,7 @@
 ---@source mscorlib.dll
 CS.System.Security.AccessControl.AccessControlActions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.AccessControlActions
 function CS.System.Security.AccessControl.AccessControlActions:__CastFrom(value) end
@@ -34,7 +34,7 @@ function CS.System.Security.AccessControl.AccessControlActions:__CastFrom(value)
 ---@source mscorlib.dll
 CS.System.Security.AccessControl.AccessControlModification = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.AccessControlModification
 function CS.System.Security.AccessControl.AccessControlModification:__CastFrom(value) end
@@ -57,7 +57,7 @@ function CS.System.Security.AccessControl.AccessControlModification:__CastFrom(v
 ---@source mscorlib.dll
 CS.System.Security.AccessControl.AccessControlSections = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.AccessControlSections
 function CS.System.Security.AccessControl.AccessControlSections:__CastFrom(value) end
@@ -72,7 +72,7 @@ function CS.System.Security.AccessControl.AccessControlSections:__CastFrom(value
 ---@source mscorlib.dll
 CS.System.Security.AccessControl.AccessControlType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.AccessControlType
 function CS.System.Security.AccessControl.AccessControlType:__CastFrom(value) end
@@ -122,7 +122,7 @@ function CS.System.Security.AccessControl.AceEnumerator.Reset() end
 ---@source mscorlib.dll
 CS.System.Security.AccessControl.AceQualifier = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.AceQualifier
 function CS.System.Security.AccessControl.AceQualifier:__CastFrom(value) end
@@ -169,7 +169,7 @@ function CS.System.Security.AccessControl.AceQualifier:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Security.AccessControl.AceType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.AceType
 function CS.System.Security.AccessControl.AceType:__CastFrom(value) end
@@ -200,7 +200,7 @@ function CS.System.Security.AccessControl.AceType:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Security.AccessControl.AceFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.AceFlags
 function CS.System.Security.AccessControl.AceFlags:__CastFrom(value) end
@@ -217,7 +217,7 @@ function CS.System.Security.AccessControl.AceFlags:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Security.AccessControl.AuditFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.AuditFlags
 function CS.System.Security.AccessControl.AuditFlags:__CastFrom(value) end
@@ -414,7 +414,7 @@ function CS.System.Security.AccessControl.CompoundAce.GetBinaryForm(binaryForm, 
 ---@source mscorlib.dll
 CS.System.Security.AccessControl.CompoundAceType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.CompoundAceType
 function CS.System.Security.AccessControl.CompoundAceType:__CastFrom(value) end
@@ -459,7 +459,7 @@ function CS.System.Security.AccessControl.CompoundAceType:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Security.AccessControl.ControlFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.ControlFlags
 function CS.System.Security.AccessControl.ControlFlags:__CastFrom(value) end
@@ -518,7 +518,7 @@ CS.System.Security.AccessControl.CryptoKeyAuditRule = {}
 ---@source mscorlib.dll
 CS.System.Security.AccessControl.CryptoKeyRights = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.CryptoKeyRights
 function CS.System.Security.AccessControl.CryptoKeyRights:__CastFrom(value) end
@@ -820,7 +820,7 @@ CS.System.Security.AccessControl.DirectorySecurity = {}
 ---@source mscorlib.dll
 CS.System.Security.AccessControl.EventWaitHandleRights = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.EventWaitHandleRights
 function CS.System.Security.AccessControl.EventWaitHandleRights:__CastFrom(value) end
@@ -1033,7 +1033,7 @@ function CS.System.Security.AccessControl.GenericAce:op_Inequality(left, right) 
 ---@source mscorlib.dll
 CS.System.Security.AccessControl.FileSystemRights = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.FileSystemRights
 function CS.System.Security.AccessControl.FileSystemRights:__CastFrom(value) end
@@ -1214,7 +1214,7 @@ CS.System.Security.AccessControl.MutexAccessRule = {}
 ---@source mscorlib.dll
 CS.System.Security.AccessControl.InheritanceFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.InheritanceFlags
 function CS.System.Security.AccessControl.InheritanceFlags:__CastFrom(value) end
@@ -1331,7 +1331,7 @@ CS.System.Security.AccessControl.NativeObjectSecurity = {}
 ---@source mscorlib.dll
 CS.System.Security.AccessControl.MutexRights = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.MutexRights
 function CS.System.Security.AccessControl.MutexRights:__CastFrom(value) end
@@ -1348,7 +1348,7 @@ function CS.System.Security.AccessControl.MutexRights:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Security.AccessControl.ObjectAceFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.ObjectAceFlags
 function CS.System.Security.AccessControl.ObjectAceFlags:__CastFrom(value) end
@@ -1588,7 +1588,7 @@ function CS.System.Security.AccessControl.ObjectSecurity.SetAuditRule(rule) end
 ---@source mscorlib.dll
 CS.System.Security.AccessControl.PropagationFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.PropagationFlags
 function CS.System.Security.AccessControl.PropagationFlags:__CastFrom(value) end
@@ -1748,7 +1748,7 @@ CS.System.Security.AccessControl.RegistryAuditRule = {}
 ---@source mscorlib.dll
 CS.System.Security.AccessControl.RegistryRights = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.RegistryRights
 function CS.System.Security.AccessControl.RegistryRights:__CastFrom(value) end
@@ -1863,7 +1863,7 @@ function CS.System.Security.AccessControl.RegistrySecurity.SetAuditRule(rule) en
 ---@source mscorlib.dll
 CS.System.Security.AccessControl.ResourceType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.ResourceType
 function CS.System.Security.AccessControl.ResourceType:__CastFrom(value) end
@@ -1882,7 +1882,7 @@ function CS.System.Security.AccessControl.ResourceType:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Security.AccessControl.SecurityInfos = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.SecurityInfos
 function CS.System.Security.AccessControl.SecurityInfos:__CastFrom(value) end
@@ -2028,7 +2028,7 @@ CS.System.Security.AccessControl.SemaphoreAuditRule = {}
 ---@source System.dll
 CS.System.Security.AccessControl.SemaphoreRights = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.AccessControl.SemaphoreRights
 function CS.System.Security.AccessControl.SemaphoreRights:__CastFrom(value) end

@@ -7,31 +7,31 @@ cc.EventAssetsManagerEx=EventAssetsManagerEx
 
 
 
----* 
+---*
 ---@return cc.AssetsManagerEx
 function EventAssetsManagerEx:getAssetsManagerEx () end
----* 
+---*
 ---@return string
 function EventAssetsManagerEx:getAssetId () end
----* 
+---*
 ---@return int
 function EventAssetsManagerEx:getCURLECode () end
----* 
+---*
 ---@return string
 function EventAssetsManagerEx:getMessage () end
----* 
+---*
 ---@return int
 function EventAssetsManagerEx:getCURLMCode () end
----* 
+---*
 ---@return float
 function EventAssetsManagerEx:getPercentByFile () end
----* 
+---*
 ---@return int
 function EventAssetsManagerEx:getEventCode () end
----* 
+---*
 ---@return float
 function EventAssetsManagerEx:getPercent () end
----*  Constructor 
+---*  Constructor
 ---@param eventName string
 ---@param manager cc.AssetsManagerEx
 ---@param code int

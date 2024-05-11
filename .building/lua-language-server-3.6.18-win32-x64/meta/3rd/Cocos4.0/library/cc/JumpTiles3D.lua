@@ -49,13 +49,13 @@ function JumpTiles3D:setAmplitude (amplitude) end
 ---@param amplitude float
 ---@return self
 function JumpTiles3D:create (duration,gridSize,numberOfJumps,amplitude) end
----* 
+---*
 ---@return self
 function JumpTiles3D:clone () end
----* 
+---*
 ---@param time float
 ---@return self
 function JumpTiles3D:update (time) end
----* 
+---*
 ---@return self
 function JumpTiles3D:JumpTiles3D () end

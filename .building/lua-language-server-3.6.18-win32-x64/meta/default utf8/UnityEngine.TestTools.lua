@@ -94,7 +94,7 @@ CS.UnityEngine.TestTools.Coverage = {}
 --
 --```plaintext
 --Params: method - The method to get the sequence points for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -106,7 +106,7 @@ function CS.UnityEngine.TestTools.Coverage:GetSequencePointsFor(method) end
 --
 --```plaintext
 --Params: method - The method to get coverage statistics for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -119,7 +119,7 @@ function CS.UnityEngine.TestTools.Coverage:GetStatsFor(method) end
 --
 --```plaintext
 --Params: methods - The array of methods.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -131,7 +131,7 @@ function CS.UnityEngine.TestTools.Coverage:GetStatsFor(methods) end
 --
 --```plaintext
 --Params: type - The type.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -149,7 +149,7 @@ function CS.UnityEngine.TestTools.Coverage:GetStatsForAllCoveredMethods() end
 --
 --```plaintext
 --Params: method - The method.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll

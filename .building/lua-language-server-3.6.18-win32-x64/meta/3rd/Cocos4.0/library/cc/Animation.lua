@@ -21,7 +21,7 @@ function Animation:addSpriteFrame (frame) end
 ---@param restoreOriginalFrame boolean
 ---@return self
 function Animation:setRestoreOriginalFrame (restoreOriginalFrame) end
----* 
+---*
 ---@return self
 function Animation:clone () end
 ---*  Gets the duration in seconds of the whole animation. It is the result of totalDelayUnits * delayPerUnit.<br>
@@ -35,7 +35,7 @@ function Animation:getDuration () end
 ---@param loops unsigned_int
 ---@return boolean
 function Animation:initWithAnimationFrames (arrayOfAnimationFrameNames,delayPerUnit,loops) end
----*  Initializes a Animation. 
+---*  Initializes a Animation.
 ---@return boolean
 function Animation:init () end
 ---*  Sets the array of AnimationFrames. <br>
@@ -99,12 +99,12 @@ function Animation:addSpriteFrameWithTexture (pobTexture,rect) end
 ---@param loops unsigned_int
 ---@return self
 function Animation:create (arrayOfAnimationFrameNames,delayPerUnit,loops) end
----* 
+---*
 ---@param arrayOfSpriteFrameNames array_table
 ---@param delay float
 ---@param loops unsigned_int
 ---@return self
 function Animation:createWithSpriteFrames (arrayOfSpriteFrameNames,delay,loops) end
----* 
+---*
 ---@return self
 function Animation:Animation () end

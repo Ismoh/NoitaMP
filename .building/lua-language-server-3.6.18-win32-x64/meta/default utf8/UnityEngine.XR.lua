@@ -33,7 +33,7 @@
 ---@source UnityEngine.VRModule.dll
 CS.UnityEngine.XR.GameViewRenderMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.XR.GameViewRenderMode
 function CS.UnityEngine.XR.GameViewRenderMode:__CastFrom(value) end
@@ -128,7 +128,7 @@ CS.UnityEngine.XR.XRSettings = {}
 --```plaintext
 --Params: deviceName - Name of the device from XRSettings.supportedDevices.
 --        prioritizedDeviceNameList - Prioritized list of device names from XRSettings.supportedDevices.
---        
+--
 --```
 --
 ---@source UnityEngine.VRModule.dll
@@ -141,7 +141,7 @@ function CS.UnityEngine.XR.XRSettings:LoadDeviceByName(deviceName) end
 --```plaintext
 --Params: deviceName - Name of the device from XRSettings.supportedDevices.
 --        prioritizedDeviceNameList - Prioritized list of device names from XRSettings.supportedDevices.
---        
+--
 --```
 --
 ---@source UnityEngine.VRModule.dll
@@ -177,7 +177,7 @@ function CS.UnityEngine.XR.XRSettings:LoadDeviceByName(prioritizedDeviceNameList
 ---@source UnityEngine.VRModule.dll
 CS.UnityEngine.XR.StereoRenderingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.XR.XRSettings.StereoRenderingMode
 function CS.UnityEngine.XR.StereoRenderingMode:__CastFrom(value) end
@@ -201,7 +201,7 @@ function CS.UnityEngine.XR.StereoRenderingMode:__CastFrom(value) end
 ---@source UnityEngine.VRModule.dll
 CS.UnityEngine.XR.TrackingSpaceType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.XR.TrackingSpaceType
 function CS.UnityEngine.XR.TrackingSpaceType:__CastFrom(value) end
@@ -251,7 +251,7 @@ function CS.UnityEngine.XR.XRDevice:GetTrackingSpaceType() end
 --
 --```plaintext
 --Params: TrackingSpaceType - The TrackingSpaceType the device should switch to.
---        
+--
 --```
 --
 ---@source UnityEngine.VRModule.dll
@@ -361,7 +361,7 @@ function CS.UnityEngine.XR.InputTracking:remove_nodeRemoved(value) end
 --
 --```plaintext
 --Params: node - Specifies which node's position should be returned.
---        
+--
 --```
 --
 ---@source UnityEngine.XRModule.dll
@@ -374,7 +374,7 @@ function CS.UnityEngine.XR.InputTracking:GetLocalPosition(node) end
 --
 --```plaintext
 --Params: node - Specifies which node's rotation should be returned.
---        
+--
 --```
 --
 ---@source UnityEngine.XRModule.dll
@@ -393,7 +393,7 @@ function CS.UnityEngine.XR.InputTracking:Recenter() end
 --
 --```plaintext
 --Params: uniqueID - The unique identifier for the Node index.
---        
+--
 --```
 --
 ---@source UnityEngine.XRModule.dll
@@ -459,7 +459,7 @@ function CS.UnityEngine.XR.InputTracking:GetNodeStates(nodeStates) end
 ---@source UnityEngine.XRModule.dll
 CS.UnityEngine.XR.XRNode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.XR.XRNode
 function CS.UnityEngine.XR.XRNode:__CastFrom(value) end
@@ -660,7 +660,7 @@ function CS.UnityEngine.XR.HapticCapabilities:op_Inequality(a, b) end
 ---@source UnityEngine.XRModule.dll
 CS.UnityEngine.XR.InputDeviceRole = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.XR.InputDeviceRole
 function CS.UnityEngine.XR.InputDeviceRole:__CastFrom(value) end
@@ -734,7 +734,7 @@ function CS.UnityEngine.XR.InputDeviceRole:__CastFrom(value) end
 ---@source UnityEngine.XRModule.dll
 CS.UnityEngine.XR.InputDeviceCharacteristics = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.XR.InputDeviceCharacteristics
 function CS.UnityEngine.XR.InputDeviceCharacteristics:__CastFrom(value) end
@@ -788,7 +788,7 @@ function CS.UnityEngine.XR.InputDeviceCharacteristics:__CastFrom(value) end
 ---@source UnityEngine.XRModule.dll
 CS.UnityEngine.XR.InputTrackingState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.XR.InputTrackingState
 function CS.UnityEngine.XR.InputTrackingState:__CastFrom(value) end
@@ -1239,7 +1239,7 @@ CS.UnityEngine.XR.InputDevice = {}
 --Params: channel - The channel to receive the impulse.
 --        amplitude - The normalized (0.0 to 1.0) amplitude value of the haptic impulse to play on the device.
 --        duration - The duration in seconds that the haptic impulse will play. Only supported on Oculus.
---        
+--
 --```
 --
 ---@source UnityEngine.XRModule.dll
@@ -1255,7 +1255,7 @@ function CS.UnityEngine.XR.InputDevice.SendHapticImpulse(channel, amplitude, dur
 --```plaintext
 --Params: channel - The channel to receive the data.
 --        buffer - A raw byte buffer that contains the haptic data to send to the device.
---        
+--
 --```
 --
 ---@source UnityEngine.XRModule.dll
@@ -1455,7 +1455,7 @@ function CS.UnityEngine.XR.InputDevice:op_Inequality(a, b) end
 ---@source UnityEngine.XRModule.dll
 CS.UnityEngine.XR.HandFinger = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.XR.HandFinger
 function CS.UnityEngine.XR.HandFinger:__CastFrom(value) end
@@ -1651,7 +1651,7 @@ CS.UnityEngine.XR.InputDevices = {}
 --
 --```plaintext
 --Params: node - The XRNode that owns the requested device.
---        
+--
 --```
 --
 ---@source UnityEngine.XRModule.dll
@@ -1797,7 +1797,7 @@ function CS.UnityEngine.XR.XRDisplaySubsystem.MarkTransformLateLatched(transform
 --Params: point - The position of the focal point in the Scene, relative to the Camera.
 --        normal - Surface normal of the plane being viewed at the focal point.
 --        velocity - A vector that describes how the focus point moves in the Scene at this point in time. This allows the device to compensate for both your head movement and the movement of the object in the Scene.
---        
+--
 --```
 --
 ---@source UnityEngine.XRModule.dll
@@ -1811,7 +1811,7 @@ function CS.UnityEngine.XR.XRDisplaySubsystem.SetFocusPlane(point, normal, veloc
 --
 --```plaintext
 --Params: level - The MSAA level.
---        
+--
 --```
 --
 ---@source UnityEngine.XRModule.dll
@@ -1835,7 +1835,7 @@ function CS.UnityEngine.XR.XRDisplaySubsystem.GetRenderPass(renderPassIndex, ren
 --
 --```plaintext
 --Params: camera - The camera where late latch end recording is to be done.
---        
+--
 --```
 --
 ---@source UnityEngine.XRModule.dll
@@ -1847,7 +1847,7 @@ function CS.UnityEngine.XR.XRDisplaySubsystem.EndRecordingIfLateLatched(camera) 
 --
 --```plaintext
 --Params: camera - The camera where late latch recording is to be enabled.
---        
+--
 --```
 --
 ---@source UnityEngine.XRModule.dll
@@ -1895,7 +1895,7 @@ function CS.UnityEngine.XR.XRDisplaySubsystem.TryGetMotionToPhoton(motionToPhoto
 --
 --```plaintext
 --Params: renderPass - The render pass index to get the render texture for.
---        
+--
 --```
 --
 ---@source UnityEngine.XRModule.dll
@@ -1915,7 +1915,7 @@ function CS.UnityEngine.XR.XRDisplaySubsystem.GetPreferredMirrorBlitMode() end
 --
 --```plaintext
 --Params: blitMode - XRMirrorViewBlitMode to set.
---        
+--
 --```
 --
 ---@source UnityEngine.XRModule.dll
@@ -1942,7 +1942,7 @@ function CS.UnityEngine.XR.XRDisplaySubsystem.GetMirrorViewBlitDesc(mirrorRt, ou
 --Params: cmd - The target CommandBuffer that records the native blit event.
 --        allowGraphicsStateInvalidate - True causes the graphics device to invalidate internal states before and after calling into the provider's native blit. This ensures the GFX internal states' consistency with the cost of some runtime performance.
 --        mode - The XRMirrorViewBlitMode XR display should perform.
---        
+--
 --```
 --
 ---@source UnityEngine.XRModule.dll
@@ -1958,7 +1958,7 @@ function CS.UnityEngine.XR.XRDisplaySubsystem.AddGraphicsThreadMirrorViewBlit(cm
 --Params: cmd - The target CommandBuffer that records the native blit event.
 --        allowGraphicsStateInvalidate - True causes the graphics device to invalidate internal states before and after calling into the provider's native blit. This ensures the GFX internal states' consistency with the cost of some runtime performance.
 --        mode - The XRMirrorViewBlitMode XR display should perform.
---        
+--
 --```
 --
 ---@source UnityEngine.XRModule.dll
@@ -1992,7 +1992,7 @@ function CS.UnityEngine.XR.XRDisplaySubsystem.AddGraphicsThreadMirrorViewBlit(cm
 ---@source UnityEngine.XRModule.dll
 CS.UnityEngine.XR.LateLatchNode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.XR.XRDisplaySubsystem.LateLatchNode
 function CS.UnityEngine.XR.LateLatchNode:__CastFrom(value) end
@@ -2021,7 +2021,7 @@ function CS.UnityEngine.XR.LateLatchNode:__CastFrom(value) end
 ---@source UnityEngine.XRModule.dll
 CS.UnityEngine.XR.TextureLayout = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.XR.XRDisplaySubsystem.TextureLayout
 function CS.UnityEngine.XR.TextureLayout:__CastFrom(value) end
@@ -2055,7 +2055,7 @@ function CS.UnityEngine.XR.TextureLayout:__CastFrom(value) end
 ---@source UnityEngine.XRModule.dll
 CS.UnityEngine.XR.ReprojectionMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.XR.XRDisplaySubsystem.ReprojectionMode
 function CS.UnityEngine.XR.ReprojectionMode:__CastFrom(value) end
@@ -2352,7 +2352,7 @@ function CS.UnityEngine.XR.XRDisplaySubsystemDescriptor.GetMirrorBlitModeByIndex
 ---@source UnityEngine.XRModule.dll
 CS.UnityEngine.XR.TrackingOriginModeFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.XR.TrackingOriginModeFlags
 function CS.UnityEngine.XR.TrackingOriginModeFlags:__CastFrom(value) end
@@ -2518,7 +2518,7 @@ function CS.UnityEngine.XR.MeshId:op_Inequality(id1, id2) end
 ---@source UnityEngine.XRModule.dll
 CS.UnityEngine.XR.MeshGenerationStatus = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.XR.MeshGenerationStatus
 function CS.UnityEngine.XR.MeshGenerationStatus:__CastFrom(value) end
@@ -2617,7 +2617,7 @@ function CS.UnityEngine.XR.MeshGenerationResult.GetHashCode() end
 ---@source UnityEngine.XRModule.dll
 CS.UnityEngine.XR.MeshVertexAttributes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.XR.MeshVertexAttributes
 function CS.UnityEngine.XR.MeshVertexAttributes:__CastFrom(value) end
@@ -2651,7 +2651,7 @@ function CS.UnityEngine.XR.MeshVertexAttributes:__CastFrom(value) end
 ---@source UnityEngine.XRModule.dll
 CS.UnityEngine.XR.MeshChangeState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.XR.MeshChangeState
 function CS.UnityEngine.XR.MeshChangeState:__CastFrom(value) end

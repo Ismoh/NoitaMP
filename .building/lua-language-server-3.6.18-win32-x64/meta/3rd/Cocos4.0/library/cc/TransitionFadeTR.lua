@@ -7,7 +7,7 @@ cc.TransitionFadeTR=TransitionFadeTR
 
 
 
----* 
+---*
 ---@param action cc.ActionInterval
 ---@return cc.ActionInterval
 function TransitionFadeTR:easeActionWithAction (action) end
@@ -25,12 +25,12 @@ function TransitionFadeTR:actionWithSize (size) end
 ---@param scene cc.Scene
 ---@return self
 function TransitionFadeTR:create (t,scene) end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param transform mat4_table
 ---@param flags unsigned_int
 ---@return self
 function TransitionFadeTR:draw (renderer,transform,flags) end
----* 
+---*
 ---@return self
 function TransitionFadeTR:TransitionFadeTR () end

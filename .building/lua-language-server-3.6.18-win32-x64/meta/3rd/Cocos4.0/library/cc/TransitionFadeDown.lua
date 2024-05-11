@@ -15,10 +15,10 @@ cc.TransitionFadeDown=TransitionFadeDown
 ---@param scene cc.Scene
 ---@return self
 function TransitionFadeDown:create (t,scene) end
----* 
+---*
 ---@param size size_table
 ---@return cc.ActionInterval
 function TransitionFadeDown:actionWithSize (size) end
----* 
+---*
 ---@return self
 function TransitionFadeDown:TransitionFadeDown () end

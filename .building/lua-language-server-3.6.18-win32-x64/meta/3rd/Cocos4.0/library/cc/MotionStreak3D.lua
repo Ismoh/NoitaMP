@@ -10,11 +10,11 @@ cc.MotionStreak3D=MotionStreak3D
 ---*  Remove all living segments of the ribbon.
 ---@return self
 function MotionStreak3D:reset () end
----* 
+---*
 ---@param texture cc.Texture2D
 ---@return self
 function MotionStreak3D:setTexture (texture) end
----* 
+---*
 ---@return cc.Texture2D
 function MotionStreak3D:getTexture () end
 ---*  Color used for the tint.<br>
@@ -82,36 +82,36 @@ function MotionStreak3D:create (fade,minSeg,stroke,color,path) end
 ---@param flags unsigned_int
 ---@return self
 function MotionStreak3D:draw (renderer,transform,flags) end
----* 
+---*
 ---@param value boolean
 ---@return self
 function MotionStreak3D:setOpacityModifyRGB (value) end
----* 
+---*
 ---@param y float
 ---@return self
 function MotionStreak3D:setPositionY (y) end
----* 
+---*
 ---@param rotation vec3_table
 ---@return self
 function MotionStreak3D:setRotation3D (rotation) end
----* 
+---*
 ---@param x float
 ---@return self
 function MotionStreak3D:setPositionX (x) end
----* 
+---*
 ---@param position vec3_table
 ---@return self
 function MotionStreak3D:setPosition3D (position) end
----* 
+---*
 ---@return float
 function MotionStreak3D:getPositionY () end
----* 
+---*
 ---@return float
 function MotionStreak3D:getPositionX () end
----* 
+---*
 ---@return vec3_table
 function MotionStreak3D:getPosition3D () end
----* 
+---*
 ---@param opacity unsigned_char
 ---@return self
 function MotionStreak3D:setOpacity (opacity) end
@@ -119,11 +119,11 @@ function MotionStreak3D:setOpacity (opacity) end
 ---@param delta float
 ---@return self
 function MotionStreak3D:update (delta) end
----* 
+---*
 ---@param quat cc.Quaternion
 ---@return self
 function MotionStreak3D:setRotationQuat (quat) end
----* 
+---*
 ---@return unsigned_char
 function MotionStreak3D:getOpacity () end
 ---@overload fun(float:float,float:float):self
@@ -138,9 +138,9 @@ function MotionStreak3D:setPosition (x,y) end
 ---@param y float
 ---@return self
 function MotionStreak3D:getPosition (x,y) end
----* 
+---*
 ---@return boolean
 function MotionStreak3D:isOpacityModifyRGB () end
----* 
+---*
 ---@return self
 function MotionStreak3D:MotionStreak3D () end

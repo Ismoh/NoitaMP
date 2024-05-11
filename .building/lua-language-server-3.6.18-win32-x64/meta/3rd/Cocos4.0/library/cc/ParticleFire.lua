@@ -18,10 +18,10 @@ function ParticleFire:create () end
 ---@param numberOfParticles int
 ---@return self
 function ParticleFire:createWithTotalParticles (numberOfParticles) end
----* 
+---*
 ---@return boolean
 function ParticleFire:init () end
----* 
+---*
 ---@param numberOfParticles int
 ---@return boolean
 function ParticleFire:initWithTotalParticles (numberOfParticles) end

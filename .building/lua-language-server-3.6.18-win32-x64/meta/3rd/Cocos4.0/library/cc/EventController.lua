@@ -20,11 +20,11 @@ function EventController:setConnectStatus (isConnected) end
 ---* return True if it's connected.
 ---@return boolean
 function EventController:isConnected () end
----* 
+---*
 ---@param keyCode int
 ---@return self
 function EventController:setKeyCode (keyCode) end
----* 
+---*
 ---@return cc.Controller
 function EventController:getController () end
 ---*  Gets the key code of the controller.<br>

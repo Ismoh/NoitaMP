@@ -5408,6 +5408,16 @@ unknown
 
 ---
 
+## init
+
+
+```lua
+function init(x: any, y: any)
+```
+
+
+---
+
 ## io
 
 
@@ -5722,7 +5732,7 @@ boolean
 
 ## is_windows
 
-NoitaMP additions 
+NoitaMP additions
 
 
 ```lua
@@ -6533,19 +6543,21 @@ NoitaMpSettings
 
 ## noitaMpSettings.customProfiler
 
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
 
 ```lua
-table
+CustomProfiler
 ```
 
 
 ```lua
-table
+CustomProfiler
 ```
 
 
 ```lua
-table
+CustomProfiler
 ```
 
 
@@ -7338,6 +7350,36 @@ table
 ```
 
  Valid modes for sending messages.
+
+
+---
+
+## spawn_enemy_a
+
+
+```lua
+function spawn_enemy_a(x: any, y: any)
+```
+
+
+---
+
+## spawn_enemy_b
+
+
+```lua
+function spawn_enemy_b(x: any, y: any)
+```
+
+
+---
+
+## spawn_small_enemies
+
+
+```lua
+function spawn_small_enemies()
+```
 
 
 ---

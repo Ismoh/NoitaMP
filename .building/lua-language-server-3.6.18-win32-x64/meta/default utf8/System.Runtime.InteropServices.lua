@@ -19,7 +19,7 @@ CS.System.Runtime.InteropServices.AllowReversePInvokeCallsAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.Architecture = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.Architecture
 function CS.System.Runtime.InteropServices.Architecture:__CastFrom(value) end
@@ -74,7 +74,7 @@ function CS.System.Runtime.InteropServices.ArrayWithOffset:op_Inequality(a, b) e
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.AssemblyRegistrationFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.AssemblyRegistrationFlags
 function CS.System.Runtime.InteropServices.AssemblyRegistrationFlags:__CastFrom(value) end
@@ -157,7 +157,7 @@ CS.System.Runtime.InteropServices.BStrWrapper = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.CALLCONV = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.CALLCONV
 function CS.System.Runtime.InteropServices.CALLCONV:__CastFrom(value) end
@@ -176,7 +176,7 @@ function CS.System.Runtime.InteropServices.CALLCONV:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.CharSet = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.CharSet
 function CS.System.Runtime.InteropServices.CharSet:__CastFrom(value) end
@@ -197,7 +197,7 @@ function CS.System.Runtime.InteropServices.CharSet:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.CallingConvention = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.CallingConvention
 function CS.System.Runtime.InteropServices.CallingConvention:__CastFrom(value) end
@@ -222,7 +222,7 @@ CS.System.Runtime.InteropServices.ClassInterfaceAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.ClassInterfaceType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ClassInterfaceType
 function CS.System.Runtime.InteropServices.ClassInterfaceType:__CastFrom(value) end
@@ -316,7 +316,7 @@ function CS.System.Runtime.InteropServices.ComEventsHelper:Remove(rcw, iid, disp
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.ComInterfaceType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ComInterfaceType
 function CS.System.Runtime.InteropServices.ComInterfaceType:__CastFrom(value) end
@@ -343,7 +343,7 @@ function CS.System.Runtime.InteropServices.COMException.ToString() end
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.ComMemberType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ComMemberType
 function CS.System.Runtime.InteropServices.ComMemberType:__CastFrom(value) end
@@ -423,7 +423,7 @@ CS.System.Runtime.InteropServices.CurrencyWrapper = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.CustomQueryInterfaceMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.CustomQueryInterfaceMode
 function CS.System.Runtime.InteropServices.CustomQueryInterfaceMode:__CastFrom(value) end
@@ -448,7 +448,7 @@ CS.System.Runtime.InteropServices.DefaultDllImportSearchPathsAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.CustomQueryInterfaceResult = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.CustomQueryInterfaceResult
 function CS.System.Runtime.InteropServices.CustomQueryInterfaceResult:__CastFrom(value) end
@@ -471,7 +471,7 @@ function CS.System.Runtime.InteropServices.CustomQueryInterfaceResult:__CastFrom
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.DESCKIND = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.DESCKIND
 function CS.System.Runtime.InteropServices.DESCKIND:__CastFrom(value) end
@@ -558,7 +558,7 @@ CS.System.Runtime.InteropServices.DispIdAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.DllImportSearchPath = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.DllImportSearchPath
 function CS.System.Runtime.InteropServices.DllImportSearchPath:__CastFrom(value) end
@@ -627,7 +627,7 @@ function CS.System.Runtime.InteropServices.ExternalException.ToString() end
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.ExporterEventKind = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ExporterEventKind
 function CS.System.Runtime.InteropServices.ExporterEventKind:__CastFrom(value) end
@@ -722,7 +722,7 @@ CS.System.Runtime.InteropServices.FUNCDESC = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.FUNCFLAGS = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.FUNCFLAGS
 function CS.System.Runtime.InteropServices.FUNCFLAGS:__CastFrom(value) end
@@ -743,7 +743,7 @@ function CS.System.Runtime.InteropServices.FUNCFLAGS:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.FUNCKIND = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.FUNCKIND
 function CS.System.Runtime.InteropServices.FUNCKIND:__CastFrom(value) end
@@ -881,7 +881,7 @@ function CS.System.Runtime.InteropServices.ICustomQueryInterface.GetInterface(ii
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.GCHandleType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.GCHandleType
 function CS.System.Runtime.InteropServices.GCHandleType:__CastFrom(value) end
@@ -914,7 +914,7 @@ CS.System.Runtime.InteropServices.GuidAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.IDispatchImplType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.IDispatchImplType
 function CS.System.Runtime.InteropServices.IDispatchImplType:__CastFrom(value) end
@@ -965,7 +965,7 @@ function CS.System.Runtime.InteropServices.HandleRef:ToIntPtr(value) end
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.IDLFLAG = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.IDLFLAG
 function CS.System.Runtime.InteropServices.IDLFLAG:__CastFrom(value) end
@@ -994,7 +994,7 @@ function CS.System.Runtime.InteropServices.ICustomAdapter.GetUnderlyingObject() 
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.IMPLTYPEFLAGS = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.IMPLTYPEFLAGS
 function CS.System.Runtime.InteropServices.IMPLTYPEFLAGS:__CastFrom(value) end
@@ -1030,7 +1030,7 @@ CS.System.Runtime.InteropServices.ImportedFromTypeLibAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.ImporterEventKind = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ImporterEventKind
 function CS.System.Runtime.InteropServices.ImporterEventKind:__CastFrom(value) end
@@ -1116,7 +1116,7 @@ CS.System.Runtime.InteropServices.InvalidOleVariantTypeException = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.LayoutKind = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.LayoutKind
 function CS.System.Runtime.InteropServices.LayoutKind:__CastFrom(value) end
@@ -1143,7 +1143,7 @@ CS.System.Runtime.InteropServices.LCIDConversionAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.INVOKEKIND = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.INVOKEKIND
 function CS.System.Runtime.InteropServices.INVOKEKIND:__CastFrom(value) end
@@ -1162,7 +1162,7 @@ function CS.System.Runtime.InteropServices.INVOKEKIND:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.LIBFLAGS = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.LIBFLAGS
 function CS.System.Runtime.InteropServices.LIBFLAGS:__CastFrom(value) end
@@ -2350,7 +2350,7 @@ CS.System.Runtime.InteropServices.OptionalAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.PARAMFLAG = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.PARAMFLAG
 function CS.System.Runtime.InteropServices.PARAMFLAG:__CastFrom(value) end
@@ -2421,7 +2421,7 @@ CS.System.Runtime.InteropServices.ProgIdAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.RegistrationClassContext = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.RegistrationClassContext
 function CS.System.Runtime.InteropServices.RegistrationClassContext:__CastFrom(value) end
@@ -2442,7 +2442,7 @@ function CS.System.Runtime.InteropServices.RegistrationClassContext:__CastFrom(v
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.RegistrationConnectionType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.RegistrationConnectionType
 function CS.System.Runtime.InteropServices.RegistrationConnectionType:__CastFrom(value) end
@@ -2737,7 +2737,7 @@ CS.System.Runtime.InteropServices.StructLayoutAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.SYSKIND = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.SYSKIND
 function CS.System.Runtime.InteropServices.SYSKIND:__CastFrom(value) end
@@ -2832,7 +2832,7 @@ CS.System.Runtime.InteropServices.TYPEDESC = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.TYPEFLAGS = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.TYPEFLAGS
 function CS.System.Runtime.InteropServices.TYPEFLAGS:__CastFrom(value) end
@@ -2871,7 +2871,7 @@ CS.System.Runtime.InteropServices.TypeIdentifierAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.TYPEKIND = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.TYPEKIND
 function CS.System.Runtime.InteropServices.TYPEKIND:__CastFrom(value) end
@@ -2949,7 +2949,7 @@ CS.System.Runtime.InteropServices.TypeLibVarAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.TypeLibExporterFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.TypeLibExporterFlags
 function CS.System.Runtime.InteropServices.TypeLibExporterFlags:__CastFrom(value) end
@@ -2986,7 +2986,7 @@ function CS.System.Runtime.InteropServices.TypeLibExporterFlags:__CastFrom(value
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.TypeLibVarFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.TypeLibVarFlags
 function CS.System.Runtime.InteropServices.TypeLibVarFlags:__CastFrom(value) end
@@ -3031,7 +3031,7 @@ CS.System.Runtime.InteropServices.TypeLibFuncAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.TypeLibFuncFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.TypeLibFuncFlags
 function CS.System.Runtime.InteropServices.TypeLibFuncFlags:__CastFrom(value) end
@@ -3078,7 +3078,7 @@ CS.System.Runtime.InteropServices.TypeLibImportClassAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.TypeLibImporterFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.TypeLibImporterFlags
 function CS.System.Runtime.InteropServices.TypeLibImporterFlags:__CastFrom(value) end
@@ -3182,7 +3182,7 @@ function CS.System.Runtime.InteropServices.UCOMIBindCtx.SetBindOptions(pbindopts
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.TypeLibTypeFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.TypeLibTypeFlags
 function CS.System.Runtime.InteropServices.TypeLibTypeFlags:__CastFrom(value) end
@@ -3386,7 +3386,7 @@ function CS.System.Runtime.InteropServices.UCOMIEnumConnections.Skip(celt) end
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.UnmanagedType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.UnmanagedType
 function CS.System.Runtime.InteropServices.UnmanagedType:__CastFrom(value) end
@@ -4248,7 +4248,7 @@ function CS.System.Runtime.InteropServices.UCOMITypeLib.ReleaseTLibAttr(pTLibAtt
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.VARFLAGS = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.VARFLAGS
 function CS.System.Runtime.InteropServices.VARFLAGS:__CastFrom(value) end

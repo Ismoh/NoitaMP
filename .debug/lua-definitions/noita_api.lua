@@ -362,7 +362,7 @@ function GameOnCompleted() end
 ---@param id string
 function GameGiveAchievement(id) end
 function GameDoEnding2() end
----x = 0 normal world, -1 is first west world, +1 is first east world, if y < 0 it is sky, if y > 0 it is hell 
+---x = 0 normal world, -1 is first west world, +1 is first east world, if y < 0 it is sky, if y > 0 it is hell
 ---@param world_pos_x number
 ---@param world_pos_y number
 ---@return number x, number y
@@ -809,7 +809,7 @@ function BiomeMapSetPixel(x, y, color_int) end
 ---@param y number
 ---@return number color
 function BiomeMapGetPixel(x, y) end
----Swaps red and blue channels of 'color'. This can be used make sense of the BiomeMapGetPixel() return values. E.g. if( BiomeMapGetPixel( x, y ) == BiomeMapConvertPixelFromUintToInt( 0xFF36D517 ) ) then print('hills') end 
+---Swaps red and blue channels of 'color'. This can be used make sense of the BiomeMapGetPixel() return values. E.g. if( BiomeMapGetPixel( x, y ) == BiomeMapConvertPixelFromUintToInt( 0xFF36D517 ) ) then print('hills') end
 ---@param color number
 ---@return number
 function BiomeMapConvertPixelFromUintToInt(color) end
@@ -1049,7 +1049,7 @@ function GuiOptionsAddForNextWidget(gui, option) end
 ---@param blue number
 ---@param alpha number
 function GuiColorSetForNextWidget(gui, red, green, blue, alpha) end
----Sets the rendering depth ('z') of the widgets following this call. Larger z = deeper. The z will be set to 0 on the next call to GuiStartFrame(). 
+---Sets the rendering depth ('z') of the widgets following this call. Larger z = deeper. The z will be set to 0 on the next call to GuiStartFrame().
 ---@param gui userdata
 ---@param z number
 function GuiZSet(gui, z) end
@@ -1279,7 +1279,7 @@ function ConvertMaterialEverywhere(material_from_type, material_to_type) end
 function ConvertMaterialOnAreaInstantly(area_x, area_y, area_w, area_h, material_from_type, material_to_type, trim_box2d, update_edge_graphics_dummy) end
 ---@return number
 function GetDailyPracticeRunSeed() end
----Returns true if a mod with the id 'mod_id' is currently active. For example mod_id = "nightmare". 
+---Returns true if a mod with the id 'mod_id' is currently active. For example mod_id = "nightmare".
 ---@param mod_id string
 ---@return boolean
 function ModIsEnabled(mod_id) end

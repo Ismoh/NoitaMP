@@ -14,6 +14,6 @@ cc.TransitionFlipY=TransitionFlipY
 ---@param o int
 ---@return self
 function TransitionFlipY:create (t,s,o) end
----* 
+---*
 ---@return self
 function TransitionFlipY:TransitionFlipY () end

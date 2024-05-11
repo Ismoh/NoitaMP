@@ -43,7 +43,7 @@
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Events.PersistentListenerMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Events.PersistentListenerMode
 function CS.UnityEngine.Events.PersistentListenerMode:__CastFrom(value) end
@@ -72,7 +72,7 @@ function CS.UnityEngine.Events.PersistentListenerMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Events.UnityEventCallState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Events.UnityEventCallState
 function CS.UnityEngine.Events.UnityEventCallState:__CastFrom(value) end
@@ -98,7 +98,7 @@ function CS.UnityEngine.Events.UnityEventBase.GetPersistentEventCount() end
 --
 --```plaintext
 --Params: index - Index of the listener to query.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -111,7 +111,7 @@ function CS.UnityEngine.Events.UnityEventBase.GetPersistentTarget(index) end
 --
 --```plaintext
 --Params: index - Index of the listener to query.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -125,7 +125,7 @@ function CS.UnityEngine.Events.UnityEventBase.GetPersistentMethodName(index) end
 --```plaintext
 --Params: index - Index of the listener to query.
 --        state - State to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -150,7 +150,7 @@ function CS.UnityEngine.Events.UnityEventBase.ToString() end
 --Params: obj - Object to search for the method.
 --        functionName - Function name to search for.
 --        argumentTypes - Argument types for the function.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -167,7 +167,7 @@ function CS.UnityEngine.Events.UnityEventBase:GetValidMethodInfo(obj, functionNa
 --Params: objectType - Object type to search for the method.
 --        functionName - Function name to search for.
 --        argumentTypes - Argument types for the function.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -309,7 +309,7 @@ CS.UnityEngine.Events.UnityEvent = {}
 --
 --```plaintext
 --Params: call - Callback function.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -321,7 +321,7 @@ function CS.UnityEngine.Events.UnityEvent.AddListener(call) end
 --
 --```plaintext
 --Params: call - Callback function.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll

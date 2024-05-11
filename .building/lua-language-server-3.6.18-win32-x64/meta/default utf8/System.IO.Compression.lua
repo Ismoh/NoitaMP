@@ -11,7 +11,7 @@
 ---@source System.dll
 CS.System.IO.Compression.CompressionLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.Compression.CompressionLevel
 function CS.System.IO.Compression.CompressionLevel:__CastFrom(value) end
@@ -26,7 +26,7 @@ function CS.System.IO.Compression.CompressionLevel:__CastFrom(value) end
 ---@source System.dll
 CS.System.IO.Compression.CompressionMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.Compression.CompressionMode
 function CS.System.IO.Compression.CompressionMode:__CastFrom(value) end
@@ -243,7 +243,7 @@ function CS.System.IO.Compression.ZipArchiveEntry.ToString() end
 ---@source System.IO.Compression.dll
 CS.System.IO.Compression.ZipArchiveMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.Compression.ZipArchiveMode
 function CS.System.IO.Compression.ZipArchiveMode:__CastFrom(value) end

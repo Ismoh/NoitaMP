@@ -21,7 +21,7 @@ CS.System.Runtime.Versioning.ComponentGuaranteesAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.Versioning.ComponentGuaranteesOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.Versioning.ComponentGuaranteesOptions
 function CS.System.Runtime.Versioning.ComponentGuaranteesOptions:__CastFrom(value) end
@@ -64,7 +64,7 @@ CS.System.Runtime.Versioning.ResourceExposureAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.Versioning.ResourceScope = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.Versioning.ResourceScope
 function CS.System.Runtime.Versioning.ResourceScope:__CastFrom(value) end

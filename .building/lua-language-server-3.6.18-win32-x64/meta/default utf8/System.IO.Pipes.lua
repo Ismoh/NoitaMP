@@ -144,7 +144,7 @@ function CS.System.IO.Pipes.NamedPipeServerStream.WaitForConnectionAsync(cancell
 ---@source System.Core.dll
 CS.System.IO.Pipes.PipeAccessRights = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.Pipes.PipeAccessRights
 function CS.System.IO.Pipes.PipeAccessRights:__CastFrom(value) end
@@ -177,7 +177,7 @@ CS.System.IO.Pipes.PipeAuditRule = {}
 ---@source System.Core.dll
 CS.System.IO.Pipes.PipeDirection = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.Pipes.PipeDirection
 function CS.System.IO.Pipes.PipeDirection:__CastFrom(value) end
@@ -194,7 +194,7 @@ function CS.System.IO.Pipes.PipeDirection:__CastFrom(value) end
 ---@source System.Core.dll
 CS.System.IO.Pipes.PipeOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.Pipes.PipeOptions
 function CS.System.IO.Pipes.PipeOptions:__CastFrom(value) end
@@ -387,7 +387,7 @@ function CS.System.IO.Pipes.PipeStream.WriteByte(value) end
 ---@source System.Core.dll
 CS.System.IO.Pipes.PipeTransmissionMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.Pipes.PipeTransmissionMode
 function CS.System.IO.Pipes.PipeTransmissionMode:__CastFrom(value) end

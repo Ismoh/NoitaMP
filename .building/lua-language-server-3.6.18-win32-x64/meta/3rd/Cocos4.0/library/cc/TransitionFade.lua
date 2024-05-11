@@ -21,6 +21,6 @@ function TransitionFade:initWithDuration (t,scene,color) end
 ---@param color color3b_table
 ---@return self
 function TransitionFade:create (duration,scene,color) end
----* 
+---*
 ---@return self
 function TransitionFade:TransitionFade () end

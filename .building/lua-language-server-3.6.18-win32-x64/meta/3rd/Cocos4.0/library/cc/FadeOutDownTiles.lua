@@ -15,14 +15,14 @@ cc.FadeOutDownTiles=FadeOutDownTiles
 ---@param gridSize size_table
 ---@return self
 function FadeOutDownTiles:create (duration,gridSize) end
----* 
+---*
 ---@return self
 function FadeOutDownTiles:clone () end
----* 
+---*
 ---@param pos size_table
 ---@param time float
 ---@return float
 function FadeOutDownTiles:testFunc (pos,time) end
----* 
+---*
 ---@return self
 function FadeOutDownTiles:FadeOutDownTiles () end

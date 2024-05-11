@@ -21,6 +21,6 @@ function TransitionCrossFade:create (t,scene) end
 ---@param flags unsigned_int
 ---@return self
 function TransitionCrossFade:draw (renderer,transform,flags) end
----* 
+---*
 ---@return self
 function TransitionCrossFade:TransitionCrossFade () end

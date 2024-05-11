@@ -33,7 +33,7 @@ function CS.UnityEngine.Timeline.ActivationTrack.GatherProperties(director, driv
 ---@source Unity.Timeline.dll
 CS.UnityEngine.Timeline.PostPlaybackState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Timeline.ActivationTrack.PostPlaybackState
 function CS.UnityEngine.Timeline.PostPlaybackState:__CastFrom(value) end
@@ -97,7 +97,7 @@ function CS.UnityEngine.Timeline.AnimationPlayableAsset.GatherProperties(directo
 ---@source Unity.Timeline.dll
 CS.UnityEngine.Timeline.LoopMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Timeline.AnimationPlayableAsset.LoopMode
 function CS.UnityEngine.Timeline.LoopMode:__CastFrom(value) end
@@ -120,7 +120,7 @@ function CS.UnityEngine.Timeline.LoopMode:__CastFrom(value) end
 ---@source Unity.Timeline.dll
 CS.UnityEngine.Timeline.MatchTargetFields = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Timeline.MatchTargetFields
 function CS.UnityEngine.Timeline.MatchTargetFields:__CastFrom(value) end
@@ -137,7 +137,7 @@ function CS.UnityEngine.Timeline.MatchTargetFields:__CastFrom(value) end
 ---@source Unity.Timeline.dll
 CS.UnityEngine.Timeline.TrackOffset = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Timeline.TrackOffset
 function CS.UnityEngine.Timeline.TrackOffset:__CastFrom(value) end
@@ -363,7 +363,7 @@ function CS.UnityEngine.Timeline.TimelineClip.ConformEaseValues() end
 ---@source Unity.Timeline.dll
 CS.UnityEngine.Timeline.ClipExtrapolation = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Timeline.TimelineClip.ClipExtrapolation
 function CS.UnityEngine.Timeline.ClipExtrapolation:__CastFrom(value) end
@@ -378,7 +378,7 @@ function CS.UnityEngine.Timeline.ClipExtrapolation:__CastFrom(value) end
 ---@source Unity.Timeline.dll
 CS.UnityEngine.Timeline.BlendCurveMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Timeline.TimelineClip.BlendCurveMode
 function CS.UnityEngine.Timeline.BlendCurveMode:__CastFrom(value) end
@@ -491,7 +491,7 @@ function CS.UnityEngine.Timeline.TimelineAsset.DeleteTrack(track) end
 ---@source Unity.Timeline.dll
 CS.UnityEngine.Timeline.MediaType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Timeline.TimelineAsset.MediaType
 function CS.UnityEngine.Timeline.MediaType:__CastFrom(value) end
@@ -506,7 +506,7 @@ function CS.UnityEngine.Timeline.MediaType:__CastFrom(value) end
 ---@source Unity.Timeline.dll
 CS.UnityEngine.Timeline.DurationMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Timeline.TimelineAsset.DurationMode
 function CS.UnityEngine.Timeline.DurationMode:__CastFrom(value) end
@@ -696,7 +696,7 @@ function CS.UnityEngine.Timeline.AudioTrack.CreateClip(clip) end
 ---@source Unity.Timeline.dll
 CS.UnityEngine.Timeline.ClipCaps = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Timeline.ClipCaps
 function CS.UnityEngine.Timeline.ClipCaps:__CastFrom(value) end
@@ -932,7 +932,7 @@ function CS.UnityEngine.Timeline.ILayerable.CreateLayerMixer(graph, go, inputCou
 ---@source Unity.Timeline.dll
 CS.UnityEngine.Timeline.PostPlaybackState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Timeline.ActivationControlPlayable.PostPlaybackState
 function CS.UnityEngine.Timeline.PostPlaybackState:__CastFrom(value) end
@@ -1057,7 +1057,7 @@ function CS.UnityEngine.Timeline.ITimeControl.OnControlTimeStop() end
 ---@source Unity.Timeline.dll
 CS.UnityEngine.Timeline.NotificationFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Timeline.NotificationFlags
 function CS.UnityEngine.Timeline.NotificationFlags:__CastFrom(value) end
@@ -1244,7 +1244,7 @@ CS.UnityEngine.Timeline.NotKeyableAttribute = {}
 ---@source Unity.Timeline.dll
 CS.UnityEngine.Timeline.TrackBindingFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Timeline.TrackBindingFlags
 function CS.UnityEngine.Timeline.TrackBindingFlags:__CastFrom(value) end

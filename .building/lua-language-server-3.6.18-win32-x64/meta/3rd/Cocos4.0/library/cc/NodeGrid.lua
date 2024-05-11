@@ -35,12 +35,12 @@ function NodeGrid:getGridRect () end
 ---@param rect rect_table
 ---@return self
 function NodeGrid:create (rect) end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param parentTransform mat4_table
 ---@param parentFlags unsigned_int
 ---@return self
 function NodeGrid:visit (renderer,parentTransform,parentFlags) end
----* 
+---*
 ---@return self
 function NodeGrid:NodeGrid () end

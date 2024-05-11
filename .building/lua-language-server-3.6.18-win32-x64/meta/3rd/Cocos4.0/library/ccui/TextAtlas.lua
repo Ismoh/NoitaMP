@@ -22,7 +22,7 @@ function TextAtlas:getString () end
 ---@param value string
 ---@return self
 function TextAtlas:setString (value) end
----* 
+---*
 ---@return cc.ResourceData
 function TextAtlas:getRenderFile () end
 ---*  Initializes the LabelAtlas with a string, a char map file(the atlas), the width and height of each element and the starting char of the atlas.<br>
@@ -50,16 +50,16 @@ function TextAtlas:adaptRenderers () end
 ---@param startCharMap string
 ---@return self
 function TextAtlas:create (stringValue,charMapFile,itemWidth,itemHeight,startCharMap) end
----* 
+---*
 ---@return cc.Ref
 function TextAtlas:createInstance () end
----* 
+---*
 ---@return cc.Node
 function TextAtlas:getVirtualRenderer () end
 ---* Returns the "class name" of widget.
 ---@return string
 function TextAtlas:getDescription () end
----* 
+---*
 ---@return size_table
 function TextAtlas:getVirtualRendererSize () end
 ---* Default constructor.<br>

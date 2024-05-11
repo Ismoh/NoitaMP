@@ -42,7 +42,7 @@ function DrawNode:drawRect (p1,p2,p3,p4,color) end
 ---@param color color4f_table
 ---@return self
 function DrawNode:drawSolidCircle (center,radius,angle,segments,scaleX,scaleY,color) end
----* 
+---*
 ---@param lineWidth float
 ---@return self
 function DrawNode:setLineWidth (lineWidth) end
@@ -116,7 +116,7 @@ function DrawNode:drawTriangle (p1,p2,p3,color) end
 ---@param blendFunc cc.BlendFunc
 ---@return self
 function DrawNode:setBlendFunc (blendFunc) end
----*  Clear the geometry in the node's buffer. 
+---*  Clear the geometry in the node's buffer.
 ---@return self
 function DrawNode:clear () end
 ---*  Draws a solid rectangle given the origin and destination point measured in points.<br>
@@ -130,7 +130,7 @@ function DrawNode:clear () end
 ---@param color color4f_table
 ---@return self
 function DrawNode:drawSolidRect (origin,destination,color) end
----* 
+---*
 ---@return float
 function DrawNode:getLineWidth () end
 ---*  Draw a point.<br>
@@ -143,7 +143,7 @@ function DrawNode:getLineWidth () end
 ---@param color color4f_table
 ---@return self
 function DrawNode:drawPoint (point,pointSize,color) end
----* 
+---*
 ---@return boolean
 function DrawNode:isIsolated () end
 ---*  Draw a cubic bezier curve with color and number of segments<br>
@@ -165,21 +165,21 @@ function DrawNode:drawCubicBezier (origin,control1,control2,destination,segments
 ---* return Return an autorelease object.
 ---@return self
 function DrawNode:create () end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param transform mat4_table
 ---@param flags unsigned_int
 ---@return self
 function DrawNode:draw (renderer,transform,flags) end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param parentTransform mat4_table
 ---@param parentFlags unsigned_int
 ---@return self
 function DrawNode:visit (renderer,parentTransform,parentFlags) end
----* 
+---*
 ---@return boolean
 function DrawNode:init () end
----* 
+---*
 ---@return self
 function DrawNode:DrawNode () end

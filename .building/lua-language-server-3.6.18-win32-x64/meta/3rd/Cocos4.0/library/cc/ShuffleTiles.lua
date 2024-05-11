@@ -17,7 +17,7 @@ cc.ShuffleTiles=ShuffleTiles
 ---@param seed unsigned_int
 ---@return boolean
 function ShuffleTiles:initWithDuration (duration,gridSize,seed) end
----* 
+---*
 ---@param pos size_table
 ---@return size_table
 function ShuffleTiles:getDelta (pos) end
@@ -31,17 +31,17 @@ function ShuffleTiles:getDelta (pos) end
 ---@param seed unsigned_int
 ---@return self
 function ShuffleTiles:create (duration,gridSize,seed) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function ShuffleTiles:startWithTarget (target) end
----* 
+---*
 ---@return self
 function ShuffleTiles:clone () end
----* 
+---*
 ---@param time float
 ---@return self
 function ShuffleTiles:update (time) end
----* 
+---*
 ---@return self
 function ShuffleTiles:ShuffleTiles () end

@@ -31,13 +31,13 @@ function Shaky3D:initWithDuration (duration,gridSize,range,shakeZ) end
 ---@param shakeZ boolean
 ---@return self
 function Shaky3D:create (initWithDuration,gridSize,range,shakeZ) end
----* 
+---*
 ---@return self
 function Shaky3D:clone () end
----* 
+---*
 ---@param time float
 ---@return self
 function Shaky3D:update (time) end
----* 
+---*
 ---@return self
 function Shaky3D:Shaky3D () end

@@ -133,7 +133,7 @@ CS.UnityEngine.Experimental.AI.NavMeshLocation = {}
 ---@source UnityEngine.AIModule.dll
 CS.UnityEngine.Experimental.AI.PathQueryStatus = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Experimental.AI.PathQueryStatus
 function CS.UnityEngine.Experimental.AI.PathQueryStatus:__CastFrom(value) end
@@ -157,7 +157,7 @@ function CS.UnityEngine.Experimental.AI.PathQueryStatus:__CastFrom(value) end
 ---@source UnityEngine.AIModule.dll
 CS.UnityEngine.Experimental.AI.NavMeshPolyTypes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Experimental.AI.NavMeshPolyTypes
 function CS.UnityEngine.Experimental.AI.NavMeshPolyTypes:__CastFrom(value) end
@@ -190,7 +190,7 @@ function CS.UnityEngine.Experimental.AI.NavMeshWorld:GetDefaultWorld() end
 --
 --```plaintext
 --Params: job - The job that needs to be completed before the NavMesh world can be modified in any way.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -241,7 +241,7 @@ function CS.UnityEngine.Experimental.AI.NavMeshQuery.GetPathResult(path) end
 --
 --```plaintext
 --Params: polygon - Identifier of the NavMesh node to be checked.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -254,7 +254,7 @@ function CS.UnityEngine.Experimental.AI.NavMeshQuery.IsValid(polygon) end
 --
 --```plaintext
 --Params: location - Location on the NavMesh to be checked. Same as checking location.polygon directly.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -267,7 +267,7 @@ function CS.UnityEngine.Experimental.AI.NavMeshQuery.IsValid(location) end
 --
 --```plaintext
 --Params: polygon - Identifier of a node from a NavMesh surface or link.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -281,7 +281,7 @@ function CS.UnityEngine.Experimental.AI.NavMeshQuery.GetAgentTypeIdForPolygon(po
 --```plaintext
 --Params: position - World position of the NavMeshLocation to be created.
 --        polygon - Valid identifier for the NavMesh node.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -300,7 +300,7 @@ function CS.UnityEngine.Experimental.AI.NavMeshQuery.CreateLocation(position, po
 --        extents - Maximum distance, from the specified position, expanding along all three axes, within which NavMesh surfaces are searched.
 --        agentTypeID - Identifier for the agent type whose NavMesh surfaces should be selected for this operation. The Humanoid agent type exists for all NavMeshes and has an ID of 0. Other agent types can be defined manually through the Editor. A separate NavMesh surface needs to be baked for each agent type.
 --        areaMask - Bitmask used to represent areas of the NavMesh that should (value of 1) or shouldn't (values of 0) be sampled. This parameter is optional and defaults to NavMesh.AllAreas if unspecified. See Also:.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -332,7 +332,7 @@ function CS.UnityEngine.Experimental.AI.NavMeshQuery.MoveLocationsInSameAreas(lo
 --Params: location - Position to be moved across the NavMesh surface.
 --        target - World position you require the agent to move to.
 --        areaMask - Bitmask with values of 1 set at the indices corresponding to areas that can be traversed, and with values of 0 for areas that should not be traversed. This parameter can be omitted, in which case it defaults to NavMesh.AllAreas. See Also:.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -357,7 +357,7 @@ function CS.UnityEngine.Experimental.AI.NavMeshQuery.GetPortalPoints(polygon, ne
 --
 --```plaintext
 --Params: polygon - NavMesh node for which its owner's transform must be determined.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -372,7 +372,7 @@ function CS.UnityEngine.Experimental.AI.NavMeshQuery.PolygonLocalToWorldMatrix(p
 --
 --```plaintext
 --Params: polygon - NavMesh node for which its owner's inverse transform must be determined.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -387,7 +387,7 @@ function CS.UnityEngine.Experimental.AI.NavMeshQuery.PolygonWorldToLocalMatrix(p
 --
 --```plaintext
 --Params: polygon - Identifier of a node from a NavMesh surface or link.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll

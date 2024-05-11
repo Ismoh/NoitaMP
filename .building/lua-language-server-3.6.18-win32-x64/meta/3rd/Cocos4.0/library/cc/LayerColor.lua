@@ -52,19 +52,19 @@ function LayerColor:changeHeight (h) end
 ---@param height float
 ---@return self
 function LayerColor:create (color,width,height) end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param transform mat4_table
 ---@param flags unsigned_int
 ---@return self
 function LayerColor:draw (renderer,transform,flags) end
----* 
+---*
 ---@return boolean
 function LayerColor:init () end
----* 
+---*
 ---@param var size_table
 ---@return self
 function LayerColor:setContentSize (var) end
----* 
+---*
 ---@return self
 function LayerColor:LayerColor () end

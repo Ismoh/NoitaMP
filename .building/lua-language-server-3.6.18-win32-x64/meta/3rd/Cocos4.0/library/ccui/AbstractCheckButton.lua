@@ -7,10 +7,10 @@ ccui.AbstractCheckButton=AbstractCheckButton
 
 
 
----* 
+---*
 ---@return cc.ResourceData
 function AbstractCheckButton:getCrossDisabledFile () end
----* 
+---*
 ---@return cc.ResourceData
 function AbstractCheckButton:getBackDisabledFile () end
 ---* Load background selected state texture for check button.<br>
@@ -27,7 +27,7 @@ function AbstractCheckButton:loadTextureBackGroundSelected (backGroundSelected,t
 ---@param texType int
 ---@return self
 function AbstractCheckButton:loadTextureBackGroundDisabled (backGroundDisabled,texType) end
----* 
+---*
 ---@return cc.ResourceData
 function AbstractCheckButton:getCrossNormalFile () end
 ---* Change CheckBox state.<br>
@@ -36,7 +36,7 @@ function AbstractCheckButton:getCrossNormalFile () end
 ---@param selected boolean
 ---@return self
 function AbstractCheckButton:setSelected (selected) end
----* 
+---*
 ---@return cc.ResourceData
 function AbstractCheckButton:getBackPressedFile () end
 ---* brief Return the sprite instance of front cross when disabled<br>
@@ -62,7 +62,7 @@ function AbstractCheckButton:getRendererBackgroundDisabled () end
 ---* return true means "selected", false otherwise.
 ---@return boolean
 function AbstractCheckButton:isSelected () end
----* 
+---*
 ---@param backGround string
 ---@param backGroundSelected string
 ---@param cross string
@@ -71,7 +71,7 @@ function AbstractCheckButton:isSelected () end
 ---@param texType int
 ---@return boolean
 function AbstractCheckButton:init (backGround,backGroundSelected,cross,backGroundDisabled,frontCrossDisabled,texType) end
----* 
+---*
 ---@return cc.ResourceData
 function AbstractCheckButton:getBackNormalFile () end
 ---* Load all textures for initializing a check button.<br>
@@ -122,12 +122,12 @@ function AbstractCheckButton:setZoomScale (scale) end
 ---@param texType int
 ---@return self
 function AbstractCheckButton:loadTextureFrontCrossDisabled (frontCrossDisabled,texType) end
----* 
+---*
 ---@return cc.Node
 function AbstractCheckButton:getVirtualRenderer () end
----* 
+---*
 ---@return boolean
 function AbstractCheckButton:init () end
----* 
+---*
 ---@return size_table
 function AbstractCheckButton:getVirtualRendererSize () end

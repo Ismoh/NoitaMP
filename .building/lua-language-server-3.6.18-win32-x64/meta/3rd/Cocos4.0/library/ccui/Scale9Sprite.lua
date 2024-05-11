@@ -119,7 +119,7 @@ function Scale9Sprite:setScale9Enabled (enabled) end
 ---* js NA
 ---@return boolean
 function Scale9Sprite:isScale9Enabled () end
----* 
+---*
 ---@return self
 function Scale9Sprite:resetRender () end
 ---* Return the slice sprite rendering type.
@@ -215,7 +215,7 @@ function Scale9Sprite:initWithSpriteFrameName (spriteFrameName) end
 ---@param rect rect_table
 ---@return boolean
 function Scale9Sprite:initWithFile (file,rect) end
----* 
+---*
 ---@return boolean
 function Scale9Sprite:init () end
 ---* Default constructor.<br>

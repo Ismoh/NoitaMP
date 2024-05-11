@@ -420,7 +420,7 @@ CS.System.Net.Configuration.SocketElement = {}
 ---@source System.dll
 CS.System.Net.Configuration.UnicodeDecodingConformance = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Configuration.UnicodeDecodingConformance
 function CS.System.Net.Configuration.UnicodeDecodingConformance:__CastFrom(value) end
@@ -447,7 +447,7 @@ CS.System.Net.Configuration.WebRequestModuleElement = {}
 ---@source System.dll
 CS.System.Net.Configuration.UnicodeEncodingConformance = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Configuration.UnicodeEncodingConformance
 function CS.System.Net.Configuration.UnicodeEncodingConformance:__CastFrom(value) end
@@ -506,7 +506,7 @@ function CS.System.Net.Configuration.WebRequestModuleElementCollection.RemoveAt(
 ---@source System.dll
 CS.System.Net.Configuration.AutoDetectValues = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Configuration.ProxyElement.AutoDetectValues
 function CS.System.Net.Configuration.AutoDetectValues:__CastFrom(value) end
@@ -531,7 +531,7 @@ CS.System.Net.Configuration.WebRequestModulesSection = {}
 ---@source System.dll
 CS.System.Net.Configuration.BypassOnLocalValues = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Configuration.ProxyElement.BypassOnLocalValues
 function CS.System.Net.Configuration.BypassOnLocalValues:__CastFrom(value) end
@@ -558,7 +558,7 @@ CS.System.Net.Configuration.WebUtilityElement = {}
 ---@source System.dll
 CS.System.Net.Configuration.UseSystemDefaultValues = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Configuration.ProxyElement.UseSystemDefaultValues
 function CS.System.Net.Configuration.UseSystemDefaultValues:__CastFrom(value) end

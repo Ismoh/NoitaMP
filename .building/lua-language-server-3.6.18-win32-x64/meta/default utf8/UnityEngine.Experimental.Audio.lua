@@ -134,7 +134,7 @@ function CS.UnityEngine.Experimental.Audio.AudioSampleProvider.ClearSampleFrames
 --Params: providerId - Id of the provider. See Experimental.Audio.AudioSampleProvider.id.
 --        interleavedSampleFrames - Pointer to the sample frames buffer to fill. The actual C type is float*.
 --        sampleFrameCount - Number of sample frames that can be written into interleavedSampleFrames.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -170,7 +170,7 @@ function CS.UnityEngine.Experimental.Audio.ConsumeSampleFramesNativeFunction.End
 --```plaintext
 --Params: provider - Provider emitting the event.
 --        sampleFrameCount - How many sample frames are available, or were dropped, depending on the event.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -203,7 +203,7 @@ function CS.UnityEngine.Experimental.Audio.SampleFramesHandler.EndInvoke(result)
 --Params: userData - User data specified when the handler was set. The actual C type is void*.
 --        providerId - Id of the provider. See Experimental.Audio.AudioSampleProvider.id.
 --        sampleFrameCount - Number of sample frames available or overflowed, depending on event type.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll

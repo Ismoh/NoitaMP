@@ -37,6 +37,6 @@ function Physics3DPointToPointConstraint:setPivotPointInB (pivotB) end
 ---@param pivotPointInB vec3_table
 ---@return self
 function Physics3DPointToPointConstraint:create (rbA,rbB,pivotPointInA,pivotPointInB) end
----* 
+---*
 ---@return self
 function Physics3DPointToPointConstraint:Physics3DPointToPointConstraint () end

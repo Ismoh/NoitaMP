@@ -16,16 +16,16 @@ cc.ScaleBy=ScaleBy
 ---@param sz float
 ---@return self
 function ScaleBy:create (duration,sx,sy,sz) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function ScaleBy:startWithTarget (target) end
----* 
+---*
 ---@return self
 function ScaleBy:clone () end
----* 
+---*
 ---@return self
 function ScaleBy:reverse () end
----* 
+---*
 ---@return self
 function ScaleBy:ScaleBy () end

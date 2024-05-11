@@ -23,37 +23,37 @@ local md5 = {
       SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     ]]
   }
-  
+
   -- bit lib implementions
-  
+
   local char, byte, format, rep, sub =
     string.char, string.byte, string.format, string.rep, string.sub
   local bit_or, bit_and, bit_not, bit_xor, bit_rshift, bit_lshift
-  
+
   local ok, bit = pcall(require, 'bit')
   local ok_ffi, ffi = pcall(require, 'ffi')
   if ok then
     bit_or, bit_and, bit_not, bit_xor, bit_rshift, bit_lshift = bit.bor, bit.band, bit.bnot, bit.bxor, bit.rshift, bit.lshift
   else
     ok, bit = pcall(require, 'bit32')
-  
+
     if ok then
-  
+
       bit_not = bit.bnot
-  
+
       local tobit = function(n)
         return n <= 0x7fffffff and n or -(bit_not(n) + 1)
       end
-  
+
       local normalize = function(f)
         return function(a,b) return tobit(f(tobit(a), tobit(b))) end
       end
-  
+
       bit_or, bit_and, bit_xor = normalize(bit.bor), normalize(bit.band), normalize(bit.bxor)
       bit_rshift, bit_lshift = normalize(bit.rshift), normalize(bit.lshift)
-  
+
     else
-  
+
       local function tbl2number(tbl)
         local result = 0
         local power = 1
@@ -63,7 +63,7 @@ local md5 = {
         end
         return result
       end
-  
+
       local function expand(t1, t2)
         local big, small = t1, t2
         if(#big < #small) then
@@ -74,9 +74,9 @@ local md5 = {
           small[i] = 0
         end
       end
-  
+
       local to_bits -- needs to be declared before bit_not
-  
+
       bit_not = function(n)
         local tbl = to_bits(n)
         local size = math.max(#tbl, 32)
@@ -89,7 +89,7 @@ local md5 = {
         end
         return tbl2number(tbl)
       end
-  
+
       -- defined as local above
       to_bits = function (n)
         if(n < 0) then
@@ -106,15 +106,15 @@ local md5 = {
           n         = (n-last)/2
           cnt       = cnt + 1
         end
-  
+
         return tbl
       end
-  
+
       bit_or = function(m, n)
         local tbl_m = to_bits(m)
         local tbl_n = to_bits(n)
         expand(tbl_m, tbl_n)
-  
+
         local tbl = {}
         for i = 1, #tbl_m do
           if(tbl_m[i]== 0 and tbl_n[i] == 0) then
@@ -123,15 +123,15 @@ local md5 = {
             tbl[i] = 1
           end
         end
-  
+
         return tbl2number(tbl)
       end
-  
+
       bit_and = function(m, n)
         local tbl_m = to_bits(m)
         local tbl_n = to_bits(n)
         expand(tbl_m, tbl_n)
-  
+
         local tbl = {}
         for i = 1, #tbl_m do
           if(tbl_m[i]== 0 or tbl_n[i] == 0) then
@@ -140,15 +140,15 @@ local md5 = {
             tbl[i] = 1
           end
         end
-  
+
         return tbl2number(tbl)
       end
-  
+
       bit_xor = function(m, n)
         local tbl_m = to_bits(m)
         local tbl_n = to_bits(n)
         expand(tbl_m, tbl_n)
-  
+
         local tbl = {}
         for i = 1, #tbl_m do
           if(tbl_m[i] ~= tbl_n[i]) then
@@ -157,10 +157,10 @@ local md5 = {
             tbl[i] = 0
           end
         end
-  
+
         return tbl2number(tbl)
       end
-  
+
       bit_rshift = function(n, bits)
         local high_bit = 0
         if(n < 0) then
@@ -168,22 +168,22 @@ local md5 = {
           n = bit_not(math.abs(n)) + 1
           high_bit = 0x80000000
         end
-  
+
         local floor = math.floor
-  
+
         for i=1, bits do
           n = n/2
           n = bit_or(floor(n), high_bit)
         end
         return floor(n)
       end
-  
+
       bit_lshift = function(n, bits)
         if(n < 0) then
           -- negative
           n = bit_not(math.abs(n)) + 1
         end
-  
+
         for i=1, bits do
           n = n*2
         end
@@ -191,7 +191,7 @@ local md5 = {
       end
     end
   end
-  
+
   -- convert little-endian 32-bit int to a 4-char string
   local lei2str
   -- function is defined this way to allow full jit compilation (removing UCLO instruction in LuaJIT)
@@ -204,9 +204,9 @@ local md5 = {
       return f(0)..f(8)..f(16)..f(24)
     end
   end
-  
-  
-  
+
+
+
   -- convert raw string to big-endian int
   local function str2bei(s)
     local v=0
@@ -215,10 +215,10 @@ local md5 = {
     end
     return v
   end
-  
+
   -- convert raw string to little-endian int
   local str2lei
-  
+
   if ok_ffi then
     local ct_constcharptr = ffi.typeof("const char*")
     local ct_constintptr = ffi.typeof("const int*")
@@ -235,8 +235,8 @@ local md5 = {
       return v
       end
   end
-  
-  
+
+
   -- cut up a string in little-endian ints of given size
   local function cut_le_str(s)
     return {
@@ -258,10 +258,10 @@ local md5 = {
       str2lei(sub(s, 61, 64)),
     }
   end
-  
+
   -- An MD5 mplementation in Lua, requires bitlib (hacked to use LuaBit from above, ugh)
   -- 10/02/2001 jcw@equi4.com
-  
+
   local CONSTS = {
     0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee,
     0xf57c0faf, 0x4787c62a, 0xa8304613, 0xfd469501,
@@ -281,7 +281,7 @@ local md5 = {
     0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391,
     0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476
   }
-  
+
   local f=function (x,y,z) return bit_or(bit_and(x,y),bit_and(-x-1,z)) end
   local g=function (x,y,z) return bit_or(bit_and(x,z),bit_and(y,-z-1)) end
   local h=function (x,y,z) return bit_xor(x,bit_xor(y,z)) end
@@ -291,11 +291,11 @@ local md5 = {
     -- be *very* careful that left shift does not cause rounding!
     return bit_or(bit_lshift(bit_and(a,bit_rshift(0xFFFFFFFF,s)),s),bit_rshift(a,32-s))+b
   end
-  
+
   local function transform(A,B,C,D,X)
     local a,b,c,d=A,B,C,D
     local t=CONSTS
-  
+
     a=z(f,a,b,c,d,X[ 0], 7,t[ 1])
     d=z(f,d,a,b,c,X[ 1],12,t[ 2])
     c=z(f,c,d,a,b,X[ 2],17,t[ 3])
@@ -312,7 +312,7 @@ local md5 = {
     d=z(f,d,a,b,c,X[13],12,t[14])
     c=z(f,c,d,a,b,X[14],17,t[15])
     b=z(f,b,c,d,a,X[15],22,t[16])
-  
+
     a=z(g,a,b,c,d,X[ 1], 5,t[17])
     d=z(g,d,a,b,c,X[ 6], 9,t[18])
     c=z(g,c,d,a,b,X[11],14,t[19])
@@ -329,7 +329,7 @@ local md5 = {
     d=z(g,d,a,b,c,X[ 2], 9,t[30])
     c=z(g,c,d,a,b,X[ 7],14,t[31])
     b=z(g,b,c,d,a,X[12],20,t[32])
-  
+
     a=z(h,a,b,c,d,X[ 5], 4,t[33])
     d=z(h,d,a,b,c,X[ 8],11,t[34])
     c=z(h,c,d,a,b,X[11],16,t[35])
@@ -346,7 +346,7 @@ local md5 = {
     d=z(h,d,a,b,c,X[12],11,t[46])
     c=z(h,c,d,a,b,X[15],16,t[47])
     b=z(h,b,c,d,a,X[ 2],23,t[48])
-  
+
     a=z(i,a,b,c,d,X[ 0], 6,t[49])
     d=z(i,d,a,b,c,X[ 7],10,t[50])
     c=z(i,c,d,a,b,X[14],15,t[51])
@@ -363,13 +363,13 @@ local md5 = {
     d=z(i,d,a,b,c,X[11],10,t[62])
     c=z(i,c,d,a,b,X[ 2],15,t[63])
     b=z(i,b,c,d,a,X[ 9],21,t[64])
-  
+
     return bit_and(A+a,0xFFFFFFFF),bit_and(B+b,0xFFFFFFFF),
            bit_and(C+c,0xFFFFFFFF),bit_and(D+d,0xFFFFFFFF)
   end
-  
+
   ----------------------------------------------------------------
-  
+
   local function md5_update(self, s)
     self.pos = self.pos + #s
     s = self.buf .. s
@@ -382,24 +382,24 @@ local md5 = {
     self.buf = sub(s, math.floor(#s/64)*64 + 1, #s)
     return self
   end
-  
+
   local function md5_finish(self)
     local msgLen = self.pos
     local padLen = 56 - msgLen % 64
-  
+
     if msgLen % 64 > 56 then padLen = padLen + 64 end
-  
+
     if padLen == 0 then padLen = 64 end
-  
+
     local s = char(128) .. rep(char(0),padLen-1) .. lei2str(bit_and(8*msgLen, 0xFFFFFFFF)) .. lei2str(math.floor(msgLen/0x20000000))
     md5_update(self, s)
-  
+
     assert(self.pos % 64 == 0)
     return lei2str(self.a) .. lei2str(self.b) .. lei2str(self.c) .. lei2str(self.d)
   end
-  
+
   ----------------------------------------------------------------
-  
+
   function md5.new()
     return { a = CONSTS[65], b = CONSTS[66], c = CONSTS[67], d = CONSTS[68],
              pos = 0,
@@ -407,15 +407,15 @@ local md5 = {
              update = md5_update,
              finish = md5_finish }
   end
-  
+
   function md5.tohex(s)
     return format("%08x%08x%08x%08x", str2bei(sub(s, 1, 4)), str2bei(sub(s, 5, 8)), str2bei(sub(s, 9, 12)), str2bei(sub(s, 13, 16)))
   end
-  
+
   function md5.sum(s)
     return md5.new():update(s):finish()
   end
-  
+
   function md5.sumhexa(s)
     return md5.tohex(md5.sum(s))
   end

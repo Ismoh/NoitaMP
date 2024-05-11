@@ -7,11 +7,11 @@ ccs.ComRender=ComRender
 
 
 
----* 
+---*
 ---@param node cc.Node
 ---@return self
 function ComRender:setNode (node) end
----* 
+---*
 ---@return cc.Node
 function ComRender:getNode () end
 ---@overload fun(cc.Node:cc.Node,char:char):self
@@ -20,10 +20,10 @@ function ComRender:getNode () end
 ---@param comName char
 ---@return self
 function ComRender:create (node,comName) end
----* 
+---*
 ---@return cc.Ref
 function ComRender:createInstance () end
----* 
+---*
 ---@param r void
 ---@return boolean
 function ComRender:serialize (r) end

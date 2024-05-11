@@ -35,7 +35,7 @@ CS.System.Diagnostics.DebuggableAttribute = {}
 ---@source mscorlib.dll
 CS.System.Diagnostics.DebuggingModes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.DebuggableAttribute.DebuggingModes
 function CS.System.Diagnostics.DebuggingModes:__CastFrom(value) end
@@ -90,7 +90,7 @@ CS.System.Diagnostics.DebuggerBrowsableAttribute = {}
 ---@source mscorlib.dll
 CS.System.Diagnostics.DebuggerBrowsableState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.DebuggerBrowsableState
 function CS.System.Diagnostics.DebuggerBrowsableState:__CastFrom(value) end
@@ -225,7 +225,7 @@ function CS.System.Diagnostics.StackTrace.ToString() end
 ---@source System.Core.dll
 CS.System.Diagnostics.TraceLogRetentionOption = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.TraceLogRetentionOption
 function CS.System.Diagnostics.TraceLogRetentionOption:__CastFrom(value) end
@@ -736,7 +736,7 @@ CS.System.Diagnostics.EventInstance = {}
 ---@source System.dll
 CS.System.Diagnostics.EventLogEntryType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.EventLogEntryType
 function CS.System.Diagnostics.EventLogEntryType:__CastFrom(value) end
@@ -1040,7 +1040,7 @@ function CS.System.Diagnostics.EventLogEntryCollection.GetEnumerator() end
 ---@source System.dll
 CS.System.Diagnostics.EventLogPermissionAccess = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.EventLogPermissionAccess
 function CS.System.Diagnostics.EventLogPermissionAccess:__CastFrom(value) end
@@ -1434,7 +1434,7 @@ function CS.System.Diagnostics.PerformanceCounter.RemoveInstance() end
 ---@source System.dll
 CS.System.Diagnostics.OverflowAction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.OverflowAction
 function CS.System.Diagnostics.OverflowAction:__CastFrom(value) end
@@ -1569,7 +1569,7 @@ function CS.System.Diagnostics.PerformanceCounterCategory.ReadCategory() end
 ---@source System.dll
 CS.System.Diagnostics.PerformanceCounterCategoryType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.PerformanceCounterCategoryType
 function CS.System.Diagnostics.PerformanceCounterCategoryType:__CastFrom(value) end
@@ -1584,7 +1584,7 @@ function CS.System.Diagnostics.PerformanceCounterCategoryType:__CastFrom(value) 
 ---@source System.dll
 CS.System.Diagnostics.PerformanceCounterInstanceLifetime = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.PerformanceCounterInstanceLifetime
 function CS.System.Diagnostics.PerformanceCounterInstanceLifetime:__CastFrom(value) end
@@ -1607,7 +1607,7 @@ function CS.System.Diagnostics.PerformanceCounterInstanceLifetime:__CastFrom(val
 ---@source System.dll
 CS.System.Diagnostics.PerformanceCounterPermissionAccess = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.PerformanceCounterPermissionAccess
 function CS.System.Diagnostics.PerformanceCounterPermissionAccess:__CastFrom(value) end
@@ -1761,7 +1761,7 @@ function CS.System.Diagnostics.PerformanceCounterPermissionEntryCollection.Remov
 ---@source System.dll
 CS.System.Diagnostics.PerformanceCounterType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.PerformanceCounterType
 function CS.System.Diagnostics.PerformanceCounterType:__CastFrom(value) end
@@ -2085,7 +2085,7 @@ function CS.System.Diagnostics.ProcessModuleCollection.IndexOf(module) end
 ---@source System.dll
 CS.System.Diagnostics.ProcessPriorityClass = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.ProcessPriorityClass
 function CS.System.Diagnostics.ProcessPriorityClass:__CastFrom(value) end
@@ -2228,7 +2228,7 @@ function CS.System.Diagnostics.ProcessThreadCollection.Remove(thread) end
 ---@source System.dll
 CS.System.Diagnostics.ProcessWindowStyle = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.ProcessWindowStyle
 function CS.System.Diagnostics.ProcessWindowStyle:__CastFrom(value) end
@@ -2313,7 +2313,7 @@ function CS.System.Diagnostics.Stopwatch.Stop() end
 ---@source System.dll
 CS.System.Diagnostics.SourceLevels = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.SourceLevels
 function CS.System.Diagnostics.SourceLevels:__CastFrom(value) end
@@ -2439,7 +2439,7 @@ function CS.System.Diagnostics.TextWriterTraceListener.WriteLine(message) end
 ---@source System.dll
 CS.System.Diagnostics.ThreadPriorityLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.ThreadPriorityLevel
 function CS.System.Diagnostics.ThreadPriorityLevel:__CastFrom(value) end
@@ -2466,7 +2466,7 @@ function CS.System.Diagnostics.ThreadPriorityLevel:__CastFrom(value) end
 ---@source System.dll
 CS.System.Diagnostics.ThreadState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.ThreadState
 function CS.System.Diagnostics.ThreadState:__CastFrom(value) end
@@ -2505,7 +2505,7 @@ function CS.System.Diagnostics.ThreadState:__CastFrom(value) end
 ---@source System.dll
 CS.System.Diagnostics.ThreadWaitReason = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.ThreadWaitReason
 function CS.System.Diagnostics.ThreadWaitReason:__CastFrom(value) end
@@ -2718,7 +2718,7 @@ function CS.System.Diagnostics.TraceFilter.ShouldTrace(cache, source, eventType,
 ---@source System.dll
 CS.System.Diagnostics.TraceEventType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.TraceEventType
 function CS.System.Diagnostics.TraceEventType:__CastFrom(value) end
@@ -2739,7 +2739,7 @@ function CS.System.Diagnostics.TraceEventType:__CastFrom(value) end
 ---@source System.dll
 CS.System.Diagnostics.TraceLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.TraceLevel
 function CS.System.Diagnostics.TraceLevel:__CastFrom(value) end
@@ -2764,7 +2764,7 @@ function CS.System.Diagnostics.TraceLevel:__CastFrom(value) end
 ---@source System.dll
 CS.System.Diagnostics.TraceOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.TraceOptions
 function CS.System.Diagnostics.TraceOptions:__CastFrom(value) end

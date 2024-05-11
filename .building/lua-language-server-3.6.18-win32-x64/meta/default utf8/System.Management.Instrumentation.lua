@@ -51,7 +51,7 @@ CS.System.Management.Instrumentation.ManagementConfigurationAttribute = {}
 ---@source System.Core.dll
 CS.System.Management.Instrumentation.ManagementConfigurationType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Management.Instrumentation.ManagementConfigurationType
 function CS.System.Management.Instrumentation.ManagementConfigurationType:__CastFrom(value) end
@@ -96,7 +96,7 @@ CS.System.Management.Instrumentation.ManagementEnumeratorAttribute = {}
 ---@source System.Core.dll
 CS.System.Management.Instrumentation.ManagementHostingModel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Management.Instrumentation.ManagementHostingModel
 function CS.System.Management.Instrumentation.ManagementHostingModel:__CastFrom(value) end

@@ -33,7 +33,7 @@ function Skybox:setTexture (e) end
 ---@param negative_z string
 ---@return self
 function Skybox:create (positive_x,negative_x,positive_y,negative_y,positive_z,negative_z) end
----*  draw Skybox object 
+---*  draw Skybox object
 ---@param renderer cc.Renderer
 ---@param transform mat4_table
 ---@param flags unsigned_int

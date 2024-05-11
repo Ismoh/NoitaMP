@@ -17,12 +17,12 @@ cc.TiledGrid3D=TiledGrid3D
 ---@param rect rect_table
 ---@return self
 function TiledGrid3D:create (gridSize,texture,flipped,rect) end
----* 
+---*
 ---@return self
 function TiledGrid3D:calculateVertexPoints () end
 ---* Implementations for interfaces in base class.
 ---@return self
 function TiledGrid3D:blit () end
----* 
+---*
 ---@return self
 function TiledGrid3D:reuse () end

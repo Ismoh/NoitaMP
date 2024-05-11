@@ -13,7 +13,7 @@ function Camera:getDepth () end
 ---* get view projection matrix
 ---@return mat4_table
 function Camera:getViewProjectionMatrix () end
----* 
+---*
 ---@return self
 function Camera:applyViewport () end
 ---* set the background brush. See CameraBackgroundBrush for more information.<br>
@@ -38,7 +38,7 @@ function Camera:getBackgroundBrush () end
 ---* return The camera projection matrix.
 ---@return mat4_table
 function Camera:getProjectionMatrix () end
----* 
+---*
 ---@return boolean
 function Camera:isBrushValid () end
 ---* Get object depth towards camera
@@ -52,7 +52,7 @@ function Camera:clearBackground () end
 ---@param mat mat4_table
 ---@return self
 function Camera:setAdditionalProjection (mat) end
----*  init camera 
+---*  init camera
 ---@return boolean
 function Camera:initDefault () end
 ---* get & set Camera flag
@@ -62,7 +62,7 @@ function Camera:getCameraFlag () end
 ---* return The camera type.
 ---@return int
 function Camera:getType () end
----* 
+---*
 ---@param zoomX float
 ---@param zoomY float
 ---@param nearPlane float
@@ -84,7 +84,7 @@ function Camera:setDepth (depth) end
 ---@param scene cc.Scene
 ---@return self
 function Camera:setScene (scene) end
----* 
+---*
 ---@param src vec3_table
 ---@return vec2_table
 function Camera:projectGL (src) end
@@ -95,11 +95,11 @@ function Camera:getViewMatrix () end
 ---* Get the frustum's near plane.
 ---@return float
 function Camera:getNearPlane () end
----* 
+---*
 ---@param src vec3_table
 ---@return vec2_table
 function Camera:project (src) end
----* 
+---*
 ---@param flag int
 ---@return self
 function Camera:setCameraFlag (flag) end
@@ -110,7 +110,7 @@ function Camera:getFarPlane () end
 ---* return True if the viewprojection matrix was updated since the last frame.
 ---@return boolean
 function Camera:isViewProjectionUpdated () end
----* 
+---*
 ---@param fieldOfView float
 ---@param aspectRatio float
 ---@param nearPlane float
@@ -131,7 +131,7 @@ function Camera:createOrthographic (zoomX,zoomY,nearPlane,farPlane) end
 ---* Get the visiting camera , the visiting camera shall be set on Scene::render
 ---@return self
 function Camera:getVisitingCamera () end
----*  create default camera, the camera type depends on Director::getProjection, the depth of the default camera is 0 
+---*  create default camera, the camera type depends on Director::getProjection, the depth of the default camera is 0
 ---@return self
 function Camera:create () end
 ---* Creates a perspective camera.<br>
@@ -145,22 +145,22 @@ function Camera:create () end
 ---@param farPlane float
 ---@return self
 function Camera:createPerspective (fieldOfView,aspectRatio,nearPlane,farPlane) end
----* 
+---*
 ---@return cc.Viewport
 function Camera:getDefaultViewport () end
----* 
+---*
 ---@param vp cc.Viewport
 ---@return self
 function Camera:setDefaultViewport (vp) end
 ---* Get the default camera of the current running scene.
 ---@return self
 function Camera:getDefaultCamera () end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param parentTransform mat4_table
 ---@param parentFlags unsigned_int
 ---@return self
 function Camera:visit (renderer,parentTransform,parentFlags) end
----* 
+---*
 ---@return self
 function Camera:Camera () end

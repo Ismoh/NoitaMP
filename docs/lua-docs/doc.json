@@ -14013,6 +14013,38 @@
         "defines": [
             {
                 "extends": {
+                    "args": [
+                        {
+                            "finish": 60015,
+                            "start": 60014,
+                            "type": "local",
+                            "view": "any"
+                        },
+                        {
+                            "finish": 60018,
+                            "start": 60017,
+                            "type": "local",
+                            "view": "any"
+                        }
+                    ],
+                    "finish": 80003,
+                    "start": 60000,
+                    "type": "function",
+                    "view": "function init(x: any, y: any)"
+                },
+                "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/biome/debugRoom.lua",
+                "finish": 60013,
+                "start": 60009,
+                "type": "setglobal"
+            }
+        ],
+        "name": "init",
+        "type": "variable"
+    },
+    {
+        "defines": [
+            {
+                "extends": {
                     "finish": 260007,
                     "start": 260005,
                     "type": "table",
@@ -16282,7 +16314,7 @@
                     "finish": 380001,
                     "start": 350033,
                     "type": "table",
-                    "view": "table"
+                    "view": "CustomProfiler"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/noita-components/name_tags.lua",
                 "finish": 350030,
@@ -16294,7 +16326,7 @@
                     "finish": 70001,
                     "start": 40033,
                     "type": "table",
-                    "view": "table"
+                    "view": "CustomProfiler"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/noita-components/nuid_debug.lua",
                 "finish": 40030,
@@ -16306,7 +16338,7 @@
                     "finish": 70001,
                     "start": 40033,
                     "type": "table",
-                    "view": "table"
+                    "view": "CustomProfiler"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/noita-components/nuid_updater.lua",
                 "finish": 40030,
@@ -16314,6 +16346,7 @@
                 "type": "setfield"
             }
         ],
+        "desc": "Simple profiler that can be used to measure the duration of a function and the memory usage of a function.",
         "name": "noitaMpSettings.customProfiler",
         "type": "variable"
     },
@@ -17999,6 +18032,89 @@
         ],
         "name": "sock",
         "type": "type"
+    },
+    {
+        "defines": [
+            {
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 100024,
+                            "start": 100023,
+                            "type": "local",
+                            "view": "any"
+                        },
+                        {
+                            "finish": 100027,
+                            "start": 100026,
+                            "type": "local",
+                            "view": "any"
+                        }
+                    ],
+                    "finish": 120003,
+                    "start": 100000,
+                    "type": "function",
+                    "view": "function spawn_enemy_a(x: any, y: any)"
+                },
+                "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/biome/debugRoom.lua",
+                "finish": 100022,
+                "start": 100009,
+                "type": "setglobal"
+            }
+        ],
+        "name": "spawn_enemy_a",
+        "type": "variable"
+    },
+    {
+        "defines": [
+            {
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 140024,
+                            "start": 140023,
+                            "type": "local",
+                            "view": "any"
+                        },
+                        {
+                            "finish": 140027,
+                            "start": 140026,
+                            "type": "local",
+                            "view": "any"
+                        }
+                    ],
+                    "finish": 160003,
+                    "start": 140000,
+                    "type": "function",
+                    "view": "function spawn_enemy_b(x: any, y: any)"
+                },
+                "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/biome/debugRoom.lua",
+                "finish": 140022,
+                "start": 140009,
+                "type": "setglobal"
+            }
+        ],
+        "name": "spawn_enemy_b",
+        "type": "variable"
+    },
+    {
+        "defines": [
+            {
+                "extends": {
+                    "args": [],
+                    "finish": 180034,
+                    "start": 180000,
+                    "type": "function",
+                    "view": "function spawn_small_enemies()"
+                },
+                "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/biome/debugRoom.lua",
+                "finish": 180028,
+                "start": 180009,
+                "type": "setglobal"
+            }
+        ],
+        "name": "spawn_small_enemies",
+        "type": "variable"
     },
     {
         "defines": [

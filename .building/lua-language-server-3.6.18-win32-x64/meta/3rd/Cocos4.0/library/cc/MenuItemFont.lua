@@ -20,7 +20,7 @@ function MenuItemFont:getFontNameObj () end
 ---@param name string
 ---@return self
 function MenuItemFont:setFontNameObj (name) end
----*  Initializes a menu item from a string with a target/selector. 
+---*  Initializes a menu item from a string with a target/selector.
 ---@param value string
 ---@param callback function
 ---@return boolean
@@ -38,17 +38,17 @@ function MenuItemFont:getFontSizeObj () end
 ---@param size int
 ---@return self
 function MenuItemFont:setFontSizeObj (size) end
----*  Set the default font name. 
+---*  Set the default font name.
 ---@param name string
 ---@return self
 function MenuItemFont:setFontName (name) end
----*  Get default font size. 
+---*  Get default font size.
 ---@return int
 function MenuItemFont:getFontSize () end
----*  Get the default font name. 
+---*  Get the default font name.
 ---@return string
 function MenuItemFont:getFontName () end
----*  Set default font size. 
+---*  Set default font size.
 ---@param size int
 ---@return self
 function MenuItemFont:setFontSize (size) end

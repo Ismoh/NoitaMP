@@ -27,20 +27,20 @@ function JumpBy:initWithDuration (duration,position,height,jumps) end
 ---@param jumps int
 ---@return self
 function JumpBy:create (duration,position,height,jumps) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function JumpBy:startWithTarget (target) end
----* 
+---*
 ---@return self
 function JumpBy:clone () end
----* 
+---*
 ---@return self
 function JumpBy:reverse () end
 ---* param time In seconds.
 ---@param time float
 ---@return self
 function JumpBy:update (time) end
----* 
+---*
 ---@return self
 function JumpBy:JumpBy () end

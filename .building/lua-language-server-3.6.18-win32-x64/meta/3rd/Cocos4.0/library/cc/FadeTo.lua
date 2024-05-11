@@ -21,20 +21,20 @@ function FadeTo:initWithDuration (duration,opacity) end
 ---@param opacity unsigned_char
 ---@return self
 function FadeTo:create (duration,opacity) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function FadeTo:startWithTarget (target) end
----* 
+---*
 ---@return self
 function FadeTo:clone () end
----* 
+---*
 ---@return self
 function FadeTo:reverse () end
 ---* param time In seconds.
 ---@param time float
 ---@return self
 function FadeTo:update (time) end
----* 
+---*
 ---@return self
 function FadeTo:FadeTo () end

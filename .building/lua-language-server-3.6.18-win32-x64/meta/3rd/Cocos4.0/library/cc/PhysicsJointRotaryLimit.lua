@@ -10,7 +10,7 @@ cc.PhysicsJointRotaryLimit=PhysicsJointRotaryLimit
 ---*  Get the max rotation limit.
 ---@return float
 function PhysicsJointRotaryLimit:getMax () end
----* 
+---*
 ---@return boolean
 function PhysicsJointRotaryLimit:createConstraints () end
 ---*  Set the min rotation limit.

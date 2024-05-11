@@ -260,7 +260,7 @@ function CS.System.Globalization.Calendar.ToFourDigitYear(year) end
 ---@source mscorlib.dll
 CS.System.Globalization.CalendarAlgorithmType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Globalization.CalendarAlgorithmType
 function CS.System.Globalization.CalendarAlgorithmType:__CastFrom(value) end
@@ -277,7 +277,7 @@ function CS.System.Globalization.CalendarAlgorithmType:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Globalization.CalendarWeekRule = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Globalization.CalendarWeekRule
 function CS.System.Globalization.CalendarWeekRule:__CastFrom(value) end
@@ -706,7 +706,7 @@ function CS.System.Globalization.CompareInfo.ToString() end
 ---@source mscorlib.dll
 CS.System.Globalization.CompareOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Globalization.CompareOptions
 function CS.System.Globalization.CompareOptions:__CastFrom(value) end
@@ -874,7 +874,7 @@ function CS.System.Globalization.CultureNotFoundException.GetObjectData(info, co
 ---@source mscorlib.dll
 CS.System.Globalization.CultureTypes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Globalization.CultureTypes
 function CS.System.Globalization.CultureTypes:__CastFrom(value) end
@@ -905,7 +905,7 @@ function CS.System.Globalization.CultureTypes:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Globalization.DateTimeStyles = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Globalization.DateTimeStyles
 function CS.System.Globalization.DateTimeStyles:__CastFrom(value) end
@@ -1067,7 +1067,7 @@ CS.System.Globalization.DaylightTime = {}
 ---@source mscorlib.dll
 CS.System.Globalization.DigitShapes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Globalization.DigitShapes
 function CS.System.Globalization.DigitShapes:__CastFrom(value) end
@@ -1226,7 +1226,7 @@ function CS.System.Globalization.GlobalizationExtensions.GetStringComparer(optio
 ---@source mscorlib.dll
 CS.System.Globalization.GregorianCalendarTypes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Globalization.GregorianCalendarTypes
 function CS.System.Globalization.GregorianCalendarTypes:__CastFrom(value) end
@@ -2099,7 +2099,7 @@ function CS.System.Globalization.KoreanCalendar.ToFourDigitYear(year) end
 ---@source mscorlib.dll
 CS.System.Globalization.NumberStyles = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Globalization.NumberStyles
 function CS.System.Globalization.NumberStyles:__CastFrom(value) end
@@ -2675,7 +2675,7 @@ function CS.System.Globalization.TextElementEnumerator.Reset() end
 ---@source mscorlib.dll
 CS.System.Globalization.TimeSpanStyles = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Globalization.TimeSpanStyles
 function CS.System.Globalization.TimeSpanStyles:__CastFrom(value) end
@@ -2746,7 +2746,7 @@ function CS.System.Globalization.TimeSpanStyles:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Globalization.UnicodeCategory = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Globalization.UnicodeCategory
 function CS.System.Globalization.UnicodeCategory:__CastFrom(value) end

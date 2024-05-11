@@ -13,7 +13,7 @@
 ---@source System.dll
 CS.System.IO.Ports.Handshake = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.Ports.Handshake
 function CS.System.IO.Ports.Handshake:__CastFrom(value) end
@@ -34,7 +34,7 @@ function CS.System.IO.Ports.Handshake:__CastFrom(value) end
 ---@source System.dll
 CS.System.IO.Ports.Parity = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.Ports.Parity
 function CS.System.IO.Ports.Parity:__CastFrom(value) end
@@ -49,7 +49,7 @@ function CS.System.IO.Ports.Parity:__CastFrom(value) end
 ---@source System.dll
 CS.System.IO.Ports.SerialData = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.Ports.SerialData
 function CS.System.IO.Ports.SerialData:__CastFrom(value) end
@@ -101,7 +101,7 @@ function CS.System.IO.Ports.SerialDataReceivedEventHandler.EndInvoke(result) end
 ---@source System.dll
 CS.System.IO.Ports.SerialError = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.Ports.SerialError
 function CS.System.IO.Ports.SerialError:__CastFrom(value) end
@@ -153,7 +153,7 @@ CS.System.IO.Ports.SerialErrorReceivedEventArgs = {}
 ---@source System.dll
 CS.System.IO.Ports.SerialPinChange = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.Ports.SerialPinChange
 function CS.System.IO.Ports.SerialPinChange:__CastFrom(value) end
@@ -361,7 +361,7 @@ function CS.System.IO.Ports.SerialPort.WriteLine(text) end
 ---@source System.dll
 CS.System.IO.Ports.StopBits = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.Ports.StopBits
 function CS.System.IO.Ports.StopBits:__CastFrom(value) end

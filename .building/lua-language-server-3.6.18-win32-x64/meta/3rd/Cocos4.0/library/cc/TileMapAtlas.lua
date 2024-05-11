@@ -15,7 +15,7 @@ cc.TileMapAtlas=TileMapAtlas
 ---@param tileHeight int
 ---@return boolean
 function TileMapAtlas:initWithTileFile (tile,mapFile,tileWidth,tileHeight) end
----*  dealloc the map from memory 
+---*  dealloc the map from memory
 ---@return self
 function TileMapAtlas:releaseMap () end
 ---* Returns a tile from position x,y.<br>

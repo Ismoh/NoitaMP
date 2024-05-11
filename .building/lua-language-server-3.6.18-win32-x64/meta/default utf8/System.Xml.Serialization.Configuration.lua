@@ -19,7 +19,7 @@ CS.System.Xml.Serialization.Configuration.DateTimeSerializationSection = {}
 ---@source System.Xml.dll
 CS.System.Xml.Serialization.Configuration.DateTimeSerializationMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.Serialization.Configuration.DateTimeSerializationSection.DateTimeSerializationMode
 function CS.System.Xml.Serialization.Configuration.DateTimeSerializationMode:__CastFrom(value) end

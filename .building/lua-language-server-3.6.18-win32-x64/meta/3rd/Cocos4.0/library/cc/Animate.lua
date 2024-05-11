@@ -7,7 +7,7 @@ cc.Animate=Animate
 
 
 
----*  initializes the action with an Animation and will restore the original frame when the animation is over 
+---*  initializes the action with an Animation and will restore the original frame when the animation is over
 ---@param animation cc.Animation
 ---@return boolean
 function Animate:initWithAnimation (animation) end
@@ -30,23 +30,23 @@ function Animate:setAnimation (animation) end
 ---@param animation cc.Animation
 ---@return self
 function Animate:create (animation) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function Animate:startWithTarget (target) end
----* 
+---*
 ---@return self
 function Animate:clone () end
----* 
+---*
 ---@return self
 function Animate:stop () end
----* 
+---*
 ---@return self
 function Animate:reverse () end
 ---* param t In seconds.
 ---@param t float
 ---@return self
 function Animate:update (t) end
----* 
+---*
 ---@return self
 function Animate:Animate () end

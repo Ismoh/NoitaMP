@@ -23,7 +23,7 @@ function EditBox:keyboardDidShow (info) end
 ---@param maxLength int
 ---@return self
 function EditBox:setMaxLength (maxLength) end
----* 
+---*
 ---@return self
 function EditBox:openKeyboard () end
 ---* Set the font size.<br>
@@ -290,7 +290,7 @@ function EditBox:setTextHorizontalAlignment (alignment) end
 ---@param texType int
 ---@return self
 function EditBox:create (size,normalImage,pressedImage,disabledImage,texType) end
----* 
+---*
 ---@param anchorPoint vec2_table
 ---@return self
 function EditBox:setAnchorPoint (anchorPoint) end
@@ -304,15 +304,15 @@ function EditBox:draw (renderer,parentTransform,parentFlags) end
 ---* Returns the "class name" of widget.
 ---@return string
 function EditBox:getDescription () end
----* 
+---*
 ---@param pos vec2_table
 ---@return self
 function EditBox:setPosition (pos) end
----* 
+---*
 ---@param visible boolean
 ---@return self
 function EditBox:setVisible (visible) end
----* 
+---*
 ---@param size size_table
 ---@return self
 function EditBox:setContentSize (size) end

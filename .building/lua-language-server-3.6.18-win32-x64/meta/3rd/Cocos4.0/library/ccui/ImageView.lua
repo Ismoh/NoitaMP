@@ -27,7 +27,7 @@ function ImageView:loadTexture (fileName,texType) end
 ---@param blendFunc cc.BlendFunc
 ---@return self
 function ImageView:setBlendFunc (blendFunc) end
----* 
+---*
 ---@param imageFileName string
 ---@param texType int
 ---@return boolean
@@ -48,7 +48,7 @@ function ImageView:setTextureRect (rect) end
 ---@param capInsets rect_table
 ---@return self
 function ImageView:setCapInsets (capInsets) end
----* 
+---*
 ---@return cc.ResourceData
 function ImageView:getRenderFile () end
 ---* Get ImageView's capInsets size.<br>
@@ -66,22 +66,22 @@ function ImageView:isScale9Enabled () end
 ---@param texType int
 ---@return self
 function ImageView:create (imageFileName,texType) end
----* 
+---*
 ---@return cc.Ref
 function ImageView:createInstance () end
----* 
+---*
 ---@return cc.Node
 function ImageView:getVirtualRenderer () end
----* 
+---*
 ---@return boolean
 function ImageView:init () end
----* 
+---*
 ---@return string
 function ImageView:getDescription () end
----* 
+---*
 ---@return size_table
 function ImageView:getVirtualRendererSize () end
----* 
+---*
 ---@param ignore boolean
 ---@return self
 function ImageView:ignoreContentAdaptWithSize (ignore) end

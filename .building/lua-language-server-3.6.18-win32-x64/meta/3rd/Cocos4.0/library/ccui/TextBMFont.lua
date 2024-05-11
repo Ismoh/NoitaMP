@@ -20,10 +20,10 @@ function TextBMFont:getString () end
 ---@param value string
 ---@return self
 function TextBMFont:setString (value) end
----* 
+---*
 ---@return cc.ResourceData
 function TextBMFont:getRenderFile () end
----*  init a bitmap font atlas with an initial string and the FNT file 
+---*  init a bitmap font atlas with an initial string and the FNT file
 ---@param fileName string
 ---@return self
 function TextBMFont:setFntFile (fileName) end
@@ -36,16 +36,16 @@ function TextBMFont:resetRender () end
 ---@param filename string
 ---@return self
 function TextBMFont:create (text,filename) end
----* 
+---*
 ---@return cc.Ref
 function TextBMFont:createInstance () end
----* 
+---*
 ---@return cc.Node
 function TextBMFont:getVirtualRenderer () end
 ---* Returns the "class name" of widget.
 ---@return string
 function TextBMFont:getDescription () end
----* 
+---*
 ---@return size_table
 function TextBMFont:getVirtualRendererSize () end
 ---* Default constructor<br>

@@ -12,7 +12,7 @@ cc.Repeat=Repeat
 ---@param action cc.FiniteTimeAction
 ---@return self
 function Repeat:setInnerAction (action) end
----*  initializes a Repeat action. Times is an unsigned integer between 1 and pow(2,30) 
+---*  initializes a Repeat action. Times is an unsigned integer between 1 and pow(2,30)
 ---@param pAction cc.FiniteTimeAction
 ---@param times unsigned_int
 ---@return boolean
@@ -29,26 +29,26 @@ function Repeat:getInnerAction () end
 ---@param times unsigned_int
 ---@return self
 function Repeat:create (action,times) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function Repeat:startWithTarget (target) end
----* 
+---*
 ---@return self
 function Repeat:reverse () end
----* 
+---*
 ---@return self
 function Repeat:clone () end
----* 
+---*
 ---@return self
 function Repeat:stop () end
 ---* param dt In seconds.
 ---@param dt float
 ---@return self
 function Repeat:update (dt) end
----* 
+---*
 ---@return boolean
 function Repeat:isDone () end
----* 
+---*
 ---@return self
 function Repeat:Repeat () end

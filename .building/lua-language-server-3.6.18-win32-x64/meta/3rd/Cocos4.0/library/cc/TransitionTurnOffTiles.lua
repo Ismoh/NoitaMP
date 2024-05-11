@@ -7,7 +7,7 @@ cc.TransitionTurnOffTiles=TransitionTurnOffTiles
 
 
 
----* 
+---*
 ---@param action cc.ActionInterval
 ---@return cc.ActionInterval
 function TransitionTurnOffTiles:easeActionWithAction (action) end
@@ -25,6 +25,6 @@ function TransitionTurnOffTiles:create (t,scene) end
 ---@param flags unsigned_int
 ---@return self
 function TransitionTurnOffTiles:draw (renderer,transform,flags) end
----* 
+---*
 ---@return self
 function TransitionTurnOffTiles:TransitionTurnOffTiles () end

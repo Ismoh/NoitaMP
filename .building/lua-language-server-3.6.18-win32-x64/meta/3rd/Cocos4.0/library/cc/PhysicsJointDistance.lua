@@ -7,7 +7,7 @@ cc.PhysicsJointDistance=PhysicsJointDistance
 
 
 
----* 
+---*
 ---@return boolean
 function PhysicsJointDistance:createConstraints () end
 ---*  Set the distance of the anchor points.

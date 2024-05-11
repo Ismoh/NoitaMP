@@ -27,16 +27,16 @@ function JumpTo:initWithDuration (duration,position,height,jumps) end
 ---@param jumps int
 ---@return self
 function JumpTo:create (duration,position,height,jumps) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function JumpTo:startWithTarget (target) end
----* 
+---*
 ---@return self
 function JumpTo:clone () end
----* 
+---*
 ---@return self
 function JumpTo:reverse () end
----* 
+---*
 ---@return self
 function JumpTo:JumpTo () end

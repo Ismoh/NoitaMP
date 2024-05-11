@@ -106,7 +106,7 @@ function CS.UnityEngine.Rendering.VirtualTexturing.Resolver.Dispose() end
 --```plaintext
 --Params: width - Width of the texture passed in during Process.
 --        height - Height of the texture passed in during Process.
---        
+--
 --```
 --
 ---@source UnityEngine.VirtualTexturingModule.dll
@@ -126,7 +126,7 @@ function CS.UnityEngine.Rendering.VirtualTexturing.Resolver.UpdateSize(width, he
 --        height - Height of the subrect that is processed.
 --        mip - Miplevel of the texture to process.
 --        slice - Arrayslice of the texture to process.
---        
+--
 --```
 --
 ---@source UnityEngine.VirtualTexturingModule.dll
@@ -146,7 +146,7 @@ function CS.UnityEngine.Rendering.VirtualTexturing.Resolver.Process(cmd, rt) end
 --        height - Height of the subrect that is processed.
 --        mip - Miplevel of the texture to process.
 --        slice - Arrayslice of the texture to process.
---        
+--
 --```
 --
 ---@source UnityEngine.VirtualTexturingModule.dll
@@ -198,7 +198,7 @@ CS.UnityEngine.Rendering.VirtualTexturing.GPUCacheSetting = {}
 ---@source UnityEngine.VirtualTexturingModule.dll
 CS.UnityEngine.Rendering.VirtualTexturing.FilterMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.VirtualTexturing.FilterMode
 function CS.UnityEngine.Rendering.VirtualTexturing.FilterMode:__CastFrom(value) end
@@ -221,7 +221,7 @@ CS.UnityEngine.Rendering.VirtualTexturing.Streaming = {}
 --        r - The rectangle in 0-1 UV space to make resident.  Anything outside the [ 0...1 [ x [ 0...1 [ rectangle will be silently ignored.
 --        mipMap - The mip level to make resident. Mips are numbered from 0 (= full resolution) to n (= lowest resolution) where n is the mipmap level what is a single tile in size.  Requesting invalid mips is silently ignored.
 --        numMips - The number of mip levels starting from 'mipMap' to make resident. Requesting invalid mips is silently ignored.
---        
+--
 --```
 --
 ---@source UnityEngine.VirtualTexturingModule.dll
@@ -516,7 +516,7 @@ CS.UnityEngine.Rendering.VirtualTexturing.GPUTextureStackRequestParameters = {}
 --
 --```plaintext
 --Params: index - Layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.VirtualTexturingModule.dll
@@ -568,7 +568,7 @@ CS.UnityEngine.Rendering.VirtualTexturing.CPUTextureStackRequestParameters = {}
 --
 --```plaintext
 --Params: index - Layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.VirtualTexturingModule.dll
@@ -595,7 +595,7 @@ function CS.UnityEngine.Rendering.VirtualTexturing.CPUTextureStackRequestParamet
 ---@source UnityEngine.VirtualTexturingModule.dll
 CS.UnityEngine.Rendering.VirtualTexturing.RequestStatus = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.VirtualTexturing.Procedural.RequestStatus
 function CS.UnityEngine.Rendering.VirtualTexturing.RequestStatus:__CastFrom(value) end

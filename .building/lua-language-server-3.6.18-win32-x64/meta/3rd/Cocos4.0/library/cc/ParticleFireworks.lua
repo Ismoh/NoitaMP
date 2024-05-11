@@ -7,10 +7,10 @@ cc.ParticleFireworks=ParticleFireworks
 
 
 
----* 
+---*
 ---@return boolean
 function ParticleFireworks:init () end
----* 
+---*
 ---@param numberOfParticles int
 ---@return boolean
 function ParticleFireworks:initWithTotalParticles (numberOfParticles) end

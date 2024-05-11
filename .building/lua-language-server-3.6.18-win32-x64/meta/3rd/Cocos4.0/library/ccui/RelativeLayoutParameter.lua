@@ -40,10 +40,10 @@ function RelativeLayoutParameter:getAlign () end
 ---* return A initialized LayoutParameter which is marked as "autorelease".
 ---@return self
 function RelativeLayoutParameter:create () end
----* 
+---*
 ---@return ccui.LayoutParameter
 function RelativeLayoutParameter:createCloneInstance () end
----* 
+---*
 ---@param model ccui.LayoutParameter
 ---@return self
 function RelativeLayoutParameter:copyProperties (model) end

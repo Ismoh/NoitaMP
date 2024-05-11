@@ -78,14 +78,14 @@ function WebView:setJavascriptInterfaceScheme (scheme) end
 ---* Allocates and initializes a WebView.
 ---@return self
 function WebView:create () end
----* 
+---*
 ---@return self
 function WebView:onEnter () end
 ---* Toggle visibility of WebView.
 ---@param visible boolean
 ---@return self
 function WebView:setVisible (visible) end
----* 
+---*
 ---@return self
 function WebView:onExit () end
 ---* Default constructor.

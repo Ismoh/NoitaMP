@@ -362,7 +362,7 @@ function CS.UnityEngine.Rendering.AsyncGPUReadback:RequestIntoNativeSlice(output
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.SynchronisationStage = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.SynchronisationStage
 function CS.UnityEngine.Rendering.SynchronisationStage:__CastFrom(value) end
@@ -421,7 +421,7 @@ function CS.UnityEngine.Rendering.PIX:IsAttached() end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.ShaderHardwareTier = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.ShaderHardwareTier
 function CS.UnityEngine.Rendering.ShaderHardwareTier:__CastFrom(value) end
@@ -445,7 +445,7 @@ function CS.UnityEngine.Rendering.ShaderHardwareTier:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.IndexFormat = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.IndexFormat
 function CS.UnityEngine.Rendering.IndexFormat:__CastFrom(value) end
@@ -484,7 +484,7 @@ function CS.UnityEngine.Rendering.IndexFormat:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.MeshUpdateFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.MeshUpdateFlags
 function CS.UnityEngine.Rendering.MeshUpdateFlags:__CastFrom(value) end
@@ -558,7 +558,7 @@ function CS.UnityEngine.Rendering.MeshUpdateFlags:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.VertexAttributeFormat = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.VertexAttributeFormat
 function CS.UnityEngine.Rendering.VertexAttributeFormat:__CastFrom(value) end
@@ -642,7 +642,7 @@ function CS.UnityEngine.Rendering.VertexAttributeFormat:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.VertexAttribute = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.VertexAttribute
 function CS.UnityEngine.Rendering.VertexAttribute:__CastFrom(value) end
@@ -686,7 +686,7 @@ function CS.UnityEngine.Rendering.VertexAttribute:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.ShaderParamType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.ShaderParamType
 function CS.UnityEngine.Rendering.ShaderParamType:__CastFrom(value) end
@@ -715,7 +715,7 @@ function CS.UnityEngine.Rendering.ShaderParamType:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.ShaderConstantType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.ShaderConstantType
 function CS.UnityEngine.Rendering.ShaderConstantType:__CastFrom(value) end
@@ -744,7 +744,7 @@ function CS.UnityEngine.Rendering.ShaderConstantType:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.OpaqueSortMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.OpaqueSortMode
 function CS.UnityEngine.Rendering.OpaqueSortMode:__CastFrom(value) end
@@ -788,7 +788,7 @@ function CS.UnityEngine.Rendering.OpaqueSortMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.RenderQueue = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.RenderQueue
 function CS.UnityEngine.Rendering.RenderQueue:__CastFrom(value) end
@@ -817,7 +817,7 @@ function CS.UnityEngine.Rendering.RenderQueue:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.RenderBufferLoadAction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.RenderBufferLoadAction
 function CS.UnityEngine.Rendering.RenderBufferLoadAction:__CastFrom(value) end
@@ -851,7 +851,7 @@ function CS.UnityEngine.Rendering.RenderBufferLoadAction:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.RenderBufferStoreAction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.RenderBufferStoreAction
 function CS.UnityEngine.Rendering.RenderBufferStoreAction:__CastFrom(value) end
@@ -880,7 +880,7 @@ function CS.UnityEngine.Rendering.RenderBufferStoreAction:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.FastMemoryFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.FastMemoryFlags
 function CS.UnityEngine.Rendering.FastMemoryFlags:__CastFrom(value) end
@@ -949,7 +949,7 @@ function CS.UnityEngine.Rendering.FastMemoryFlags:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.BlendMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.BlendMode
 function CS.UnityEngine.Rendering.BlendMode:__CastFrom(value) end
@@ -1143,7 +1143,7 @@ function CS.UnityEngine.Rendering.BlendMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.BlendOp = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.BlendOp
 function CS.UnityEngine.Rendering.BlendOp:__CastFrom(value) end
@@ -1202,7 +1202,7 @@ function CS.UnityEngine.Rendering.BlendOp:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.CompareFunction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.CompareFunction
 function CS.UnityEngine.Rendering.CompareFunction:__CastFrom(value) end
@@ -1231,7 +1231,7 @@ function CS.UnityEngine.Rendering.CompareFunction:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.CullMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.CullMode
 function CS.UnityEngine.Rendering.CullMode:__CastFrom(value) end
@@ -1270,7 +1270,7 @@ function CS.UnityEngine.Rendering.CullMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.ColorWriteMask = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.ColorWriteMask
 function CS.UnityEngine.Rendering.ColorWriteMask:__CastFrom(value) end
@@ -1324,7 +1324,7 @@ function CS.UnityEngine.Rendering.ColorWriteMask:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.StencilOp = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.StencilOp
 function CS.UnityEngine.Rendering.StencilOp:__CastFrom(value) end
@@ -1358,7 +1358,7 @@ function CS.UnityEngine.Rendering.StencilOp:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.AmbientMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.AmbientMode
 function CS.UnityEngine.Rendering.AmbientMode:__CastFrom(value) end
@@ -1382,7 +1382,7 @@ function CS.UnityEngine.Rendering.AmbientMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.DefaultReflectionMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.DefaultReflectionMode
 function CS.UnityEngine.Rendering.DefaultReflectionMode:__CastFrom(value) end
@@ -1411,7 +1411,7 @@ function CS.UnityEngine.Rendering.DefaultReflectionMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.ReflectionCubemapCompression = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.ReflectionCubemapCompression
 function CS.UnityEngine.Rendering.ReflectionCubemapCompression:__CastFrom(value) end
@@ -1550,7 +1550,7 @@ function CS.UnityEngine.Rendering.ReflectionCubemapCompression:__CastFrom(value)
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.CameraEvent = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.CameraEvent
 function CS.UnityEngine.Rendering.CameraEvent:__CastFrom(value) end
@@ -1594,7 +1594,7 @@ function CS.UnityEngine.Rendering.CameraEvent:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.LightEvent = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.LightEvent
 function CS.UnityEngine.Rendering.LightEvent:__CastFrom(value) end
@@ -1678,7 +1678,7 @@ function CS.UnityEngine.Rendering.LightEvent:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.ShadowMapPass = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.ShadowMapPass
 function CS.UnityEngine.Rendering.ShadowMapPass:__CastFrom(value) end
@@ -1801,7 +1801,7 @@ function CS.UnityEngine.Rendering.ShadowMapPass:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.BuiltinRenderTextureType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.BuiltinRenderTextureType
 function CS.UnityEngine.Rendering.BuiltinRenderTextureType:__CastFrom(value) end
@@ -1885,7 +1885,7 @@ function CS.UnityEngine.Rendering.BuiltinRenderTextureType:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.PassType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PassType
 function CS.UnityEngine.Rendering.PassType:__CastFrom(value) end
@@ -1919,7 +1919,7 @@ function CS.UnityEngine.Rendering.PassType:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.ShadowCastingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.ShadowCastingMode
 function CS.UnityEngine.Rendering.ShadowCastingMode:__CastFrom(value) end
@@ -1958,7 +1958,7 @@ function CS.UnityEngine.Rendering.ShadowCastingMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.LightShadowResolution = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.LightShadowResolution
 function CS.UnityEngine.Rendering.LightShadowResolution:__CastFrom(value) end
@@ -2077,7 +2077,7 @@ function CS.UnityEngine.Rendering.LightShadowResolution:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.GraphicsDeviceType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.GraphicsDeviceType
 function CS.UnityEngine.Rendering.GraphicsDeviceType:__CastFrom(value) end
@@ -2106,7 +2106,7 @@ function CS.UnityEngine.Rendering.GraphicsDeviceType:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.GraphicsTier = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.GraphicsTier
 function CS.UnityEngine.Rendering.GraphicsTier:__CastFrom(value) end
@@ -2257,7 +2257,7 @@ function CS.UnityEngine.Rendering.VertexAttributeDescriptor:op_Inequality(lhs, r
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.FormatSwizzle = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.FormatSwizzle
 function CS.UnityEngine.Rendering.FormatSwizzle:__CastFrom(value) end
@@ -2361,7 +2361,7 @@ function CS.UnityEngine.Rendering.RenderTargetIdentifier:op_Inequality(lhs, rhs)
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.RenderTargetFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.RenderTargetFlags
 function CS.UnityEngine.Rendering.RenderTargetFlags:__CastFrom(value) end
@@ -2439,7 +2439,7 @@ CS.UnityEngine.Rendering.RenderTargetBinding = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.ReflectionProbeUsage = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.ReflectionProbeUsage
 function CS.UnityEngine.Rendering.ReflectionProbeUsage:__CastFrom(value) end
@@ -2454,7 +2454,7 @@ function CS.UnityEngine.Rendering.ReflectionProbeUsage:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.ReflectionProbeType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.ReflectionProbeType
 function CS.UnityEngine.Rendering.ReflectionProbeType:__CastFrom(value) end
@@ -2478,7 +2478,7 @@ function CS.UnityEngine.Rendering.ReflectionProbeType:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.ReflectionProbeClearFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.ReflectionProbeClearFlags
 function CS.UnityEngine.Rendering.ReflectionProbeClearFlags:__CastFrom(value) end
@@ -2507,7 +2507,7 @@ function CS.UnityEngine.Rendering.ReflectionProbeClearFlags:__CastFrom(value) en
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.ReflectionProbeMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.ReflectionProbeMode
 function CS.UnityEngine.Rendering.ReflectionProbeMode:__CastFrom(value) end
@@ -2562,7 +2562,7 @@ CS.UnityEngine.Rendering.ReflectionProbeBlendInfo = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.ReflectionProbeRefreshMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.ReflectionProbeRefreshMode
 function CS.UnityEngine.Rendering.ReflectionProbeRefreshMode:__CastFrom(value) end
@@ -2592,7 +2592,7 @@ function CS.UnityEngine.Rendering.ReflectionProbeRefreshMode:__CastFrom(value) e
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.ReflectionProbeTimeSlicingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.ReflectionProbeTimeSlicingMode
 function CS.UnityEngine.Rendering.ReflectionProbeTimeSlicingMode:__CastFrom(value) end
@@ -2621,7 +2621,7 @@ function CS.UnityEngine.Rendering.ReflectionProbeTimeSlicingMode:__CastFrom(valu
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.ShadowSamplingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.ShadowSamplingMode
 function CS.UnityEngine.Rendering.ShadowSamplingMode:__CastFrom(value) end
@@ -2655,7 +2655,7 @@ function CS.UnityEngine.Rendering.ShadowSamplingMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.LightProbeUsage = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.LightProbeUsage
 function CS.UnityEngine.Rendering.LightProbeUsage:__CastFrom(value) end
@@ -2709,7 +2709,7 @@ function CS.UnityEngine.Rendering.LightProbeUsage:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.BuiltinShaderType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.BuiltinShaderType
 function CS.UnityEngine.Rendering.BuiltinShaderType:__CastFrom(value) end
@@ -2738,7 +2738,7 @@ function CS.UnityEngine.Rendering.BuiltinShaderType:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.BuiltinShaderMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.BuiltinShaderMode
 function CS.UnityEngine.Rendering.BuiltinShaderMode:__CastFrom(value) end
@@ -2911,7 +2911,7 @@ function CS.UnityEngine.Rendering.BuiltinShaderMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.BuiltinShaderDefine = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.BuiltinShaderDefine
 function CS.UnityEngine.Rendering.BuiltinShaderDefine:__CastFrom(value) end
@@ -2940,7 +2940,7 @@ function CS.UnityEngine.Rendering.BuiltinShaderDefine:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.VideoShadersIncludeMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.VideoShadersIncludeMode
 function CS.UnityEngine.Rendering.VideoShadersIncludeMode:__CastFrom(value) end
@@ -2994,7 +2994,7 @@ function CS.UnityEngine.Rendering.VideoShadersIncludeMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.TextureDimension = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.TextureDimension
 function CS.UnityEngine.Rendering.TextureDimension:__CastFrom(value) end
@@ -3038,7 +3038,7 @@ function CS.UnityEngine.Rendering.TextureDimension:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.CopyTextureSupport = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.CopyTextureSupport
 function CS.UnityEngine.Rendering.CopyTextureSupport:__CastFrom(value) end
@@ -3062,7 +3062,7 @@ function CS.UnityEngine.Rendering.CopyTextureSupport:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.CameraHDRMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.CameraHDRMode
 function CS.UnityEngine.Rendering.CameraHDRMode:__CastFrom(value) end
@@ -3096,7 +3096,7 @@ function CS.UnityEngine.Rendering.CameraHDRMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.RealtimeGICPUUsage = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.RealtimeGICPUUsage
 function CS.UnityEngine.Rendering.RealtimeGICPUUsage:__CastFrom(value) end
@@ -3125,7 +3125,7 @@ function CS.UnityEngine.Rendering.RealtimeGICPUUsage:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.ComputeQueueType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.ComputeQueueType
 function CS.UnityEngine.Rendering.ComputeQueueType:__CastFrom(value) end
@@ -3159,7 +3159,7 @@ function CS.UnityEngine.Rendering.ComputeQueueType:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.SinglePassStereoMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.SinglePassStereoMode
 function CS.UnityEngine.Rendering.SinglePassStereoMode:__CastFrom(value) end
@@ -3183,7 +3183,7 @@ function CS.UnityEngine.Rendering.SinglePassStereoMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.CommandBufferExecutionFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.CommandBufferExecutionFlags
 function CS.UnityEngine.Rendering.CommandBufferExecutionFlags:__CastFrom(value) end
@@ -3217,7 +3217,7 @@ function CS.UnityEngine.Rendering.CommandBufferExecutionFlags:__CastFrom(value) 
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.RenderTextureSubElement = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.RenderTextureSubElement
 function CS.UnityEngine.Rendering.RenderTextureSubElement:__CastFrom(value) end
@@ -3261,7 +3261,7 @@ function CS.UnityEngine.Rendering.RenderTextureSubElement:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.RenderingThreadingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.RenderingThreadingMode
 function CS.UnityEngine.Rendering.RenderingThreadingMode:__CastFrom(value) end
@@ -3295,7 +3295,7 @@ function CS.UnityEngine.Rendering.RenderingThreadingMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.CameraLateLatchMatrixType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.CameraLateLatchMatrixType
 function CS.UnityEngine.Rendering.CameraLateLatchMatrixType:__CastFrom(value) end
@@ -3339,7 +3339,7 @@ function CS.UnityEngine.Rendering.CameraLateLatchMatrixType:__CastFrom(value) en
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.OpenGLESVersion = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.OpenGLESVersion
 function CS.UnityEngine.Rendering.OpenGLESVersion:__CastFrom(value) end
@@ -3373,7 +3373,7 @@ function CS.UnityEngine.Rendering.OpenGLESVersion:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.SynchronisationStageFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.SynchronisationStageFlags
 function CS.UnityEngine.Rendering.SynchronisationStageFlags:__CastFrom(value) end
@@ -3397,7 +3397,7 @@ function CS.UnityEngine.Rendering.SynchronisationStageFlags:__CastFrom(value) en
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.GraphicsFenceType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.GraphicsFenceType
 function CS.UnityEngine.Rendering.GraphicsFenceType:__CastFrom(value) end
@@ -3527,7 +3527,7 @@ function CS.UnityEngine.Rendering.GraphicsSettings:GetGraphicsSettings() end
 --```plaintext
 --Params: type - Built-in shader type to change.
 --        mode - Mode to use for built-in shader.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -3540,7 +3540,7 @@ function CS.UnityEngine.Rendering.GraphicsSettings:SetShaderMode(type, mode) end
 --
 --```plaintext
 --Params: type - Built-in shader type to query.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -3554,7 +3554,7 @@ function CS.UnityEngine.Rendering.GraphicsSettings:GetShaderMode(type) end
 --```plaintext
 --Params: type - Built-in shader type to set custom shader to.
 --        shader - The shader to use.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -3567,7 +3567,7 @@ function CS.UnityEngine.Rendering.GraphicsSettings:SetCustomShader(type, shader)
 --
 --```plaintext
 --Params: type - Built-in shader type to query custom shader for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -3626,7 +3626,7 @@ CS.UnityEngine.Rendering.CommandBuffer = {}
 --        dst - Destination texture.
 --        srcElement - Source element (e.g. cubemap face). Set this to 0 for 2D source textures.
 --        dstElement - Destination element (e.g. cubemap face or texture array element).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -3642,7 +3642,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.ConvertTexture(src, dst) end
 --        dst - Destination texture.
 --        srcElement - Source element (e.g. cubemap face). Set this to 0 for 2D source textures.
 --        dstElement - Destination element (e.g. cubemap face or texture array element).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -3946,7 +3946,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.RequestAsyncReadbackIntoNativeSl
 --
 --```plaintext
 --Params: invertCulling - A boolean indicating whether to invert the backface culling (true) or not (false).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -3961,7 +3961,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetInvertCulling(invertCulling) 
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -3978,7 +3978,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeFloatParam(computeShad
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -3995,7 +3995,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeIntParam(computeShader
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4012,7 +4012,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeVectorParam(computeSha
 --        name - Property name.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        values - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4029,7 +4029,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeVectorArrayParam(compu
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4046,7 +4046,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeMatrixParam(computeSha
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        values - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4061,7 +4061,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeMatrixArrayParam(compu
 --```plaintext
 --Params: rayTracingShader - RayTracingShader to set parameter for.
 --        passName - The Shader Pass to use when executing ray tracing shaders.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4086,7 +4086,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.ClearRandomWriteTargets() end
 --
 --```plaintext
 --Params: pixelRect - Viewport rectangle in pixel coordinates.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4098,7 +4098,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetViewport(pixelRect) end
 --
 --```plaintext
 --Params: scissor - Viewport rectangle in pixel coordinates.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4208,7 +4208,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.GetTemporaryRT(nameID, width, he
 --        enableRandomWrite - Should random-write access into the texture be enabled (default is false).
 --        desc - Use this RenderTextureDescriptor for the settings when creating the temporary RenderTexture.
 --        memorylessMode - Render texture memoryless mode.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4289,7 +4289,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.GetTemporaryRT(nameID, width, he
 --        enableRandomWrite - Should random-write access into the texture be enabled (default is false).
 --        desc - Use this RenderTextureDescriptor for the settings when creating the temporary RenderTexture.
 --        memorylessMode - Render texture memoryless mode.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4363,7 +4363,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.GetTemporaryRTArray(nameID, widt
 --        readWrite - Color space conversion mode.
 --        antiAliasing - Anti-aliasing (default is no anti-aliasing).
 --        enableRandomWrite - Should random-write access into the texture be enabled (default is false).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4441,7 +4441,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.GetTemporaryRTArray(nameID, widt
 --
 --```plaintext
 --Params: nameID - Shader property name for this texture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4456,7 +4456,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.ReleaseTemporaryRT(nameID) end
 --        clearColor - Should clear color buffer?
 --        backgroundColor - Color to clear with.
 --        depth - Depth to clear with (default is 1.0).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4517,7 +4517,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetGlobalMatrix(nameID, value) e
 --
 --```plaintext
 --Params: keyword - The name of the global shader keyword to enable.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4529,7 +4529,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.EnableShaderKeyword(keyword) end
 --
 --```plaintext
 --Params: keyword - The name of the global shader keyword to disable.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4541,7 +4541,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DisableShaderKeyword(keyword) en
 --
 --```plaintext
 --Params: view - View (world to camera space) matrix.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4553,7 +4553,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetViewMatrix(view) end
 --
 --```plaintext
 --Params: proj - Projection (camera to clip space) matrix.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4566,7 +4566,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetProjectionMatrix(proj) end
 --```plaintext
 --Params: view - View (world to camera space) matrix.
 --        proj - Projection (camera to clip space) matrix.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4584,7 +4584,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetViewProjectionMatrices(view, 
 --        slopeBias - Scales the maximum Z slope, also called the depth slope, to produce a variable depth offset for each polygon.
 --
 --Polygons that are not parallel to the near and far clip planes have Z slope. Adjust this value to avoid visual artifacts on such polygons.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4597,7 +4597,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetGlobalDepthBias(bias, slopeBi
 --
 --```plaintext
 --Params: flags - The flags to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4633,7 +4633,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetGlobalMatrixArray(nameID, val
 --
 --```plaintext
 --Params: projectionMat - Stereo projection matrices.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4646,7 +4646,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetLateLatchProjectionMatrices(p
 --```plaintext
 --Params: matrixPropertyType - Camera matrix property type to be late latched.
 --        shaderPropertyID - Shader property name id.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4659,7 +4659,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.MarkLateLatchMatrixShaderPropert
 --
 --```plaintext
 --Params: matrixPropertyType - Camera matrix property type to be unmarked for late latching.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4672,7 +4672,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.UnmarkLateLatchMatrix(matrixProp
 --```plaintext
 --Params: name - Name of the profile information used for sampling.
 --        sampler - The CustomSampler that the CommandBuffer uses for sampling.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4685,7 +4685,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.BeginSample(name) end
 --```plaintext
 --Params: name - Name of the profile information used for sampling.
 --        sampler - The CustomSampler that the CommandBuffer uses for sampling.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4698,7 +4698,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.EndSample(name) end
 --```plaintext
 --Params: name - Name of the profile information used for sampling.
 --        sampler - The CustomSampler that the CommandBuffer uses for sampling.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4711,7 +4711,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.BeginSample(sampler) end
 --```plaintext
 --Params: name - Name of the profile information used for sampling.
 --        sampler - The CustomSampler that the CommandBuffer uses for sampling.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4723,7 +4723,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.EndSample(sampler) end
 --
 --```plaintext
 --Params: dest - Increments the updateCount for this Texture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4754,7 +4754,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetInstanceMultiplier(multiplier
 --        colorStoreAction - Store action that is used for the color buffer.
 --        depthLoadAction - Load action that is used for the depth/stencil buffer.
 --        depthStoreAction - Store action that is used for the depth/stencil buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4778,7 +4778,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRenderTarget(rt) end
 --        colorStoreAction - Store action that is used for the color buffer.
 --        depthLoadAction - Load action that is used for the depth/stencil buffer.
 --        depthStoreAction - Store action that is used for the depth/stencil buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4804,7 +4804,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRenderTarget(rt, loadAction, 
 --        colorStoreAction - Store action that is used for the color buffer.
 --        depthLoadAction - Load action that is used for the depth/stencil buffer.
 --        depthStoreAction - Store action that is used for the depth/stencil buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4832,7 +4832,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRenderTarget(rt, colorLoadAct
 --        colorStoreAction - Store action that is used for the color buffer.
 --        depthLoadAction - Load action that is used for the depth/stencil buffer.
 --        depthStoreAction - Store action that is used for the depth/stencil buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4857,7 +4857,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRenderTarget(rt, mipLevel) en
 --        colorStoreAction - Store action that is used for the color buffer.
 --        depthLoadAction - Load action that is used for the depth/stencil buffer.
 --        depthStoreAction - Store action that is used for the depth/stencil buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4883,7 +4883,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRenderTarget(rt, mipLevel, cu
 --        colorStoreAction - Store action that is used for the color buffer.
 --        depthLoadAction - Load action that is used for the depth/stencil buffer.
 --        depthStoreAction - Store action that is used for the depth/stencil buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4910,7 +4910,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRenderTarget(rt, mipLevel, cu
 --        colorStoreAction - Store action that is used for the color buffer.
 --        depthLoadAction - Load action that is used for the depth/stencil buffer.
 --        depthStoreAction - Store action that is used for the depth/stencil buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4935,7 +4935,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRenderTarget(color, depth) en
 --        colorStoreAction - Store action that is used for the color buffer.
 --        depthLoadAction - Load action that is used for the depth/stencil buffer.
 --        depthStoreAction - Store action that is used for the depth/stencil buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4961,7 +4961,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRenderTarget(color, depth, mi
 --        colorStoreAction - Store action that is used for the color buffer.
 --        depthLoadAction - Load action that is used for the depth/stencil buffer.
 --        depthStoreAction - Store action that is used for the depth/stencil buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -4988,7 +4988,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRenderTarget(color, depth, mi
 --        colorStoreAction - Store action that is used for the color buffer.
 --        depthLoadAction - Load action that is used for the depth/stencil buffer.
 --        depthStoreAction - Store action that is used for the depth/stencil buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5016,7 +5016,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRenderTarget(color, depth, mi
 --        colorStoreAction - Store action that is used for the color buffer.
 --        depthLoadAction - Load action that is used for the depth/stencil buffer.
 --        depthStoreAction - Store action that is used for the depth/stencil buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5045,7 +5045,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRenderTarget(color, colorLoad
 --        colorStoreAction - Store action that is used for the color buffer.
 --        depthLoadAction - Load action that is used for the depth/stencil buffer.
 --        depthStoreAction - Store action that is used for the depth/stencil buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5070,7 +5070,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRenderTarget(colors, depth) e
 --        colorStoreAction - Store action that is used for the color buffer.
 --        depthLoadAction - Load action that is used for the depth/stencil buffer.
 --        depthStoreAction - Store action that is used for the depth/stencil buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5098,7 +5098,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRenderTarget(colors, depth, m
 --        colorStoreAction - Store action that is used for the color buffer.
 --        depthLoadAction - Load action that is used for the depth/stencil buffer.
 --        depthStoreAction - Store action that is used for the depth/stencil buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5125,7 +5125,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRenderTarget(binding, mipLeve
 --        colorStoreAction - Store action that is used for the color buffer.
 --        depthLoadAction - Load action that is used for the depth/stencil buffer.
 --        depthStoreAction - Store action that is used for the depth/stencil buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5138,7 +5138,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRenderTarget(binding) end
 --```plaintext
 --Params: buffer - The destination buffer.
 --        data - Array of values to fill the buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5166,7 +5166,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeBufferData(buffer, dat
 --        graphicsBufferStartIndex - The first element index in compute buffer to receive the data.
 --        count - The number of elements to copy.
 --        nativeBufferStartIndex - The first element index in data to copy to the compute buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5199,7 +5199,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeBufferData(buffer, dat
 --```plaintext
 --Params: buffer - The destination buffer.
 --        counterValue - Value of the append/consume counter.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5218,7 +5218,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.Release() end
 --
 --```plaintext
 --Params: stage - The synchronization stage. See Graphics.CreateGraphicsFence.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5230,7 +5230,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.CreateAsyncGraphicsFence() end
 --
 --```plaintext
 --Params: stage - The synchronization stage. See Graphics.CreateGraphicsFence.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5250,7 +5250,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.CreateGraphicsFence(fenceType, s
 --```plaintext
 --Params: fence - The GraphicsFence that the GPU will be instructed to wait upon before proceeding with its processing of the graphics queue.
 --        stage - On some platforms there is a significant gap between the vertex processing completing and the pixel processing beginning for a given draw call. This parameter allows for a requested wait to be made before the next item's vertex or pixel processing begins. If a compute shader dispatch is the next item to be submitted then this parameter is ignored.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5263,7 +5263,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.WaitOnAsyncGraphicsFence(fence) 
 --```plaintext
 --Params: fence - The GraphicsFence that the GPU will be instructed to wait upon before proceeding with its processing of the graphics queue.
 --        stage - On some platforms there is a significant gap between the vertex processing completing and the pixel processing beginning for a given draw call. This parameter allows for a requested wait to be made before the next item's vertex or pixel processing begins. If a compute shader dispatch is the next item to be submitted then this parameter is ignored.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5284,7 +5284,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.WaitOnAsyncGraphicsFence(fence, 
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5301,7 +5301,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeFloatParam(computeShad
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5318,7 +5318,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeIntParam(computeShader
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5335,7 +5335,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeVectorParam(computeSha
 --        name - Property name.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        values - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5352,7 +5352,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeVectorArrayParam(compu
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5369,7 +5369,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeMatrixParam(computeSha
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        values - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5386,7 +5386,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeMatrixArrayParam(compu
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        values - Values to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5403,7 +5403,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeFloatParams(computeSha
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        values - Values to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5420,7 +5420,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeFloatParams(computeSha
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        values - Values to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5437,7 +5437,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeIntParams(computeShade
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        values - Values to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5457,7 +5457,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeIntParams(computeShade
 --        rt - Texture value or identifier to set, see RenderTargetIdentifier.
 --        mipLevel - Optional mipmap level of the read-write texture.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5478,7 +5478,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeTextureParam(computeSh
 --        rt - Texture value or identifier to set, see RenderTargetIdentifier.
 --        mipLevel - Optional mipmap level of the read-write texture.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5499,7 +5499,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeTextureParam(computeSh
 --        rt - Texture value or identifier to set, see RenderTargetIdentifier.
 --        mipLevel - Optional mipmap level of the read-write texture.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5521,7 +5521,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeTextureParam(computeSh
 --        rt - Texture value or identifier to set, see RenderTargetIdentifier.
 --        mipLevel - Optional mipmap level of the read-write texture.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5543,7 +5543,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeTextureParam(computeSh
 --        rt - Texture value or identifier to set, see RenderTargetIdentifier.
 --        mipLevel - Optional mipmap level of the read-write texture.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5566,7 +5566,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeTextureParam(computeSh
 --        rt - Texture value or identifier to set, see RenderTargetIdentifier.
 --        mipLevel - Optional mipmap level of the read-write texture.
 --        element - Optional parameter that specifies the type of data to set from the RenderTexture.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5587,7 +5587,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeTextureParam(computeSh
 --        name - Name of the buffer variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        buffer - Buffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5606,7 +5606,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeBufferParam(computeSha
 --        name - Name of the buffer variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        buffer - Buffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5625,7 +5625,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeBufferParam(computeSha
 --        name - Name of the buffer variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        buffer - Buffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5644,7 +5644,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeBufferParam(computeSha
 --        name - Name of the buffer variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        buffer - Buffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5664,7 +5664,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeBufferParam(computeSha
 --        buffer - The buffer to bind as constant buffer.
 --        offset - The offset in bytes from the beginning of the buffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5685,7 +5685,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeConstantBufferParam(co
 --        buffer - The buffer to bind as constant buffer.
 --        offset - The offset in bytes from the beginning of the buffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5706,7 +5706,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeConstantBufferParam(co
 --        buffer - The buffer to bind as constant buffer.
 --        offset - The offset in bytes from the beginning of the buffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5727,7 +5727,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeConstantBufferParam(co
 --        buffer - The buffer to bind as constant buffer.
 --        offset - The offset in bytes from the beginning of the buffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5749,7 +5749,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetComputeConstantBufferParam(co
 --        threadGroupsZ - Number of work groups in the Z dimension.
 --        indirectBuffer - ComputeBuffer with dispatch arguments.
 --        argsOffset - Byte offset indicating the location of the dispatch arguments in the buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5771,7 +5771,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DispatchCompute(computeShader, k
 --        threadGroupsZ - Number of work groups in the Z dimension.
 --        indirectBuffer - ComputeBuffer with dispatch arguments.
 --        argsOffset - Byte offset indicating the location of the dispatch arguments in the buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5792,7 +5792,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DispatchCompute(computeShader, k
 --        threadGroupsZ - Number of work groups in the Z dimension.
 --        indirectBuffer - ComputeBuffer with dispatch arguments.
 --        argsOffset - Byte offset indicating the location of the dispatch arguments in the buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5807,7 +5807,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DispatchCompute(computeShader, k
 --
 --```plaintext
 --Params: accelerationStructure - The RayTracingAccelerationStructure to be generated.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5827,7 +5827,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.BuildRayTracingAccelerationStruc
 --        name - Name of the RayTracingAccelerationStructure in shader coder.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        rayTracingAccelerationStructure - The RayTracingAccelerationStructure to be used.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5844,7 +5844,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingAccelerationStructu
 --        name - Name of the RayTracingAccelerationStructure in shader coder.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        rayTracingAccelerationStructure - The RayTracingAccelerationStructure to be used.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5861,7 +5861,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingAccelerationStructu
 --        name - The name of the constant buffer in shader code.
 --        nameID - The ID of the property name for the constant buffer in shader code. Use Shader.PropertyToID to get this ID.
 --        buffer - Buffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5878,7 +5878,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingBufferParam(rayTrac
 --        name - The name of the constant buffer in shader code.
 --        nameID - The ID of the property name for the constant buffer in shader code. Use Shader.PropertyToID to get this ID.
 --        buffer - Buffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5897,7 +5897,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingBufferParam(rayTrac
 --        buffer - The buffer to bind as constant buffer.
 --        offset - The offset in bytes from the beginning of the buffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5918,7 +5918,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingConstantBufferParam
 --        buffer - The buffer to bind as constant buffer.
 --        offset - The offset in bytes from the beginning of the buffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5939,7 +5939,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingConstantBufferParam
 --        buffer - The buffer to bind as constant buffer.
 --        offset - The offset in bytes from the beginning of the buffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5960,7 +5960,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingConstantBufferParam
 --        buffer - The buffer to bind as constant buffer.
 --        offset - The offset in bytes from the beginning of the buffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5979,7 +5979,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingConstantBufferParam
 --        name - Name of the texture variable in shader code.
 --        nameID - The ID of the property name for the texture in shader code. Use Shader.PropertyToID to get this ID.
 --        rt - Texture value or identifier to set, see RenderTargetIdentifier.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -5996,7 +5996,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingTextureParam(rayTra
 --        name - Name of the texture variable in shader code.
 --        nameID - The ID of the property name for the texture in shader code. Use Shader.PropertyToID to get this ID.
 --        rt - Texture value or identifier to set, see RenderTargetIdentifier.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6013,7 +6013,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingTextureParam(rayTra
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6030,7 +6030,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingFloatParam(rayTraci
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6047,7 +6047,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingFloatParam(rayTraci
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        values - Values to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6064,7 +6064,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingFloatParams(rayTrac
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        values - Values to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6081,7 +6081,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingFloatParams(rayTrac
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6098,7 +6098,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingIntParam(rayTracing
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6115,7 +6115,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingIntParam(rayTracing
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        values - Values to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6132,7 +6132,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingIntParams(rayTracin
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        values - Values to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6149,7 +6149,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingIntParams(rayTracin
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6166,7 +6166,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingVectorParam(rayTrac
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6183,7 +6183,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingVectorParam(rayTrac
 --        name - Property name.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        values - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6200,7 +6200,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingVectorArrayParam(ra
 --        name - Property name.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        values - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6217,7 +6217,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingVectorArrayParam(ra
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6234,7 +6234,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingMatrixParam(rayTrac
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        val - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6251,7 +6251,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingMatrixParam(rayTrac
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        values - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6268,7 +6268,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingMatrixArrayParam(ra
 --        name - Name of the variable in shader code.
 --        nameID - Property name ID. Use Shader.PropertyToID to get this ID.
 --        values - Value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6287,7 +6287,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRayTracingMatrixArrayParam(ra
 --        height - The height of the ray generation shader thread grid.
 --        depth - The depth of the ray generation shader thread grid.
 --        camera - Optional parameter used to setup camera-related built-in shader variables.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6304,7 +6304,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DispatchRays(rayTracingShader, r
 --
 --```plaintext
 --Params: rt - The render texture requiring mipmaps generation.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6316,7 +6316,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.GenerateMips(rt) end
 --
 --```plaintext
 --Params: rt - The render texture requiring mipmaps generation.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6329,7 +6329,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.GenerateMips(rt) end
 --```plaintext
 --Params: rt - The antialiased render texture to resolve.
 --        target - The render texture to resolve into.  If set, the target render texture must have the same dimensions and format as the source.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6347,7 +6347,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.ResolveAntiAliasedSurface(rt, ta
 --        submeshIndex - Which subset of the mesh to render.
 --        shaderPass - Which pass of the shader to use (default is -1, which renders all passes).
 --        properties - Additional Material properties to apply onto the Material just before this Mesh is drawn. See MaterialPropertyBlock.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6388,7 +6388,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawMesh(mesh, matrix, material)
 --        material - Material to use.
 --        submeshIndex - Which subset of the mesh to render.
 --        shaderPass - Which pass of the shader to use (default is -1, which renders all passes).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6420,7 +6420,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawRenderer(renderer, material)
 --        vertexCount - Vertex count to render.
 --        instanceCount - Instance count to render.
 --        properties - Additional material properties to apply just before rendering. See MaterialPropertyBlock.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6444,7 +6444,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawProcedural(matrix, material,
 --        vertexCount - Vertex count to render.
 --        instanceCount - Instance count to render.
 --        properties - Additional material properties to apply just before rendering. See MaterialPropertyBlock.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6467,7 +6467,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawProcedural(matrix, material,
 --        vertexCount - Vertex count to render.
 --        instanceCount - Instance count to render.
 --        properties - Additional material properties to apply just before rendering. See MaterialPropertyBlock.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6490,7 +6490,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawProcedural(matrix, material,
 --        instanceCount - Instance count to render.
 --        indexBuffer - The index buffer used to submit vertices to the GPU.
 --        properties - Additional material properties to apply just before rendering. See MaterialPropertyBlock.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6516,7 +6516,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawProcedural(indexBuffer, matr
 --        instanceCount - Instance count to render.
 --        indexBuffer - The index buffer used to submit vertices to the GPU.
 --        properties - Additional material properties to apply just before rendering. See MaterialPropertyBlock.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6541,7 +6541,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawProcedural(indexBuffer, matr
 --        instanceCount - Instance count to render.
 --        indexBuffer - The index buffer used to submit vertices to the GPU.
 --        properties - Additional material properties to apply just before rendering. See MaterialPropertyBlock.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6564,7 +6564,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawProcedural(indexBuffer, matr
 --        properties - Additional material properties to apply just before rendering. See MaterialPropertyBlock.
 --        bufferWithArgs - Buffer with draw arguments.
 --        argsOffset - Byte offset where in the buffer the draw arguments are.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6588,7 +6588,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawProceduralIndirect(matrix, m
 --        properties - Additional material properties to apply just before rendering. See MaterialPropertyBlock.
 --        bufferWithArgs - Buffer with draw arguments.
 --        argsOffset - Byte offset where in the buffer the draw arguments are.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6611,7 +6611,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawProceduralIndirect(matrix, m
 --        properties - Additional material properties to apply just before rendering. See MaterialPropertyBlock.
 --        bufferWithArgs - Buffer with draw arguments.
 --        argsOffset - Byte offset where in the buffer the draw arguments are.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6634,7 +6634,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawProceduralIndirect(matrix, m
 --        bufferWithArgs - Buffer with draw arguments.
 --        argsOffset - Byte offset where in the buffer the draw arguments are.
 --        properties - Additional material properties to apply just before rendering. See MaterialPropertyBlock.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6660,7 +6660,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawProceduralIndirect(indexBuff
 --        bufferWithArgs - Buffer with draw arguments.
 --        argsOffset - Byte offset where in the buffer the draw arguments are.
 --        properties - Additional material properties to apply just before rendering. See MaterialPropertyBlock.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6685,7 +6685,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawProceduralIndirect(indexBuff
 --        bufferWithArgs - Buffer with draw arguments.
 --        argsOffset - Byte offset where in the buffer the draw arguments are.
 --        properties - Additional material properties to apply just before rendering. See MaterialPropertyBlock.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6708,7 +6708,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawProceduralIndirect(indexBuff
 --        properties - Additional material properties to apply just before rendering. See MaterialPropertyBlock.
 --        bufferWithArgs - Buffer with draw arguments.
 --        argsOffset - Byte offset where in the buffer the draw arguments are.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6732,7 +6732,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawProceduralIndirect(matrix, m
 --        properties - Additional material properties to apply just before rendering. See MaterialPropertyBlock.
 --        bufferWithArgs - Buffer with draw arguments.
 --        argsOffset - Byte offset where in the buffer the draw arguments are.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6755,7 +6755,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawProceduralIndirect(matrix, m
 --        properties - Additional material properties to apply just before rendering. See MaterialPropertyBlock.
 --        bufferWithArgs - Buffer with draw arguments.
 --        argsOffset - Byte offset where in the buffer the draw arguments are.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6778,7 +6778,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawProceduralIndirect(matrix, m
 --        bufferWithArgs - Buffer with draw arguments.
 --        argsOffset - Byte offset where in the buffer the draw arguments are.
 --        properties - Additional material properties to apply just before rendering. See MaterialPropertyBlock.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6804,7 +6804,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawProceduralIndirect(indexBuff
 --        bufferWithArgs - Buffer with draw arguments.
 --        argsOffset - Byte offset where in the buffer the draw arguments are.
 --        properties - Additional material properties to apply just before rendering. See MaterialPropertyBlock.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6829,7 +6829,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawProceduralIndirect(indexBuff
 --        bufferWithArgs - Buffer with draw arguments.
 --        argsOffset - Byte offset where in the buffer the draw arguments are.
 --        properties - Additional material properties to apply just before rendering. See MaterialPropertyBlock.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6856,7 +6856,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawProceduralIndirect(indexBuff
 --        matrices - The array of object transformation matrices.
 --        count - The number of instances to be drawn.
 --        properties - Additional Material properties to apply onto the Material just before this Mesh is drawn. See MaterialPropertyBlock.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6884,7 +6884,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawMeshInstanced(mesh, submeshI
 --        matrices - The array of object transformation matrices.
 --        count - The number of instances to be drawn.
 --        properties - Additional Material properties to apply onto the Material just before this Mesh is drawn. See MaterialPropertyBlock.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6911,7 +6911,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawMeshInstanced(mesh, submeshI
 --        matrices - The array of object transformation matrices.
 --        count - The number of instances to be drawn.
 --        properties - Additional Material properties to apply onto the Material just before this Mesh is drawn. See MaterialPropertyBlock.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6937,7 +6937,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawMeshInstanced(mesh, submeshI
 --        shaderPass - Which pass of the shader to use, or -1 which renders all passes.
 --        count - The number of instances to be drawn.
 --        properties - Additional Material properties to apply onto the Material just before this Mesh is drawn. See MaterialPropertyBlock.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6960,7 +6960,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawMeshInstancedProcedural(mesh
 --        properties - Additional Material properties to apply onto the Material just before this Mesh is drawn. See MaterialPropertyBlock.
 --        bufferWithArgs - The GPU buffer containing the arguments for how many instances of this mesh to draw.
 --        argsOffset - The byte offset into the buffer, where the draw arguments start.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -6984,7 +6984,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawMeshInstancedIndirect(mesh, 
 --        properties - Additional Material properties to apply onto the Material just before this Mesh is drawn. See MaterialPropertyBlock.
 --        bufferWithArgs - The GPU buffer containing the arguments for how many instances of this mesh to draw.
 --        argsOffset - The byte offset into the buffer, where the draw arguments start.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7007,7 +7007,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawMeshInstancedIndirect(mesh, 
 --        properties - Additional Material properties to apply onto the Material just before this Mesh is drawn. See MaterialPropertyBlock.
 --        bufferWithArgs - The GPU buffer containing the arguments for how many instances of this mesh to draw.
 --        argsOffset - The byte offset into the buffer, where the draw arguments start.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7029,7 +7029,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawMeshInstancedIndirect(mesh, 
 --        properties - Additional Material properties to apply onto the Material just before this Mesh is drawn. See MaterialPropertyBlock.
 --        bufferWithArgs - The GPU buffer containing the arguments for how many instances of this mesh to draw.
 --        argsOffset - The byte offset into the buffer, where the draw arguments start.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7053,7 +7053,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawMeshInstancedIndirect(mesh, 
 --        properties - Additional Material properties to apply onto the Material just before this Mesh is drawn. See MaterialPropertyBlock.
 --        bufferWithArgs - The GPU buffer containing the arguments for how many instances of this mesh to draw.
 --        argsOffset - The byte offset into the buffer, where the draw arguments start.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7076,7 +7076,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawMeshInstancedIndirect(mesh, 
 --        properties - Additional Material properties to apply onto the Material just before this Mesh is drawn. See MaterialPropertyBlock.
 --        bufferWithArgs - The GPU buffer containing the arguments for how many instances of this mesh to draw.
 --        argsOffset - The byte offset into the buffer, where the draw arguments start.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7092,7 +7092,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawMeshInstancedIndirect(mesh, 
 --
 --```plaintext
 --Params: normalizedCamViewport - The viewport of the camera currently being rendered.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7107,7 +7107,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.DrawOcclusionMesh(normalizedCamV
 --        buffer - Buffer to set as the write target.
 --        preserveCounterValue - Whether to leave the append/consume counter value unchanged.
 --        rt - RenderTargetIdentifier to set as the write target.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7123,7 +7123,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRandomWriteTarget(index, rt) 
 --        buffer - Buffer to set as the write target.
 --        preserveCounterValue - Whether to leave the append/consume counter value unchanged.
 --        rt - RenderTargetIdentifier to set as the write target.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7140,7 +7140,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRandomWriteTarget(index, buff
 --        buffer - Buffer to set as the write target.
 --        preserveCounterValue - Whether to leave the append/consume counter value unchanged.
 --        rt - RenderTargetIdentifier to set as the write target.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7156,7 +7156,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRandomWriteTarget(index, buff
 --        buffer - Buffer to set as the write target.
 --        preserveCounterValue - Whether to leave the append/consume counter value unchanged.
 --        rt - RenderTargetIdentifier to set as the write target.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7173,7 +7173,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRandomWriteTarget(index, buff
 --        buffer - Buffer to set as the write target.
 --        preserveCounterValue - Whether to leave the append/consume counter value unchanged.
 --        rt - RenderTargetIdentifier to set as the write target.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7188,7 +7188,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetRandomWriteTarget(index, buff
 --Params: src - Append/consume buffer to copy the counter from.
 --        dst - A buffer to copy the counter to.
 --        dstOffsetBytes - Target byte offset in dst buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7204,7 +7204,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.CopyCounterValue(src, dst, dstOf
 --Params: src - Append/consume buffer to copy the counter from.
 --        dst - A buffer to copy the counter to.
 --        dstOffsetBytes - Target byte offset in dst buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7220,7 +7220,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.CopyCounterValue(src, dst, dstOf
 --Params: src - Append/consume buffer to copy the counter from.
 --        dst - A buffer to copy the counter to.
 --        dstOffsetBytes - Target byte offset in dst buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7236,7 +7236,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.CopyCounterValue(src, dst, dstOf
 --Params: src - Append/consume buffer to copy the counter from.
 --        dst - A buffer to copy the counter to.
 --        dstOffsetBytes - Target byte offset in dst buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7261,7 +7261,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.CopyCounterValue(src, dst, dstOf
 --        srcHeight - Height of source texture region to copy.
 --        dstX - X coordinate of where to copy region in destination texture (left side is zero).
 --        dstY - Y coordinate of where to copy region in destination texture (bottom is zero).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7285,7 +7285,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.CopyTexture(src, dst) end
 --        srcHeight - Height of source texture region to copy.
 --        dstX - X coordinate of where to copy region in destination texture (left side is zero).
 --        dstY - Y coordinate of where to copy region in destination texture (bottom is zero).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7311,7 +7311,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.CopyTexture(src, srcElement, dst
 --        srcHeight - Height of source texture region to copy.
 --        dstX - X coordinate of where to copy region in destination texture (left side is zero).
 --        dstY - Y coordinate of where to copy region in destination texture (bottom is zero).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7339,7 +7339,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.CopyTexture(src, srcElement, src
 --        srcHeight - Height of source texture region to copy.
 --        dstX - X coordinate of where to copy region in destination texture (left side is zero).
 --        dstY - Y coordinate of where to copy region in destination texture (bottom is zero).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7369,7 +7369,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.CopyTexture(src, srcElement, src
 --        offset - Offset applied to the source texture coordinate.
 --        sourceDepthSlice - The texture array source slice to perform the blit from.
 --        destDepthSlice - The texture array destination slice to perform the blit to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7389,7 +7389,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.Blit(source, dest) end
 --        offset - Offset applied to the source texture coordinate.
 --        sourceDepthSlice - The texture array source slice to perform the blit from.
 --        destDepthSlice - The texture array destination slice to perform the blit to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7411,7 +7411,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.Blit(source, dest, scale, offset
 --        offset - Offset applied to the source texture coordinate.
 --        sourceDepthSlice - The texture array source slice to perform the blit from.
 --        destDepthSlice - The texture array destination slice to perform the blit to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7432,7 +7432,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.Blit(source, dest, mat) end
 --        offset - Offset applied to the source texture coordinate.
 --        sourceDepthSlice - The texture array source slice to perform the blit from.
 --        destDepthSlice - The texture array destination slice to perform the blit to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7454,7 +7454,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.Blit(source, dest, mat, pass) en
 --        offset - Offset applied to the source texture coordinate.
 --        sourceDepthSlice - The texture array source slice to perform the blit from.
 --        destDepthSlice - The texture array destination slice to perform the blit to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7474,7 +7474,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.Blit(source, dest) end
 --        offset - Offset applied to the source texture coordinate.
 --        sourceDepthSlice - The texture array source slice to perform the blit from.
 --        destDepthSlice - The texture array destination slice to perform the blit to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7496,7 +7496,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.Blit(source, dest, scale, offset
 --        offset - Offset applied to the source texture coordinate.
 --        sourceDepthSlice - The texture array source slice to perform the blit from.
 --        destDepthSlice - The texture array destination slice to perform the blit to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7517,7 +7517,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.Blit(source, dest, mat) end
 --        offset - Offset applied to the source texture coordinate.
 --        sourceDepthSlice - The texture array source slice to perform the blit from.
 --        destDepthSlice - The texture array destination slice to perform the blit to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7539,7 +7539,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.Blit(source, dest, mat, pass) en
 --        offset - Offset applied to the source texture coordinate.
 --        sourceDepthSlice - The texture array source slice to perform the blit from.
 --        destDepthSlice - The texture array destination slice to perform the blit to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7561,7 +7561,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.Blit(source, dest, sourceDepthSl
 --        offset - Offset applied to the source texture coordinate.
 --        sourceDepthSlice - The texture array source slice to perform the blit from.
 --        destDepthSlice - The texture array destination slice to perform the blit to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7585,7 +7585,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.Blit(source, dest, scale, offset
 --        offset - Offset applied to the source texture coordinate.
 --        sourceDepthSlice - The texture array source slice to perform the blit from.
 --        destDepthSlice - The texture array destination slice to perform the blit to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7731,7 +7731,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetGlobalTexture(nameID, value, 
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
 --        value - The buffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7746,7 +7746,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetGlobalBuffer(name, value) end
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
 --        value - The buffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7761,7 +7761,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetGlobalBuffer(nameID, value) e
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
 --        value - The buffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7776,7 +7776,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetGlobalBuffer(name, value) end
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
 --        value - The buffer to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7793,7 +7793,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetGlobalBuffer(nameID, value) e
 --        buffer - The buffer to bind.
 --        offset - Offset from the start of the buffer in bytes.
 --        size - Size in bytes of the area to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7812,7 +7812,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetGlobalConstantBuffer(buffer, 
 --        buffer - The buffer to bind.
 --        offset - Offset from the start of the buffer in bytes.
 --        size - Size in bytes of the area to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7831,7 +7831,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetGlobalConstantBuffer(buffer, 
 --        buffer - The buffer to bind.
 --        offset - Offset from the start of the buffer in bytes.
 --        size - Size in bytes of the area to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7850,7 +7850,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetGlobalConstantBuffer(buffer, 
 --        buffer - The buffer to bind.
 --        offset - Offset from the start of the buffer in bytes.
 --        size - Size in bytes of the area to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7866,7 +7866,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetGlobalConstantBuffer(buffer, 
 --```plaintext
 --Params: shadowmap - Shadowmap render target to change the sampling mode on.
 --        mode - New sampling mode.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7884,7 +7884,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.SetSinglePassStereo(mode) end
 --```plaintext
 --Params: callback - Native code callback to queue for Unity's renderer to invoke.
 --        eventID - User defined id to send to the callback.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7899,7 +7899,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.IssuePluginEvent(callback, event
 --Params: callback - Native code callback to queue for Unity's renderer to invoke.
 --        data - Custom data to pass to the native plugin callback.
 --        eventID - Built in or user defined id to send to the callback.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7918,7 +7918,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.IssuePluginEventAndData(callback
 --        dest - Destination render target.
 --        commandParam - User data command parameters.
 --        commandFlags - User data command flags.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7937,7 +7937,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.IssuePluginCustomBlit(callback, 
 --Params: callback - Native code callback to queue for Unity's renderer to invoke.
 --        targetTexture - Texture resource to be updated.
 --        userData - User data to send to the native plugin.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7953,7 +7953,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.IssuePluginCustomTextureUpdate(c
 --Params: callback - Native code callback to queue for Unity's renderer to invoke.
 --        targetTexture - Texture resource to be updated.
 --        userData - User data to send to the native plugin.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -7969,7 +7969,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.IssuePluginCustomTextureUpdateV1
 --Params: callback - Native code callback to queue for Unity's renderer to invoke.
 --        targetTexture - Texture resource to be updated.
 --        userData - User data to send to the native plugin.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8007,7 +8007,7 @@ function CS.UnityEngine.Rendering.CommandBuffer.CreateGPUFence() end
 --```plaintext
 --Params: fence - The GPUFence that the GPU will be instructed to wait upon.
 --        stage - On some platforms there is a significant gap between the vertex processing completing and the pixel processing completing for a given draw call. This parameter allows for requested wait to be before the next items vertex or pixel processing begins. Some platforms can not differentiate between the start of vertex and pixel processing, these platforms will wait before the next items vertex processing. If a compute shader dispatch is the next item to be submitted then this parameter is ignored.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8040,7 +8040,7 @@ CS.UnityEngine.Rendering.CommandBufferExtensions = {}
 --When this value is false, Unity does not copy the existing contents of the render target into fast memory.
 --Set this value to true if you plan to add to the existing contents, and set it to false if you plan to overwrite or clear the existing contents.
 --Where possible, set this value to false for better performance.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8056,7 +8056,7 @@ function CS.UnityEngine.Rendering.CommandBufferExtensions.SwitchIntoFastMemory(r
 --```plaintext
 --Params: rid - The render target to remove from fast GPU memory.
 --        copyContents - When this value is true, Unity copies the existing contents of the render target when it removes it from fast GPU memory. When this value is false, Unity does not copy the existing contents of the render target when it removes it from fast GPU memory. Set this value to true if you plan to add to the existing contents, and set it to false if you plan to overwrite or clear the existing contents. Where possible, set this value to false for better performance.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8113,7 +8113,7 @@ function CS.UnityEngine.Rendering.SplashScreen:Draw() end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.StopBehavior = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.SplashScreen.StopBehavior
 function CS.UnityEngine.Rendering.StopBehavior:__CastFrom(value) end
@@ -8157,7 +8157,7 @@ function CS.UnityEngine.Rendering.SphericalHarmonicsL2.AddDirectionalLight(direc
 --```plaintext
 --Params: directions - Normalized directions for which the spherical harmonics are to be evaluated.
 --        results - Output array for the evaluated values of the corresponding directions.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8309,7 +8309,7 @@ function CS.UnityEngine.Rendering.BatchRendererGroup.Dispose() end
 --        associatedSceneObject - The GameObject to select when you pick an object that the batch renders.
 --        sceneCullingMask - Additional culling mask usually used for scene based culling. See Also: EditorSceneManager.GetSceneCullingMask.
 --        renderingLayerMask - Rendering layer this batch lives on. See Also: Renderer.renderingLayerMask.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8344,7 +8344,7 @@ function CS.UnityEngine.Rendering.BatchRendererGroup.AddBatch(mesh, subMeshIndex
 --        associatedSceneObject - The GameObject to select when you pick an object that the batch renders.
 --        sceneCullingMask - Additional culling mask usually used for scene based culling. See Also: EditorSceneManager.GetSceneCullingMask.
 --        renderingLayerMask - Rendering layer this batch lives on. See Also: Renderer.renderingLayerMask.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8386,7 +8386,7 @@ function CS.UnityEngine.Rendering.BatchRendererGroup.AddBatch(mesh, subMeshIndex
 --```plaintext
 --Params: batchIndex - Batch index. Must be a Hybrid Renderer V2 batch.
 --        flags - Flag bits to set for the batch.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8407,7 +8407,7 @@ function CS.UnityEngine.Rendering.BatchRendererGroup.SetBatchPropertyMetadata(ba
 --Params: batchIndex - Batch index.
 --        instanceCount - New number of instances in the batch.
 --        customProps - Additional material properties to apply. See MaterialPropertyBlock.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8421,7 +8421,7 @@ function CS.UnityEngine.Rendering.BatchRendererGroup.SetInstancingData(batchInde
 --
 --```plaintext
 --Params: batchIndex - Batch index.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8435,7 +8435,7 @@ function CS.UnityEngine.Rendering.BatchRendererGroup.GetBatchMatrices(batchIndex
 --```plaintext
 --Params: batchIndex - Batch index.
 --        propertyName - Property name.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8450,7 +8450,7 @@ function CS.UnityEngine.Rendering.BatchRendererGroup.GetBatchScalarArrayInt(batc
 --```plaintext
 --Params: batchIndex - Batch index.
 --        propertyName - Property name.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8465,7 +8465,7 @@ function CS.UnityEngine.Rendering.BatchRendererGroup.GetBatchScalarArray(batchIn
 --```plaintext
 --Params: batchIndex - Batch index.
 --        propertyName - Property name.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8480,7 +8480,7 @@ function CS.UnityEngine.Rendering.BatchRendererGroup.GetBatchVectorArrayInt(batc
 --```plaintext
 --Params: batchIndex - Batch index.
 --        propertyName - Property name.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8495,7 +8495,7 @@ function CS.UnityEngine.Rendering.BatchRendererGroup.GetBatchVectorArray(batchIn
 --```plaintext
 --Params: batchIndex - Batch index.
 --        propertyName - Property name.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8510,7 +8510,7 @@ function CS.UnityEngine.Rendering.BatchRendererGroup.GetBatchMatrixArray(batchIn
 --```plaintext
 --Params: batchIndex - Batch index.
 --        propertyName - Property name.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8525,7 +8525,7 @@ function CS.UnityEngine.Rendering.BatchRendererGroup.GetBatchScalarArrayInt(batc
 --```plaintext
 --Params: batchIndex - Batch index.
 --        propertyName - Property name.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8540,7 +8540,7 @@ function CS.UnityEngine.Rendering.BatchRendererGroup.GetBatchScalarArray(batchIn
 --```plaintext
 --Params: batchIndex - Batch index.
 --        propertyName - Property name.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8555,7 +8555,7 @@ function CS.UnityEngine.Rendering.BatchRendererGroup.GetBatchVectorArrayInt(batc
 --```plaintext
 --Params: batchIndex - Batch index.
 --        propertyName - Property name.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8570,7 +8570,7 @@ function CS.UnityEngine.Rendering.BatchRendererGroup.GetBatchVectorArray(batchIn
 --```plaintext
 --Params: batchIndex - Batch index.
 --        propertyName - Property name.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8585,7 +8585,7 @@ function CS.UnityEngine.Rendering.BatchRendererGroup.GetBatchMatrixArray(batchIn
 --```plaintext
 --Params: batchIndex - Batch index.
 --        bounds - The new bounds for the batch specified by batchIndex.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8607,7 +8607,7 @@ function CS.UnityEngine.Rendering.BatchRendererGroup.GetNumBatches() end
 --
 --```plaintext
 --Params: index - Batch index.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8619,7 +8619,7 @@ function CS.UnityEngine.Rendering.BatchRendererGroup.RemoveBatch(index) end
 --
 --```plaintext
 --Params: enabled - Pass true to enable the array, or false to disable it.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8633,7 +8633,7 @@ function CS.UnityEngine.Rendering.BatchRendererGroup.EnableVisibleIndicesYArray(
 --```plaintext
 --Params: rendererGroup - Group to cull.
 --        cullingContext - Culling context.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8721,7 +8721,7 @@ CS.UnityEngine.Rendering.AttachmentDescriptor = {}
 --Params: tgt - The surface to use as the backing storage for this AttachmentDescriptor.
 --        loadExistingContents - Whether to read in the existing contents of the surface when the RenderPass starts.
 --        storeResults - Whether to store the rendering results of the attachment when the RenderPass ends.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8735,7 +8735,7 @@ function CS.UnityEngine.Rendering.AttachmentDescriptor.ConfigureTarget(target, l
 --
 --```plaintext
 --Params: tgt - The target surface to receive the MSAA-resolved pixels.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8749,7 +8749,7 @@ function CS.UnityEngine.Rendering.AttachmentDescriptor.ConfigureResolveTarget(ta
 --Params: clearCol - Color clear value. Ignored on depth/stencil attachments.
 --        clearDep - Depth clear value. Ignored on color surfaces.
 --        clearStenc - Stencil clear value. Ignored on color or depth-only surfaces.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8888,7 +8888,7 @@ CS.UnityEngine.Rendering.CameraProperties = {}
 --
 --```plaintext
 --Params: index - Plane index (up to 5).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8902,7 +8902,7 @@ function CS.UnityEngine.Rendering.CameraProperties.GetShadowCullingPlane(index) 
 --```plaintext
 --Params: index - Plane index (up to 5).
 --        plane - Shadow culling plane.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8915,7 +8915,7 @@ function CS.UnityEngine.Rendering.CameraProperties.SetShadowCullingPlane(index, 
 --
 --```plaintext
 --Params: index - Plane index (up to 5).
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -8929,7 +8929,7 @@ function CS.UnityEngine.Rendering.CameraProperties.GetCameraCullingPlane(index) 
 --```plaintext
 --Params: index - Plane index (up to 5).
 --        plane - Camera culling plane.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -9036,7 +9036,7 @@ CS.UnityEngine.Rendering.<layerCullDistances>e__FixedBuffer = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.CullingOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.CullingOptions
 function CS.UnityEngine.Rendering.CullingOptions:__CastFrom(value) end
@@ -9269,7 +9269,7 @@ CS.UnityEngine.Rendering.CullingResults = {}
 --```plaintext
 --Params: computeBuffer - The compute buffer object to fill.
 --        buffer - The buffer object to fill.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -9282,7 +9282,7 @@ function CS.UnityEngine.Rendering.CullingResults.FillLightAndReflectionProbeIndi
 --```plaintext
 --Params: computeBuffer - The compute buffer object to fill.
 --        buffer - The buffer object to fill.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -9294,7 +9294,7 @@ function CS.UnityEngine.Rendering.CullingResults.FillLightAndReflectionProbeIndi
 --
 --```plaintext
 --Params: allocator - The allocator to use.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -9311,7 +9311,7 @@ function CS.UnityEngine.Rendering.CullingResults.SetLightIndexMap(lightIndexMap)
 --
 --```plaintext
 --Params: allocator - The allocator to use.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -9490,7 +9490,7 @@ CS.UnityEngine.Rendering.DrawingSettings = {}
 --
 --```plaintext
 --Params: index - Index of the shader pass to use.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -9504,7 +9504,7 @@ function CS.UnityEngine.Rendering.DrawingSettings.GetShaderPassName(index) end
 --```plaintext
 --Params: index - Index of the shader pass to use.
 --        shaderPassName - Name of the shader pass.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -9631,7 +9631,7 @@ function CS.UnityEngine.Rendering.FilteringSettings:op_Inequality(left, right) e
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.GizmoSubset = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.GizmoSubset
 function CS.UnityEngine.Rendering.GizmoSubset:__CastFrom(value) end
@@ -9765,7 +9765,7 @@ function CS.UnityEngine.Rendering.LODParameters:op_Inequality(left, right) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.PerObjectData = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.PerObjectData
 function CS.UnityEngine.Rendering.PerObjectData:__CastFrom(value) end
@@ -9864,7 +9864,7 @@ function CS.UnityEngine.Rendering.RasterState:op_Inequality(left, right) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.ReflectionProbeSortingCriteria = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.ReflectionProbeSortingCriteria
 function CS.UnityEngine.Rendering.ReflectionProbeSortingCriteria:__CastFrom(value) end
@@ -10215,7 +10215,7 @@ function CS.UnityEngine.Rendering.RenderStateBlock:op_Inequality(left, right) en
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.RenderStateMask = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.RenderStateMask
 function CS.UnityEngine.Rendering.RenderStateMask:__CastFrom(value) end
@@ -10339,7 +10339,7 @@ CS.UnityEngine.Rendering.ScriptableRenderContext = {}
 --
 --```plaintext
 --Params: cullingCamera - Camera to emit the geometry for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10351,7 +10351,7 @@ function CS.UnityEngine.Rendering.ScriptableRenderContext:EmitWorldGeometryForSc
 --
 --```plaintext
 --Params: camera - Camera to emit the geometry for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10485,7 +10485,7 @@ function CS.UnityEngine.Rendering.ScriptableRenderContext.DrawShadows(settings) 
 --
 --```plaintext
 --Params: commandBuffer - Specifies the Command Buffer to execute.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10498,7 +10498,7 @@ function CS.UnityEngine.Rendering.ScriptableRenderContext.ExecuteCommandBuffer(c
 --```plaintext
 --Params: commandBuffer - The CommandBuffer to be executed.
 --        queueType - Describes the desired async compute queue the supplied CommandBuffer should be executed on.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10513,7 +10513,7 @@ function CS.UnityEngine.Rendering.ScriptableRenderContext.ExecuteCommandBufferAs
 --Params: camera - Camera to setup shader variables for.
 --        stereoSetup - Set up the stereo shader variables and state.
 --        eye - The current eye to be rendered.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10528,7 +10528,7 @@ function CS.UnityEngine.Rendering.ScriptableRenderContext.SetupCameraProperties(
 --Params: camera - Camera to setup shader variables for.
 --        stereoSetup - Set up the stereo shader variables and state.
 --        eye - The current eye to be rendered.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10543,7 +10543,7 @@ function CS.UnityEngine.Rendering.ScriptableRenderContext.SetupCameraProperties(
 --```plaintext
 --Params: camera - Camera to indicate completion of stereo rendering.
 --        eye - The current eye to be rendered.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10556,7 +10556,7 @@ function CS.UnityEngine.Rendering.ScriptableRenderContext.StereoEndRender(camera
 --```plaintext
 --Params: camera - Camera to indicate completion of stereo rendering.
 --        eye - The current eye to be rendered.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10570,7 +10570,7 @@ function CS.UnityEngine.Rendering.ScriptableRenderContext.StereoEndRender(camera
 --```plaintext
 --Params: camera - Camera to indicate completion of stereo rendering.
 --        eye - The current eye to be rendered.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10585,7 +10585,7 @@ function CS.UnityEngine.Rendering.ScriptableRenderContext.StereoEndRender(camera
 --```plaintext
 --Params: camera - Camera to enable stereo rendering on.
 --        eye - The current eye to be rendered.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10598,7 +10598,7 @@ function CS.UnityEngine.Rendering.ScriptableRenderContext.StartMultiEye(camera) 
 --```plaintext
 --Params: camera - Camera to enable stereo rendering on.
 --        eye - The current eye to be rendered.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10611,7 +10611,7 @@ function CS.UnityEngine.Rendering.ScriptableRenderContext.StartMultiEye(camera, 
 --
 --```plaintext
 --Params: camera - Camera to disable stereo rendering on.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10623,7 +10623,7 @@ function CS.UnityEngine.Rendering.ScriptableRenderContext.StopMultiEye(camera) e
 --
 --```plaintext
 --Params: camera - Camera to draw the skybox for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10642,7 +10642,7 @@ function CS.UnityEngine.Rendering.ScriptableRenderContext.InvokeOnRenderObjectCa
 --```plaintext
 --Params: camera - The camera of the current view.
 --        gizmoSubset - Set to GizmoSubset.PreImageEffects to draw Gizmos that should be affected by postprocessing, or GizmoSubset.PostImageEffects to draw Gizmos that should not be affected by postprocessing. See also: GizmoSubset.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10655,7 +10655,7 @@ function CS.UnityEngine.Rendering.ScriptableRenderContext.DrawGizmos(camera, giz
 --
 --```plaintext
 --Params: camera - The Scene view Camera to draw the overlay for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10667,7 +10667,7 @@ function CS.UnityEngine.Rendering.ScriptableRenderContext.DrawWireOverlay(camera
 --
 --```plaintext
 --Params: camera - The camera of the current view.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10851,7 +10851,7 @@ CS.UnityEngine.Rendering.ShadowSplitData = {}
 --
 --```plaintext
 --Params: index - The culling plane index.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10865,7 +10865,7 @@ function CS.UnityEngine.Rendering.ShadowSplitData.GetCullingPlane(index) end
 --```plaintext
 --Params: index - The index of the culling plane to set.
 --        plane - The culling plane.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -10966,7 +10966,7 @@ CS.UnityEngine.Rendering.<m_CullingPlanes>e__FixedBuffer = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.SortingCriteria = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.SortingCriteria
 function CS.UnityEngine.Rendering.SortingCriteria:__CastFrom(value) end
@@ -11045,7 +11045,7 @@ function CS.UnityEngine.Rendering.SortingLayerRange.GetHashCode() end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.DistanceMetric = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.DistanceMetric
 function CS.UnityEngine.Rendering.DistanceMetric:__CastFrom(value) end
@@ -11184,7 +11184,7 @@ CS.UnityEngine.Rendering.StencilState = {}
 --
 --```plaintext
 --Params: value - The value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11196,7 +11196,7 @@ function CS.UnityEngine.Rendering.StencilState.SetCompareFunction(value) end
 --
 --```plaintext
 --Params: value - The value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11208,7 +11208,7 @@ function CS.UnityEngine.Rendering.StencilState.SetPassOperation(value) end
 --
 --```plaintext
 --Params: value - The value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11220,7 +11220,7 @@ function CS.UnityEngine.Rendering.StencilState.SetFailOperation(value) end
 --
 --```plaintext
 --Params: value - The value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -11421,7 +11421,7 @@ CS.UnityEngine.Rendering.SupportedRenderingFeatures = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.ReflectionProbeModes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.SupportedRenderingFeatures.ReflectionProbeModes
 function CS.UnityEngine.Rendering.ReflectionProbeModes:__CastFrom(value) end
@@ -11455,7 +11455,7 @@ function CS.UnityEngine.Rendering.ReflectionProbeModes:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.LightmapMixedBakeModes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.SupportedRenderingFeatures.LightmapMixedBakeModes
 function CS.UnityEngine.Rendering.LightmapMixedBakeModes:__CastFrom(value) end
@@ -11679,7 +11679,7 @@ function CS.UnityEngine.Rendering.PlatformKeywordSet.Disable(define) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.ShaderKeywordType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.ShaderKeywordType
 function CS.UnityEngine.Rendering.ShaderKeywordType:__CastFrom(value) end
@@ -11862,7 +11862,7 @@ CS.UnityEngine.Rendering.<m_Bits>e__FixedBuffer = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.ShaderPropertyType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.ShaderPropertyType
 function CS.UnityEngine.Rendering.ShaderPropertyType:__CastFrom(value) end
@@ -11926,7 +11926,7 @@ function CS.UnityEngine.Rendering.ShaderPropertyType:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Rendering.ShaderPropertyFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.ShaderPropertyFlags
 function CS.UnityEngine.Rendering.ShaderPropertyFlags:__CastFrom(value) end
@@ -11990,7 +11990,7 @@ function CS.UnityEngine.Rendering.SortingGroup:UpdateAllSortingGroups() end
 ---@source UnityEngine.ParticleSystemModule.dll
 CS.UnityEngine.Rendering.UVChannelFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Rendering.UVChannelFlags
 function CS.UnityEngine.Rendering.UVChannelFlags:__CastFrom(value) end

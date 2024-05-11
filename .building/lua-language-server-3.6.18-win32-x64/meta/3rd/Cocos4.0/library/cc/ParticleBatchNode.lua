@@ -7,11 +7,11 @@ cc.ParticleBatchNode=ParticleBatchNode
 
 
 
----* 
+---*
 ---@param texture cc.Texture2D
 ---@return self
 function ParticleBatchNode:setTexture (texture) end
----*  initializes the particle system with Texture2D, a capacity of particles 
+---*  initializes the particle system with Texture2D, a capacity of particles
 ---@param tex cc.Texture2D
 ---@param capacity int
 ---@return boolean
@@ -21,7 +21,7 @@ function ParticleBatchNode:initWithTexture (tex,capacity) end
 ---@param particleIndex int
 ---@return self
 function ParticleBatchNode:disableParticle (particleIndex) end
----* 
+---*
 ---@return cc.Texture2D
 function ParticleBatchNode:getTexture () end
 ---*  Sets the texture atlas used for drawing the quads.<br>
@@ -29,7 +29,7 @@ function ParticleBatchNode:getTexture () end
 ---@param atlas cc.TextureAtlas
 ---@return self
 function ParticleBatchNode:setTextureAtlas (atlas) end
----*  initializes the particle system with the name of a file on disk (for a list of supported formats look at the Texture2D class), a capacity of particles 
+---*  initializes the particle system with the name of a file on disk (for a list of supported formats look at the Texture2D class), a capacity of particles
 ---@param fileImage string
 ---@param capacity int
 ---@return boolean
@@ -42,7 +42,7 @@ function ParticleBatchNode:initWithFile (fileImage,capacity) end
 ---@param blendFunc cc.BlendFunc
 ---@return self
 function ParticleBatchNode:setBlendFunc (blendFunc) end
----* 
+---*
 ---@param doCleanup boolean
 ---@return self
 function ParticleBatchNode:removeAllChildrenWithCleanup (doCleanup) end
@@ -92,24 +92,24 @@ function ParticleBatchNode:createWithTexture (tex,capacity) end
 ---@param tag int
 ---@return self
 function ParticleBatchNode:addChild (child,zOrder,tag) end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param transform mat4_table
 ---@param flags unsigned_int
 ---@return self
 function ParticleBatchNode:draw (renderer,transform,flags) end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param parentTransform mat4_table
 ---@param parentFlags unsigned_int
 ---@return self
 function ParticleBatchNode:visit (renderer,parentTransform,parentFlags) end
----* 
+---*
 ---@param child cc.Node
 ---@param zOrder int
 ---@return self
 function ParticleBatchNode:reorderChild (child,zOrder) end
----* 
+---*
 ---@param child cc.Node
 ---@param cleanup boolean
 ---@return self

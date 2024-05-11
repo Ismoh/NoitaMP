@@ -18,7 +18,7 @@ cc.ParallaxNode=ParallaxNode
 ---@param positionOffset vec2_table
 ---@return self
 function ParallaxNode:addChild (child,z,parallaxRatio,positionOffset) end
----* 
+---*
 ---@param cleanup boolean
 ---@return self
 function ParallaxNode:removeAllChildrenWithCleanup (cleanup) end
@@ -33,13 +33,13 @@ function ParallaxNode:create () end
 ---@param tag int
 ---@return self
 function ParallaxNode:addChild (child,zOrder,tag) end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param parentTransform mat4_table
 ---@param parentFlags unsigned_int
 ---@return self
 function ParallaxNode:visit (renderer,parentTransform,parentFlags) end
----* 
+---*
 ---@param child cc.Node
 ---@param cleanup boolean
 ---@return self

@@ -25,14 +25,14 @@ function CardinalSplineTo:updatePosition (newPos) end
 ---@param tension float
 ---@return boolean
 function CardinalSplineTo:initWithDuration (duration,points,tension) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function CardinalSplineTo:startWithTarget (target) end
----* 
+---*
 ---@return self
 function CardinalSplineTo:clone () end
----* 
+---*
 ---@return self
 function CardinalSplineTo:reverse () end
 ---* param time In seconds.

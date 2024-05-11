@@ -38,7 +38,7 @@ function CS.System.Configuration.Assemblies.AssemblyHash.SetValue(value) end
 ---@source mscorlib.dll
 CS.System.Configuration.Assemblies.AssemblyHashAlgorithm = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Configuration.Assemblies.AssemblyHashAlgorithm
 function CS.System.Configuration.Assemblies.AssemblyHashAlgorithm:__CastFrom(value) end
@@ -55,7 +55,7 @@ function CS.System.Configuration.Assemblies.AssemblyHashAlgorithm:__CastFrom(val
 ---@source mscorlib.dll
 CS.System.Configuration.Assemblies.AssemblyVersionCompatibility = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Configuration.Assemblies.AssemblyVersionCompatibility
 function CS.System.Configuration.Assemblies.AssemblyVersionCompatibility:__CastFrom(value) end

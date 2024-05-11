@@ -89,7 +89,7 @@ function CS.System.Runtime.Remoting.Lifetime.ISponsor.Renewal(lease) end
 ---@source mscorlib.dll
 CS.System.Runtime.Remoting.Lifetime.LeaseState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.Remoting.Lifetime.LeaseState
 function CS.System.Runtime.Remoting.Lifetime.LeaseState:__CastFrom(value) end

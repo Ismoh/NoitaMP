@@ -1,6 +1,6 @@
 ---@meta
 
----@class cc.Controller 
+---@class cc.Controller
 local Controller={ }
 cc.Controller=Controller
 

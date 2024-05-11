@@ -1,19 +1,19 @@
 ---@meta
 
----@class cc.AudioEngine 
+---@class cc.AudioEngine
 local AudioEngine={ }
 cc.AudioEngine=AudioEngine
 
 
 
 
----* 
+---*
 ---@return boolean
 function AudioEngine:lazyInit () end
 ---* Sets the current playback position of an audio instance.<br>
 ---* param audioID   An audioID returned by the play2d function.<br>
 ---* param sec       The offset in seconds from the start to seek to.<br>
----* return 
+---* return
 ---@param audioID int
 ---@param sec float
 ---@return boolean
@@ -31,10 +31,10 @@ function AudioEngine:getVolume (audioID) end
 ---@param filePath string
 ---@return self
 function AudioEngine:uncache (filePath) end
----*  Resume all suspended audio instances. 
+---*  Resume all suspended audio instances.
 ---@return self
 function AudioEngine:resumeAll () end
----*  Stop all audio instances. 
+---*  Stop all audio instances.
 ---@return self
 function AudioEngine:stopAll () end
 ---* Pause an audio instance.<br>
@@ -65,7 +65,7 @@ function AudioEngine:setMaxAudioInstance (maxInstances) end
 ---@param audioID int
 ---@return boolean
 function AudioEngine:isLoop (audioID) end
----*  Pause all playing audio instances. 
+---*  Pause all playing audio instances.
 ---@return self
 function AudioEngine:pauseAll () end
 ---* Uncache all audio data from internal buffer.<br>

@@ -7,10 +7,10 @@ cc.ParticleMeteor=ParticleMeteor
 
 
 
----* 
+---*
 ---@return boolean
 function ParticleMeteor:init () end
----* 
+---*
 ---@param numberOfParticles int
 ---@return boolean
 function ParticleMeteor:initWithTotalParticles (numberOfParticles) end

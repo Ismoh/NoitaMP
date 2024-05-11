@@ -1092,7 +1092,7 @@ function CS.System.Xml.XmlDictionaryReaderQuotas.CopyTo(quotas) end
 ---@source System.Runtime.Serialization.dll
 CS.System.Xml.XmlDictionaryReaderQuotaTypes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.XmlDictionaryReaderQuotaTypes
 function CS.System.Xml.XmlDictionaryReaderQuotaTypes:__CastFrom(value) end
@@ -1512,7 +1512,7 @@ function CS.System.Xml.XmlDictionaryWriter.WriteXmlnsAttribute(prefix, namespace
 ---@source System.Xml.dll
 CS.System.Xml.ConformanceLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.ConformanceLevel
 function CS.System.Xml.ConformanceLevel:__CastFrom(value) end
@@ -1529,7 +1529,7 @@ function CS.System.Xml.ConformanceLevel:__CastFrom(value) end
 ---@source System.Xml.dll
 CS.System.Xml.DtdProcessing = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.DtdProcessing
 function CS.System.Xml.DtdProcessing:__CastFrom(value) end
@@ -1544,7 +1544,7 @@ function CS.System.Xml.DtdProcessing:__CastFrom(value) end
 ---@source System.Xml.dll
 CS.System.Xml.EntityHandling = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.EntityHandling
 function CS.System.Xml.EntityHandling:__CastFrom(value) end
@@ -1559,7 +1559,7 @@ function CS.System.Xml.EntityHandling:__CastFrom(value) end
 ---@source System.Xml.dll
 CS.System.Xml.Formatting = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.Formatting
 function CS.System.Xml.Formatting:__CastFrom(value) end
@@ -1630,7 +1630,7 @@ function CS.System.Xml.IXmlNamespaceResolver.LookupPrefix(namespaceName) end
 ---@source System.Xml.dll
 CS.System.Xml.NamespaceHandling = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.NamespaceHandling
 function CS.System.Xml.NamespaceHandling:__CastFrom(value) end
@@ -1677,7 +1677,7 @@ function CS.System.Xml.NameTable.Get(value) end
 ---@source System.Xml.dll
 CS.System.Xml.NewLineHandling = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.NewLineHandling
 function CS.System.Xml.NewLineHandling:__CastFrom(value) end
@@ -1698,7 +1698,7 @@ function CS.System.Xml.NewLineHandling:__CastFrom(value) end
 ---@source System.Xml.dll
 CS.System.Xml.ReadState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.ReadState
 function CS.System.Xml.ReadState:__CastFrom(value) end
@@ -1719,7 +1719,7 @@ function CS.System.Xml.ReadState:__CastFrom(value) end
 ---@source System.Xml.dll
 CS.System.Xml.ValidationType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.ValidationType
 function CS.System.Xml.ValidationType:__CastFrom(value) end
@@ -1736,7 +1736,7 @@ function CS.System.Xml.ValidationType:__CastFrom(value) end
 ---@source System.Xml.dll
 CS.System.Xml.WhitespaceHandling = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.WhitespaceHandling
 function CS.System.Xml.WhitespaceHandling:__CastFrom(value) end
@@ -1761,7 +1761,7 @@ function CS.System.Xml.WhitespaceHandling:__CastFrom(value) end
 ---@source System.Xml.dll
 CS.System.Xml.WriteState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.WriteState
 function CS.System.Xml.WriteState:__CastFrom(value) end
@@ -2321,7 +2321,7 @@ function CS.System.Xml.XmlConvert:VerifyXmlChars(content) end
 ---@source System.Xml.dll
 CS.System.Xml.XmlDateTimeSerializationMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.XmlDateTimeSerializationMode
 function CS.System.Xml.XmlDateTimeSerializationMode:__CastFrom(value) end
@@ -2825,7 +2825,7 @@ function CS.System.Xml.XmlNodeList.Item(index) end
 ---@source System.Xml.dll
 CS.System.Xml.XmlNodeOrder = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.XmlNodeOrder
 function CS.System.Xml.XmlNodeOrder:__CastFrom(value) end
@@ -3017,7 +3017,7 @@ function CS.System.Xml.XmlNodeReader.Skip() end
 ---@source System.Xml.dll
 CS.System.Xml.XmlNodeType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.XmlNodeType
 function CS.System.Xml.XmlNodeType:__CastFrom(value) end
@@ -3071,7 +3071,7 @@ function CS.System.Xml.XmlNotation.WriteTo(w) end
 ---@source System.Xml.dll
 CS.System.Xml.XmlOutputMethod = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.XmlOutputMethod
 function CS.System.Xml.XmlOutputMethod:__CastFrom(value) end
@@ -3933,7 +3933,7 @@ function CS.System.Xml.XmlSignificantWhitespace.WriteTo(w) end
 ---@source System.Xml.dll
 CS.System.Xml.XmlSpace = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.XmlSpace
 function CS.System.Xml.XmlSpace:__CastFrom(value) end
@@ -4501,7 +4501,7 @@ function CS.System.Xml.XmlTextWriter.WriteWhitespace(ws) end
 ---@source System.Xml.dll
 CS.System.Xml.XmlTokenizedType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.XmlTokenizedType
 function CS.System.Xml.XmlTokenizedType:__CastFrom(value) end
@@ -5501,7 +5501,7 @@ function CS.System.Xml.XmlXapResolver:RegisterApplicationResourceStreamResolver(
 ---@source System.Xml.dll
 CS.System.Xml.XmlNamespaceScope = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.XmlNamespaceScope
 function CS.System.Xml.XmlNamespaceScope:__CastFrom(value) end
@@ -5704,7 +5704,7 @@ function CS.System.Xml.XmlNode.WriteTo(w) end
 ---@source System.Xml.dll
 CS.System.Xml.XmlNodeChangedAction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.XmlNodeChangedAction
 function CS.System.Xml.XmlNodeChangedAction:__CastFrom(value) end

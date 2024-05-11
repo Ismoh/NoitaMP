@@ -48,7 +48,7 @@ CS.UnityEngine.Windows.Crypto = {}
 --
 --```plaintext
 --Params: buffer - The input to compute the hash code for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -60,7 +60,7 @@ function CS.UnityEngine.Windows.Crypto:ComputeMD5Hash(buffer) end
 --
 --```plaintext
 --Params: buffer - The input to compute the hash code for.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -96,7 +96,7 @@ CS.UnityEngine.Windows.Directory = {}
 --
 --```plaintext
 --Params: path - The directory path to create.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -108,7 +108,7 @@ function CS.UnityEngine.Windows.Directory:CreateDirectory(path) end
 --
 --```plaintext
 --Params: path - The path to test.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -121,7 +121,7 @@ function CS.UnityEngine.Windows.Directory:Exists(path) end
 --
 --```plaintext
 --Params: path - The name of the directory to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -142,7 +142,7 @@ CS.UnityEngine.Windows.File = {}
 --
 --```plaintext
 --Params: path - The file to open for reading.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -155,7 +155,7 @@ function CS.UnityEngine.Windows.File:ReadAllBytes(path) end
 --```plaintext
 --Params: path - The file to write to.
 --        bytes - The bytes to write to the file.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -168,7 +168,7 @@ function CS.UnityEngine.Windows.File:WriteAllBytes(path, bytes) end
 --
 --```plaintext
 --Params: path - The file to check.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -181,7 +181,7 @@ function CS.UnityEngine.Windows.File:Exists(path) end
 --
 --```plaintext
 --Params: path - The name of the file to be deleted.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll

@@ -70,7 +70,7 @@ CS.UnityEngine.Apple.ReplayKit.ReplayKit = {}
 --```plaintext
 --Params: enableMicrophone - Enable or disable the microphone while making a recording. Enabling the microphone allows you to include user commentary while recording. The default value is false.
 --        enableCamera - Enable or disable the camera while making a recording. Enabling camera allows you to include user camera footage while recording. The default value is false. To actually include camera footage in your recording, you also have to call ShowCameraPreviewAt as well to position the preview view.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -175,7 +175,7 @@ function CS.UnityEngine.Apple.ReplayKit.ReplayKit:HideCameraPreview() end
 --```plaintext
 --Params: hasStarted - This parameter will be true if the broadcast started successfully and false in the event of an error.
 --        errorMessage - In the event of failure to start a broadcast, this parameter contains the associated error message.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll

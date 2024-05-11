@@ -7,7 +7,7 @@ ccui.RichElementImage=RichElementImage
 
 
 
----* 
+---*
 ---@param height int
 ---@return self
 function RichElementImage:setHeight (height) end
@@ -27,11 +27,11 @@ function RichElementImage:setHeight (height) end
 ---@param texType int
 ---@return boolean
 function RichElementImage:init (tag,color,opacity,filePath,url,texType) end
----* 
+---*
 ---@param width int
 ---@return self
 function RichElementImage:setWidth (width) end
----* 
+---*
 ---@param url string
 ---@return self
 function RichElementImage:setUrl (url) end

@@ -231,7 +231,7 @@ function LayoutComponent:setBottomMargin (margin) end
 ---@param size size_table
 ---@return self
 function LayoutComponent:setSize (size) end
----* 
+---*
 ---@return self
 function LayoutComponent:create () end
 ---* Bind a LayoutComponent to a specified node.<br>
@@ -242,7 +242,7 @@ function LayoutComponent:create () end
 ---@param node cc.Node
 ---@return self
 function LayoutComponent:bindLayoutComponent (node) end
----* 
+---*
 ---@return boolean
 function LayoutComponent:init () end
 ---* Default constructor<br>

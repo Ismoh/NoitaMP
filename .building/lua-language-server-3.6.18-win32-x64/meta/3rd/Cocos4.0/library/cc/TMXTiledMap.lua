@@ -18,7 +18,7 @@ function TMXTiledMap:setObjectGroups (groups) end
 ---@param propertyName string
 ---@return cc.Value
 function TMXTiledMap:getProperty (propertyName) end
----* 
+---*
 ---@return int
 function TMXTiledMap:getLayerNum () end
 ---*  Set the map's size property measured in tiles. <br>
@@ -36,10 +36,10 @@ function TMXTiledMap:getObjectGroup (groupName) end
 ---@overload fun():self
 ---@return array_table
 function TMXTiledMap:getObjectGroups () end
----* 
+---*
 ---@return string
 function TMXTiledMap:getResourceFile () end
----*  initializes a TMX Tiled Map with a TMX file 
+---*  initializes a TMX Tiled Map with a TMX file
 ---@param tmxFile string
 ---@return boolean
 function TMXTiledMap:initWithTMXFile (tmxFile) end
@@ -51,7 +51,7 @@ function TMXTiledMap:getTileSize () end
 ---* return The map's size property measured in tiles.
 ---@return size_table
 function TMXTiledMap:getMapSize () end
----*  initializes a TMX Tiled Map with a TMX formatted XML string and a path to TMX resources 
+---*  initializes a TMX Tiled Map with a TMX formatted XML string and a path to TMX resources
 ---@param tmxString string
 ---@param resourcePath string
 ---@return boolean

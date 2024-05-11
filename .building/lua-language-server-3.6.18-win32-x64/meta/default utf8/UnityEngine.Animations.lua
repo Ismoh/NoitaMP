@@ -14,7 +14,7 @@ CS.UnityEngine.Animations.AnimationPlayableBinding = {}
 --```plaintext
 --Params: name - The name of the AnimationPlayableOutput.
 --        key - A reference to a UnityEngine.Object that acts as a key for this binding.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -34,7 +34,7 @@ CS.UnityEngine.Animations.IAnimationJob = {}
 --
 --```plaintext
 --Params: stream - The animation stream to work on.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -46,7 +46,7 @@ function CS.UnityEngine.Animations.IAnimationJob.ProcessAnimation(stream) end
 --
 --```plaintext
 --Params: stream - The animation stream to work on.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -90,7 +90,7 @@ function CS.UnityEngine.Animations.IAnimationWindowPreview.StopPreview() end
 --
 --```plaintext
 --Params: graph - The Animation window PlayableGraph.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -103,7 +103,7 @@ function CS.UnityEngine.Animations.IAnimationWindowPreview.UpdatePreviewGraph(gr
 --```plaintext
 --Params: graph - The Animation window PlayableGraph.
 --        inputPlayable - Current root of the PlayableGraph.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -203,7 +203,7 @@ function CS.UnityEngine.Animations.AimConstraint.SetSources(sources) end
 --
 --```plaintext
 --Params: source - The source object and its weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -216,7 +216,7 @@ function CS.UnityEngine.Animations.AimConstraint.AddSource(source) end
 --
 --```plaintext
 --Params: index - The index of the source to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -228,7 +228,7 @@ function CS.UnityEngine.Animations.AimConstraint.RemoveSource(index) end
 --
 --```plaintext
 --Params: index - The index of the source.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -242,7 +242,7 @@ function CS.UnityEngine.Animations.AimConstraint.GetSource(index) end
 --```plaintext
 --Params: index - The index of the source to set.
 --        source - The source object and its weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -284,7 +284,7 @@ function CS.UnityEngine.Animations.AimConstraint.SetSource(index, source) end
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.Animations.WorldUpType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Animations.AimConstraint.WorldUpType
 function CS.UnityEngine.Animations.WorldUpType:__CastFrom(value) end
@@ -304,7 +304,7 @@ CS.UnityEngine.Animations.AnimationClipPlayable = {}
 --```plaintext
 --Params: graph - The PlayableGraph object that will own the AnimationClipPlayable.
 --        clip - The AnimationClip that will be added in the PlayableGraph.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -351,7 +351,7 @@ function CS.UnityEngine.Animations.AnimationClipPlayable.GetApplyFootIK() end
 --
 --```plaintext
 --Params: value - The new value of the ApplyFootIK flag.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -436,7 +436,7 @@ CS.UnityEngine.Animations.AnimationHumanStream = {}
 --
 --```plaintext
 --Params: muscle - The Muscle that is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -450,7 +450,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.GetMuscle(muscle) end
 --```plaintext
 --Params: muscle - The Muscle that is queried.
 --        value - The muscle value.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -469,7 +469,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.ResetToStancePose() end
 --
 --```plaintext
 --Params: index - The AvatarIKGoal that is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -482,7 +482,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.GetGoalPositionFromPose(
 --
 --```plaintext
 --Params: index - The AvatarIKGoal that is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -495,7 +495,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.GetGoalRotationFromPose(
 --
 --```plaintext
 --Params: index - The AvatarIKGoal that is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -509,7 +509,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.GetGoalLocalPosition(ind
 --```plaintext
 --Params: index - The AvatarIKGoal that is queried.
 --        pos - The position of this IK goal.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -522,7 +522,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.SetGoalLocalPosition(ind
 --
 --```plaintext
 --Params: index - The AvatarIKGoal that is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -536,7 +536,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.GetGoalLocalRotation(ind
 --```plaintext
 --Params: index - The AvatarIKGoal that is queried.
 --        rot - The rotation of this IK goal.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -549,7 +549,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.SetGoalLocalRotation(ind
 --
 --```plaintext
 --Params: index - The AvatarIKGoal that is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -563,7 +563,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.GetGoalPosition(index) e
 --```plaintext
 --Params: index - The AvatarIKGoal that is queried.
 --        pos - The position of this IK goal.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -576,7 +576,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.SetGoalPosition(index, p
 --
 --```plaintext
 --Params: index - The AvatarIKGoal that is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -590,7 +590,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.GetGoalRotation(index) e
 --```plaintext
 --Params: index - The AvatarIKGoal that is queried.
 --        rot - The rotation of this IK goal.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -604,7 +604,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.SetGoalRotation(index, r
 --```plaintext
 --Params: index - The AvatarIKGoal that is queried.
 --        value - The position weight of the IK goal.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -618,7 +618,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.SetGoalWeightPosition(in
 --```plaintext
 --Params: index - The AvatarIKGoal that is queried.
 --        value - The rotation weight of the IK goal.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -631,7 +631,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.SetGoalWeightRotation(in
 --
 --```plaintext
 --Params: index - The AvatarIKGoal that is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -644,7 +644,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.GetGoalWeightPosition(in
 --
 --```plaintext
 --Params: index - The AvatarIKGoal that is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -657,7 +657,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.GetGoalWeightRotation(in
 --
 --```plaintext
 --Params: index - The AvatarIKHint that is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -671,7 +671,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.GetHintPosition(index) e
 --```plaintext
 --Params: index - The AvatarIKHint that is queried.
 --        pos - The position of this IK hint.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -685,7 +685,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.SetHintPosition(index, p
 --```plaintext
 --Params: index - The AvatarIKHint that is queried.
 --        value - The position weight of the IK Hint.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -698,7 +698,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.SetHintWeightPosition(in
 --
 --```plaintext
 --Params: index - The AvatarIKHint that is queried.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -711,7 +711,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.GetHintWeightPosition(in
 --
 --```plaintext
 --Params: lookAtPosition - The look at position.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -723,7 +723,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.SetLookAtPosition(lookAt
 --
 --```plaintext
 --Params: weight - The LookAt clamp weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -735,7 +735,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.SetLookAtClampWeight(wei
 --
 --```plaintext
 --Params: weight - The LookAt body weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -747,7 +747,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.SetLookAtBodyWeight(weig
 --
 --```plaintext
 --Params: weight - The LookAt head weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -759,7 +759,7 @@ function CS.UnityEngine.Animations.AnimationHumanStream.SetLookAtHeadWeight(weig
 --
 --```plaintext
 --Params: weight - The LookAt eyes weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -792,7 +792,7 @@ CS.UnityEngine.Animations.AnimationLayerMixerPlayable = {}
 --```plaintext
 --Params: graph - The PlayableGraph that will contain the new AnimationLayerMixerPlayable.
 --        inputCount - The number of layers.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -825,7 +825,7 @@ function CS.UnityEngine.Animations.AnimationLayerMixerPlayable.Equals(other) end
 --
 --```plaintext
 --Params: layerIndex - The layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -839,7 +839,7 @@ function CS.UnityEngine.Animations.AnimationLayerMixerPlayable.IsLayerAdditive(l
 --```plaintext
 --Params: layerIndex - The layer index.
 --        value - Whether the layer is additive or not. Set to true for an additive blend, or false for a regular blend.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -853,7 +853,7 @@ function CS.UnityEngine.Animations.AnimationLayerMixerPlayable.SetLayerAdditive(
 --```plaintext
 --Params: layerIndex - The layer index.
 --        mask - The AvatarMask used to create the new LayerMask.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -882,7 +882,7 @@ CS.UnityEngine.Animations.AnimationMixerPlayable = {}
 --Params: graph - The PlayableGraph that will contain the new AnimationMixerPlayable.
 --        inputCount - The number of inputs that the mixer will update.
 --        normalizeWeights - True to force a weight normalization of the inputs.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -939,7 +939,7 @@ CS.UnityEngine.Animations.AnimationPlayableOutput = {}
 --Params: graph - The PlayableGraph that will contain the AnimationPlayableOutput.
 --        name - The name of the output.
 --        target - The Animator that will process the PlayableGraph.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -975,7 +975,7 @@ function CS.UnityEngine.Animations.AnimationPlayableOutput.GetTarget() end
 --
 --```plaintext
 --Params: value - The targeted Animator.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1032,7 +1032,7 @@ function CS.UnityEngine.Animations.AnimationScriptPlayable.Equals(other) end
 --
 --```plaintext
 --Params: value - The new value for processing the inputs or not.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1107,7 +1107,7 @@ function CS.UnityEngine.Animations.AnimationStream.AsHuman() end
 --
 --```plaintext
 --Params: index - The input index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1120,7 +1120,7 @@ function CS.UnityEngine.Animations.AnimationStream.GetInputStream(index) end
 --
 --```plaintext
 --Params: index - The input index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1133,7 +1133,7 @@ function CS.UnityEngine.Animations.AnimationStream.GetInputWeight(index) end
 --
 --```plaintext
 --Params: animationStream - The source animation stream with the motion to deep copy.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1154,7 +1154,7 @@ CS.UnityEngine.Animations.TransformStreamHandle = {}
 --
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1167,7 +1167,7 @@ function CS.UnityEngine.Animations.TransformStreamHandle.IsValid(stream) end
 --
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1179,7 +1179,7 @@ function CS.UnityEngine.Animations.TransformStreamHandle.Resolve(stream) end
 --
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1192,7 +1192,7 @@ function CS.UnityEngine.Animations.TransformStreamHandle.IsResolved(stream) end
 --
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1206,7 +1206,7 @@ function CS.UnityEngine.Animations.TransformStreamHandle.GetPosition(stream) end
 --```plaintext
 --Params: position - The position of the transform in world space.
 --        stream - The AnimationStream that holds the animated values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1219,7 +1219,7 @@ function CS.UnityEngine.Animations.TransformStreamHandle.SetPosition(stream, pos
 --
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1233,7 +1233,7 @@ function CS.UnityEngine.Animations.TransformStreamHandle.GetRotation(stream) end
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
 --        rotation - The rotation of the transform in world space.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1246,7 +1246,7 @@ function CS.UnityEngine.Animations.TransformStreamHandle.SetRotation(stream, rot
 --
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1260,7 +1260,7 @@ function CS.UnityEngine.Animations.TransformStreamHandle.GetLocalPosition(stream
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
 --        position - The position of the transform relative to the parent.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1273,7 +1273,7 @@ function CS.UnityEngine.Animations.TransformStreamHandle.SetLocalPosition(stream
 --
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1287,7 +1287,7 @@ function CS.UnityEngine.Animations.TransformStreamHandle.GetLocalRotation(stream
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
 --        rotation - The rotation of the transform relative to the parent.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1300,7 +1300,7 @@ function CS.UnityEngine.Animations.TransformStreamHandle.SetLocalRotation(stream
 --
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1314,7 +1314,7 @@ function CS.UnityEngine.Animations.TransformStreamHandle.GetLocalScale(stream) e
 --```plaintext
 --Params: scale - The scale of the transform relative to the parent.
 --        stream - The AnimationStream that holds the animated values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1327,7 +1327,7 @@ function CS.UnityEngine.Animations.TransformStreamHandle.SetLocalScale(stream, s
 --
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1340,7 +1340,7 @@ function CS.UnityEngine.Animations.TransformStreamHandle.GetPositionReadMask(str
 --
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1353,7 +1353,7 @@ function CS.UnityEngine.Animations.TransformStreamHandle.GetRotationReadMask(str
 --
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1377,7 +1377,7 @@ function CS.UnityEngine.Animations.TransformStreamHandle.GetLocalTRS(stream, pos
 --        rotation - The rotation of the transform relative to the parent.
 --        scale - The scale of the transform relative to the parent.
 --        useMask - Set to true to write the specified parameters if the matching stream parameters have not already been modified.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1402,7 +1402,7 @@ function CS.UnityEngine.Animations.TransformStreamHandle.GetGlobalTR(stream, pos
 --        position - The position of the transform in world space.
 --        rotation - The rotation of the transform in world space.
 --        useMask - Set to true to write the specified parameters if the matching stream parameters have not already been modified.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1426,7 +1426,7 @@ CS.UnityEngine.Animations.PropertyStreamHandle = {}
 --
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1439,7 +1439,7 @@ function CS.UnityEngine.Animations.PropertyStreamHandle.IsValid(stream) end
 --
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1451,7 +1451,7 @@ function CS.UnityEngine.Animations.PropertyStreamHandle.Resolve(stream) end
 --
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1464,7 +1464,7 @@ function CS.UnityEngine.Animations.PropertyStreamHandle.IsResolved(stream) end
 --
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1478,7 +1478,7 @@ function CS.UnityEngine.Animations.PropertyStreamHandle.GetFloat(stream) end
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
 --        value - The new float property value.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1491,7 +1491,7 @@ function CS.UnityEngine.Animations.PropertyStreamHandle.SetFloat(stream, value) 
 --
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1505,7 +1505,7 @@ function CS.UnityEngine.Animations.PropertyStreamHandle.GetInt(stream) end
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
 --        value - The new integer property value.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1518,7 +1518,7 @@ function CS.UnityEngine.Animations.PropertyStreamHandle.SetInt(stream, value) en
 --
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1532,7 +1532,7 @@ function CS.UnityEngine.Animations.PropertyStreamHandle.GetBool(stream) end
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
 --        value - The new boolean property value.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1545,7 +1545,7 @@ function CS.UnityEngine.Animations.PropertyStreamHandle.SetBool(stream, value) e
 --
 --```plaintext
 --Params: stream - The AnimationStream that holds the animated values.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1567,7 +1567,7 @@ CS.UnityEngine.Animations.TransformSceneHandle = {}
 --
 --```plaintext
 --Params: stream - The AnimationStream that manages this handle.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1580,7 +1580,7 @@ function CS.UnityEngine.Animations.TransformSceneHandle.IsValid(stream) end
 --
 --```plaintext
 --Params: stream - The AnimationStream that manages this handle.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1594,7 +1594,7 @@ function CS.UnityEngine.Animations.TransformSceneHandle.GetPosition(stream) end
 --```plaintext
 --Params: stream - The AnimationStream that manages this handle.
 --        position - The position of the transform in world space.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1607,7 +1607,7 @@ function CS.UnityEngine.Animations.TransformSceneHandle.SetPosition(stream, posi
 --
 --```plaintext
 --Params: stream - The AnimationStream that manages this handle.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1621,7 +1621,7 @@ function CS.UnityEngine.Animations.TransformSceneHandle.GetLocalPosition(stream)
 --```plaintext
 --Params: stream - The AnimationStream that manages this handle.
 --        position - The position of the transform relative to the parent.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1634,7 +1634,7 @@ function CS.UnityEngine.Animations.TransformSceneHandle.SetLocalPosition(stream,
 --
 --```plaintext
 --Params: stream - The AnimationStream that manages this handle.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1648,7 +1648,7 @@ function CS.UnityEngine.Animations.TransformSceneHandle.GetRotation(stream) end
 --```plaintext
 --Params: stream - The AnimationStream that manages this handle.
 --        rotation - The rotation of the transform in world space.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1661,7 +1661,7 @@ function CS.UnityEngine.Animations.TransformSceneHandle.SetRotation(stream, rota
 --
 --```plaintext
 --Params: stream - The AnimationStream that manages this handle.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1675,7 +1675,7 @@ function CS.UnityEngine.Animations.TransformSceneHandle.GetLocalRotation(stream)
 --```plaintext
 --Params: stream - The AnimationStream that manages this handle.
 --        rotation - The rotation of the transform relative to the parent.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1688,7 +1688,7 @@ function CS.UnityEngine.Animations.TransformSceneHandle.SetLocalRotation(stream,
 --
 --```plaintext
 --Params: stream - The AnimationStream that manages this handle.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1715,7 +1715,7 @@ function CS.UnityEngine.Animations.TransformSceneHandle.GetGlobalTR(stream, posi
 --```plaintext
 --Params: stream - The AnimationStream that manages this handle.
 --        scale - The scale of the transform relative to the parent.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1737,7 +1737,7 @@ CS.UnityEngine.Animations.PropertySceneHandle = {}
 --
 --```plaintext
 --Params: stream - The AnimationStream managing this handle.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1750,7 +1750,7 @@ function CS.UnityEngine.Animations.PropertySceneHandle.IsValid(stream) end
 --
 --```plaintext
 --Params: stream - The AnimationStream managing this handle.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1762,7 +1762,7 @@ function CS.UnityEngine.Animations.PropertySceneHandle.Resolve(stream) end
 --
 --```plaintext
 --Params: stream - The AnimationStream managing this handle.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1775,7 +1775,7 @@ function CS.UnityEngine.Animations.PropertySceneHandle.IsResolved(stream) end
 --
 --```plaintext
 --Params: stream - The AnimationStream managing this handle.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1789,7 +1789,7 @@ function CS.UnityEngine.Animations.PropertySceneHandle.GetFloat(stream) end
 --```plaintext
 --Params: stream - The AnimationStream managing this handle.
 --        value - The new float property value.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1802,7 +1802,7 @@ function CS.UnityEngine.Animations.PropertySceneHandle.SetFloat(stream, value) e
 --
 --```plaintext
 --Params: stream - The AnimationStream managing this handle.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1816,7 +1816,7 @@ function CS.UnityEngine.Animations.PropertySceneHandle.GetInt(stream) end
 --```plaintext
 --Params: stream - The AnimationStream managing this handle.
 --        value - The new integer property value.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1829,7 +1829,7 @@ function CS.UnityEngine.Animations.PropertySceneHandle.SetInt(stream, value) end
 --
 --```plaintext
 --Params: stream - The AnimationStream managing this handle.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1843,7 +1843,7 @@ function CS.UnityEngine.Animations.PropertySceneHandle.GetBool(stream) end
 --```plaintext
 --Params: stream - The AnimationStream managing this handle.
 --        value - The new boolean property value.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1927,7 +1927,7 @@ CS.UnityEngine.Animations.AnimatorControllerPlayable = {}
 --```plaintext
 --Params: graph - The PlayableGraph object that will own the AnimatorControllerPlayable.
 --        controller - The RuntimeAnimatorController that will be added in the graph.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1965,7 +1965,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.Equals(other) end
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1979,7 +1979,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.GetFloat(name) end
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -1996,7 +1996,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.GetFloat(id) end
 --        value - The new parameter value.
 --        dampTime - The damper total time.
 --        deltaTime - The delta time to give to the damper.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2013,7 +2013,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.SetFloat(name, val
 --        value - The new parameter value.
 --        dampTime - The damper total time.
 --        deltaTime - The delta time to give to the damper.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2027,7 +2027,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.SetFloat(id, value
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2041,7 +2041,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.GetBool(name) end
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2056,7 +2056,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.GetBool(id) end
 --Params: name - The parameter name.
 --        id - The parameter ID.
 --        value - The new parameter value.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2071,7 +2071,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.SetBool(name, valu
 --Params: name - The parameter name.
 --        id - The parameter ID.
 --        value - The new parameter value.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2085,7 +2085,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.SetBool(id, value)
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2099,7 +2099,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.GetInteger(name) e
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2114,7 +2114,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.GetInteger(id) end
 --Params: name - The parameter name.
 --        id - The parameter ID.
 --        value - The new parameter value.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2129,7 +2129,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.SetInteger(name, v
 --Params: name - The parameter name.
 --        id - The parameter ID.
 --        value - The new parameter value.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2143,7 +2143,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.SetInteger(id, val
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2156,7 +2156,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.SetTrigger(name) e
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2169,7 +2169,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.SetTrigger(id) end
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2182,7 +2182,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.ResetTrigger(name)
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2195,7 +2195,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.ResetTrigger(id) e
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2209,7 +2209,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.IsParameterControl
 --```plaintext
 --Params: name - The parameter name.
 --        id - The parameter ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2226,7 +2226,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.GetLayerCount() en
 --
 --```plaintext
 --Params: layerIndex - The layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2239,7 +2239,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.GetLayerName(layer
 --
 --```plaintext
 --Params: layerName - The layer name.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2252,7 +2252,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.GetLayerIndex(laye
 --
 --```plaintext
 --Params: layerIndex - The layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2266,7 +2266,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.GetLayerWeight(lay
 --```plaintext
 --Params: layerIndex - The layer index.
 --        weight - The new layer weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2279,7 +2279,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.SetLayerWeight(lay
 --
 --```plaintext
 --Params: layerIndex - The layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2292,7 +2292,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.GetCurrentAnimator
 --
 --```plaintext
 --Params: layerIndex - The layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2305,7 +2305,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.GetNextAnimatorSta
 --
 --```plaintext
 --Params: layerIndex - The layer's index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2318,7 +2318,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.GetAnimatorTransit
 --
 --```plaintext
 --Params: layerIndex - The layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2340,7 +2340,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.GetNextAnimatorCli
 --
 --```plaintext
 --Params: layerIndex - The layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2353,7 +2353,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.GetCurrentAnimator
 --
 --```plaintext
 --Params: layerIndex - The layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2366,7 +2366,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.GetNextAnimatorCli
 --
 --```plaintext
 --Params: layerIndex - The layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2378,7 +2378,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.GetNextAnimatorCli
 --
 --```plaintext
 --Params: layerIndex - The layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2487,7 +2487,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.PlayInFixedTime(st
 --        stateNameHash - The state hash name. If stateNameHash is 0, it changes the current state time.
 --        layer - The layer index. If layer is -1, it plays the first state with the given state name or hash.
 --        fixedTime - The time offset (in seconds).
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2513,7 +2513,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.PlayInFixedTime(st
 --        stateNameHash - The state hash name. If stateNameHash is 0, it changes the current state time.
 --        layer - The layer index. If layer is -1, it plays the first state with the given state name or hash.
 --        fixedTime - The time offset (in seconds).
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2539,7 +2539,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.Play(stateName, la
 --        stateNameHash - The state hash name. If stateNameHash is 0, it changes the current state time.
 --        layer - The layer index. If layer is -1, it plays the first state with the given state name or hash.
 --        normalizedTime - The time offset between zero and one.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2565,7 +2565,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.Play(stateNameHash
 --        stateNameHash - The state hash name. If stateNameHash is 0, it changes the current state time.
 --        layer - The layer index. If layer is -1, it plays the first state with the given state name or hash.
 --        normalizedTime - The time offset between zero and one.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2580,7 +2580,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.Play(stateNameHash
 --```plaintext
 --Params: layerIndex - The layer index.
 --        stateID - The state ID.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2613,7 +2613,7 @@ function CS.UnityEngine.Animations.AnimatorControllerPlayable.HasState(layerInde
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.Animations.CustomStreamPropertyType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Animations.CustomStreamPropertyType
 function CS.UnityEngine.Animations.CustomStreamPropertyType:__CastFrom(value) end
@@ -2633,7 +2633,7 @@ CS.UnityEngine.Animations.AnimatorJobExtensions = {}
 --```plaintext
 --Params: animator - The Animator instance that calls this method.
 --        jobHandle - The JobHandle of the job that needs to run before animator jobs.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2646,7 +2646,7 @@ function CS.UnityEngine.Animations.AnimatorJobExtensions.AddJobDependency(jobHan
 --```plaintext
 --Params: animator - The Animator instance that calls this method.
 --        transform - The Transform to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2663,7 +2663,7 @@ function CS.UnityEngine.Animations.AnimatorJobExtensions.BindStreamTransform(tra
 --        type - The Component type.
 --        property - The property to bind.
 --        isObjectReference - isObjectReference need to be set to true if the property to bind does animate an Object like SpriteRenderer.sprite.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2680,7 +2680,7 @@ function CS.UnityEngine.Animations.AnimatorJobExtensions.BindStreamProperty(tran
 --Params: animator - The Animator instance that calls this method.
 --        name - The name of the property.
 --        type - The type of property to create (float, integer or boolean).
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2698,7 +2698,7 @@ function CS.UnityEngine.Animations.AnimatorJobExtensions.BindCustomStreamPropert
 --        type - The Component type.
 --        property - The property to bind.
 --        isObjectReference - isObjectReference need to be set to true if the property to bind does animate an Object like SpriteRenderer.sprite.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2715,7 +2715,7 @@ function CS.UnityEngine.Animations.AnimatorJobExtensions.BindStreamProperty(tran
 --```plaintext
 --Params: animator - The Animator instance that calls this method.
 --        transform - The Transform to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2732,7 +2732,7 @@ function CS.UnityEngine.Animations.AnimatorJobExtensions.BindSceneTransform(tran
 --        type - The Component type.
 --        property - The property to bind.
 --        isObjectReference - isObjectReference need to be set to true if the property to bind does access an Object like SpriteRenderer.sprite.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2751,7 +2751,7 @@ function CS.UnityEngine.Animations.AnimatorJobExtensions.BindSceneProperty(trans
 --        type - The Component type.
 --        property - The property to bind.
 --        isObjectReference - isObjectReference need to be set to true if the property to bind does access an Object like SpriteRenderer.sprite.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2776,7 +2776,7 @@ function CS.UnityEngine.Animations.AnimatorJobExtensions.CloseAnimationStream(st
 --
 --```plaintext
 --Params: animator - The Animator instance that calls this method.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2787,7 +2787,7 @@ function CS.UnityEngine.Animations.AnimatorJobExtensions.ResolveAllStreamHandles
 --
 --```plaintext
 --Params: animator - The Animator instance that calls this method.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2822,7 +2822,7 @@ function CS.UnityEngine.Animations.AnimatorJobExtensions.ResolveAllSceneHandles(
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.Animations.Axis = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Animations.Axis
 function CS.UnityEngine.Animations.Axis:__CastFrom(value) end
@@ -2858,7 +2858,7 @@ CS.UnityEngine.Animations.IConstraint = {}
 --
 --```plaintext
 --Params: source - The source object and its weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2871,7 +2871,7 @@ function CS.UnityEngine.Animations.IConstraint.AddSource(source) end
 --
 --```plaintext
 --Params: index - The index of the source to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2883,7 +2883,7 @@ function CS.UnityEngine.Animations.IConstraint.RemoveSource(index) end
 --
 --```plaintext
 --Params: index - The index of the source.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2897,7 +2897,7 @@ function CS.UnityEngine.Animations.IConstraint.GetSource(index) end
 --```plaintext
 --Params: index - The index of the source to set.
 --        source - The source object and its weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2970,7 +2970,7 @@ function CS.UnityEngine.Animations.PositionConstraint.SetSources(sources) end
 --
 --```plaintext
 --Params: source - The source object and its weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2983,7 +2983,7 @@ function CS.UnityEngine.Animations.PositionConstraint.AddSource(source) end
 --
 --```plaintext
 --Params: index - The index of the source to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -2995,7 +2995,7 @@ function CS.UnityEngine.Animations.PositionConstraint.RemoveSource(index) end
 --
 --```plaintext
 --Params: index - The index of the source.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3009,7 +3009,7 @@ function CS.UnityEngine.Animations.PositionConstraint.GetSource(index) end
 --```plaintext
 --Params: index - The index of the source to set.
 --        source - The source object and its weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3074,7 +3074,7 @@ function CS.UnityEngine.Animations.RotationConstraint.SetSources(sources) end
 --
 --```plaintext
 --Params: source - The source object and its weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3087,7 +3087,7 @@ function CS.UnityEngine.Animations.RotationConstraint.AddSource(source) end
 --
 --```plaintext
 --Params: index - The index of the source to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3099,7 +3099,7 @@ function CS.UnityEngine.Animations.RotationConstraint.RemoveSource(index) end
 --
 --```plaintext
 --Params: index - The index of the source.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3113,7 +3113,7 @@ function CS.UnityEngine.Animations.RotationConstraint.GetSource(index) end
 --```plaintext
 --Params: index - The index of the source to set.
 --        source - The source object and its weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3178,7 +3178,7 @@ function CS.UnityEngine.Animations.ScaleConstraint.SetSources(sources) end
 --
 --```plaintext
 --Params: source - The source object and its weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3191,7 +3191,7 @@ function CS.UnityEngine.Animations.ScaleConstraint.AddSource(source) end
 --
 --```plaintext
 --Params: index - The index of the source to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3203,7 +3203,7 @@ function CS.UnityEngine.Animations.ScaleConstraint.RemoveSource(index) end
 --
 --```plaintext
 --Params: index - The index of the source.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3217,7 +3217,7 @@ function CS.UnityEngine.Animations.ScaleConstraint.GetSource(index) end
 --```plaintext
 --Params: index - The index of the source to set.
 --        source - The source object and its weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3293,7 +3293,7 @@ function CS.UnityEngine.Animations.LookAtConstraint.SetSources(sources) end
 --
 --```plaintext
 --Params: source - The source object and its weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3306,7 +3306,7 @@ function CS.UnityEngine.Animations.LookAtConstraint.AddSource(source) end
 --
 --```plaintext
 --Params: index - The index of the source to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3318,7 +3318,7 @@ function CS.UnityEngine.Animations.LookAtConstraint.RemoveSource(index) end
 --
 --```plaintext
 --Params: index - The index of the source.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3332,7 +3332,7 @@ function CS.UnityEngine.Animations.LookAtConstraint.GetSource(index) end
 --```plaintext
 --Params: index - The index of the source to set.
 --        source - The source object and its weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3374,7 +3374,7 @@ CS.UnityEngine.Animations.MuscleHandle = {}
 --
 --```plaintext
 --Params: muscleHandles - An array of MuscleHandle.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3445,7 +3445,7 @@ CS.UnityEngine.Animations.ParentConstraint = {}
 --
 --```plaintext
 --Params: index - The index of the constraint source.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3459,7 +3459,7 @@ function CS.UnityEngine.Animations.ParentConstraint.GetTranslationOffset(index) 
 --```plaintext
 --Params: index - The index of the constraint source.
 --        value - The new translation offset.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3472,7 +3472,7 @@ function CS.UnityEngine.Animations.ParentConstraint.SetTranslationOffset(index, 
 --
 --```plaintext
 --Params: index - The index of the constraint source.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3486,7 +3486,7 @@ function CS.UnityEngine.Animations.ParentConstraint.GetRotationOffset(index) end
 --```plaintext
 --Params: index - The index of the constraint source.
 --        value - The new rotation offset.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3507,7 +3507,7 @@ function CS.UnityEngine.Animations.ParentConstraint.SetSources(sources) end
 --
 --```plaintext
 --Params: source - The source object and its weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3520,7 +3520,7 @@ function CS.UnityEngine.Animations.ParentConstraint.AddSource(source) end
 --
 --```plaintext
 --Params: index - The index of the source to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3532,7 +3532,7 @@ function CS.UnityEngine.Animations.ParentConstraint.RemoveSource(index) end
 --
 --```plaintext
 --Params: index - The index of the source.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -3546,7 +3546,7 @@ function CS.UnityEngine.Animations.ParentConstraint.GetSource(index) end
 --```plaintext
 --Params: index - The index of the source to set.
 --        source - The source object and its weight.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll

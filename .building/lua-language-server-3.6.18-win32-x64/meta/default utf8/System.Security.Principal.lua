@@ -215,7 +215,7 @@ function CS.System.Security.Principal.IPrincipal.IsInRole(role) end
 ---@source mscorlib.dll
 CS.System.Security.Principal.PrincipalPolicy = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Principal.PrincipalPolicy
 function CS.System.Security.Principal.PrincipalPolicy:__CastFrom(value) end
@@ -252,7 +252,7 @@ function CS.System.Security.Principal.PrincipalPolicy:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Security.Principal.TokenAccessLevels = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Principal.TokenAccessLevels
 function CS.System.Security.Principal.TokenAccessLevels:__CastFrom(value) end
@@ -273,7 +273,7 @@ function CS.System.Security.Principal.TokenAccessLevels:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Security.Principal.TokenImpersonationLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Principal.TokenImpersonationLevel
 function CS.System.Security.Principal.TokenImpersonationLevel:__CastFrom(value) end
@@ -408,7 +408,7 @@ function CS.System.Security.Principal.TokenImpersonationLevel:__CastFrom(value) 
 ---@source mscorlib.dll
 CS.System.Security.Principal.WellKnownSidType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Principal.WellKnownSidType
 function CS.System.Security.Principal.WellKnownSidType:__CastFrom(value) end
@@ -427,7 +427,7 @@ function CS.System.Security.Principal.WellKnownSidType:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Security.Principal.WindowsAccountType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Principal.WindowsAccountType
 function CS.System.Security.Principal.WindowsAccountType:__CastFrom(value) end
@@ -456,7 +456,7 @@ function CS.System.Security.Principal.WindowsAccountType:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Security.Principal.WindowsBuiltInRole = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Principal.WindowsBuiltInRole
 function CS.System.Security.Principal.WindowsBuiltInRole:__CastFrom(value) end

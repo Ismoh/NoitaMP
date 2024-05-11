@@ -7,7 +7,7 @@ cc.Grid3D=Grid3D
 
 
 
----* 
+---*
 ---@return boolean
 function Grid3D:getNeedDepthTestForBlit () end
 ---* Getter and Setter for depth test state when blit.<br>
@@ -25,19 +25,19 @@ function Grid3D:setNeedDepthTestForBlit (neededDepthTest) end
 ---@param rect rect_table
 ---@return self
 function Grid3D:create (gridSize,texture,flipped,rect) end
----* 
+---*
 ---@return self
 function Grid3D:calculateVertexPoints () end
 ---* Implementations for interfaces in base class.
 ---@return self
 function Grid3D:beforeBlit () end
----* 
+---*
 ---@return self
 function Grid3D:afterBlit () end
----* 
+---*
 ---@return self
 function Grid3D:reuse () end
----* 
+---*
 ---@return self
 function Grid3D:blit () end
 ---* Constructor.<br>

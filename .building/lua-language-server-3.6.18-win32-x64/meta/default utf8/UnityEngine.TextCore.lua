@@ -108,7 +108,7 @@ CS.UnityEngine.TextCore.FaceInfo = {}
 --
 --```plaintext
 --Params: other - The FaceInfo structure to compare this FaceInfo structure with.
---        
+--
 --```
 --
 ---@source UnityEngine.TextCoreModule.dll
@@ -275,7 +275,7 @@ CS.UnityEngine.TextCore.Glyph = {}
 --
 --```plaintext
 --Params: other - The glyph to compare with.
---        
+--
 --```
 --
 ---@source UnityEngine.TextCoreModule.dll

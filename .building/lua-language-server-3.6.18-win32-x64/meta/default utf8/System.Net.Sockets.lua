@@ -67,7 +67,7 @@
 ---@source System.dll
 CS.System.Net.Sockets.AddressFamily = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Sockets.AddressFamily
 function CS.System.Net.Sockets.AddressFamily:__CastFrom(value) end
@@ -146,7 +146,7 @@ function CS.System.Net.Sockets.AddressFamily:__CastFrom(value) end
 ---@source System.dll
 CS.System.Net.Sockets.IOControlCode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Sockets.IOControlCode
 function CS.System.Net.Sockets.IOControlCode:__CastFrom(value) end
@@ -196,7 +196,7 @@ function CS.System.Net.Sockets.IPPacketInformation:op_Inequality(packetInformati
 ---@source System.dll
 CS.System.Net.Sockets.IPProtectionLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Sockets.IPProtectionLevel
 function CS.System.Net.Sockets.IPProtectionLevel:__CastFrom(value) end
@@ -387,7 +387,7 @@ CS.System.Net.Sockets.MulticastOption = {}
 ---@source System.dll
 CS.System.Net.Sockets.ProtocolFamily = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Sockets.ProtocolFamily
 function CS.System.Net.Sockets.ProtocolFamily:__CastFrom(value) end
@@ -448,7 +448,7 @@ function CS.System.Net.Sockets.ProtocolFamily:__CastFrom(value) end
 ---@source System.dll
 CS.System.Net.Sockets.ProtocolType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Sockets.ProtocolType
 function CS.System.Net.Sockets.ProtocolType:__CastFrom(value) end
@@ -465,7 +465,7 @@ function CS.System.Net.Sockets.ProtocolType:__CastFrom(value) end
 ---@source System.dll
 CS.System.Net.Sockets.SelectMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Sockets.SelectMode
 function CS.System.Net.Sockets.SelectMode:__CastFrom(value) end
@@ -1266,7 +1266,7 @@ function CS.System.Net.Sockets.SocketAsyncEventArgs.SetBuffer(offset, count) end
 ---@source System.dll
 CS.System.Net.Sockets.SocketAsyncOperation = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Sockets.SocketAsyncOperation
 function CS.System.Net.Sockets.SocketAsyncOperation:__CastFrom(value) end
@@ -1281,7 +1281,7 @@ function CS.System.Net.Sockets.SocketAsyncOperation:__CastFrom(value) end
 ---@source System.dll
 CS.System.Net.Sockets.SocketClientAccessPolicyProtocol = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Sockets.SocketClientAccessPolicyProtocol
 function CS.System.Net.Sockets.SocketClientAccessPolicyProtocol:__CastFrom(value) end
@@ -1386,7 +1386,7 @@ function CS.System.Net.Sockets.SocketClientAccessPolicyProtocol:__CastFrom(value
 ---@source System.dll
 CS.System.Net.Sockets.SocketError = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Sockets.SocketError
 function CS.System.Net.Sockets.SocketError:__CastFrom(value) end
@@ -1429,7 +1429,7 @@ CS.System.Net.Sockets.SocketException = {}
 ---@source System.dll
 CS.System.Net.Sockets.SocketFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Sockets.SocketFlags
 function CS.System.Net.Sockets.SocketFlags:__CastFrom(value) end
@@ -1458,7 +1458,7 @@ CS.System.Net.Sockets.SocketInformation = {}
 ---@source System.dll
 CS.System.Net.Sockets.SocketInformationOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Sockets.SocketInformationOptions
 function CS.System.Net.Sockets.SocketInformationOptions:__CastFrom(value) end
@@ -1561,7 +1561,7 @@ function CS.System.Net.Sockets.SocketInformationOptions:__CastFrom(value) end
 ---@source System.dll
 CS.System.Net.Sockets.SocketOptionName = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Sockets.SocketOptionName
 function CS.System.Net.Sockets.SocketOptionName:__CastFrom(value) end
@@ -1582,7 +1582,7 @@ function CS.System.Net.Sockets.SocketOptionName:__CastFrom(value) end
 ---@source System.dll
 CS.System.Net.Sockets.SocketOptionLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Sockets.SocketOptionLevel
 function CS.System.Net.Sockets.SocketOptionLevel:__CastFrom(value) end
@@ -1623,7 +1623,7 @@ CS.System.Net.Sockets.SocketReceiveMessageFromResult = {}
 ---@source System.dll
 CS.System.Net.Sockets.SocketShutdown = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Sockets.SocketShutdown
 function CS.System.Net.Sockets.SocketShutdown:__CastFrom(value) end
@@ -1729,7 +1729,7 @@ function CS.System.Net.Sockets.SocketTaskExtensions.SendToAsync(buffer, socketFl
 ---@source System.dll
 CS.System.Net.Sockets.SocketType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Sockets.SocketType
 function CS.System.Net.Sockets.SocketType:__CastFrom(value) end
@@ -1752,7 +1752,7 @@ function CS.System.Net.Sockets.SocketType:__CastFrom(value) end
 ---@source System.dll
 CS.System.Net.Sockets.TransmitFileOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Sockets.TransmitFileOptions
 function CS.System.Net.Sockets.TransmitFileOptions:__CastFrom(value) end

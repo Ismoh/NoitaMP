@@ -67,7 +67,7 @@ function RenderTexture:setKeepMatrix (keepMatrix) end
 ---@param clearFlags int
 ---@return self
 function RenderTexture:setClearFlags (clearFlags) end
----*  Starts grabbing. 
+---*  Starts grabbing.
 ---@return self
 function RenderTexture:begin () end
 ---@overload fun(string:string,int:int,boolean:boolean,function:function):self
@@ -149,13 +149,13 @@ function RenderTexture:initWithWidthAndHeight (w,h,format,depthStencilFormat) en
 ---@param depthStencilFormat int
 ---@return self
 function RenderTexture:create (w,h,format,depthStencilFormat) end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param transform mat4_table
 ---@param flags unsigned_int
 ---@return self
 function RenderTexture:draw (renderer,transform,flags) end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param parentTransform mat4_table
 ---@param parentFlags unsigned_int

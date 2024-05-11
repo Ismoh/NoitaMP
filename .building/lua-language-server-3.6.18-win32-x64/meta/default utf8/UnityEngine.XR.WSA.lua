@@ -9,7 +9,7 @@
 ---@source UnityEngine.VRModule.dll
 CS.UnityEngine.XR.WSA.RemoteDeviceVersion = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.XR.WSA.RemoteDeviceVersion
 function CS.UnityEngine.XR.WSA.RemoteDeviceVersion:__CastFrom(value) end

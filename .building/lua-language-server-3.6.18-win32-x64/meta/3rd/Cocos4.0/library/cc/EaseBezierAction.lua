@@ -20,16 +20,16 @@ function EaseBezierAction:setBezierParamer (p0,p1,p2,p3) end
 ---@param action cc.ActionInterval
 ---@return self
 function EaseBezierAction:create (action) end
----* 
+---*
 ---@return self
 function EaseBezierAction:clone () end
----* 
+---*
 ---@param time float
 ---@return self
 function EaseBezierAction:update (time) end
----* 
+---*
 ---@return self
 function EaseBezierAction:reverse () end
----* 
+---*
 ---@return self
 function EaseBezierAction:EaseBezierAction () end

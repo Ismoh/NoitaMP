@@ -23,20 +23,20 @@ function ProgressTo:initWithDuration (duration,percent) end
 ---@param percent float
 ---@return self
 function ProgressTo:create (duration,percent) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function ProgressTo:startWithTarget (target) end
----* 
+---*
 ---@return self
 function ProgressTo:clone () end
----* 
+---*
 ---@return self
 function ProgressTo:reverse () end
----* 
+---*
 ---@param time float
 ---@return self
 function ProgressTo:update (time) end
----* 
+---*
 ---@return self
 function ProgressTo:ProgressTo () end

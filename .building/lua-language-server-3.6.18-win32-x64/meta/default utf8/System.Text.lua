@@ -876,7 +876,7 @@ function CS.System.Text.EncodingProvider.GetEncoding(name, encoderFallback, deco
 ---@source mscorlib.dll
 CS.System.Text.NormalizationForm = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Text.NormalizationForm
 function CS.System.Text.NormalizationForm:__CastFrom(value) end

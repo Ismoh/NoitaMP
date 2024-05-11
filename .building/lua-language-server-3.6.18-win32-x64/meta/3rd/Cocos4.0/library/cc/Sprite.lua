@@ -17,7 +17,7 @@ function Sprite:setSpriteFrame (spriteFrameName) end
 ---@param filename string
 ---@return self
 function Sprite:setTexture (filename) end
----*  Returns the Texture2D object used by the sprite. 
+---*  Returns the Texture2D object used by the sprite.
 ---@return cc.Texture2D
 function Sprite:getTexture () end
 ---* Sets whether the sprite should be flipped vertically or not.<br>
@@ -63,7 +63,7 @@ function Sprite:getCenterRect () end
 ---@param rect rect_table
 ---@return self
 function Sprite:setCenterRectNormalized (rect) end
----*  returns whether or not contentSize stretches the sprite's texture 
+---*  returns whether or not contentSize stretches the sprite's texture
 ---@return boolean
 function Sprite:isStretchEnabled () end
 ---@overload fun(rect_table:rect_table,boolean:boolean,size_table:size_table):self
@@ -81,7 +81,7 @@ function Sprite:setTextureRect (rect,rotated,untrimmedSize) end
 ---@param spriteFrameName string
 ---@return boolean
 function Sprite:initWithSpriteFrameName (spriteFrameName) end
----*  whether or not contentSize stretches the sprite's texture 
+---*  whether or not contentSize stretches the sprite's texture
 ---@param enabled boolean
 ---@return self
 function Sprite:setStretchEnabled (enabled) end
@@ -111,21 +111,21 @@ function Sprite:setBatchNode (spriteBatchNode) end
 ---* lua NA
 ---@return cc.BlendFunc
 function Sprite:getBlendFunc () end
----* 
+---*
 ---@param rect rect_table
 ---@return self
 function Sprite:setCenterRect (rect) end
 ---* Returns the current displayed frame.
 ---@return cc.SpriteFrame
 function Sprite:getSpriteFrame () end
----* 
+---*
 ---@return self
 function Sprite:setVertexLayout () end
----* 
+---*
 ---@param cleanup boolean
 ---@return self
 function Sprite:removeAllChildrenWithCleanup (cleanup) end
----* 
+---*
 ---@return string
 function Sprite:getResourceName () end
 ---* Whether or not the Sprite needs to be updated in the Atlas.<br>
@@ -174,7 +174,7 @@ function Sprite:initWithFile (filename,rect) end
 ---@param blendFunc cc.BlendFunc
 ---@return self
 function Sprite:setBlendFunc (blendFunc) end
----* 
+---*
 ---@param vert char
 ---@param frag char
 ---@return self
@@ -239,15 +239,15 @@ function Sprite:createWithSpriteFrame (spriteFrame) end
 ---@param tag int
 ---@return self
 function Sprite:addChild (child,zOrder,tag) end
----* 
+---*
 ---@param anchor vec2_table
 ---@return self
 function Sprite:setAnchorPoint (anchor) end
----* 
+---*
 ---@param rotationX float
 ---@return self
 function Sprite:setRotationSkewX (rotationX) end
----* 
+---*
 ---@param scaleY float
 ---@return self
 function Sprite:setScaleY (scaleY) end
@@ -261,29 +261,29 @@ function Sprite:setScale (scaleX,scaleY) end
 ---@param programState cc.backend.ProgramState
 ---@return self
 function Sprite:setProgramState (programState) end
----* 
+---*
 ---@param size size_table
 ---@return self
 function Sprite:setContentSize (size) end
----* 
+---*
 ---@return boolean
 function Sprite:isOpacityModifyRGB () end
----* 
+---*
 ---@param modify boolean
 ---@return self
 function Sprite:setOpacityModifyRGB (modify) end
----* 
+---*
 ---@return boolean
 function Sprite:init () end
----* 
+---*
 ---@param rotation float
 ---@return self
 function Sprite:setRotation (rotation) end
----* 
+---*
 ---@param value boolean
 ---@return self
 function Sprite:setIgnoreAnchorPointForPosition (value) end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param transform mat4_table
 ---@param flags unsigned_int
@@ -296,26 +296,26 @@ function Sprite:setScaleX (scaleX) end
 ---* js NA
 ---@return string
 function Sprite:getDescription () end
----* 
+---*
 ---@param rotationY float
 ---@return self
 function Sprite:setRotationSkewY (rotationY) end
 ---* Get current ProgramState
 ---@return cc.backend.ProgramState
 function Sprite:getProgramState () end
----* 
+---*
 ---@return self
 function Sprite:sortAllChildren () end
----* 
+---*
 ---@param child cc.Node
 ---@param zOrder int
 ---@return self
 function Sprite:reorderChild (child,zOrder) end
----* 
+---*
 ---@param positionZ float
 ---@return self
 function Sprite:setPositionZ (positionZ) end
----* 
+---*
 ---@param child cc.Node
 ---@param cleanup boolean
 ---@return self
@@ -323,15 +323,15 @@ function Sprite:removeChild (child,cleanup) end
 ---* Updates the quad according the rotation, position, scale values.
 ---@return self
 function Sprite:updateTransform () end
----* 
+---*
 ---@param sx float
 ---@return self
 function Sprite:setSkewX (sx) end
----* 
+---*
 ---@param sy float
 ---@return self
 function Sprite:setSkewY (sy) end
----* 
+---*
 ---@param bVisible boolean
 ---@return self
 function Sprite:setVisible (bVisible) end

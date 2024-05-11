@@ -87,6 +87,6 @@ function Physics3DConeTwistConstraint:enableMotor (b) end
 ---@param frameB mat4_table
 ---@return self
 function Physics3DConeTwistConstraint:create (rbA,rbB,frameA,frameB) end
----* 
+---*
 ---@return self
 function Physics3DConeTwistConstraint:Physics3DConeTwistConstraint () end

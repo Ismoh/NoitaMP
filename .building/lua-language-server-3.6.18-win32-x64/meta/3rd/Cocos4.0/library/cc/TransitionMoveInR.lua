@@ -15,6 +15,6 @@ cc.TransitionMoveInR=TransitionMoveInR
 ---@param scene cc.Scene
 ---@return self
 function TransitionMoveInR:create (t,scene) end
----* 
+---*
 ---@return self
 function TransitionMoveInR:TransitionMoveInR () end

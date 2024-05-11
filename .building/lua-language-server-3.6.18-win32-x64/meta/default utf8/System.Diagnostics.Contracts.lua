@@ -191,7 +191,7 @@ function CS.System.Diagnostics.Contracts.ContractFailedEventArgs.SetUnwind() end
 ---@source mscorlib.dll
 CS.System.Diagnostics.Contracts.ContractFailureKind = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Contracts.ContractFailureKind
 function CS.System.Diagnostics.Contracts.ContractFailureKind:__CastFrom(value) end

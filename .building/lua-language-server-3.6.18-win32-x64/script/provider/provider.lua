@@ -1392,7 +1392,7 @@ m.register 'textDocument/inlayHint' {
         local results = core(uri, start, finish)
         local hintResults = {}
         for i, res in ipairs(results) do
-            local luri = res.source and guide.getUri(res.source) 
+            local luri = res.source and guide.getUri(res.source)
             local lstate = files.getState(luri)
             hintResults[i] = {
                 label        = {

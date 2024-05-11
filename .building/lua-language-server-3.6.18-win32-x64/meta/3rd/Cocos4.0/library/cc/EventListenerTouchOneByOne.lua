@@ -16,15 +16,15 @@ function EventListenerTouchOneByOne:isSwallowTouches () end
 ---@param needSwallow boolean
 ---@return self
 function EventListenerTouchOneByOne:setSwallowTouches (needSwallow) end
----* 
+---*
 ---@return boolean
 function EventListenerTouchOneByOne:init () end
 ---* / Overrides
 ---@return self
 function EventListenerTouchOneByOne:clone () end
----* 
+---*
 ---@return boolean
 function EventListenerTouchOneByOne:checkAvailable () end
----* 
+---*
 ---@return self
 function EventListenerTouchOneByOne:EventListenerTouchOneByOne () end

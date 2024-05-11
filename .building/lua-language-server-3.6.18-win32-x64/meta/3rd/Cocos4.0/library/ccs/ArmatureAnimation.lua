@@ -1,13 +1,13 @@
 ---@meta
 
----@class ccs.ArmatureAnimation 
+---@class ccs.ArmatureAnimation
 local ArmatureAnimation={ }
 ccs.ArmatureAnimation=ArmatureAnimation
 
 
 
 
----* 
+---*
 ---@return float
 function ArmatureAnimation:getSpeedScale () end
 ---* Play animation by animation name.<br>
@@ -28,13 +28,13 @@ function ArmatureAnimation:play (animationName,durationTo,loop) end
 ---@param frameIndex int
 ---@return self
 function ArmatureAnimation:gotoAndPause (frameIndex) end
----* 
+---*
 ---@param movementIndexes array_table
 ---@param durationTo int
 ---@param loop boolean
 ---@return self
 function ArmatureAnimation:playWithIndexes (movementIndexes,durationTo,loop) end
----* 
+---*
 ---@param data ccs.AnimationData
 ---@return self
 function ArmatureAnimation:setAnimationData (data) end
@@ -43,7 +43,7 @@ function ArmatureAnimation:setAnimationData (data) end
 ---@param speedScale float
 ---@return self
 function ArmatureAnimation:setSpeedScale (speedScale) end
----* 
+---*
 ---@return ccs.AnimationData
 function ArmatureAnimation:getAnimationData () end
 ---* Go to specified frame and play current movement.<br>
@@ -61,7 +61,7 @@ function ArmatureAnimation:gotoAndPlay (frameIndex) end
 ---@param armature ccs.Armature
 ---@return boolean
 function ArmatureAnimation:init (armature) end
----* 
+---*
 ---@param movementNames array_table
 ---@param durationTo int
 ---@param loop boolean
@@ -70,7 +70,7 @@ function ArmatureAnimation:playWithNames (movementNames,durationTo,loop) end
 ---* Get movement count
 ---@return int
 function ArmatureAnimation:getMovementCount () end
----* 
+---*
 ---@param animationIndex int
 ---@param durationTo int
 ---@param loop int
@@ -91,7 +91,7 @@ function ArmatureAnimation:pause () end
 ---* Stop the Process
 ---@return self
 function ArmatureAnimation:stop () end
----* 
+---*
 ---@param dt float
 ---@return self
 function ArmatureAnimation:update (dt) end

@@ -11,7 +11,7 @@ cc.TargetedAction=TargetedAction
 ---@overload fun():cc.Node
 ---@return cc.Node
 function TargetedAction:getForcedTarget () end
----*  Init an action with the specified action and forced target 
+---*  Init an action with the specified action and forced target
 ---@param target cc.Node
 ---@param action cc.FiniteTimeAction
 ---@return boolean
@@ -29,23 +29,23 @@ function TargetedAction:setForcedTarget (forcedTarget) end
 ---@param action cc.FiniteTimeAction
 ---@return self
 function TargetedAction:create (target,action) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function TargetedAction:startWithTarget (target) end
----* 
+---*
 ---@return self
 function TargetedAction:clone () end
----* 
+---*
 ---@return self
 function TargetedAction:stop () end
----* 
+---*
 ---@return self
 function TargetedAction:reverse () end
 ---* param time In seconds.
 ---@param time float
 ---@return self
 function TargetedAction:update (time) end
----* 
+---*
 ---@return self
 function TargetedAction:TargetedAction () end

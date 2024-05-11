@@ -502,7 +502,7 @@ CS.System.Text.RegularExpressions.RegexMatchTimeoutException = {}
 ---@source System.dll
 CS.System.Text.RegularExpressions.RegexOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Text.RegularExpressions.RegexOptions
 function CS.System.Text.RegularExpressions.RegexOptions:__CastFrom(value) end

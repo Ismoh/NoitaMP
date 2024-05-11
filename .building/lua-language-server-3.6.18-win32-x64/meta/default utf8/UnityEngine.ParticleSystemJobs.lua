@@ -10,7 +10,7 @@ CS.UnityEngine.ParticleSystemJobs.IJobParticleSystem = {}
 --
 --```plaintext
 --Params: jobData - Contains the particle properties.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -29,7 +29,7 @@ CS.UnityEngine.ParticleSystemJobs.IJobParticleSystemParallelFor = {}
 --```plaintext
 --Params: jobData - Contains the particle properties.
 --        index - The index of the current particle.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll
@@ -50,7 +50,7 @@ CS.UnityEngine.ParticleSystemJobs.IJobParticleSystemParallelForBatch = {}
 --Params: jobData - Contains the particle properties.
 --        startIndex - The first particle index that this job should process.
 --        count - The number of particles that this job should process.
---        
+--
 --```
 --
 ---@source UnityEngine.ParticleSystemModule.dll

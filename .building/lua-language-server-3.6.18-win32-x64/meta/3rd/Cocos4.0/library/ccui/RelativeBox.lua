@@ -7,7 +7,7 @@ ccui.RelativeBox=RelativeBox
 
 
 
----* 
+---*
 ---@param size size_table
 ---@return boolean
 function RelativeBox:initWithSize (size) end
@@ -16,7 +16,7 @@ function RelativeBox:initWithSize (size) end
 ---@param size size_table
 ---@return self
 function RelativeBox:create (size) end
----* 
+---*
 ---@return boolean
 function RelativeBox:init () end
 ---* Default constructor.<br>

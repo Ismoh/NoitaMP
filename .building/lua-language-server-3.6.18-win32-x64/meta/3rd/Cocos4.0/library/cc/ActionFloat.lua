@@ -7,7 +7,7 @@ cc.ActionFloat=ActionFloat
 
 
 
----* 
+---*
 ---@param duration float
 ---@param from float
 ---@param to float
@@ -31,16 +31,16 @@ function ActionFloat:create (duration,from,to,callback) end
 ---@param target cc.Node
 ---@return self
 function ActionFloat:startWithTarget (target) end
----* 
+---*
 ---@return self
 function ActionFloat:clone () end
----* 
+---*
 ---@param delta float
 ---@return self
 function ActionFloat:update (delta) end
----* 
+---*
 ---@return self
 function ActionFloat:reverse () end
----* 
+---*
 ---@return self
 function ActionFloat:ActionFloat () end

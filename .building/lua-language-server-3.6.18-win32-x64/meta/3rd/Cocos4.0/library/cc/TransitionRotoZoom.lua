@@ -15,6 +15,6 @@ cc.TransitionRotoZoom=TransitionRotoZoom
 ---@param scene cc.Scene
 ---@return self
 function TransitionRotoZoom:create (t,scene) end
----* 
+---*
 ---@return self
 function TransitionRotoZoom:TransitionRotoZoom () end

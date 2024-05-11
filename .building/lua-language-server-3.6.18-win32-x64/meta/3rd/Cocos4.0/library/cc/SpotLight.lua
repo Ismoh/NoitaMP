@@ -16,7 +16,7 @@ function SpotLight:getRange () end
 ---@param dir vec3_table
 ---@return self
 function SpotLight:setDirection (dir) end
----*  get cos innerAngle 
+---*  get cos innerAngle
 ---@return float
 function SpotLight:getCosInnerAngle () end
 ---* Returns the outer angle of the spot light (in radians).
@@ -28,7 +28,7 @@ function SpotLight:getInnerAngle () end
 ---* Returns the Direction in parent.
 ---@return vec3_table
 function SpotLight:getDirection () end
----*  get cos outAngle 
+---*  get cos outAngle
 ---@return float
 function SpotLight:getCosOuterAngle () end
 ---* Sets the outer angle of a spot light (in radians).<br>
@@ -65,9 +65,9 @@ function SpotLight:setRange (range) end
 ---@param range float
 ---@return self
 function SpotLight:create (direction,position,color,innerAngle,outerAngle,range) end
----* 
+---*
 ---@return int
 function SpotLight:getLightType () end
----* 
+---*
 ---@return self
 function SpotLight:SpotLight () end

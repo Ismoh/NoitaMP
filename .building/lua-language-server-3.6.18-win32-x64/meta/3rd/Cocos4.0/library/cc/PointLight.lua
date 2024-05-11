@@ -7,10 +7,10 @@ cc.PointLight=PointLight
 
 
 
----*  get or set range 
+---*  get or set range
 ---@return float
 function PointLight:getRange () end
----* 
+---*
 ---@param range float
 ---@return point_table
 function PointLight:setRange (range) end
@@ -24,9 +24,9 @@ function PointLight:setRange (range) end
 ---@param range float
 ---@return point_table
 function PointLight:create (position,color,range) end
----* 
+---*
 ---@return int
 function PointLight:getLightType () end
----* 
+---*
 ---@return point_table
 function PointLight:PointLight () end

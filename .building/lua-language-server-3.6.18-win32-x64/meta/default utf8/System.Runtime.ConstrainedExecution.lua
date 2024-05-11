@@ -11,7 +11,7 @@
 ---@source mscorlib.dll
 CS.System.Runtime.ConstrainedExecution.Cer = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.ConstrainedExecution.Cer
 function CS.System.Runtime.ConstrainedExecution.Cer:__CastFrom(value) end
@@ -30,7 +30,7 @@ function CS.System.Runtime.ConstrainedExecution.Cer:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Runtime.ConstrainedExecution.Consistency = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.ConstrainedExecution.Consistency
 function CS.System.Runtime.ConstrainedExecution.Consistency:__CastFrom(value) end

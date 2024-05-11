@@ -18,7 +18,7 @@
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Windows.WebCam.PhotoCaptureFileOutputFormat = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Windows.WebCam.PhotoCaptureFileOutputFormat
 function CS.UnityEngine.Windows.WebCam.PhotoCaptureFileOutputFormat:__CastFrom(value) end
@@ -97,7 +97,7 @@ function CS.UnityEngine.Windows.WebCam.PhotoCapture.Dispose() end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Windows.WebCam.CaptureResultType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Windows.WebCam.PhotoCapture.CaptureResultType
 function CS.UnityEngine.Windows.WebCam.CaptureResultType:__CastFrom(value) end
@@ -132,7 +132,7 @@ CS.UnityEngine.Windows.WebCam.PhotoCaptureResult = {}
 --
 --```plaintext
 --Params: captureObject - The PhotoCapture instance.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -161,7 +161,7 @@ function CS.UnityEngine.Windows.WebCam.OnCaptureResourceCreatedCallback.EndInvok
 --
 --```plaintext
 --Params: result - Indicates whether or not photo mode was successfully activated.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -190,7 +190,7 @@ function CS.UnityEngine.Windows.WebCam.OnPhotoModeStartedCallback.EndInvoke(resu
 --
 --```plaintext
 --Params: result - Indicates whether or not photo mode was successfully deactivated.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -219,7 +219,7 @@ function CS.UnityEngine.Windows.WebCam.OnPhotoModeStoppedCallback.EndInvoke(resu
 --
 --```plaintext
 --Params: result - Indicates whether or not the photo was successfully saved to the file system.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -249,7 +249,7 @@ function CS.UnityEngine.Windows.WebCam.OnCapturedToDiskCallback.EndInvoke(result
 --```plaintext
 --Params: result - Indicates whether or not the photo was successfully captured to memory.
 --        photoCaptureFrame - Contains the target texture.  If available, the spatial information will be accessible through this structure as well.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -320,7 +320,7 @@ function CS.UnityEngine.Windows.WebCam.PhotoCaptureFrame.TryGetProjectionMatrix(
 --
 --```plaintext
 --Params: targetTexture - The target texture that the captured image data will be copied to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -368,7 +368,7 @@ CS.UnityEngine.Windows.WebCam.VideoCapture = {}
 --
 --```plaintext
 --Params: resolution - A recording resolution.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -436,7 +436,7 @@ function CS.UnityEngine.Windows.WebCam.VideoCapture.Dispose() end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Windows.WebCam.CaptureResultType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Windows.WebCam.VideoCapture.CaptureResultType
 function CS.UnityEngine.Windows.WebCam.CaptureResultType:__CastFrom(value) end
@@ -470,7 +470,7 @@ function CS.UnityEngine.Windows.WebCam.CaptureResultType:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Windows.WebCam.AudioState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Windows.WebCam.VideoCapture.AudioState
 function CS.UnityEngine.Windows.WebCam.AudioState:__CastFrom(value) end
@@ -505,7 +505,7 @@ CS.UnityEngine.Windows.WebCam.VideoCaptureResult = {}
 --
 --```plaintext
 --Params: captureObject - The VideoCapture instance.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -534,7 +534,7 @@ function CS.UnityEngine.Windows.WebCam.OnVideoCaptureResourceCreatedCallback.End
 --
 --```plaintext
 --Params: result - Indicates whether or not video mode was successfully activated.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -563,7 +563,7 @@ function CS.UnityEngine.Windows.WebCam.OnVideoModeStartedCallback.EndInvoke(resu
 --
 --```plaintext
 --Params: result - Indicates whether or not video mode was successfully deactivated.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -592,7 +592,7 @@ function CS.UnityEngine.Windows.WebCam.OnVideoModeStoppedCallback.EndInvoke(resu
 --
 --```plaintext
 --Params: result - Indicates whether or not video recording started successfully.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -621,7 +621,7 @@ function CS.UnityEngine.Windows.WebCam.OnStartedRecordingVideoCallback.EndInvoke
 --
 --```plaintext
 --Params: result - Indicates whether or not video recording was saved successfully to the file system.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -673,7 +673,7 @@ function CS.UnityEngine.Windows.WebCam.OnStoppedRecordingVideoCallback.EndInvoke
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Windows.WebCam.CapturePixelFormat = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Windows.WebCam.CapturePixelFormat
 function CS.UnityEngine.Windows.WebCam.CapturePixelFormat:__CastFrom(value) end
@@ -702,7 +702,7 @@ function CS.UnityEngine.Windows.WebCam.CapturePixelFormat:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Windows.WebCam.WebCamMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Windows.WebCam.WebCamMode
 function CS.UnityEngine.Windows.WebCam.WebCamMode:__CastFrom(value) end

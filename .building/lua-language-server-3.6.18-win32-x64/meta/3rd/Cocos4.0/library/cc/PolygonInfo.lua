@@ -1,23 +1,23 @@
 ---@meta
 
----@class cc.PolygonInfo 
+---@class cc.PolygonInfo
 local PolygonInfo={ }
 cc.PolygonInfo=PolygonInfo
 
 
 
 
----* 
+---*
 ---@return string
 function PolygonInfo:getFilename () end
 ---* get sum of all triangle area size<br>
 ---* return sum of all triangle area size
 ---@return float
 function PolygonInfo:getArea () end
----* 
+---*
 ---@return rect_table
 function PolygonInfo:getRect () end
----* 
+---*
 ---@param filename string
 ---@return self
 function PolygonInfo:setFilename (filename) end
@@ -51,7 +51,7 @@ function PolygonInfo:setQuad (quad) end
 ---@param triangles cc.TrianglesCommand.Triangles
 ---@return self
 function PolygonInfo:setTriangles (triangles) end
----* 
+---*
 ---@param rect rect_table
 ---@return self
 function PolygonInfo:setRect (rect) end

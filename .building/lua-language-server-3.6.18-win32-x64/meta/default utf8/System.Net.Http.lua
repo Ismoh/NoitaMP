@@ -15,7 +15,7 @@ CS.System.Net.Http.ByteArrayContent = {}
 ---@source System.Net.Http.dll
 CS.System.Net.Http.ClientCertificateOption = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Http.ClientCertificateOption
 function CS.System.Net.Http.ClientCertificateOption:__CastFrom(value) end
@@ -289,7 +289,7 @@ CS.System.Net.Http.HttpClientHandler = {}
 ---@source System.Net.Http.dll
 CS.System.Net.Http.HttpCompletionOption = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Http.HttpCompletionOption
 function CS.System.Net.Http.HttpCompletionOption:__CastFrom(value) end

@@ -16,14 +16,14 @@ function ActionEase:initWithAction (action) end
 ---* return The pointer of the inner action.
 ---@return cc.ActionInterval
 function ActionEase:getInnerAction () end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function ActionEase:startWithTarget (target) end
----* 
+---*
 ---@return self
 function ActionEase:stop () end
----* 
+---*
 ---@param time float
 ---@return self
 function ActionEase:update (time) end

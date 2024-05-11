@@ -7,7 +7,7 @@ cc.TintBy=TintBy
 
 
 
----*  initializes the action with duration and color 
+---*  initializes the action with duration and color
 ---@param duration float
 ---@param deltaRed short
 ---@param deltaGreen short
@@ -26,20 +26,20 @@ function TintBy:initWithDuration (duration,deltaRed,deltaGreen,deltaBlue) end
 ---@param deltaBlue short
 ---@return self
 function TintBy:create (duration,deltaRed,deltaGreen,deltaBlue) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function TintBy:startWithTarget (target) end
----* 
+---*
 ---@return self
 function TintBy:clone () end
----* 
+---*
 ---@return self
 function TintBy:reverse () end
 ---* param time In seconds.
 ---@param time float
 ---@return self
 function TintBy:update (time) end
----* 
+---*
 ---@return self
 function TintBy:TintBy () end

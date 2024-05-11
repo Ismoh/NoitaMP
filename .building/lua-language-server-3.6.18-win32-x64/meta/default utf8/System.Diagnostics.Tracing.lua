@@ -13,7 +13,7 @@
 ---@source mscorlib.dll
 CS.System.Diagnostics.Tracing.EventActivityOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Tracing.EventActivityOptions
 function CS.System.Diagnostics.Tracing.EventActivityOptions:__CastFrom(value) end
@@ -60,7 +60,7 @@ CS.System.Diagnostics.Tracing.EventAttribute = {}
 ---@source mscorlib.dll
 CS.System.Diagnostics.Tracing.EventChannel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Tracing.EventChannel
 function CS.System.Diagnostics.Tracing.EventChannel:__CastFrom(value) end
@@ -79,7 +79,7 @@ function CS.System.Diagnostics.Tracing.EventChannel:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Diagnostics.Tracing.EventCommand = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Tracing.EventCommand
 function CS.System.Diagnostics.Tracing.EventCommand:__CastFrom(value) end
@@ -142,7 +142,7 @@ CS.System.Diagnostics.Tracing.EventFieldAttribute = {}
 ---@source mscorlib.dll
 CS.System.Diagnostics.Tracing.EventFieldFormat = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Tracing.EventFieldFormat
 function CS.System.Diagnostics.Tracing.EventFieldFormat:__CastFrom(value) end
@@ -161,7 +161,7 @@ CS.System.Diagnostics.Tracing.EventIgnoreAttribute = {}
 ---@source mscorlib.dll
 CS.System.Diagnostics.Tracing.EventFieldTags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Tracing.EventFieldTags
 function CS.System.Diagnostics.Tracing.EventFieldTags:__CastFrom(value) end
@@ -192,7 +192,7 @@ function CS.System.Diagnostics.Tracing.EventFieldTags:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Diagnostics.Tracing.EventKeywords = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Tracing.EventKeywords
 function CS.System.Diagnostics.Tracing.EventKeywords:__CastFrom(value) end
@@ -215,7 +215,7 @@ function CS.System.Diagnostics.Tracing.EventKeywords:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Diagnostics.Tracing.EventLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Tracing.EventLevel
 function CS.System.Diagnostics.Tracing.EventLevel:__CastFrom(value) end
@@ -236,7 +236,7 @@ function CS.System.Diagnostics.Tracing.EventLevel:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Diagnostics.Tracing.EventManifestOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Tracing.EventManifestOptions
 function CS.System.Diagnostics.Tracing.EventManifestOptions:__CastFrom(value) end
@@ -325,7 +325,7 @@ function CS.System.Diagnostics.Tracing.EventListener:EventSourceIndex(eventSourc
 ---@source mscorlib.dll
 CS.System.Diagnostics.Tracing.EventOpcode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Tracing.EventOpcode
 function CS.System.Diagnostics.Tracing.EventOpcode:__CastFrom(value) end
@@ -501,7 +501,7 @@ CS.System.Diagnostics.Tracing.EventSourceException = {}
 ---@source mscorlib.dll
 CS.System.Diagnostics.Tracing.EventSourceSettings = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Tracing.EventSourceSettings
 function CS.System.Diagnostics.Tracing.EventSourceSettings:__CastFrom(value) end
@@ -530,7 +530,7 @@ CS.System.Diagnostics.Tracing.EventSourceOptions = {}
 ---@source mscorlib.dll
 CS.System.Diagnostics.Tracing.EventTags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Tracing.EventTags
 function CS.System.Diagnostics.Tracing.EventTags:__CastFrom(value) end
@@ -543,7 +543,7 @@ function CS.System.Diagnostics.Tracing.EventTags:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Diagnostics.Tracing.EventTask = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Tracing.EventTask
 function CS.System.Diagnostics.Tracing.EventTask:__CastFrom(value) end

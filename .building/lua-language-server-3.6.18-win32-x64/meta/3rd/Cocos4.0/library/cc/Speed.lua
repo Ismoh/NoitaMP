@@ -21,7 +21,7 @@ function Speed:getSpeed () end
 ---@param speed float
 ---@return self
 function Speed:setSpeed (speed) end
----*  Initializes the action. 
+---*  Initializes the action.
 ---@param action cc.ActionInterval
 ---@param speed float
 ---@return boolean
@@ -37,17 +37,17 @@ function Speed:getInnerAction () end
 ---@param speed float
 ---@return self
 function Speed:create (action,speed) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function Speed:startWithTarget (target) end
----* 
+---*
 ---@return self
 function Speed:reverse () end
----* 
+---*
 ---@return self
 function Speed:clone () end
----* 
+---*
 ---@return self
 function Speed:stop () end
 ---* param dt in seconds.
@@ -58,6 +58,6 @@ function Speed:step (dt) end
 ---* return Is true if the action has finished.
 ---@return boolean
 function Speed:isDone () end
----* 
+---*
 ---@return self
 function Speed:Speed () end

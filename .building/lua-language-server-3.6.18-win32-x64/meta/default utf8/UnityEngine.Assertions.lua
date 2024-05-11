@@ -31,7 +31,7 @@ function CS.UnityEngine.Assertions.Assert:ReferenceEquals(obj1, obj2) end
 --```plaintext
 --Params: message - The string used to describe the Assert.
 --        condition - true or false.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -44,7 +44,7 @@ function CS.UnityEngine.Assertions.Assert:IsTrue(condition) end
 --```plaintext
 --Params: message - The string used to describe the Assert.
 --        condition - true or false.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -58,7 +58,7 @@ function CS.UnityEngine.Assertions.Assert:IsTrue(condition, message) end
 --```plaintext
 --Params: condition - true or false.
 --        message - The string used to describe the result of the Assert.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -71,7 +71,7 @@ function CS.UnityEngine.Assertions.Assert:IsFalse(condition) end
 --```plaintext
 --Params: condition - true or false.
 --        message - The string used to describe the result of the Assert.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -87,7 +87,7 @@ function CS.UnityEngine.Assertions.Assert:IsFalse(condition, message) end
 --        expected - The assumed Assert value.
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -103,7 +103,7 @@ function CS.UnityEngine.Assertions.Assert:AreApproximatelyEqual(expected, actual
 --        expected - The assumed Assert value.
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -120,7 +120,7 @@ function CS.UnityEngine.Assertions.Assert:AreApproximatelyEqual(expected, actual
 --        expected - The assumed Assert value.
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -137,7 +137,7 @@ function CS.UnityEngine.Assertions.Assert:AreApproximatelyEqual(expected, actual
 --        expected - The assumed Assert value.
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -155,7 +155,7 @@ function CS.UnityEngine.Assertions.Assert:AreApproximatelyEqual(expected, actual
 --        expected - The assumed Assert value.
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -171,7 +171,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotApproximatelyEqual(expected, act
 --        expected - The assumed Assert value.
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -188,7 +188,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotApproximatelyEqual(expected, act
 --        expected - The assumed Assert value.
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -205,7 +205,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotApproximatelyEqual(expected, act
 --        expected - The assumed Assert value.
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -241,7 +241,7 @@ function CS.UnityEngine.Assertions.Assert:AreEqual(expected, actual, message, co
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -276,7 +276,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotEqual(expected, actual, message,
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -300,7 +300,7 @@ function CS.UnityEngine.Assertions.Assert:IsNull(value, message) end
 --```plaintext
 --Params: value - The Object or type being checked for.
 --        message - The string used to describe the Assert.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -323,7 +323,7 @@ function CS.UnityEngine.Assertions.Assert:IsNotNull(value, message) end
 --```plaintext
 --Params: value - The Object or type being checked for.
 --        message - The string used to describe the Assert.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -339,7 +339,7 @@ function CS.UnityEngine.Assertions.Assert:IsNotNull(value, message) end
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -355,7 +355,7 @@ function CS.UnityEngine.Assertions.Assert:AreEqual(expected, actual) end
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -372,7 +372,7 @@ function CS.UnityEngine.Assertions.Assert:AreEqual(expected, actual, message) en
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -388,7 +388,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotEqual(expected, actual) end
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -405,7 +405,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotEqual(expected, actual, message)
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -421,7 +421,7 @@ function CS.UnityEngine.Assertions.Assert:AreEqual(expected, actual) end
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -438,7 +438,7 @@ function CS.UnityEngine.Assertions.Assert:AreEqual(expected, actual, message) en
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -454,7 +454,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotEqual(expected, actual) end
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -471,7 +471,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotEqual(expected, actual, message)
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -487,7 +487,7 @@ function CS.UnityEngine.Assertions.Assert:AreEqual(expected, actual) end
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -504,7 +504,7 @@ function CS.UnityEngine.Assertions.Assert:AreEqual(expected, actual, message) en
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -520,7 +520,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotEqual(expected, actual) end
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -537,7 +537,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotEqual(expected, actual, message)
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -553,7 +553,7 @@ function CS.UnityEngine.Assertions.Assert:AreEqual(expected, actual) end
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -570,7 +570,7 @@ function CS.UnityEngine.Assertions.Assert:AreEqual(expected, actual, message) en
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -586,7 +586,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotEqual(expected, actual) end
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -603,7 +603,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotEqual(expected, actual, message)
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -619,7 +619,7 @@ function CS.UnityEngine.Assertions.Assert:AreEqual(expected, actual) end
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -636,7 +636,7 @@ function CS.UnityEngine.Assertions.Assert:AreEqual(expected, actual, message) en
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -652,7 +652,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotEqual(expected, actual) end
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -669,7 +669,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotEqual(expected, actual, message)
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -685,7 +685,7 @@ function CS.UnityEngine.Assertions.Assert:AreEqual(expected, actual) end
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -702,7 +702,7 @@ function CS.UnityEngine.Assertions.Assert:AreEqual(expected, actual, message) en
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -718,7 +718,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotEqual(expected, actual) end
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -735,7 +735,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotEqual(expected, actual, message)
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -751,7 +751,7 @@ function CS.UnityEngine.Assertions.Assert:AreEqual(expected, actual) end
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -768,7 +768,7 @@ function CS.UnityEngine.Assertions.Assert:AreEqual(expected, actual, message) en
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -784,7 +784,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotEqual(expected, actual) end
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -801,7 +801,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotEqual(expected, actual, message)
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -817,7 +817,7 @@ function CS.UnityEngine.Assertions.Assert:AreEqual(expected, actual) end
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -834,7 +834,7 @@ function CS.UnityEngine.Assertions.Assert:AreEqual(expected, actual, message) en
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -850,7 +850,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotEqual(expected, actual) end
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -867,7 +867,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotEqual(expected, actual, message)
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -883,7 +883,7 @@ function CS.UnityEngine.Assertions.Assert:AreEqual(expected, actual) end
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -900,7 +900,7 @@ function CS.UnityEngine.Assertions.Assert:AreEqual(expected, actual, message) en
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -916,7 +916,7 @@ function CS.UnityEngine.Assertions.Assert:AreNotEqual(expected, actual) end
 --        actual - The exact Assert value.
 --        message - The string used to describe the Assert.
 --        comparer - Method to compare expected and actual arguments have the same value.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll

@@ -31,10 +31,10 @@ function Slider:loadSlidBallTextureNormal (normal,resType) end
 ---@param resType int
 ---@return self
 function Slider:loadProgressBarTexture (fileName,resType) end
----* 
+---*
 ---@return cc.ResourceData
 function Slider:getBallNormalFile () end
----* 
+---*
 ---@return cc.Sprite
 function Slider:getSlidBallDisabledRenderer () end
 ---* Sets if slider is using scale9 renderer.<br>
@@ -42,7 +42,7 @@ function Slider:getSlidBallDisabledRenderer () end
 ---@param able boolean
 ---@return self
 function Slider:setScale9Enabled (able) end
----* 
+---*
 ---@return cc.ResourceData
 function Slider:getBallPressedFile () end
 ---* brief Return a zoom scale<br>
@@ -66,7 +66,7 @@ function Slider:setCapInsetProgressBarRenderer (capInsets) end
 ---@param texType int
 ---@return self
 function Slider:loadSlidBallTextures (normal,pressed,disabled,texType) end
----* 
+---*
 ---@return cc.Node
 function Slider:getSlidBallRenderer () end
 ---* Add call back function called when slider's percent has changed to slider.<br>
@@ -87,7 +87,7 @@ function Slider:setMaxPercent (percent) end
 ---@param resType int
 ---@return self
 function Slider:loadBarTexture (fileName,resType) end
----* 
+---*
 ---@return cc.ResourceData
 function Slider:getProgressBarFile () end
 ---* Gets capinsets for bar slider, if slider is using scale9 renderer.<br>
@@ -102,7 +102,7 @@ function Slider:updateVisualSlider () end
 ---* js NA
 ---@return rect_table
 function Slider:getCapInsetsProgressBarRenderer () end
----* 
+---*
 ---@return cc.Sprite
 function Slider:getSlidBallPressedRenderer () end
 ---* Load pressed state texture for slider ball.<br>
@@ -112,14 +112,14 @@ function Slider:getSlidBallPressedRenderer () end
 ---@param resType int
 ---@return self
 function Slider:loadSlidBallTexturePressed (pressed,resType) end
----* 
+---*
 ---@return cc.ResourceData
 function Slider:getBackFile () end
 ---* Gets If slider is using scale9 renderer.<br>
 ---* return True that using scale9 renderer, false otherwise.
 ---@return boolean
 function Slider:isScale9Enabled () end
----* 
+---*
 ---@return cc.ResourceData
 function Slider:getBallDisabledFile () end
 ---* Sets capinsets for bar slider, if slider is using scale9 renderer.<br>
@@ -143,7 +143,7 @@ function Slider:setCapInsets (capInsets) end
 ---@param resType int
 ---@return self
 function Slider:loadSlidBallTextureDisabled (disabled,resType) end
----* 
+---*
 ---@return cc.Sprite
 function Slider:getSlidBallNormalRenderer () end
 ---*  When user pressed the button, the button will zoom to a scale.<br>
@@ -159,29 +159,29 @@ function Slider:setZoomScale (scale) end
 ---@param resType int
 ---@return self
 function Slider:create (barTextureName,normalBallTextureName,resType) end
----* 
+---*
 ---@return cc.Ref
 function Slider:createInstance () end
----* 
+---*
 ---@return cc.Node
 function Slider:getVirtualRenderer () end
----* 
+---*
 ---@param ignore boolean
 ---@return self
 function Slider:ignoreContentAdaptWithSize (ignore) end
 ---* Returns the "class name" of widget.
 ---@return string
 function Slider:getDescription () end
----* 
+---*
 ---@param pt vec2_table
 ---@param camera cc.Camera
 ---@param p vec3_table
 ---@return boolean
 function Slider:hitTest (pt,camera,p) end
----* 
+---*
 ---@return boolean
 function Slider:init () end
----* 
+---*
 ---@return size_table
 function Slider:getVirtualRendererSize () end
 ---* Default constructor.<br>

@@ -28,9 +28,9 @@ function CameraBackgroundColorBrush:getBrushType () end
 ---@param camera cc.Camera
 ---@return self
 function CameraBackgroundColorBrush:drawBackground (camera) end
----* 
+---*
 ---@return boolean
 function CameraBackgroundColorBrush:init () end
----* 
+---*
 ---@return self
 function CameraBackgroundColorBrush:CameraBackgroundColorBrush () end

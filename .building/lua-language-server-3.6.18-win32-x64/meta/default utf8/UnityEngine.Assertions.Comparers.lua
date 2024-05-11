@@ -36,7 +36,7 @@ function CS.UnityEngine.Assertions.Comparers.FloatComparer.GetHashCode(obj) end
 --Params: expected - Expected value.
 --        actual - Actual value.
 --        error - Comparison error.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -53,7 +53,7 @@ function CS.UnityEngine.Assertions.Comparers.FloatComparer:AreEqual(expected, ac
 --Params: expected - Expected value.
 --        actual - Actual value.
 --        error - Comparison error.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll

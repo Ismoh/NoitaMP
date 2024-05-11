@@ -67,7 +67,7 @@ function ActionObject:getUnitTime () end
 ---* return true if the action is playing, false the otherwise
 ---@return boolean
 function ActionObject:isPlaying () end
----* 
+---*
 ---@param fTime float
 ---@return self
 function ActionObject:updateToFrameByTime (fTime) end
@@ -76,7 +76,7 @@ function ActionObject:updateToFrameByTime (fTime) end
 ---@param bLoop boolean
 ---@return self
 function ActionObject:setLoop (bLoop) end
----* 
+---*
 ---@param dt float
 ---@return self
 function ActionObject:simulationActionUpdate (dt) end

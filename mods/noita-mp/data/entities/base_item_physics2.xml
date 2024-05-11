@@ -7,9 +7,9 @@
 	>
   </PhysicsBody2Component>
 
-  <PhysicsImageShapeComponent 
+  <PhysicsImageShapeComponent
   	is_root="1"
-    centered="1" 
+    centered="1"
     image_file="data/temp/landmine.png"
     material="steel" >
   </PhysicsImageShapeComponent>

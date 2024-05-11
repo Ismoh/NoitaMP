@@ -66,7 +66,7 @@ function CS.System.Diagnostics.PerformanceData.CounterSetInstanceCounterDataSet.
 ---@source System.Core.dll
 CS.System.Diagnostics.PerformanceData.CounterSetInstanceType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.PerformanceData.CounterSetInstanceType
 function CS.System.Diagnostics.PerformanceData.CounterSetInstanceType:__CastFrom(value) end
@@ -149,7 +149,7 @@ function CS.System.Diagnostics.PerformanceData.CounterSetInstanceType:__CastFrom
 ---@source System.Core.dll
 CS.System.Diagnostics.PerformanceData.CounterType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.PerformanceData.CounterType
 function CS.System.Diagnostics.PerformanceData.CounterType:__CastFrom(value) end

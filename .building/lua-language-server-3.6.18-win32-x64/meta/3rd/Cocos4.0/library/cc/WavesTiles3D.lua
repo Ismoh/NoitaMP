@@ -49,13 +49,13 @@ function WavesTiles3D:setAmplitude (amplitude) end
 ---@param amplitude float
 ---@return self
 function WavesTiles3D:create (duration,gridSize,waves,amplitude) end
----* 
+---*
 ---@return self
 function WavesTiles3D:clone () end
----* 
+---*
 ---@param time float
 ---@return self
 function WavesTiles3D:update (time) end
----* 
+---*
 ---@return self
 function WavesTiles3D:WavesTiles3D () end

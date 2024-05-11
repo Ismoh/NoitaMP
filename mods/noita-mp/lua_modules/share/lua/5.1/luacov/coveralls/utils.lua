@@ -70,7 +70,7 @@ local exec do
 
 local lua_version_t
 local function lua_version()
-  if not lua_version_t then 
+  if not lua_version_t then
     local version = rawget(_G,"_VERSION")
     local maj,min = version:match("^Lua (%d+)%.(%d+)$")
     if maj then                         lua_version_t = {tonumber(maj),tonumber(min)}

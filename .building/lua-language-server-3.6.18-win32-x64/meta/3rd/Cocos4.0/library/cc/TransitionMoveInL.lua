@@ -11,7 +11,7 @@ cc.TransitionMoveInL=TransitionMoveInL
 ---* return The action that will be performed.
 ---@return cc.ActionInterval
 function TransitionMoveInL:action () end
----* 
+---*
 ---@param action cc.ActionInterval
 ---@return cc.ActionInterval
 function TransitionMoveInL:easeActionWithAction (action) end
@@ -23,6 +23,6 @@ function TransitionMoveInL:easeActionWithAction (action) end
 ---@param scene cc.Scene
 ---@return self
 function TransitionMoveInL:create (t,scene) end
----* 
+---*
 ---@return self
 function TransitionMoveInL:TransitionMoveInL () end

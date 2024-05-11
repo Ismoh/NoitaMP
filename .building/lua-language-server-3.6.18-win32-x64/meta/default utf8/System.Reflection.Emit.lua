@@ -260,7 +260,7 @@ function CS.System.Reflection.Emit.AssemblyBuilder.SetEntryPoint(entryMethod, fi
 ---@source mscorlib.dll
 CS.System.Reflection.Emit.AssemblyBuilderAccess = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.Emit.AssemblyBuilderAccess
 function CS.System.Reflection.Emit.AssemblyBuilderAccess:__CastFrom(value) end
@@ -1013,7 +1013,7 @@ function CS.System.Reflection.Emit.FieldBuilder.SetValue(obj, val, invokeAttr, b
 ---@source mscorlib.dll
 CS.System.Reflection.Emit.FlowControl = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.Emit.FlowControl
 function CS.System.Reflection.Emit.FlowControl:__CastFrom(value) end
@@ -2651,7 +2651,7 @@ function CS.System.Reflection.Emit.OpCodes:TakesSingleByteArgument(inst) end
 ---@source mscorlib.dll
 CS.System.Reflection.Emit.OpCodeType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.Emit.OpCodeType
 function CS.System.Reflection.Emit.OpCodeType:__CastFrom(value) end
@@ -2698,7 +2698,7 @@ function CS.System.Reflection.Emit.OpCodeType:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Reflection.Emit.OperandType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.Emit.OperandType
 function CS.System.Reflection.Emit.OperandType:__CastFrom(value) end
@@ -2727,7 +2727,7 @@ function CS.System.Reflection.Emit.OperandType:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Reflection.Emit.PackingSize = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.Emit.PackingSize
 function CS.System.Reflection.Emit.PackingSize:__CastFrom(value) end
@@ -2966,7 +2966,7 @@ function CS.System.Reflection.Emit.PropertyToken:op_Inequality(a, b) end
 ---@source mscorlib.dll
 CS.System.Reflection.Emit.PEFileKinds = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.Emit.PEFileKinds
 function CS.System.Reflection.Emit.PEFileKinds:__CastFrom(value) end
@@ -3194,7 +3194,7 @@ function CS.System.Reflection.Emit.SignatureToken:op_Inequality(a, b) end
 ---@source mscorlib.dll
 CS.System.Reflection.Emit.StackBehaviour = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.Emit.StackBehaviour
 function CS.System.Reflection.Emit.StackBehaviour:__CastFrom(value) end

@@ -1,6 +1,6 @@
 ---@meta
 
----@class cc.AudioProfile 
+---@class cc.AudioProfile
 local AudioProfile={ }
 cc.AudioProfile=AudioProfile
 

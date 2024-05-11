@@ -7,10 +7,10 @@ cc.ParticleSpiral=ParticleSpiral
 
 
 
----* 
+---*
 ---@return boolean
 function ParticleSpiral:init () end
----* 
+---*
 ---@param numberOfParticles int
 ---@return boolean
 function ParticleSpiral:initWithTotalParticles (numberOfParticles) end

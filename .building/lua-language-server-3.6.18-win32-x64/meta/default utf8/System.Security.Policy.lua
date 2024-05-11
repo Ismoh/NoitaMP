@@ -269,7 +269,7 @@ function CS.System.Security.Policy.ApplicationTrustEnumerator.Reset() end
 ---@source mscorlib.dll
 CS.System.Security.Policy.ApplicationVersionMatch = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Policy.ApplicationVersionMatch
 function CS.System.Security.Policy.ApplicationVersionMatch:__CastFrom(value) end
@@ -1028,7 +1028,7 @@ function CS.System.Security.Policy.SiteMembershipCondition.ToXml(level) end
 ---@source mscorlib.dll
 CS.System.Security.Policy.PolicyStatementAttribute = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Policy.PolicyStatementAttribute
 function CS.System.Security.Policy.PolicyStatementAttribute:__CastFrom(value) end
@@ -1187,7 +1187,7 @@ CS.System.Security.Policy.TrustManagerContext = {}
 ---@source mscorlib.dll
 CS.System.Security.Policy.TrustManagerUIContext = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Policy.TrustManagerUIContext
 function CS.System.Security.Policy.TrustManagerUIContext:__CastFrom(value) end

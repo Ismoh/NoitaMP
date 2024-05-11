@@ -31,13 +31,13 @@ function ShakyTiles3D:initWithDuration (duration,gridSize,range,shakeZ) end
 ---@param shakeZ boolean
 ---@return self
 function ShakyTiles3D:create (duration,gridSize,range,shakeZ) end
----* 
+---*
 ---@return self
 function ShakyTiles3D:clone () end
----* 
+---*
 ---@param time float
 ---@return self
 function ShakyTiles3D:update (time) end
----* 
+---*
 ---@return self
 function ShakyTiles3D:ShakyTiles3D () end

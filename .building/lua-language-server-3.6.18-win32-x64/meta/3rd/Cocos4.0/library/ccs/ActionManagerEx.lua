@@ -23,7 +23,7 @@ function ActionManagerEx:stopActionByName (jsonName,actionName) end
 ---@param actionName char
 ---@return ccs.ActionObject
 function ActionManagerEx:getActionByName (jsonName,actionName) end
----* 
+---*
 ---@return int
 function ActionManagerEx:getStudioVersionNumber () end
 ---@overload fun(char:char,char:char,cc.CallFunc:cc.CallFunc):self

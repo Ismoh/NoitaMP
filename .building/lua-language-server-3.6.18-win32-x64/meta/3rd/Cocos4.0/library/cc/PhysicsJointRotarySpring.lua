@@ -17,7 +17,7 @@ function PhysicsJointRotarySpring:setRestAngle (restAngle) end
 ---*  Get the spring constant.
 ---@return float
 function PhysicsJointRotarySpring:getStiffness () end
----* 
+---*
 ---@return boolean
 function PhysicsJointRotarySpring:createConstraints () end
 ---*  Set the spring constant.

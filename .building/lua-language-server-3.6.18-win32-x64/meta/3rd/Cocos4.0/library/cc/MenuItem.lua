@@ -7,26 +7,26 @@ cc.MenuItem=MenuItem
 
 
 
----*  Enables or disables the item. 
+---*  Enables or disables the item.
 ---@param value boolean
 ---@return self
 function MenuItem:setEnabled (value) end
----*  Activate the item. 
+---*  Activate the item.
 ---@return self
 function MenuItem:activate () end
----*  Returns whether or not the item is enabled. 
+---*  Returns whether or not the item is enabled.
 ---@return boolean
 function MenuItem:isEnabled () end
----*  The item was selected (not activated), similar to "mouse-over". 
+---*  The item was selected (not activated), similar to "mouse-over".
 ---@return self
 function MenuItem:selected () end
----*  Returns whether or not the item is selected. 
+---*  Returns whether or not the item is selected.
 ---@return boolean
 function MenuItem:isSelected () end
----*  The item was unselected. 
+---*  The item was unselected.
 ---@return self
 function MenuItem:unselected () end
----*  Returns the outside box. 
+---*  Returns the outside box.
 ---@return rect_table
 function MenuItem:rect () end
 ---* js NA

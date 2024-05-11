@@ -24,6 +24,6 @@ function Animation3D:getDuration () end
 ---@param animationName string
 ---@return self
 function Animation3D:create (filename,animationName) end
----* 
+---*
 ---@return self
 function Animation3D:Animation3D () end

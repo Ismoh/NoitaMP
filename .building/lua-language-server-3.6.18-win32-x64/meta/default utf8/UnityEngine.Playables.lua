@@ -15,7 +15,7 @@ CS.UnityEngine.Playables.AnimationPlayableUtilities = {}
 --Params: animator - Target Animator.
 --        playable - The Playable that will be played.
 --        graph - The Graph that owns the Playable.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -145,7 +145,7 @@ CS.UnityEngine.Playables.FrameData = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Playables.EvaluationType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Playables.FrameData.EvaluationType
 function CS.UnityEngine.Playables.EvaluationType:__CastFrom(value) end
@@ -174,7 +174,7 @@ CS.UnityEngine.Playables.INotificationReceiver = {}
 --Params: origin - The playable that sent the notification.
 --        notification - The received notification.
 --        context - User defined data that depends on the type of notification. Uses this to pass necessary information that can change with each invocation.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -284,7 +284,7 @@ CS.UnityEngine.Playables.Notification = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Playables.DirectorWrapMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Playables.DirectorWrapMode
 function CS.UnityEngine.Playables.DirectorWrapMode:__CastFrom(value) end
@@ -348,7 +348,7 @@ CS.UnityEngine.Playables.IPlayableAsset = {}
 --```plaintext
 --Params: graph - The graph to inject playables into.
 --        owner - The game object which initiated the build.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -382,7 +382,7 @@ CS.UnityEngine.Playables.PlayableAsset = {}
 --```plaintext
 --Params: graph - The graph to inject playables into.
 --        owner - The game object which initiated the build.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -405,7 +405,7 @@ CS.UnityEngine.Playables.PlayableBehaviour = {}
 --
 --```plaintext
 --Params: playable - The Playable that owns the current PlayableBehaviour.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -417,7 +417,7 @@ function CS.UnityEngine.Playables.PlayableBehaviour.OnGraphStart(playable) end
 --
 --```plaintext
 --Params: playable - The Playable that owns the current PlayableBehaviour.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -429,7 +429,7 @@ function CS.UnityEngine.Playables.PlayableBehaviour.OnGraphStop(playable) end
 --
 --```plaintext
 --Params: playable - The Playable that owns the current PlayableBehaviour.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -441,7 +441,7 @@ function CS.UnityEngine.Playables.PlayableBehaviour.OnPlayableCreate(playable) e
 --
 --```plaintext
 --Params: playable - The Playable that owns the current PlayableBehaviour.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -454,7 +454,7 @@ function CS.UnityEngine.Playables.PlayableBehaviour.OnPlayableDestroy(playable) 
 --```plaintext
 --Params: playable - The Playable that owns the current PlayableBehaviour.
 --        info - A FrameData structure that contains information about the current frame context.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -468,7 +468,7 @@ function CS.UnityEngine.Playables.PlayableBehaviour.OnBehaviourDelay(playable, i
 --```plaintext
 --Params: playable - The Playable that owns the current PlayableBehaviour.
 --        info - A FrameData structure that contains information about the current frame context.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -485,7 +485,7 @@ function CS.UnityEngine.Playables.PlayableBehaviour.OnBehaviourPlay(playable, in
 --```plaintext
 --Params: playable - The Playable that owns the current PlayableBehaviour.
 --        info - A FrameData structure that contains information about the current frame context.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -499,7 +499,7 @@ function CS.UnityEngine.Playables.PlayableBehaviour.OnBehaviourPause(playable, i
 --```plaintext
 --Params: playable - The Playable that owns the current PlayableBehaviour.
 --        info - A FrameData structure that contains information about the current frame context.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -513,7 +513,7 @@ function CS.UnityEngine.Playables.PlayableBehaviour.PrepareData(playable, info) 
 --```plaintext
 --Params: playable - The Playable that owns the current PlayableBehaviour.
 --        info - A FrameData structure that contains information about the current frame context.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -528,7 +528,7 @@ function CS.UnityEngine.Playables.PlayableBehaviour.PrepareFrame(playable, info)
 --Params: playable - The Playable that owns the current PlayableBehaviour.
 --        info - A FrameData structure that contains information about the current frame context.
 --        playerData - The user data of the ScriptPlayableOutput that initiated the process pass.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -570,7 +570,7 @@ function CS.UnityEngine.Playables.PlayableBehaviour.Clone() end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Playables.DataStreamType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Playables.DataStreamType
 function CS.UnityEngine.Playables.DataStreamType:__CastFrom(value) end
@@ -635,7 +635,7 @@ CS.UnityEngine.Playables.PlayableBinding = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Playables.PlayableTraversalMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Playables.PlayableTraversalMode
 function CS.UnityEngine.Playables.PlayableTraversalMode:__CastFrom(value) end
@@ -856,7 +856,7 @@ function CS.UnityEngine.Playables.PlayableExtensions.SetTraversalMode(mode) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Playables.DirectorUpdateMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Playables.DirectorUpdateMode
 function CS.UnityEngine.Playables.DirectorUpdateMode:__CastFrom(value) end
@@ -875,7 +875,7 @@ CS.UnityEngine.Playables.PlayableGraph = {}
 --
 --```plaintext
 --Params: index - The index of the root Playable.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -917,7 +917,7 @@ function CS.UnityEngine.Playables.PlayableGraph.GetOutputCountByType() end
 --
 --```plaintext
 --Params: index - The output index.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -935,7 +935,7 @@ function CS.UnityEngine.Playables.PlayableGraph.GetOutputByType(index) end
 --
 --```plaintext
 --Params: deltaTime - The time in seconds by which to advance each Playable in the graph.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -946,7 +946,7 @@ function CS.UnityEngine.Playables.PlayableGraph.Evaluate() end
 --
 --```plaintext
 --Params: name - The name of the graph.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -958,7 +958,7 @@ function CS.UnityEngine.Playables.PlayableGraph:Create() end
 --
 --```plaintext
 --Params: name - The name of the graph.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1010,7 +1010,7 @@ function CS.UnityEngine.Playables.PlayableGraph.Stop() end
 --
 --```plaintext
 --Params: deltaTime - The time in seconds by which to advance each Playable in the graph.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1029,7 +1029,7 @@ function CS.UnityEngine.Playables.PlayableGraph.GetTimeUpdateMode() end
 --
 --```plaintext
 --Params: value - The new DirectorUpdateMode.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1102,7 +1102,7 @@ function CS.UnityEngine.Playables.PlayableGraph.GetEditorName() end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Playables.PlayState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Playables.PlayState
 function CS.UnityEngine.Playables.PlayState:__CastFrom(value) end
@@ -1356,7 +1356,7 @@ CS.UnityEngine.Playables.ScriptPlayableBinding = {}
 --Params: key - A reference to a UnityEngine.Object that acts as a key for this binding.
 --        type - The type of object that will be bound to the ScriptPlayableOutput.
 --        name - The name of the ScriptPlayableOutput.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1386,7 +1386,7 @@ CS.UnityEngine.Playables.ScriptPlayableOutput = {}
 --```plaintext
 --Params: graph - The PlayableGraph that will contain the ScriptPlayableOutput.
 --        name - The name of this ScriptPlayableOutput.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1481,7 +1481,7 @@ function CS.UnityEngine.Playables.PlayableDirector.DeferredEvaluate() end
 --```plaintext
 --Params: asset - An asset to instantiate a playable from.
 --        mode - What to do when the time passes the duration of the playable.
---        
+--
 --```
 --
 ---@source UnityEngine.DirectorModule.dll
@@ -1494,7 +1494,7 @@ function CS.UnityEngine.Playables.PlayableDirector.Play(asset) end
 --```plaintext
 --Params: asset - An asset to instantiate a playable from.
 --        mode - What to do when the time passes the duration of the playable.
---        
+--
 --```
 --
 ---@source UnityEngine.DirectorModule.dll
@@ -1508,7 +1508,7 @@ function CS.UnityEngine.Playables.PlayableDirector.Play(asset, mode) end
 --```plaintext
 --Params: key - The source object in the PlayableBinding.
 --        value - The object to bind to the key.
---        
+--
 --```
 --
 ---@source UnityEngine.DirectorModule.dll
@@ -1528,7 +1528,7 @@ function CS.UnityEngine.Playables.PlayableDirector.Evaluate() end
 --```plaintext
 --Params: asset - An asset to instantiate a playable from.
 --        mode - What to do when the time passes the duration of the playable.
---        
+--
 --```
 --
 ---@source UnityEngine.DirectorModule.dll
@@ -1563,7 +1563,7 @@ function CS.UnityEngine.Playables.PlayableDirector.RebuildGraph() end
 --
 --```plaintext
 --Params: id - Identifier of the ExposedReference.
---        
+--
 --```
 --
 ---@source UnityEngine.DirectorModule.dll
@@ -1576,7 +1576,7 @@ function CS.UnityEngine.Playables.PlayableDirector.ClearReferenceValue(id) end
 --```plaintext
 --Params: id - Identifier of the ExposedReference.
 --        value - The object to bind to set the reference value to.
---        
+--
 --```
 --
 ---@source UnityEngine.DirectorModule.dll
@@ -1595,7 +1595,7 @@ function CS.UnityEngine.Playables.PlayableDirector.GetReferenceValue(id, idValid
 --
 --```plaintext
 --Params: key - The object that acts as a key.
---        
+--
 --```
 --
 ---@source UnityEngine.DirectorModule.dll
@@ -1608,7 +1608,7 @@ function CS.UnityEngine.Playables.PlayableDirector.GetGenericBinding(key) end
 --
 --```plaintext
 --Params: key - The source object in the PlayableBinding.
---        
+--
 --```
 --
 ---@source UnityEngine.DirectorModule.dll

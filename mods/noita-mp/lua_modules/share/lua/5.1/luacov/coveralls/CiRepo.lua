@@ -4,7 +4,7 @@ local ci      = require"luacov.coveralls.CiInfo"
 
 local function try_any_repo(repo_path)
   -- currenly support only git
-  local repo, err = GitRepo:new(repo_path) 
+  local repo, err = GitRepo:new(repo_path)
   if repo then return repo, "git" end
 
   repo, err = ApvRepo:new(repo_path)

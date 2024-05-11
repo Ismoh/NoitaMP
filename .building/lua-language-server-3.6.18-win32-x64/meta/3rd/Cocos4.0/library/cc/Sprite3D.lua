@@ -7,7 +7,7 @@ cc.Sprite3D=Sprite3D
 
 
 
----* 
+---*
 ---@param enable boolean
 ---@return self
 function Sprite3D:setCullFaceEnabled (enable) end
@@ -16,7 +16,7 @@ function Sprite3D:setCullFaceEnabled (enable) end
 ---@param texFile string
 ---@return self
 function Sprite3D:setTexture (texFile) end
----* 
+---*
 ---@return unsigned_int
 function Sprite3D:getLightMask () end
 ---*  Adds a new material to a particular mesh of the sprite.<br>
@@ -25,7 +25,7 @@ function Sprite3D:getLightMask () end
 ---@param meshIndex int
 ---@return cc.Material
 function Sprite3D:getMaterial (meshIndex) end
----* 
+---*
 ---@param side int
 ---@return self
 function Sprite3D:setCullFace (side) end
@@ -44,20 +44,20 @@ function Sprite3D:setMaterial (material,meshIndex) end
 ---* get mesh
 ---@return cc.Mesh
 function Sprite3D:getMesh () end
----*  get mesh count 
+---*  get mesh count
 ---@return int
 function Sprite3D:getMeshCount () end
 ---* get Mesh by index
 ---@param index int
 ---@return cc.Mesh
 function Sprite3D:getMeshByIndex (index) end
----* 
+---*
 ---@return boolean
 function Sprite3D:isForceDepthWrite () end
----* 
+---*
 ---@return cc.BlendFunc
 function Sprite3D:getBlendFunc () end
----*  light mask getter & setter, light works only when _lightmask & light's flag is true, default value of _lightmask is 0xffff 
+---*  light mask getter & setter, light works only when _lightmask & light's flag is true, default value of _lightmask is 0xffff
 ---@param mask unsigned_int
 ---@return self
 function Sprite3D:setLightMask (mask) end
@@ -65,7 +65,7 @@ function Sprite3D:setLightMask (mask) end
 ---@param boneName string
 ---@return cc.AttachNode
 function Sprite3D:getAttachNode (boneName) end
----* 
+---*
 ---@param blendFunc cc.BlendFunc
 ---@return self
 function Sprite3D:setBlendFunc (blendFunc) end
@@ -80,14 +80,14 @@ function Sprite3D:genMaterial () end
 ---@param boneName string
 ---@return self
 function Sprite3D:removeAttachNode (boneName) end
----* 
+---*
 ---@return cc.Skeleton3D
 function Sprite3D:getSkeleton () end
 ---* Force to write to depth buffer, this is useful if you want to achieve effects like fading.
 ---@param value boolean
 ---@return self
 function Sprite3D:setForceDepthWrite (value) end
----* get Mesh by Name, it returns the first one if there are more than one mesh with the same name 
+---* get Mesh by Name, it returns the first one if there are more than one mesh with the same name
 ---@param name string
 ---@return cc.Mesh
 function Sprite3D:getMeshByName (name) end
@@ -111,7 +111,7 @@ function Sprite3D:draw (renderer,transform,flags) end
 ---@param action cc.Action
 ---@return cc.Action
 function Sprite3D:runAction (action) end
----*  set ProgramState, you should bind attributes by yourself 
+---*  set ProgramState, you should bind attributes by yourself
 ---@param programState cc.backend.ProgramState
 ---@return self
 function Sprite3D:setProgramState (programState) end

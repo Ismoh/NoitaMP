@@ -12,14 +12,14 @@ cc.SpriteBatchNode=SpriteBatchNode
 ---@param sprite cc.Sprite
 ---@return self
 function SpriteBatchNode:appendChild (sprite) end
----* 
+---*
 ---@param reorder boolean
 ---@return self
 function SpriteBatchNode:reorderBatch (reorder) end
----* 
+---*
 ---@return cc.Texture2D
 function SpriteBatchNode:getTexture () end
----* 
+---*
 ---@param texture cc.Texture2D
 ---@return self
 function SpriteBatchNode:setTexture (texture) end
@@ -36,7 +36,7 @@ function SpriteBatchNode:removeChildAtIndex (index,doCleanup) end
 ---@param sprite cc.Sprite
 ---@return self
 function SpriteBatchNode:removeSpriteFromAtlas (sprite) end
----* 
+---*
 ---@param child cc.Sprite
 ---@param z int
 ---@param aTag int
@@ -50,7 +50,7 @@ function SpriteBatchNode:addSpriteWithoutQuad (child,z,aTag) end
 ---@param z int
 ---@return int
 function SpriteBatchNode:atlasIndexForChild (sprite,z) end
----*  Increase the Atlas Capacity. 
+---*  Increase the Atlas Capacity.
 ---@return self
 function SpriteBatchNode:increaseAtlasCapacity () end
 ---*  Get the Min image block index,in all child. <br>
@@ -75,7 +75,7 @@ function SpriteBatchNode:initWithTexture (tex,capacity) end
 function SpriteBatchNode:setTextureAtlas (textureAtlas) end
 ---*  reserves capacity for the batch node.<br>
 ---* If the current capacity is bigger, nothing happens.<br>
----* otherwise, a new capacity is allocated 
+---* otherwise, a new capacity is allocated
 ---@param newCapacity int
 ---@return self
 function SpriteBatchNode:reserveCapacity (newCapacity) end
@@ -103,7 +103,7 @@ function SpriteBatchNode:initWithFile (fileImage,capacity) end
 ---* When this function bound into js or lua,the parameter will be changed.<br>
 ---* In js: var setBlendFunc(var src, var dst).<br>
 ---* endcode<br>
----* lua NA 
+---* lua NA
 ---@param blendFunc cc.BlendFunc
 ---@return self
 function SpriteBatchNode:setBlendFunc (blendFunc) end
@@ -166,22 +166,22 @@ function SpriteBatchNode:getDescription () end
 ---@param parentFlags unsigned_int
 ---@return self
 function SpriteBatchNode:visit (renderer,parentTransform,parentFlags) end
----* 
+---*
 ---@return self
 function SpriteBatchNode:sortAllChildren () end
----* 
+---*
 ---@param child cc.Node
 ---@param cleanup boolean
 ---@return self
 function SpriteBatchNode:removeChild (child,cleanup) end
----* 
+---*
 ---@return boolean
 function SpriteBatchNode:init () end
 ---* Set ProgramState
 ---@param programState cc.backend.ProgramState
 ---@return self
 function SpriteBatchNode:setProgramState (programState) end
----* 
+---*
 ---@param child cc.Node
 ---@param zOrder int
 ---@return self

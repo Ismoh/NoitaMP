@@ -78,7 +78,7 @@
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Profiling.ProfilerArea = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Profiling.ProfilerArea
 function CS.UnityEngine.Profiling.ProfilerArea:__CastFrom(value) end
@@ -145,7 +145,7 @@ CS.UnityEngine.Profiling.Profiler = {}
 --```plaintext
 --Params: area - The area you want to enable or disable.
 --        enabled - Enable or disable the collection of data for this area.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -158,7 +158,7 @@ function CS.UnityEngine.Profiling.Profiler:SetAreaEnabled(area, enabled) end
 --
 --```plaintext
 --Params: area - Which area you want to check the state of.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -171,7 +171,7 @@ function CS.UnityEngine.Profiling.Profiler:GetAreaEnabled(area) end
 --
 --```plaintext
 --Params: file - The name of the file containing the frame data, including extension.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -184,7 +184,7 @@ function CS.UnityEngine.Profiling.Profiler:AddFramesFromFile(file) end
 --```plaintext
 --Params: threadGroupName - The name of the thread group to which the thread belongs.
 --        threadName - The name of the thread.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -204,7 +204,7 @@ function CS.UnityEngine.Profiling.Profiler:EndThreadProfiling() end
 --```plaintext
 --Params: name - A string to identify the sample in the Profiler window.
 --        targetObject - An object that provides context to the sample,.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -217,7 +217,7 @@ function CS.UnityEngine.Profiling.Profiler:BeginSample(name) end
 --```plaintext
 --Params: name - A string to identify the sample in the Profiler window.
 --        targetObject - An object that provides context to the sample,.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -244,7 +244,7 @@ function CS.UnityEngine.Profiling.Profiler:GetRuntimeMemorySize(o) end
 --
 --```plaintext
 --Params: o - The target Unity object.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -285,7 +285,7 @@ function CS.UnityEngine.Profiling.Profiler:GetMonoUsedSizeLong() end
 --
 --```plaintext
 --Params: size - Size in bytes.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -363,7 +363,7 @@ function CS.UnityEngine.Profiling.Profiler:GetAllocatedMemoryForGraphicsDriver()
 --Params: id - Module identifier. Used to distinguish metadata streams between different plugins, packages or modules.
 --        tag - Data stream index.
 --        data - Binary data.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -391,7 +391,7 @@ function CS.UnityEngine.Profiling.Profiler:EmitFrameMetaData(id, tag, data) end
 --Params: id - Unique identifier associated with the data.
 --        tag - Data stream index.
 --        data - Binary data.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -456,7 +456,7 @@ CS.UnityEngine.Profiling.Recorder = {}
 --
 --```plaintext
 --Params: samplerName - Sampler name.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -507,7 +507,7 @@ function CS.UnityEngine.Profiling.Sampler.GetRecorder() end
 --
 --```plaintext
 --Params: name - Profiler Sampler name.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -535,7 +535,7 @@ CS.UnityEngine.Profiling.CustomSampler = {}
 --```plaintext
 --Params: name - Name of the Sampler.
 --        collectGpuData - Specifies whether this Sampler records GPU timings. If you want the Sampler to record GPU timings, set this to true.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll

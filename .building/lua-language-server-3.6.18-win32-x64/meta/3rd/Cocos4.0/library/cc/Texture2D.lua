@@ -7,10 +7,10 @@ cc.Texture2D=Texture2D
 
 
 
----*  Gets max T. 
+---*  Gets max T.
 ---@return float
 function Texture2D:getMaxT () end
----* 
+---*
 ---@param alphaTexture cc.Texture2D
 ---@return self
 function Texture2D:setAlphaTexture (alphaTexture) end
@@ -24,16 +24,16 @@ function Texture2D:getStringForFormat () end
 ---@param format int
 ---@return boolean
 function Texture2D:initWithImage (image,format) end
----*  Gets max S. 
+---*  Gets max S.
 ---@return float
 function Texture2D:getMaxS () end
----*  Whether or not the texture has their Alpha premultiplied. 
+---*  Whether or not the texture has their Alpha premultiplied.
 ---@return boolean
 function Texture2D:hasPremultipliedAlpha () end
----*  Gets the height of the texture in pixels. 
+---*  Gets the height of the texture in pixels.
 ---@return int
 function Texture2D:getPixelsHigh () end
----* 
+---*
 ---@return boolean
 function Texture2D:getAlphaTextureName () end
 ---@overload fun(int:int):self
@@ -41,7 +41,7 @@ function Texture2D:getAlphaTextureName () end
 ---@param format int
 ---@return unsigned_int
 function Texture2D:getBitsPerPixelForFormat (format) end
----*  Sets max S. 
+---*  Sets max S.
 ---@param maxS float
 ---@return self
 function Texture2D:setMaxS (maxS) end
@@ -57,11 +57,11 @@ function Texture2D:setMaxS (maxS) end
 ---@param overflow int
 ---@return boolean
 function Texture2D:initWithString (text,fontName,fontSize,dimensions,hAlignment,vAlignment,enableWrap,overflow) end
----*  Sets max T. 
+---*  Sets max T.
 ---@param maxT float
 ---@return self
 function Texture2D:setMaxT (maxT) end
----* 
+---*
 ---@return string
 function Texture2D:getPath () end
 ---*  Draws a texture inside a rect.
@@ -69,7 +69,7 @@ function Texture2D:getPath () end
 ---@param globalZOrder float
 ---@return self
 function Texture2D:drawInRect (rect,globalZOrder) end
----* 
+---*
 ---@return boolean
 function Texture2D:isRenderTarget () end
 ---*  Get the texture content size.
@@ -94,24 +94,24 @@ function Texture2D:setAntiAliasTexParameters () end
 ---* since v0.99.0
 ---@return self
 function Texture2D:generateMipmap () end
----* 
+---*
 ---@return self
 function Texture2D:getAlphaTexture () end
----*  Gets the pixel format of the texture. 
+---*  Gets the pixel format of the texture.
 ---@return int
 function Texture2D:getPixelFormat () end
----* 
+---*
 ---@return cc.backend.TextureBackend
 function Texture2D:getBackendTexture () end
----*  Get content size. 
+---*  Get content size.
 ---@return size_table
 function Texture2D:getContentSizeInPixels () end
----*  Gets the width of the texture in pixels. 
+---*  Gets the width of the texture in pixels.
 ---@return int
 function Texture2D:getPixelsWide () end
 ---* Drawing extensions to make it easy to draw basic quads using a Texture2D object.<br>
 ---* These functions require GL_TEXTURE_2D and both GL_VERTEX_ARRAY and GL_TEXTURE_COORD_ARRAY client states to be enabled.<br>
----* Draws a texture at a given point. 
+---* Draws a texture at a given point.
 ---@param point vec2_table
 ---@param globalZOrder float
 ---@return self
@@ -119,11 +119,11 @@ function Texture2D:drawAtPoint (point,globalZOrder) end
 ---*  Whether or not the texture has mip maps.
 ---@return boolean
 function Texture2D:hasMipmaps () end
----* 
+---*
 ---@param renderTarget boolean
 ---@return self
 function Texture2D:setRenderTarget (renderTarget) end
----* 
+---*
 ---@param texture cc.backend.TextureBackend
 ---@param preMultipliedAlpha boolean
 ---@return boolean

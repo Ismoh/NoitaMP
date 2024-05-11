@@ -7,7 +7,7 @@ cc.TransitionSceneOriented=TransitionSceneOriented
 
 
 
----*  initializes a transition with duration and incoming scene 
+---*  initializes a transition with duration and incoming scene
 ---@param t float
 ---@param scene cc.Scene
 ---@param orientation int
@@ -23,6 +23,6 @@ function TransitionSceneOriented:initWithDuration (t,scene,orientation) end
 ---@param orientation int
 ---@return self
 function TransitionSceneOriented:create (t,scene,orientation) end
----* 
+---*
 ---@return self
 function TransitionSceneOriented:TransitionSceneOriented () end

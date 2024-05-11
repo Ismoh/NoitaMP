@@ -302,7 +302,7 @@ function ScrollView:jumpToPercentHorizontal (percent) end
 ---* return A ScrollView instance.
 ---@return self
 function ScrollView:create () end
----* 
+---*
 ---@return cc.Ref
 function ScrollView:createInstance () end
 ---@overload fun(cc.Node:cc.Node,int:int):self
@@ -314,17 +314,17 @@ function ScrollView:createInstance () end
 ---@param name string
 ---@return self
 function ScrollView:addChild (child,localZOrder,name) end
----* 
+---*
 ---@return boolean
 function ScrollView:init () end
----* 
+---*
 ---@param name string
 ---@return cc.Node
 function ScrollView:getChildByName (name) end
 ---* Return the "class name" of widget.
 ---@return string
 function ScrollView:getDescription () end
----* 
+---*
 ---@param dt float
 ---@return self
 function ScrollView:update (dt) end
@@ -333,11 +333,11 @@ function ScrollView:update (dt) end
 ---* return LayoutType
 ---@return int
 function ScrollView:getLayoutType () end
----* 
+---*
 ---@param cleanup boolean
 ---@return self
 function ScrollView:removeAllChildrenWithCleanup (cleanup) end
----* 
+---*
 ---@return self
 function ScrollView:removeAllChildren () end
 ---* When a widget is in a layout, you could call this method to get the next focused widget within a specified direction.<br>
@@ -349,7 +349,7 @@ function ScrollView:removeAllChildren () end
 ---@param current ccui.Widget
 ---@return ccui.Widget
 function ScrollView:findNextFocusedWidget (direction,current) end
----* 
+---*
 ---@param child cc.Node
 ---@param cleanup boolean
 ---@return self
@@ -358,11 +358,11 @@ function ScrollView:removeChild (child,cleanup) end
 ---@overload fun():self
 ---@return array_table
 function ScrollView:getChildren () end
----* 
+---*
 ---@param tag int
 ---@return cc.Node
 function ScrollView:getChildByTag (tag) end
----* 
+---*
 ---@return int
 function ScrollView:getChildrenCount () end
 ---* Set layout type for scrollview.<br>

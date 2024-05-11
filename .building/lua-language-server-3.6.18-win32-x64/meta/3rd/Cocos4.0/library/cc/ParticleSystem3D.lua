@@ -34,7 +34,7 @@ function ParticleSystem3D:getRender () end
 ---@param emitter cc.Particle3DEmitter
 ---@return self
 function ParticleSystem3D:setEmitter (emitter) end
----* 
+---*
 ---@return boolean
 function ParticleSystem3D:isKeepLocal () end
 ---* Enables or disables the system.
@@ -71,7 +71,7 @@ function ParticleSystem3D:setRender (render) end
 ---* stop particle
 ---@return self
 function ParticleSystem3D:stopParticleSystem () end
----* 
+---*
 ---@param keepLocal boolean
 ---@return self
 function ParticleSystem3D:setKeepLocal (keepLocal) end
@@ -85,6 +85,6 @@ function ParticleSystem3D:draw (renderer,transform,flags) end
 ---@param delta float
 ---@return self
 function ParticleSystem3D:update (delta) end
----* 
+---*
 ---@return self
 function ParticleSystem3D:ParticleSystem3D () end

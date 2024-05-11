@@ -56,7 +56,7 @@ function CS.System.Net.AuthenticationManager:Unregister(authenticationScheme) en
 ---@source System.dll
 CS.System.Net.AuthenticationSchemes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.AuthenticationSchemes
 function CS.System.Net.AuthenticationSchemes:__CastFrom(value) end
@@ -341,7 +341,7 @@ function CS.System.Net.CredentialCache.Remove(uriPrefix, authType) end
 ---@source System.dll
 CS.System.Net.DecompressionMethods = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.DecompressionMethods
 function CS.System.Net.DecompressionMethods:__CastFrom(value) end
@@ -799,7 +799,7 @@ function CS.System.Net.FileWebResponse.GetResponseStream() end
 ---@source System.dll
 CS.System.Net.FtpStatusCode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.FtpStatusCode
 function CS.System.Net.FtpStatusCode:__CastFrom(value) end
@@ -1390,7 +1390,7 @@ CS.System.Net.HttpListenerTimeoutManager = {}
 ---@source System.dll
 CS.System.Net.HttpRequestHeader = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.HttpRequestHeader
 function CS.System.Net.HttpRequestHeader:__CastFrom(value) end
@@ -1461,7 +1461,7 @@ function CS.System.Net.HttpRequestHeader:__CastFrom(value) end
 ---@source System.dll
 CS.System.Net.HttpResponseHeader = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.HttpResponseHeader
 function CS.System.Net.HttpResponseHeader:__CastFrom(value) end
@@ -1566,7 +1566,7 @@ function CS.System.Net.HttpResponseHeader:__CastFrom(value) end
 ---@source System.dll
 CS.System.Net.HttpStatusCode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.HttpStatusCode
 function CS.System.Net.HttpStatusCode:__CastFrom(value) end
@@ -2102,7 +2102,7 @@ function CS.System.Net.IWebRequestCreate.Create(uri) end
 ---@source System.dll
 CS.System.Net.NetworkAccess = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.NetworkAccess
 function CS.System.Net.NetworkAccess:__CastFrom(value) end
@@ -2223,7 +2223,7 @@ function CS.System.Net.ProtocolViolationException.GetObjectData(serializationInf
 ---@source System.dll
 CS.System.Net.SecurityProtocolType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.SecurityProtocolType
 function CS.System.Net.SecurityProtocolType:__CastFrom(value) end
@@ -2277,7 +2277,7 @@ function CS.System.Net.TransportContext.GetTlsTokenBindings() end
 ---@source System.dll
 CS.System.Net.TransportType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.TransportType
 function CS.System.Net.TransportType:__CastFrom(value) end
@@ -3081,7 +3081,7 @@ function CS.System.Net.WebException.GetObjectData(serializationInfo, streamingCo
 ---@source System.dll
 CS.System.Net.WebExceptionStatus = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.WebExceptionStatus
 function CS.System.Net.WebExceptionStatus:__CastFrom(value) end
